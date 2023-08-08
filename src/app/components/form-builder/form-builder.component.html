@@ -1,0 +1,28 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div *ngFor="let field of formFields">
+    <label>{{ field.label }}</label>
+    <div [ngSwitch]="field.type">
+      <input *ngSwitchCase="'text'" type="text" [formControlName]="field.name" />
+      <input *ngSwitchCase="'date'" type="date" [formControlName]="field.name" />
+      <input *ngSwitchCase="'checkbox'" type="checkbox" [formControlName]="field.name" />
+      <select *ngSwitchCase="'dropdown'" [formControlName]="field.name">
+        <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+      </select>
+      <div *ngSwitchCase="'controlWithLabel'">
+        <label>{{ field.label }}</label>
+        <input type="text" [formControlName]="field.name" />
+      </div>
+      <div *ngSwitchCase="'dropZone'">
+        <!-- Компонент для обработки загрузки документов, здесь можно добавить подходящую библиотеку -->
+      </div>
+    </div>
+    <div *ngIf="form.get(field.name).invalid && form.get(field.name).touched">
+      <div *ngIf="form.get(field.name).errors?.required">Обязательное поле</div>
+      <div *ngIf="form.get(field.name).errors?.minlength">
+        Минимальная длина {{ form.get(field.name).errors?.minlength.requiredLength }}
+      </div>
+      <div *ngIf="form.get(field.name).errors?.pattern">Неправильный формат</div>
+    </div>
+  </div>
+  <button type="submit">Отправить</button>
+</form>
