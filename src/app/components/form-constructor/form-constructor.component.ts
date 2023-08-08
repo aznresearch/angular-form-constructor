@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormField } from 'src/app/models/formbuilder.model';
-import { FormBuilderService } from 'src/app/services/form-builder.service';
+import { FormField } from 'src/app/models/form-constructor.model';
+import { FormConstructorService } from 'src/app/services/form-constructor.service';
 
 @Component({
-  selector: 'app-form-builder',
-  templateUrl: './form-builder.component.html',
-  styleUrls: ['./form-builder.component.scss']
+  selector: 'app-form-constructor',
+  templateUrl: './form-constructor.component.html',
+  styleUrls: ['./form-constructor.component.scss']
 })
-export class FormBuilderComponent implements OnInit {
+export class FormConstructorComponent implements OnInit {
   form: FormGroup;
   formFields: FormField[] = [
     { type: 'text', label: 'Имя', name: 'name', validators: [{ type: 'required' }] },
@@ -40,10 +40,13 @@ export class FormBuilderComponent implements OnInit {
     }
   ];
 
-  constructor(private formBuilder: FormBuilder, private formBuilderService: FormBuilderService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private formConstructorService: FormConstructorService
+  ) {}
 
   ngOnInit() {
-    this.form = this.formBuilderService.buildForm(this.formFields);
+    this.form = this.formConstructorService.buildForm(this.formFields);
   }
 
   onSubmit() {
