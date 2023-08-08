@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { FormField } from 'src/app/models/form-constructor.model';
 import { FormConstructorService } from 'src/app/services/form-constructor.service';
 
@@ -40,10 +40,9 @@ export class FormConstructorComponent implements OnInit {
     }
   ];
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private formConstructorService: FormConstructorService
-  ) {}
+  formFieldsText: string = JSON.stringify(this.formFields, null, 2);
+
+  constructor(private formConstructorService: FormConstructorService) {}
 
   ngOnInit() {
     this.form = this.formConstructorService.buildForm(this.formFields);
@@ -59,9 +58,23 @@ export class FormConstructorComponent implements OnInit {
     }
   }
 
-  private markAllFieldsAsTouched() {
+  markAllFieldsAsTouched() {
     Object.values(this.form.controls).forEach((control) => {
       control.markAsTouched();
     });
+  }
+
+  createFormFromText() {
+    try {
+      const parsedFormFields = JSON.parse(this.formFieldsText);
+      if (Array.isArray(parsedFormFields)) {
+        this.formFields = parsedFormFields;
+        this.form = this.formConstructorService.buildForm(this.formFields);
+      } else {
+        console.log('Invalid formFields format');
+      }
+    } catch (error) {
+      console.log('Error parsing formFields:', error);
+    }
   }
 }
