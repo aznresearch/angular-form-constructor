@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div *ngFor="let field of formFields">
+  <div *ngFor="let field of formOptions">
     <label>{{ field.label }}</label>
     <div [ngSwitch]="field.type">
       <input *ngSwitchCase="'text'" type="text" [formControlName]="field.name" />
@@ -40,5 +40,5 @@
   <button type="submit">Отправить</button>
 </form>
 
-<textarea [(ngModel)]="formFieldsText" rows="10" cols="50"></textarea>
+<textarea [(ngModel)]="formFieldsText" rows="30" cols="70"></textarea>
 <button (click)="createFormFromText()">Создать форму из текста</button>

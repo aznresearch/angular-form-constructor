@@ -1,4 +1,4 @@
-export const formMock = [
+export const formOptionsMock = [
   { type: 'text', label: 'Имя', name: 'name', validators: [{ type: 'required' }] },
   { type: 'date', label: 'Дата рождения', name: 'birthdate', validators: [{ type: 'required' }] },
   {

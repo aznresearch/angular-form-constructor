@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormField } from 'src/app/models/form-constructor.model';
 import { FormConstructorService } from 'src/app/services/form-constructor.service';
-import { formMock } from 'src/app/constants/form-constants';
+import { formOptionsMock } from 'src/app/constants/form-constants';
 
 @Component({
   selector: 'app-form-constructor',
@@ -12,15 +12,15 @@ import { formMock } from 'src/app/constants/form-constants';
 })
 export class FormConstructorComponent implements OnInit {
   form: FormGroup;
-  formFields: FormField[] = formMock as FormField[];
+  formOptions: FormField[] = formOptionsMock as FormField[];
 
-  formFieldsText: string = JSON.stringify(this.formFields, null, 2);
+  formFieldsText: string = JSON.stringify(this.formOptions, null, 2);
   errorKeys = ValidatorKeys;
 
   constructor(private formConstructorService: FormConstructorService) {}
 
   ngOnInit() {
-    this.form = this.formConstructorService.buildForm(this.formFields);
+    this.form = this.formConstructorService.buildForm(this.formOptions);
   }
 
   onSubmit() {
@@ -41,13 +41,13 @@ export class FormConstructorComponent implements OnInit {
     try {
       const parsedFormFields = JSON.parse(this.formFieldsText);
       if (Array.isArray(parsedFormFields)) {
-        this.formFields = parsedFormFields;
-        this.form = this.formConstructorService.buildForm(this.formFields);
+        this.formOptions = parsedFormFields;
+        this.form = this.formConstructorService.buildForm(this.formOptions);
       } else {
-        console.log('Invalid formFields format');
+        console.log('Invalid formOptions format');
       }
     } catch (error) {
-      console.log('Error parsing formFields:', error);
+      console.log('Error parsing formOptions:', error);
     }
   }
 
