@@ -19,17 +19,20 @@ export class FormConstructorService {
   }
 
   getValidators(validators: any[] = []): ValidatorFn[] {
+    const validatorMap: Record<string, (value: any) => ValidatorFn> = {
+      required: () => Validators.required,
+      minLength: (value: number) => Validators.minLength(value),
+      maxLength: (value: number) => Validators.maxLength(value),
+      pattern: (value: string | RegExp) => Validators.pattern(value),
+      email: () => Validators.email,
+      min: (value: number) => Validators.min(value),
+      max: (value: number) => Validators.max(value),
+      nullValidator: () => Validators.nullValidator,
+      requiredTrue: () => Validators.requiredTrue
+    };
+
     return validators
-      .map((validator) => {
-        if (validator.type === 'required') {
-          return Validators.required;
-        } else if (validator.type === 'minLength') {
-          return Validators.minLength(validator.value);
-        } else if (validator.type === 'pattern') {
-          return Validators.pattern(validator.value);
-        }
-        return null;
-      })
+      .map((validator) => validatorMap[validator.type]?.(validator.value))
       .filter((validator) => validator !== null);
   }
 }

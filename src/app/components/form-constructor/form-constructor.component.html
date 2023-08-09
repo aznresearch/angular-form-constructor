@@ -12,16 +12,29 @@
         <label>{{ field.label }}</label>
         <input type="text" [formControlName]="field.name" />
       </div>
-      <div *ngSwitchCase="'dropZone'">
-        <!-- Компонент для обработки загрузки документов, здесь можно добавить подходящую библиотеку -->
-      </div>
+      <div *ngSwitchCase="'dropZone'"></div>
     </div>
-    <div *ngIf="form.get(field.name).invalid && form.get(field.name).touched">
-      <div *ngIf="form.get(field.name).errors?.required">Обязательное поле</div>
-      <div *ngIf="form.get(field.name).errors?.minlength">
-        Минимальная длина {{ form.get(field.name).errors?.minlength.requiredLength }}
+    <div *ngIf="isFieldInvalid(field.name)">
+      <div *ngFor="let error of form.get(field.name).errors | keyvalue">
+        <ng-container [ngSwitch]="error.key">
+          <div *ngSwitchCase="errorKeys.Required">Обязательное поле</div>
+          <div *ngSwitchCase="errorKeys.MinLength">
+            Минимальная длина {{ form.get(field.name).errors?.minlength.requiredLength }}
+          </div>
+          <div *ngSwitchCase="errorKeys.MaxLength">
+            Максимальная длина {{ form.get(field.name).errors?.maxlength.requiredLength }}
+          </div>
+          <div *ngSwitchCase="errorKeys.Pattern">Неправильный формат</div>
+          <div *ngSwitchCase="errorKeys.Email">Неправильный адрес электронной почты</div>
+          <div *ngSwitchCase="errorKeys.Min">
+            Значение должно быть больше {{ form.get(field.name).errors?.min.min }}
+          </div>
+          <div *ngSwitchCase="errorKeys.Max">
+            Значение должно быть меньше {{ form.get(field.name).errors?.max.max }}
+          </div>
+          <div *ngSwitchCase="errorKeys.RequiredTrue">Подтвердите согласие</div>
+        </ng-container>
       </div>
-      <div *ngIf="form.get(field.name).errors?.pattern">Неправильный формат</div>
     </div>
   </div>
   <button type="submit">Отправить</button>

@@ -1,7 +1,9 @@
+import { ValidatorKeys } from '../../constants/validator-constants';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormField } from 'src/app/models/form-constructor.model';
 import { FormConstructorService } from 'src/app/services/form-constructor.service';
+import { formMock } from 'src/app/constants/form-constants';
 
 @Component({
   selector: 'app-form-constructor',
@@ -10,37 +12,10 @@ import { FormConstructorService } from 'src/app/services/form-constructor.servic
 })
 export class FormConstructorComponent implements OnInit {
   form: FormGroup;
-  formFields: FormField[] = [
-    { type: 'text', label: 'Имя', name: 'name', validators: [{ type: 'required' }] },
-    { type: 'date', label: 'Дата рождения', name: 'birthdate', validators: [{ type: 'required' }] },
-    {
-      type: 'checkbox',
-      label: 'Согласен с условиями',
-      name: 'terms',
-      validators: [{ type: 'required' }]
-    },
-    {
-      type: 'dropdown',
-      label: 'Страна',
-      name: 'country',
-      validators: [{ type: 'required' }],
-      options: ['USA', 'Canada', 'UK']
-    },
-    {
-      type: 'controlWithLabel',
-      label: 'Описание',
-      name: 'description',
-      validators: [{ type: 'required' }, { type: 'minLength', value: 10 }]
-    },
-    {
-      type: 'dropZone',
-      label: 'Загрузить документ',
-      name: 'document',
-      validators: [{ type: 'required' }]
-    }
-  ];
+  formFields: FormField[] = formMock as FormField[];
 
   formFieldsText: string = JSON.stringify(this.formFields, null, 2);
+  errorKeys = ValidatorKeys;
 
   constructor(private formConstructorService: FormConstructorService) {}
 
@@ -50,10 +25,8 @@ export class FormConstructorComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      // Обработка результатов формы, например, отправка на сервер
       console.log(this.form.value);
     } else {
-      // Вывод ошибок валидации
       this.markAllFieldsAsTouched();
     }
   }
@@ -76,5 +49,10 @@ export class FormConstructorComponent implements OnInit {
     } catch (error) {
       console.log('Error parsing formFields:', error);
     }
+  }
+
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.form.get(fieldName);
+    return field.invalid && field.touched;
   }
 }
