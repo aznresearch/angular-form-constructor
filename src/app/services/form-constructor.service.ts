@@ -8,13 +8,12 @@ import { FormField } from '../models/form-constructor.model';
 export class FormConstructorService {
   constructor(private fb: FormBuilder) {}
 
-  buildForm(fields: FormField[]): FormGroup {
+  buildForm(formFields: any): FormGroup {
     const formGroup = this.fb.group({});
-    fields.forEach((field) => {
-      const { name, validators, options } = field;
-      const formControl = this.fb.control('', this.getValidators(validators));
-      formGroup.addControl(name, formControl);
-    });
+    for (const key of Object.keys(formFields)) {
+      const formControl = this.fb.control('', this.getValidators(formFields[key].validators));
+      formGroup.addControl(key, formControl);
+    }
     return formGroup;
   }
 

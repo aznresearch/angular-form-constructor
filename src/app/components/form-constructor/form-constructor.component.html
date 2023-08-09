@@ -1,44 +1,66 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div *ngFor="let field of formOptions">
-    <label>{{ field.label }}</label>
-    <div [ngSwitch]="field.type">
-      <input *ngSwitchCase="'text'" type="text" [formControlName]="field.name" />
-      <input *ngSwitchCase="'date'" type="date" [formControlName]="field.name" />
-      <input *ngSwitchCase="'checkbox'" type="checkbox" [formControlName]="field.name" />
-      <select *ngSwitchCase="'dropdown'" [formControlName]="field.name">
-        <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
-      </select>
-      <div *ngSwitchCase="'controlWithLabel'">
-        <label>{{ field.label }}</label>
-        <input type="text" [formControlName]="field.name" />
+<ng-container *ngFor="let form of forms; let i = index">
+  <form [formGroup]="forms[i]" *ngIf="i === currentStep || forms.length === 1">
+    <div *ngFor="let field of formFields[i]">
+      <label [for]="field">{{ field }}</label>
+      <div [ngSwitch]="formContent[i][field].type">
+        <ng-container *ngSwitchCase="'textarea'">
+          <textarea [id]="field" [formControlName]="field"></textarea>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'select'">
+          <select [formControlName]="field" [id]="field">
+            <option value="">Select your Country</option>
+            <option *ngFor="let option of formContent[i][field].options" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </ng-container>
+
+        <ng-container *ngSwitchDefault>
+          <input [type]="formContent[i][field].type" [formControlName]="field" [id]="field" />
+        </ng-container>
       </div>
-      <div *ngSwitchCase="'dropZone'"></div>
-    </div>
-    <div *ngIf="isFieldInvalid(field.name)">
-      <div *ngFor="let error of form.get(field.name).errors | keyvalue">
+      <!-- <div *ngIf="isFieldInvalid(field.name)">
+      <div *ngFor="let error of form[currentStep].get(field.name).errors | keyvalue">
         <ng-container [ngSwitch]="error.key">
           <div *ngSwitchCase="errorKeys.Required">Обязательное поле</div>
           <div *ngSwitchCase="errorKeys.MinLength">
-            Минимальная длина {{ form.get(field.name).errors?.minlength.requiredLength }}
+            Минимальная длина
+            {{ form[currentStep].get(field.name).errors?.minlength.requiredLength }}
           </div>
           <div *ngSwitchCase="errorKeys.MaxLength">
-            Максимальная длина {{ form.get(field.name).errors?.maxlength.requiredLength }}
+            Максимальная длина
+            {{ form[currentStep].get(field.name).errors?.maxlength.requiredLength }}
           </div>
           <div *ngSwitchCase="errorKeys.Pattern">Неправильный формат</div>
           <div *ngSwitchCase="errorKeys.Email">Неправильный адрес электронной почты</div>
           <div *ngSwitchCase="errorKeys.Min">
-            Значение должно быть больше {{ form.get(field.name).errors?.min.min }}
+            Значение должно быть больше {{ form[currentStep].get(field.name).errors?.min.min }}
           </div>
           <div *ngSwitchCase="errorKeys.Max">
-            Значение должно быть меньше {{ form.get(field.name).errors?.max.max }}
+            Значение должно быть меньше {{ form[currentStep].get(field.name).errors?.max.max }}
           </div>
           <div *ngSwitchCase="errorKeys.RequiredTrue">Подтвердите согласие</div>
         </ng-container>
       </div>
+    </div> -->
     </div>
-  </div>
-  <button type="submit">Отправить</button>
-</form>
+    <div></div>
+    <div>
+      <button *ngIf="currentStep !== 0" type="button" (click)="onPreviousStep()">Previous</button>
+      <button *ngIf="currentStep === formOptions.length - 1" type="button" (click)="onSubmit()">
+        Submit
+      </button>
+      <button
+        *ngIf="currentStep !== formOptions.length - 1"
+        type="button"
+        [disabled]="forms[i].invalid"
+        (click)="onNextStep()">
+        Next
+      </button>
+    </div>
+  </form>
+</ng-container>
 
-<textarea [(ngModel)]="formFieldsText" rows="30" cols="70"></textarea>
-<button (click)="createFormFromText()">Создать форму из текста</button>
+<!-- <textarea [(ngModel)]="formFieldsText" rows="30" cols="70"></textarea>
+<button (click)="createFormFromText()">Создать форму из текста</button> -->

@@ -10,7 +10,7 @@ export const step1Data = {
   birthdate: {
     type: 'date',
     label: 'Дата рождения',
-    validators: [{ type: 'required' }]
+    validators: []
   }
 };
 
@@ -18,16 +18,13 @@ export const step2Data = {
   terms: {
     type: 'checkbox',
     label: 'Согласен с условиями',
-    validators: [
-      { type: 'required' },
-      { type: 'minLength', value: 3, errormsg: 'Minimum length should be 3 characters' }
-    ]
+    validators: [{ type: 'required' }]
   },
   country: {
-    type: 'dropdown',
+    type: 'select',
     label: 'Дата рождения',
     validators: [{ type: 'required' }],
-    options: ['USA', 'Canada', 'UK']
+    options: ['USA', 'Canada', 'UK'] //Потом переделать отдельным массивом объектов
   }
 };
 
