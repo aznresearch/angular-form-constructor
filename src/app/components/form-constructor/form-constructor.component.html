@@ -1,7 +1,7 @@
 <ng-container *ngFor="let form of forms; let i = index">
   <form [formGroup]="forms[i]" *ngIf="i === currentStep || forms.length === 1">
     <div *ngFor="let field of formFields[i]">
-      <label [for]="field">{{ field }}</label>
+      <label>{{ formContent[i][field].label }}</label>
       <div [ngSwitch]="formContent[i][field].type">
         <ng-container *ngSwitchCase="'textarea'">
           <textarea [id]="field" [formControlName]="field"></textarea>
