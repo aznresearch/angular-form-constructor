@@ -1,23 +1,24 @@
 <ng-container *ngFor="let form of forms; let i = index">
   <form [formGroup]="forms[i]" *ngIf="i === currentStep || forms.length === 1">
     <div *ngFor="let field of formFields[i]">
-      <label>{{ formContent[i][field].label }}</label>
-      <div [ngSwitch]="formContent[i][field].type">
+      <label [for]="field">{{ field.label }}</label>
+      <div [ngSwitch]="field.type">
         <ng-container *ngSwitchCase="'textarea'">
-          <textarea [id]="field" [formControlName]="field"></textarea>
+          <textarea [formControlName]="field.key"></textarea>
         </ng-container>
-
         <ng-container *ngSwitchCase="'select'">
-          <select [formControlName]="field" [id]="field">
+          <select [formControlName]="field.key">
             <option value="">Select your Country</option>
-            <option *ngFor="let option of formContent[i][field].options" [value]="option">
+            <option *ngFor="let option of field.options" [value]="option">
               {{ option }}
             </option>
           </select>
         </ng-container>
-
+        <ng-container *ngSwitchCase="'checkbox'">
+          <input type="checkbox" [formControlName]="field.key" />
+        </ng-container>
         <ng-container *ngSwitchDefault>
-          <input [type]="formContent[i][field].type" [formControlName]="field" [id]="field" />
+          <input [type]="field.type" [formControlName]="field.key" />
         </ng-container>
       </div>
       <!-- <div *ngIf="isFieldInvalid(field.name)">
@@ -45,7 +46,6 @@
       </div>
     </div> -->
     </div>
-    <div></div>
     <div>
       <button *ngIf="currentStep !== 0" type="button" (click)="onPreviousStep()">Previous</button>
       <button *ngIf="currentStep === formOptions.length - 1" type="button" (click)="onSubmit()">

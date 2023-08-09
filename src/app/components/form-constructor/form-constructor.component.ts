@@ -30,7 +30,9 @@ export class FormConstructorComponent implements OnInit {
   initForms() {
     this.formOptions.forEach((data, i) => {
       this.formContent.push(this.formOptions[i]['data']);
-      this.formFields.push(Object.keys(this.formContent[i]));
+      this.formFields.push(
+        Object.keys(this.formContent[i]).map((key) => ({ key, ...this.formContent[i][key] }))
+      );
       this.forms.push(this.buildForm(this.formContent[i]));
     });
   }
@@ -41,13 +43,6 @@ export class FormConstructorComponent implements OnInit {
 
   goToStep(step: string): void {
     this.currentStep = step === 'prev' ? --this.currentStep : ++this.currentStep;
-  }
-
-  onSubmit(): void {
-    this.formValue = this.forms.reduce(
-      (forms, currentForm) => ({ ...forms, ...currentForm.value }),
-      {}
-    );
   }
 
   onNextStep() {
@@ -62,17 +57,17 @@ export class FormConstructorComponent implements OnInit {
     this.currentStep--;
   }
 
-  // onSubmit() {
-  //   if (this.form[this.form.length - 1].valid) {
-  //     const formData = {};
-  //     this.form.forEach((stepFormGroup) => {
-  //       Object.assign(formData, stepFormGroup.value);
-  //     });
-  //     console.log(formData);
-  //   } else {
-  //     this.markAllFieldsAsTouched();
-  //   }
-  // }
+  onSubmit() {
+    if (this.forms[this.forms.length - 1].valid) {
+      this.formValue = this.forms.reduce(
+        (forms, currentForm) => ({ ...forms, ...currentForm.value }),
+        {}
+      );
+      console.log(this.formValue);
+    } else {
+      this.markAllFieldsAsTouched();
+    }
+  }
 
   markAllFieldsAsTouched() {
     const currentFormGroup = this.forms[this.currentStep];

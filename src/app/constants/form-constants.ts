@@ -18,7 +18,7 @@ export const step2Data = {
   terms: {
     type: 'checkbox',
     label: 'Согласен с условиями',
-    validators: [{ type: 'required' }]
+    validators: [{ type: 'requiredTrue' }]
   },
   country: {
     type: 'select',
