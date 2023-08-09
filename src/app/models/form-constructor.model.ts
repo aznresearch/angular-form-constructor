@@ -1,13 +1,17 @@
 export interface FormField {
-  type:
-    | "text"
-    | "date"
-    | "checkbox"
-    | "dropdown"
-    | "controlWithLabel"
-    | "dropZone";
+  type: string;
   label: string;
-  name: string;
-  validators?: any[];
-  options?: any[];
+  validators?: Validator[];
+  options?: string[];
+}
+
+export interface FormOptions {
+  title: string;
+  data: { [key: string]: FormField };
+}
+
+interface Validator {
+  type: string;
+  value?: number | string;
+  errormsg?: string;
 }
