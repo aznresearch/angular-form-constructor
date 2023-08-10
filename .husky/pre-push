@@ -1,2 +1,2 @@
-"#!/bin/sh"
-"ng lint"
+#!/bin/sh
+ng lint
