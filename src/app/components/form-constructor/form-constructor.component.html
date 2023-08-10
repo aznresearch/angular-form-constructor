@@ -1,3 +1,5 @@
+<h1 class="form-heading">{{ formOptions[currentStep].title }}</h1>
+
 <ng-container *ngFor="let form of forms; let i = index">
   <form [formGroup]="forms[i]" *ngIf="i === currentStep || forms.length === 1">
     <div *ngFor="let field of formFields[i]">

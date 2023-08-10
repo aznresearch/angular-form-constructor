@@ -4,13 +4,18 @@ export const step1Data = {
     label: 'Имя',
     validators: [
       { type: 'required' },
-      { type: 'minLength', value: 3, errormsg: 'Minimum length should be 3 characters' }
+      { type: 'minLength', value: 3, errormsg: 'Минимальная длина - 3 символа' }
     ]
   },
   birthdate: {
     type: 'date',
     label: 'Дата рождения',
     validators: []
+  },
+  gender: {
+    type: 'radio',
+    label: 'Пол',
+    options: ['Мужской', 'Женский']
   }
 };
 
@@ -22,9 +27,30 @@ export const step2Data = {
   },
   country: {
     type: 'select',
-    label: 'Дата рождения',
+    label: 'Страна',
     validators: [{ type: 'required' }],
-    options: ['USA', 'Canada', 'UK'] //Потом переделать отдельным массивом объектов
+    options: ['USA', 'Canada', 'UK']
+  }
+};
+
+export const step3Data = {
+  email: {
+    type: 'email',
+    label: 'Email',
+    validators: [{ type: 'required' }, { type: 'email', errormsg: 'Неверный формат email' }]
+  },
+  phone: {
+    type: 'tel',
+    label: 'Телефон',
+    validators: [
+      { type: 'required' },
+      { type: 'pattern', value: '/^d{10}$/', errormsg: 'Номер телефона должен состоять из 10 цифр' }
+    ]
+  },
+  information: {
+    type: 'textarea',
+    label: 'Доп.информация',
+    validators: []
   }
 };
 
@@ -36,5 +62,9 @@ export const formOptionsMock = [
   {
     title: 'Step 2',
     data: step2Data
+  },
+  {
+    title: 'Step 3',
+    data: step3Data
   }
 ];

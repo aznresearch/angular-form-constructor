@@ -14,7 +14,7 @@ export class FormConstructorComponent implements OnInit {
   formOptions: FormOptions[] = formOptionsMock;
   currentStep = 0;
   forms: FormGroup[] = [];
-  //TODO затипизировать
+  // TODO затипизировать
   formContent: any[] = [];
   formFields: string[][] = [];
   formValue: any;
