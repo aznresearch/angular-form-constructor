@@ -1,4 +1,3 @@
-import { ValidatorKeys } from '../../constants/validator-constants';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormOptions } from 'src/app/models/form-constructor.model';
@@ -28,8 +27,8 @@ export class FormConstructorComponent implements OnInit {
   }
 
   initForms() {
-    this.formOptions.forEach((data, i) => {
-      this.formContent.push(this.formOptions[i]['data']);
+    this.formOptions.forEach((formOption, i) => {
+      this.formContent.push(formOption.data);
       this.formFields.push(
         Object.keys(this.formContent[i]).map((key) => ({ key, ...this.formContent[i][key] }))
       );
@@ -37,7 +36,7 @@ export class FormConstructorComponent implements OnInit {
     });
   }
 
-  buildForm(formContent): FormGroup {
+  buildForm(formContent: any): FormGroup {
     return this.formConstructorService.buildForm(formContent);
   }
 
@@ -63,8 +62,8 @@ export class FormConstructorComponent implements OnInit {
         (forms, currentForm) => ({ ...forms, ...currentForm.value }),
         {}
       );
-      console.log(this.formValue);
     } else {
+      throw new Error('ошибка введенных данных');
       this.markAllFieldsAsTouched();
     }
   }

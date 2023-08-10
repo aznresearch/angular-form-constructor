@@ -5,11 +5,18 @@ export const step1Data = {
     validators: [
       { type: 'required' },
       { type: 'minLength', value: 3, errormsg: 'Минимальная длина - 3 символа' }
-    ]
+    ],
+    classes: ['col-6', 'someClass']
   },
   birthdate: {
     type: 'date',
     label: 'Дата рождения',
+    validators: [],
+    classes: ['col-4']
+  },
+  file: {
+    type: 'file',
+    label: 'Добавьте файл',
     validators: []
   },
   gender: {

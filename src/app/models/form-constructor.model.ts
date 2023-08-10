@@ -3,6 +3,7 @@ export interface FormField {
   label: string;
   validators?: Validator[];
   options?: string[];
+  classes?: string[];
 }
 
 export interface FormOptions {
