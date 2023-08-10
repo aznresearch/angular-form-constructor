@@ -44,14 +44,16 @@ export const step3Data = {
   email: {
     type: 'email',
     label: 'Email',
-    validators: [{ type: 'required' }, { type: 'email', errormsg: 'Неверный формат email' }]
+    validators: [
+      // { type: 'required' }, { type: 'email', errormsg: 'Неверный формат email' }
+    ]
   },
   phone: {
     type: 'tel',
     label: 'Телефон',
     validators: [
-      { type: 'required' },
-      { type: 'pattern', value: '/^d{10}$/', errormsg: 'Номер телефона должен состоять из 10 цифр' }
+      // { type: 'required' },
+      // { type: 'pattern', value: '/^d{10}$/', errormsg: 'Номер телефона должен состоять из 10 цифр' }
     ]
   },
   information: {
@@ -61,17 +63,57 @@ export const step3Data = {
   }
 };
 
-export const formOptionsMock = [
-  {
-    title: 'Step 1',
-    data: step1Data
+export const step4Data = {
+  terms: {
+    type: 'checkbox',
+    label: 'Согласен с условиями',
+    validators: [{ type: 'requiredTrue' }]
   },
-  {
-    title: 'Step 2',
-    data: step2Data
+  country: {
+    type: 'select',
+    label: 'Страна',
+    validators: [{ type: 'required' }],
+    options: ['USA', 'Canada', 'UK']
   },
-  {
-    title: 'Step 3',
-    data: step3Data
+  gender: {
+    type: 'radio',
+    label: 'Пол',
+    options: ['Мужской', 'Женский']
   }
-];
+};
+
+export const formOptionsMock = {
+  formData: [
+    {
+      title: 'Step 1',
+      data: step1Data
+    },
+    {
+      title: 'Step 2',
+      data: step2Data
+    },
+    {
+      title: 'Step 3',
+      data: step3Data
+    }
+  ],
+  options: {
+    name: 'formName',
+    type: 'formType',
+    country: 'NG'
+  },
+  uniqueFormData: [
+    {
+      title: 'Step Nigeria',
+      countryCode: 'NwwG',
+      step: 2,
+      data: step4Data
+    },
+    {
+      title: 'Step Nigeria',
+      countryCode: 'NGxxz',
+      step: 1,
+      data: step4Data
+    }
+  ]
+};

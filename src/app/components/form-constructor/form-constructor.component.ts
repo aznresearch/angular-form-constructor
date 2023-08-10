@@ -10,13 +10,14 @@ import { formOptionsMock } from 'src/app/constants/form-constants';
   styleUrls: ['./form-constructor.component.scss']
 })
 export class FormConstructorComponent implements OnInit {
-  formOptions: FormOptions[] = formOptionsMock;
+  formOptions: FormOptions[] = formOptionsMock.formData;
   currentStep = 0;
   forms: FormGroup[] = [];
   // TODO затипизировать
   formContent: any[] = [];
   formFields: string[][] = [];
   formValue: any;
+  country = 'NG';
 
   // formFieldsText: string = JSON.stringify(this.formOptions, null, 2);
 
@@ -27,6 +28,8 @@ export class FormConstructorComponent implements OnInit {
   }
 
   initForms() {
+    this.addUniqueFormData();
+
     this.formOptions.forEach((formOption, i) => {
       this.formContent.push(formOption.data);
       this.formFields.push(
@@ -34,6 +37,19 @@ export class FormConstructorComponent implements OnInit {
       );
       this.forms.push(this.buildForm(this.formContent[i]));
     });
+  }
+
+  addUniqueFormData(): void {
+    const index = formOptionsMock.uniqueFormData.findIndex(
+      (formData) => formData.countryCode === this.country
+    );
+    if (index >= 0) {
+      this.formOptions.splice(
+        formOptionsMock.uniqueFormData[index].step,
+        0,
+        formOptionsMock.uniqueFormData[index]
+      );
+    }
   }
 
   buildForm(formContent: any): FormGroup {
