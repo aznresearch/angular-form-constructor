@@ -2,10 +2,7 @@ export const step1Data = {
   name: {
     type: 'text',
     label: 'Имя',
-    validators: [
-      { type: 'required' },
-      { type: 'minLength', value: 3, errormsg: 'Минимальная длина - 3 символа' }
-    ],
+    validators: [{ type: 'required' }, { type: 'minlength', value: 3 }],
     classes: ['col-6', 'someClass']
   },
   birthdate: {
@@ -30,7 +27,7 @@ export const step2Data = {
   terms: {
     type: 'checkbox',
     label: 'Согласен с условиями',
-    validators: [{ type: 'requiredTrue' }]
+    validators: [{ type: 'requiredTrue', errormsg: 'Необходимо согласиться с условиями' }]
   },
   country: {
     type: 'select',
@@ -44,16 +41,14 @@ export const step3Data = {
   email: {
     type: 'email',
     label: 'Email',
-    validators: [
-      // { type: 'required' }, { type: 'email', errormsg: 'Неверный формат email' }
-    ]
+    validators: [{ type: 'required' }, { type: 'email', errormsg: 'Неверный формат email' }]
   },
   phone: {
     type: 'tel',
     label: 'Телефон',
     validators: [
-      // { type: 'required' },
-      // { type: 'pattern', value: '/^d{10}$/', errormsg: 'Номер телефона должен состоять из 10 цифр' }
+      { type: 'required' },
+      { type: 'pattern', value: '/^d{10}$/', errormsg: 'Номер телефона должен состоять из 10 цифр' }
     ]
   },
   information: {

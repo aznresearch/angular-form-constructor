@@ -24,8 +24,8 @@ export class FormConstructorService {
   getValidators(validators: any[] = []): ValidatorFn[] {
     const validatorMap: Record<string, (value: any) => ValidatorFn> = {
       required: () => Validators.required,
-      minLength: (value: number) => Validators.minLength(value),
-      maxLength: (value: number) => Validators.maxLength(value),
+      minlength: (value: number) => Validators.minLength(value),
+      maxlength: (value: number) => Validators.maxLength(value),
       pattern: (value: string | RegExp) => Validators.pattern(value),
       email: () => Validators.email,
       min: (value: number) => Validators.min(value),

@@ -1,6 +1,7 @@
+import { defaultErrorMessages } from './../../constants/validator-constants';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormOptions } from 'src/app/models/form-constructor.model';
+import { FormField, FormOptions, Validator } from 'src/app/models/form-constructor.model';
 import { FormConstructorService } from 'src/app/services/form-constructor.service';
 import { formOptionsMock } from 'src/app/constants/form-constants';
 
@@ -13,9 +14,8 @@ export class FormConstructorComponent implements OnInit {
   formOptions: FormOptions[] = formOptionsMock.formData;
   currentStep = 0;
   forms: FormGroup[] = [];
-  // TODO затипизировать
-  formContent: any[] = [];
-  formFields: string[][] = [];
+  formContent: { [key: string]: FormField }[] = [];
+  formFields: FormField[][] = [];
   formValue: any;
   country = 'NG';
 
@@ -32,11 +32,15 @@ export class FormConstructorComponent implements OnInit {
 
     this.formOptions.forEach((formOption, i) => {
       this.formContent.push(formOption.data);
-      this.formFields.push(
-        Object.keys(this.formContent[i]).map((key) => ({ key, ...this.formContent[i][key] }))
-      );
+      const fieldNames = Object.keys(this.formContent[i]);
+      const fieldObjects = fieldNames.map((key) => ({ key, ...this.formContent[i][key] }));
+      this.formFields.push(fieldObjects);
       this.forms.push(this.buildForm(this.formContent[i]));
     });
+  }
+
+  buildForm(formContent: any): FormGroup {
+    return this.formConstructorService.buildForm(formContent);
   }
 
   addUniqueFormData(): void {
@@ -52,8 +56,18 @@ export class FormConstructorComponent implements OnInit {
     }
   }
 
-  buildForm(formContent: any): FormGroup {
-    return this.formConstructorService.buildForm(formContent);
+  getValidationMessage(formIndex: number, formFieldName: string): string | undefined {
+    const formErrors = this.forms[formIndex].get(formFieldName)?.errors;
+    const validators = this.formContent[formIndex][formFieldName].validators;
+    if (formErrors && validators) {
+      const validator = validators.find(
+        (item: Validator) => item.type === Object.keys(formErrors)[0]
+      );
+      const errorMessage = validator?.errormsg;
+      const defaultErrorMessage = defaultErrorMessages[Object.keys(formErrors)[0]];
+      return errorMessage || defaultErrorMessage;
+    }
+    return undefined;
   }
 
   goToStep(step: string): void {
@@ -89,6 +103,11 @@ export class FormConstructorComponent implements OnInit {
     Object.values(currentFormGroup.controls).forEach((control) => {
       control.markAsTouched();
     });
+  }
+
+  isFieldInvalid(formIndex: number, formFieldName: string) {
+    const control = this.forms[formIndex].get(formFieldName);
+    return control?.dirty || (control?.touched && control?.invalid && control?.errors);
   }
 
   // createFormFromText() {

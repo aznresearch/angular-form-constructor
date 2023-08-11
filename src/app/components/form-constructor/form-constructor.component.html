@@ -57,6 +57,10 @@
                 class="form-control" />
             </ng-container>
           </div>
+
+          <p class="validation-error" *ngIf="isFieldInvalid(i, field.key)">
+            {{ getValidationMessage(i, field.key) }}
+          </p>
           <!-- <div *ngIf="isFieldInvalid(field.name)">
       <div *ngFor="let error of form[currentStep].get(field.name).errors | keyvalue">
         <ng-container [ngSwitch]="error.key">

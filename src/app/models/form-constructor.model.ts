@@ -4,6 +4,7 @@ export interface FormField {
   validators?: Validator[];
   options?: string[];
   classes?: string[];
+  key?: string;
 }
 
 export interface FormOptions {
@@ -11,8 +12,25 @@ export interface FormOptions {
   data: { [key: string]: FormField };
 }
 
-interface Validator {
+export interface Validator {
   type: string;
   value?: number | string;
   errormsg?: string;
+}
+
+export interface UniqueFormData {
+  title: string;
+  countryCode: string;
+  step: number;
+  data: { [key: string]: FormField };
+}
+
+export interface FormOptionsMock {
+  formData: FormOptions[];
+  options: {
+    name: string;
+    type: string;
+    country: string;
+  };
+  uniqueFormData: UniqueFormData[];
 }

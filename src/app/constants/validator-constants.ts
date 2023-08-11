@@ -1,10 +1,10 @@
-export enum ValidatorKeys {
-  Required = 'required',
-  MinLength = 'minlength',
-  MaxLength = 'maxlength',
-  Pattern = 'pattern',
-  Email = 'email',
-  Min = 'min',
-  Max = 'max',
-  RequiredTrue = 'requiredTrue'
-}
+export const defaultErrorMessages: { [key: string]: string } = {
+  required: 'Это поле обязательно для заполнения.',
+  minlength: 'Меньше минимальной длины.',
+  maxlength: 'Больше максимальной длины.',
+  pattern: 'Некорректный формат.',
+  email: 'Введите действительный адрес электронной почты.',
+  min: 'Значение должно быть не менее {{ min }}.',
+  max: 'Значение должно быть не более {{ max }}.',
+  requiredTrue: 'Для продолжения необходимо отметить данное поле.'
+};
