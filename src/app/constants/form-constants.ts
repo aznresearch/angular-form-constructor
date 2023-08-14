@@ -3,40 +3,40 @@ import { FormOptionsMock } from '../models/form-constructor.model';
 export const step1Data = {
   name: {
     type: 'text',
-    label: 'Имя',
+    label: 'Name',
     validators: [
       { type: 'required' },
-      { type: 'minlength', value: 3, errormsg: 'Должно быть больше 3 символов' }
+      { type: 'minlength', value: 3, errormsg: 'Must be more than 3 characters' }
     ],
     classes: ['col-6', 'someClass']
   },
   birthdate: {
     type: 'date',
-    label: 'Дата рождения',
+    label: 'Date of Birth',
     validators: [],
     classes: ['col-4']
   },
   file: {
     type: 'file',
-    label: 'Добавьте файл',
+    label: 'Add File',
     validators: []
   },
   gender: {
     type: 'radio',
-    label: 'Пол',
-    options: ['Мужской', 'Женский']
+    label: 'Gender',
+    options: ['Male', 'Female']
   }
 };
 
 export const step2Data = {
   terms: {
     type: 'checkbox',
-    label: 'Согласен с условиями',
-    validators: [{ type: 'requiredTrue', errormsg: 'Необходимо согласиться с условиями' }]
+    label: 'Agree to Terms',
+    validators: [{ type: 'requiredTrue', errormsg: 'Must agree to terms' }]
   },
   country: {
     type: 'select',
-    label: 'Страна',
+    label: 'Country',
     validators: [{ type: 'required' }],
     options: ['USA', 'Canada', 'UK']
   }
@@ -46,19 +46,19 @@ export const step3Data = {
   email: {
     type: 'email',
     label: 'Email',
-    validators: [{ type: 'required' }, { type: 'email', errormsg: 'Неверный формат email' }]
+    validators: [{ type: 'required' }, { type: 'email', errormsg: 'Invalid email format' }]
   },
   phone: {
     type: 'tel',
-    label: 'Телефон',
+    label: 'Phone',
     validators: [
       { type: 'required' },
-      { type: 'pattern', value: '/^d{10}$/', errormsg: 'Номер телефона должен состоять из 10 цифр' }
+      { type: 'pattern', value: '^\\d{10}$', errormsg: 'Phone number must consist of 10 digits' }
     ]
   },
   information: {
     type: 'textarea',
-    label: 'Доп.информация',
+    label: 'Additional Information',
     validators: []
   }
 };
@@ -66,19 +66,19 @@ export const step3Data = {
 export const step4Data = {
   terms: {
     type: 'checkbox',
-    label: 'Согласен с условиями',
+    label: 'Agree to Terms',
     validators: [{ type: 'requiredTrue' }]
   },
   country: {
     type: 'select',
-    label: 'Страна',
+    label: 'Country',
     validators: [{ type: 'required' }],
     options: ['USA', 'Canada', 'UK']
   },
   gender: {
     type: 'radio',
-    label: 'Пол',
-    options: ['Мужской', 'Женский']
+    label: 'Gender',
+    options: ['Male', 'Female']
   }
 };
 
@@ -105,13 +105,13 @@ export const formOptionsMock: FormOptionsMock = {
   uniqueFormData: [
     {
       title: 'Step Nigeria',
-      countryCode: 'NwwG',
+      countryCode: 'NG',
       step: 2,
       data: step4Data
     },
     {
-      title: 'Step Nigeria',
-      countryCode: 'NGxxz',
+      title: 'Step Ghana',
+      countryCode: 'GH',
       step: 1,
       data: step4Data
     }

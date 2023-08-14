@@ -1,10 +1,10 @@
 export const defaultErrorMessages: { [key: string]: string } = {
-  required: 'Это поле обязательно для заполнения.',
-  minlength: 'Меньше минимальной длины.',
-  maxlength: 'Больше максимальной длины.',
-  pattern: 'Некорректный формат.',
-  email: 'Введите действительный адрес электронной почты.',
-  min: 'Значение должно быть не менее {{ min }}.',
-  max: 'Значение должно быть не более {{ max }}.',
-  requiredTrue: 'Для продолжения необходимо отметить данное поле.'
+  required: 'This field is required',
+  minlength: 'Less than minimum length',
+  maxlength: 'More than maximum length',
+  pattern: 'Incorrect format',
+  email: 'Enter a valid email address',
+  min: 'Value must be greater',
+  max: 'Value must be smaller',
+  requiredTrue: 'To proceed, this field must be checked'
 };
