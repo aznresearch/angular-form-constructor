@@ -11,3 +11,12 @@ input.ng-invalid.ng-touched {
 
   box-shadow: 0 0 0 0.1rem rgba(255, 76, 76, 0.966);
 }
+
+.test {
+  margin-top: 50px;
+
+  textarea {
+    min-height: 300px;
+    margin-bottom: 20px;
+  }
+}

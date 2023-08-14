@@ -58,33 +58,9 @@
             </ng-container>
           </div>
 
-          <p class="validation-error" *ngIf="isFieldInvalid(i, field.key)">
+          <div class="validation-error" *ngIf="isFieldInvalid(i, field.key)">
             {{ getValidationMessage(i, field.key) }}
-          </p>
-          <!-- <div *ngIf="isFieldInvalid(field.name)">
-      <div *ngFor="let error of form[currentStep].get(field.name).errors | keyvalue">
-        <ng-container [ngSwitch]="error.key">
-          <div *ngSwitchCase="errorKeys.Required">Обязательное поле</div>
-          <div *ngSwitchCase="errorKeys.MinLength">
-            Минимальная длина
-            {{ form[currentStep].get(field.name).errors?.minlength.requiredLength }}
           </div>
-          <div *ngSwitchCase="errorKeys.MaxLength">
-            Максимальная длина
-            {{ form[currentStep].get(field.name).errors?.maxlength.requiredLength }}
-          </div>
-          <div *ngSwitchCase="errorKeys.Pattern">Неправильный формат</div>
-          <div *ngSwitchCase="errorKeys.Email">Неправильный адрес электронной почты</div>
-          <div *ngSwitchCase="errorKeys.Min">
-            Значение должно быть больше {{ form[currentStep].get(field.name).errors?.min.min }}
-          </div>
-          <div *ngSwitchCase="errorKeys.Max">
-            Значение должно быть меньше {{ form[currentStep].get(field.name).errors?.max.max }}
-          </div>
-          <div *ngSwitchCase="errorKeys.RequiredTrue">Подтвердите согласие</div>
-        </ng-container>
-      </div>
-    </div> -->
         </div>
       </ng-container>
     </div>
@@ -115,5 +91,8 @@
   </form>
 </ng-container>
 
-<!-- <textarea [(ngModel)]="formFieldsText" rows="30" cols="70"></textarea>
-<button (click)="createFormFromText()">Создать форму из текста</button> -->
+<div class="test">
+  <h2>Test</h2>
+  <textarea [(ngModel)]="formFieldsText" class="form-control"></textarea>
+  <button class="btn btn-primary" (click)="createFormFromText()">Создать форму из JSON</button>
+</div>

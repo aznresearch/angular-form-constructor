@@ -32,5 +32,5 @@ export interface FormOptionsMock {
     type: string;
     country: string;
   };
-  uniqueFormData: UniqueFormData[];
+  uniqueFormData?: UniqueFormData[];
 }

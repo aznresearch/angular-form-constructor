@@ -12,25 +12,31 @@ import { formOptionsMock } from 'src/app/constants/form-constants';
 })
 export class FormConstructorComponent implements OnInit {
   formOptions: FormOptions[] = formOptionsMock.formData;
-  currentStep = 0;
-  forms: FormGroup[] = [];
-  formContent: { [key: string]: FormField }[] = [];
-  formFields: FormField[][] = [];
+  currentStep!: number;
+  forms!: FormGroup[];
+  formContent!: { [key: string]: FormField }[];
+  formFields!: FormField[][];
+  // TODO типизировать
   formValue: any;
   country = 'NG';
 
-  // formFieldsText: string = JSON.stringify(this.formOptions, null, 2);
+  formFieldsText!: string;
 
   constructor(private formConstructorService: FormConstructorService) {}
 
   ngOnInit() {
-    this.initForms();
+    this.initForms(this.formOptions);
+    this.formFieldsText = JSON.stringify(this.formOptions, null, 2);
   }
 
-  initForms() {
-    this.addUniqueFormData();
+  initForms(formOptions: FormOptions[]) {
+    this.currentStep = 0;
+    this.forms = [];
+    this.formContent = [];
+    this.formFields = [];
 
-    this.formOptions.forEach((formOption, i) => {
+    this.addUniqueFormData();
+    formOptions.forEach((formOption, i) => {
       this.formContent.push(formOption.data);
       const fieldNames = Object.keys(this.formContent[i]);
       const fieldObjects = fieldNames.map((key) => ({ key, ...this.formContent[i][key] }));
@@ -44,15 +50,17 @@ export class FormConstructorComponent implements OnInit {
   }
 
   addUniqueFormData(): void {
-    const index = formOptionsMock.uniqueFormData.findIndex(
-      (formData) => formData.countryCode === this.country
-    );
-    if (index >= 0) {
-      this.formOptions.splice(
-        formOptionsMock.uniqueFormData[index].step,
-        0,
-        formOptionsMock.uniqueFormData[index]
+    if (formOptionsMock.uniqueFormData !== undefined) {
+      const index = formOptionsMock.uniqueFormData.findIndex(
+        (formData) => formData.countryCode === this.country
       );
+      if (index >= 0) {
+        this.formOptions.splice(
+          formOptionsMock.uniqueFormData[index].step,
+          0,
+          formOptionsMock.uniqueFormData[index]
+        );
+      }
     }
   }
 
@@ -93,7 +101,6 @@ export class FormConstructorComponent implements OnInit {
         {}
       );
     } else {
-      throw new Error('ошибка введенных данных');
       this.markAllFieldsAsTouched();
     }
   }
@@ -105,22 +112,22 @@ export class FormConstructorComponent implements OnInit {
     });
   }
 
-  isFieldInvalid(formIndex: number, formFieldName: string) {
+  isFieldInvalid(formIndex: number, formFieldName: string): boolean | undefined {
     const control = this.forms[formIndex].get(formFieldName);
-    return control?.dirty || (control?.touched && control?.invalid && control?.errors);
+    return control?.invalid && (control?.dirty || control?.touched);
   }
 
-  // createFormFromText() {
-  //   try {
-  //     const parsedFormFields = JSON.parse(this.formFieldsText);
-  //     if (Array.isArray(parsedFormFields)) {
-  //       this.formOptions = parsedFormFields;
-  //       this.form = this.buildForm();
-  //     } else {
-  //       console.log('Invalid formOptions format');
-  //     }
-  //   } catch (error) {
-  //     console.log('Error parsing formOptions:', error);
-  //   }
-  // }
+  createFormFromText() {
+    try {
+      const parsedFormFields = JSON.parse(this.formFieldsText);
+      if (Array.isArray(parsedFormFields)) {
+        this.formOptions = parsedFormFields;
+        this.initForms(this.formOptions);
+      } else {
+        console.log('Invalid formOptions format');
+      }
+    } catch (error) {
+      console.log('Error parsing formOptions:', error);
+    }
+  }
 }

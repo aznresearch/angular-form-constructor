@@ -1,8 +1,13 @@
+import { FormOptionsMock } from '../models/form-constructor.model';
+
 export const step1Data = {
   name: {
     type: 'text',
     label: 'Имя',
-    validators: [{ type: 'required' }, { type: 'minlength', value: 3 }],
+    validators: [
+      { type: 'required' },
+      { type: 'minlength', value: 3, errormsg: 'Должно быть больше 3 символов' }
+    ],
     classes: ['col-6', 'someClass']
   },
   birthdate: {
@@ -77,7 +82,7 @@ export const step4Data = {
   }
 };
 
-export const formOptionsMock = {
+export const formOptionsMock: FormOptionsMock = {
   formData: [
     {
       title: 'Step 1',
