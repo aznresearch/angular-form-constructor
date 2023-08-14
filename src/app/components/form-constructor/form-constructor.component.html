@@ -94,5 +94,13 @@
 <div class="test">
   <h2>Test</h2>
   <textarea [(ngModel)]="formFieldsText" class="form-control"></textarea>
+  <div class="countrySelect">
+    <select [(ngModel)]="country" class="form-select">
+      <option value="">Select your Country</option>
+      <option *ngFor="let option of countryOptions" [value]="option">
+        {{ option }}
+      </option>
+    </select>
+  </div>
   <button class="btn btn-primary" (click)="createFormFromText()">Create form</button>
 </div>

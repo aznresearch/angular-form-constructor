@@ -1,7 +1,12 @@
 import { defaultErrorMessages } from './../../constants/validator-constants';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormField, FormOptions, Validator } from 'src/app/models/form-constructor.model';
+import {
+  FormField,
+  FormOptions,
+  FormOptionsMock,
+  Validator
+} from 'src/app/models/form-constructor.model';
 import { FormConstructorService } from 'src/app/services/form-constructor.service';
 import { formOptionsMock } from 'src/app/constants/form-constants';
 
@@ -11,6 +16,7 @@ import { formOptionsMock } from 'src/app/constants/form-constants';
   styleUrls: ['./form-constructor.component.scss']
 })
 export class FormConstructorComponent implements OnInit {
+  formOptionsFullObject: FormOptionsMock = formOptionsMock;
   formOptions: FormOptions[] = formOptionsMock.formData;
   currentStep!: number;
   forms!: FormGroup[];
@@ -18,7 +24,9 @@ export class FormConstructorComponent implements OnInit {
   formFields!: FormField[][];
   // TODO типизировать
   formValue: any;
-  country = 'NG';
+
+  countryOptions: string[] = ['NG', 'GH'];
+  country = '';
 
   formFieldsText!: string;
 
@@ -26,7 +34,7 @@ export class FormConstructorComponent implements OnInit {
 
   ngOnInit() {
     this.initForms(this.formOptions);
-    this.formFieldsText = JSON.stringify(this.formOptions, null, 2);
+    this.formFieldsText = JSON.stringify(this.formOptionsFullObject, null, 2);
   }
 
   initForms(formOptions: FormOptions[]) {
@@ -120,8 +128,9 @@ export class FormConstructorComponent implements OnInit {
   createFormFromText() {
     try {
       const parsedFormFields = JSON.parse(this.formFieldsText);
-      if (Array.isArray(parsedFormFields)) {
-        this.formOptions = parsedFormFields;
+      const parsedFormFieldsOptions = parsedFormFields.formData;
+      if (Array.isArray(parsedFormFieldsOptions)) {
+        this.formOptions = parsedFormFieldsOptions;
         this.initForms(this.formOptions);
       } else {
         console.log('Invalid formOptions format');
