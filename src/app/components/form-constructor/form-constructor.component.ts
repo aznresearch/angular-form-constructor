@@ -22,7 +22,6 @@ export class FormConstructorComponent implements OnInit {
   forms!: FormGroup[];
   formContent!: { [key: string]: FormField }[];
   formFields!: FormField[][];
-  // TODO типизировать
   formValue: any;
 
   countryOptions: string[] = ['NG', 'GH'];
@@ -86,10 +85,6 @@ export class FormConstructorComponent implements OnInit {
     return undefined;
   }
 
-  goToStep(step: string): void {
-    this.currentStep = step === 'prev' ? --this.currentStep : ++this.currentStep;
-  }
-
   onNextStep() {
     if (this.forms[this.currentStep].valid) {
       this.currentStep++;
@@ -108,6 +103,7 @@ export class FormConstructorComponent implements OnInit {
         (forms, currentForm) => ({ ...forms, ...currentForm.value }),
         {}
       );
+      console.log(this.formValue);
     } else {
       this.markAllFieldsAsTouched();
     }

@@ -64,21 +64,21 @@ export const step3Data = {
 };
 
 export const step4Data = {
-  terms: {
+  termsNigeria: {
     type: 'checkbox',
     label: 'Agree to Terms',
     validators: [{ type: 'requiredTrue' }]
   },
-  country: {
+  countryNigeria: {
     type: 'select',
     label: 'Country',
     validators: [{ type: 'required' }],
     options: ['USA', 'Canada', 'UK']
   },
-  gender: {
+  AccountTypeNigeria: {
     type: 'radio',
-    label: 'Gender',
-    options: ['Male', 'Female']
+    label: 'Account Type',
+    options: ['Personal', 'Buisness']
   }
 };
 
