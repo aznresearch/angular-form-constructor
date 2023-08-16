@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { defaultErrorMessages } from 'src/app/constants/validator-constants';
 import {
@@ -15,9 +15,9 @@ import { FormConstructorService } from 'src/app/services/form-constructor.servic
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  @Input() formOptionsFullObject!: FormOptionsMock;
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
+  formOptionsFullObject!: FormOptionsMock;
   formOptions!: FormOptions[];
   currentStep!: number;
   forms!: FormGroup[];
@@ -39,6 +39,9 @@ export class FormComponent implements OnInit {
   }
 
   initFormOptions() {
+    this.formConstructorService.getFormOptions().subscribe((formOptionsFull) => {
+      this.formOptionsFullObject = formOptionsFull;
+    });
     this.formOptions = this.formOptionsFullObject.formData;
   }
 

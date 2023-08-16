@@ -1,5 +1,4 @@
-<app-form [formOptionsFullObject]="formOptionsFullObject" (submitForm)="postFormValue($event)">
-</app-form>
+<app-form (submitForm)="postFormValue($event)"> </app-form>
 
 <div class="post" *ngIf="formValue">
   <h3>Post body</h3>

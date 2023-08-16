@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { formOptionsMock } from '../constants/form-constants';
+import { FormOptionsMock } from '../models/form-constructor.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormConstructorService {
+  private formOptionsFull: BehaviorSubject<FormOptionsMock> = new BehaviorSubject<FormOptionsMock>(
+    formOptionsMock
+  );
+  formOptionsFull$: Observable<FormOptionsMock | null> = this.formOptionsFull.asObservable();
+
   constructor(private fb: FormBuilder) {}
 
   buildForm(formFields: any): FormGroup {
@@ -37,5 +45,9 @@ export class FormConstructorService {
     return validators
       .map((validator) => validatorMap[validator.type]?.(validator.value))
       .filter((validator) => validator !== null);
+  }
+
+  getFormOptions(): Observable<FormOptionsMock> {
+    return this.formOptionsFull$;
   }
 }

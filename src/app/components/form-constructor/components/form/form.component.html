@@ -1,11 +1,11 @@
 <h1 class="form-heading">{{ formOptions[currentStep].title }}</h1>
 <ng-container *ngFor="let form of forms; let i = index">
   <form
-    [formGroup]="forms[i]"
+    [formGroup]="forms[currentStep]"
     *ngIf="i === currentStep || forms.length === 1"
     class="needs-validation">
     <div class="row">
-      <ng-container *ngFor="let field of formFields[i]">
+      <ng-container *ngFor="let field of formFields[currentStep]">
         <div class="mb-3" [ngClass]="field.classes">
           <label *ngIf="field.type != 'checkbox'" [for]="field.key" class="form-label">{{
             field.label
@@ -58,7 +58,7 @@
           </div>
 
           <div class="validation-error" *ngIf="isFieldInvalid(form, field.key)">
-            {{ getValidationMessage(i, field.key) }}
+            {{ getValidationMessage(currentStep, field.key) }}
           </div>
         </div>
       </ng-container>
@@ -81,7 +81,7 @@
       <button
         *ngIf="currentStep !== formOptions.length - 1"
         type="button"
-        [disabled]="forms[i].invalid"
+        [disabled]="forms[currentStep].invalid"
         (click)="onNextStep()"
         class="btn btn-primary">
         Next
