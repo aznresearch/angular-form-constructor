@@ -5,9 +5,10 @@ import { AppComponent } from './app.component';
 import { FormConstructorComponent } from './components/form-constructor/form-constructor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SurveyConstructorComponent } from './components/survey-constructor/survey-constructor.component';
+import { FormComponent } from './components/form-constructor/components/form/form.component';
 
 @NgModule({
-  declarations: [AppComponent, FormConstructorComponent, SurveyConstructorComponent],
+  declarations: [AppComponent, FormConstructorComponent, SurveyConstructorComponent, FormComponent],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent]
