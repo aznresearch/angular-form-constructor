@@ -11,7 +11,9 @@ export class FormConstructorService {
   private formOptionsFull: BehaviorSubject<FormOptionsMock> = new BehaviorSubject<FormOptionsMock>(
     formOptionsMock
   );
-  formOptionsFull$: Observable<FormOptionsMock | null> = this.formOptionsFull.asObservable();
+  formOptionsFull$: Observable<FormOptionsMock> = this.formOptionsFull.asObservable();
+  private formValueSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  formValueSubject$: Observable<any> = this.formValueSubject.asObservable();
 
   constructor(private fb: FormBuilder) {}
 
@@ -49,5 +51,13 @@ export class FormConstructorService {
 
   getFormOptions(): Observable<FormOptionsMock> {
     return this.formOptionsFull$;
+  }
+
+  setFormValue(formData: any) {
+    this.formValueSubject.next(formData);
+  }
+
+  getFormValue() {
+    return this.formValueSubject$;
   }
 }

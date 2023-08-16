@@ -113,7 +113,7 @@ export class FormComponent implements OnInit {
   onSubmit() {
     if (this.isLastStepValid()) {
       this.formValue = this.collectFormValues();
-      this.emitFormSubmit(this.formValue);
+      this.formConstructorService.setFormValue(this.formValue);
     } else {
       this.markAllFieldsAsTouched();
     }
@@ -125,10 +125,6 @@ export class FormComponent implements OnInit {
 
   collectFormValues(): any {
     return this.forms.reduce((forms, currentForm) => ({ ...forms, ...currentForm.value }), {});
-  }
-
-  emitFormSubmit(formValue: any) {
-    this.submitForm.emit(formValue);
   }
 
   markAllFieldsAsTouched() {

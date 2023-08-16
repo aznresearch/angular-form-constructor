@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormConstructorService } from 'src/app/services/form-constructor.service';
 
 @Component({
   selector: 'app-form-constructor',
@@ -8,11 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class FormConstructorComponent implements OnInit {
   formValue: any = null;
 
-  constructor() {}
+  constructor(private formConstructorService: FormConstructorService) {}
 
-  ngOnInit() {}
-
-  postFormValue(formData: any) {
-    this.formValue = formData;
+  ngOnInit() {
+    this.formConstructorService.getFormValue().subscribe((formData) => {
+      this.formValue = formData;
+    });
   }
 }
