@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
 
 interface FormField {
   key: string;
@@ -14,42 +16,36 @@ interface FormField {
   styleUrls: ['./ui.component.scss']
 })
 export class UIComponent implements OnInit {
-  availableBlocks: FormField[] = [
-    { key: 'text343', label: 'Text Field', type: 'input' },
-    { key: 'date', label: 'Date Field', type: 'date' },
-    {
-      key: 'dropdown',
-      label: 'Dropdown',
-      type: 'dropdown',
-      options: [
-        { value: 'option1', label: 'Option 1' },
-        { value: 'option2', label: 'Option 2' }
-      ]
-    }
-  ];
-  blockSelected: any[] = [];
+  modalRef: BsModalRef | undefined;
 
   dynamicForm!: FormGroup;
   addedFields: FormField[] = [];
 
-  constructor() {}
+  constructor(private modalService: BsModalService) {}
 
   ngOnInit(): void {
     this.dynamicForm = new FormGroup({});
-  }
-  selectBlock(blockType: string) {
-    const selectedBlock = this.availableBlocks.find((block) => block.type === blockType);
-
-    if (selectedBlock) {
-      this.addedFields.push(selectedBlock);
-      console.log(this.addedFields);
-      this.addControlToForm(selectedBlock);
-    }
   }
 
   addControlToForm(field: FormField) {
     const control = new FormControl('');
     this.dynamicForm.addControl(field.key, control);
     console.log(this.dynamicForm);
+  }
+
+  openFieldsInsertingModal() {
+    this.openModal(UIModalFieldsInsertingComponent);
+    this.modalRef?.content.onBlockSelect.subscribe((selectedBlock: FormField) => {
+      if (selectedBlock) {
+        this.addedFields.push(selectedBlock);
+        this.addControlToForm(selectedBlock);
+      }
+    });
+  }
+
+  openModal(component: Type<any>) {
+    this.modalRef = this.modalService.show(component, {
+      class: 'modal-dialog-centered'
+    });
   }
 }

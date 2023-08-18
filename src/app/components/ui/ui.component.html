@@ -1,15 +1,3 @@
-<div>
-  <h2>UI</h2>
-  <div class="block-selector">
-    <h2>Select a Block</h2>
-    <ul>
-      <li *ngFor="let block of availableBlocks" (click)="selectBlock(block.type)">
-        {{ block.type }}
-      </li>
-    </ul>
-  </div>
-</div>
-
 <div class="test-form">
   <form [formGroup]="dynamicForm">
     <ng-container *ngFor="let field of addedFields">
@@ -22,4 +10,5 @@
       </select>
     </ng-container>
   </form>
+  <button class="btn btn-primary" (click)="openFieldsInsertingModal()">Open Modal</button>
 </div>
