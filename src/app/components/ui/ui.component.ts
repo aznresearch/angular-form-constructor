@@ -48,4 +48,17 @@ export class UIComponent implements OnInit {
       class: 'modal-dialog-centered'
     });
   }
+
+  removeField(field: FormField) {
+    const index = this.addedFields.indexOf(field);
+    if (index !== -1) {
+      this.addedFields.splice(index, 1);
+      this.dynamicForm.removeControl(field.key);
+    }
+    console.log(this.dynamicForm);
+  }
+
+  preventDefault(event: Event) {
+    event.preventDefault();
+  }
 }

@@ -1,14 +1,61 @@
+<h2>UI</h2>
+
 <div class="test-form">
   <form [formGroup]="dynamicForm">
     <ng-container *ngFor="let field of addedFields">
-      <label>{{ field.label }}</label>
-      <input *ngIf="field.type === 'input'" type="text" [formControlName]="field.key" />
-      <select *ngIf="field.type === 'dropdown'" [formControlName]="field.key">
-        <option *ngFor="let option of field.options" [value]="option.value">
-          {{ option.label }}
-        </option>
-      </select>
+      <label *ngIf="field.type != 'checkbox'" [for]="field.key" class="form-label">{{
+        field.label
+      }}</label>
+      <div class="test-form__field" [ngSwitch]="field.type">
+        <div class="test-form__field-toolbar">
+          <span (click)="removeField(field)">Удалить</span>&nbsp;&nbsp;&nbsp;
+          <span>Редактировать</span>
+        </div>
+        <ng-container *ngSwitchCase="'textarea'">
+          <textarea [id]="field.key" [formControlName]="field.key" class="form-control"></textarea>
+        </ng-container>
+        <ng-container *ngSwitchCase="'select'">
+          <select [id]="field.key" [formControlName]="field.key" class="form-select">
+            <option value="">Select your Country</option>
+            <option *ngFor="let option of field.options" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </ng-container>
+        <ng-container *ngSwitchCase="'checkbox'">
+          <div class="form-check">
+            <input
+              [id]="field.key"
+              type="checkbox"
+              [formControlName]="field.key"
+              class="form-check-input" />
+            <label [for]="field.key" class="form-check-label">{{ field.label }}</label>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'radio'">
+          <div *ngFor="let option of field.options" class="form-check">
+            <label class="form-check-label">
+              <input
+                [id]="field.key"
+                type="radio"
+                [formControlName]="field.key"
+                [value]="option.value"
+                class="form-check-input" />
+              {{ option.label }}
+            </label>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <input
+            [id]="field.key"
+            [type]="field.type"
+            [formControlName]="field.key"
+            class="form-control"
+            (mousedown)="preventDefault($event)" />
+        </ng-container>
+      </div>
     </ng-container>
   </form>
-  <button class="btn btn-primary" (click)="openFieldsInsertingModal()">Open Modal</button>
 </div>
+
+<button class="btn btn-primary" (click)="openFieldsInsertingModal()">Open Modal</button>

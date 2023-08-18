@@ -6,6 +6,14 @@ body {
   padding-top: 50px;
 }
 
+li {
+  list-style: none;
+}
+
+ul {
+  padding-left: 0;
+}
+
 input.ng-invalid.ng-touched {
   border: red 1px solid;
 
@@ -21,6 +29,21 @@ input.ng-invalid.ng-touched {
   }
 }
 
+.test-form {
+  &__field {
+    &:hover {
+      .test-form__field-toolbar {
+        opacity: 1;
+      }
+    }
+
+    &-toolbar {
+      opacity: 0;
+      transition: 0.2s;
+    }
+  }
+}
+
 .countrySelect {
   margin-bottom: 20px;
   margin-top: 20px;
@@ -28,4 +51,8 @@ input.ng-invalid.ng-touched {
 
 .post {
   margin-top: 30px;
+}
+
+.modal-content {
+  padding: 20px;
 }
