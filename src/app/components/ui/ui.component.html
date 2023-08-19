@@ -1,21 +1,29 @@
 <h2>UI</h2>
 
-<div class="test-form">
+<div class="test-form" cdkDropList (cdkDropListDropped)="onDrop($event)">
   <form [formGroup]="dynamicForm">
     <ng-container *ngFor="let field of addedFields">
       <label *ngIf="field.type != 'checkbox'" [for]="field.key" class="form-label">{{
         field.label
       }}</label>
-      <div class="test-form__field" [ngSwitch]="field.type">
+      <div class="test-form__field" [ngSwitch]="field.type" cdkDrag>
         <div class="test-form__field-toolbar">
           <span (click)="removeField(field)">Удалить</span>&nbsp;&nbsp;&nbsp;
           <span>Редактировать</span>
         </div>
         <ng-container *ngSwitchCase="'textarea'">
-          <textarea [id]="field.key" [formControlName]="field.key" class="form-control"></textarea>
+          <textarea
+            [id]="field.key"
+            [formControlName]="field.key"
+            (mousedown)="preventDefault($event)"
+            class="form-control"></textarea>
         </ng-container>
         <ng-container *ngSwitchCase="'select'">
-          <select [id]="field.key" [formControlName]="field.key" class="form-select">
+          <select
+            [id]="field.key"
+            [formControlName]="field.key"
+            (mousedown)="preventDefault($event)"
+            class="form-select">
             <option value="">Select your Country</option>
             <option *ngFor="let option of field.options" [value]="option.value">
               {{ option.label }}
@@ -28,7 +36,8 @@
               [id]="field.key"
               type="checkbox"
               [formControlName]="field.key"
-              class="form-check-input" />
+              class="form-check-input"
+              (mousedown)="preventDefault($event)" />
             <label [for]="field.key" class="form-check-label">{{ field.label }}</label>
           </div>
         </ng-container>
@@ -40,7 +49,8 @@
                 type="radio"
                 [formControlName]="field.key"
                 [value]="option.value"
-                class="form-check-input" />
+                class="form-check-input"
+                (mousedown)="preventDefault($event)" />
               {{ option.label }}
             </label>
           </div>
@@ -51,7 +61,8 @@
             [type]="field.type"
             [formControlName]="field.key"
             class="form-control"
-            (mousedown)="preventDefault($event)" />
+            (mousedown)="preventDefault($event)"
+            (click)="preventDefault($event)" />
         </ng-container>
       </div>
     </ng-container>

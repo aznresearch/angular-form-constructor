@@ -2,6 +2,7 @@ import { Component, OnInit, Type } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 interface FormField {
   key: string;
@@ -31,6 +32,7 @@ export class UIComponent implements OnInit {
     const control = new FormControl('');
     this.dynamicForm.addControl(field.key, control);
     console.log(this.dynamicForm);
+    console.log(this.addedFields);
   }
 
   openFieldsInsertingModal() {
@@ -60,5 +62,9 @@ export class UIComponent implements OnInit {
 
   preventDefault(event: Event) {
     event.preventDefault();
+  }
+
+  onDrop(event: CdkDragDrop<FormField[]>) {
+    moveItemInArray(this.addedFields, event.previousIndex, event.currentIndex);
   }
 }

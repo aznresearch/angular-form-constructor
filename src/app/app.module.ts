@@ -9,6 +9,7 @@ import { FormComponent } from './components/form-constructor/components/form/for
 import { UIComponent } from './components/ui/ui.component';
 import { UIModalFieldsInsertingComponent } from './components/ui/components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
 import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    DragDropModule
   ],
   providers: [BsModalRef],
   bootstrap: [AppComponent]
