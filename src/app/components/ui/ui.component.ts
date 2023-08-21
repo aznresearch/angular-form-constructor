@@ -6,7 +6,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-properties/ui-modal-field-properties.component';
 
 interface FormField {
-  key: string;
+  name: string;
   label: string;
   type: string;
   options?: { value: any; label: string }[];
@@ -31,17 +31,19 @@ export class UIComponent implements OnInit {
 
   addControlToForm(field: FormField) {
     const control = new FormControl('');
-    this.dynamicForm.addControl(field.key, control);
+    this.dynamicForm.addControl(field.name, control);
     console.log(this.dynamicForm);
     console.log(this.addedFields);
   }
 
   openFieldsInsertingModal() {
     this.openModal(UIModalFieldsInsertingComponent);
-    this.modalRef?.content.onBlockSelect.subscribe((selectedBlock: FormField) => {
-      if (selectedBlock) {
-        this.addedFields.push(selectedBlock);
-        this.addControlToForm(selectedBlock);
+    this.modalRef?.content.onFieldSelect.subscribe((selectedField: FormField) => {
+      console.log(selectedField);
+
+      if (selectedField) {
+        this.addedFields.push(selectedField);
+        this.addControlToForm(selectedField);
       }
     });
   }
@@ -74,7 +76,7 @@ export class UIComponent implements OnInit {
     const index = this.addedFields.indexOf(field);
     if (index !== -1) {
       this.addedFields.splice(index, 1);
-      this.dynamicForm.removeControl(field.key);
+      this.dynamicForm.removeControl(field.name);
     }
     console.log(this.dynamicForm);
   }

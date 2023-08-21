@@ -57,3 +57,16 @@ input.ng-invalid.ng-touched {
 .modal-content {
   padding: 20px;
 }
+
+.field-selector {
+  display: flex;
+
+  &__column {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  &__item {
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+}

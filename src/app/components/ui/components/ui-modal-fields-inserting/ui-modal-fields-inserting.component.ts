@@ -1,5 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { FormFieldType } from 'src/app/constants/ui-constants';
+import { UiFormService } from 'src/app/services/ui-form.service';
 
 interface FormField {
   key?: string;
@@ -14,37 +17,38 @@ interface FormField {
   styleUrls: ['./ui-modal-fields-inserting.component.scss']
 })
 export class UIModalFieldsInsertingComponent implements OnInit {
-  @Output() onBlockSelect: EventEmitter<FormField> = new EventEmitter<FormField>();
+  @Output() onFieldSelect: EventEmitter<FormField> = new EventEmitter<FormField>();
 
-  availableBlocks: FormField[] = [
-    { key: '', label: 'Text Field', type: 'input' },
-    { key: 'date', label: 'Date Field', type: 'date' },
-    {
-      key: 'dropdown',
-      label: 'Dropdown',
-      type: 'select',
-      options: [
-        { value: 'option1', label: 'Option 1' },
-        { value: 'option2', label: 'Option 2' }
-      ]
-    }
-  ];
-  blockSelected: any[] = [];
+  selectedFieldType = '';
+  propertyForm: FormGroup = this.fb.group({});
+  availableFieldTypes = Object.values(FormFieldType);
 
-  constructor(public modalRef: BsModalRef) {}
+  constructor(
+    public modalRef: BsModalRef,
+    private fb: FormBuilder,
+    private uiFormService: UiFormService
+  ) {}
 
   ngOnInit(): void {}
 
-  selectBlock(blockType: string) {
-    const selectedBlock = this.availableBlocks.find((block) => block.type === blockType);
-    if (selectedBlock) {
-      selectedBlock.key = selectedBlock.key || this.generateUniqueId().toString();
-      this.onBlockSelect.emit(selectedBlock);
-      this.modalRef.hide();
+  selectField(fieldType: string) {
+    const foundFieldType = this.availableFieldTypes.find((field) => field === fieldType);
+    if (foundFieldType) {
+      this.selectedFieldType = foundFieldType;
     }
+    this.createPropertyForm();
   }
 
-  generateUniqueId(): number {
-    return Math.floor(Math.random() * 1000000);
+  createPropertyForm() {
+    this.propertyForm = this.uiFormService.createPropertyForm();
+  }
+
+  saveFieldProperties() {
+    const fieldProperties = this.uiFormService.saveFieldProperties(
+      this.propertyForm,
+      this.selectedFieldType
+    );
+    this.onFieldSelect.emit(fieldProperties);
+    this.modalRef.hide();
   }
 }
