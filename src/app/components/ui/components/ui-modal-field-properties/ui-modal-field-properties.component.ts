@@ -21,14 +21,16 @@ export class UIModalFieldPropertiesComponent implements OnInit {
       validators: [''],
       classes: [''],
       placeholder: [''],
-      name: ['']
+      name: [''],
+      id: ['']
     });
 
     this.propertyForm.patchValue({
       validators: this.field.validators,
       classes: this.field.classes,
       placeholder: this.field.placeholder,
-      name: this.field.name
+      name: this.field.name,
+      id: this.field.id
     });
 
     console.log(this.field);
@@ -44,7 +46,8 @@ export class UIModalFieldPropertiesComponent implements OnInit {
       validators: this.propertyForm.value.validators,
       classes: this.propertyForm.value.classes,
       placeholder: this.propertyForm.value.placeholder,
-      name: this.propertyForm.value.name
+      name: this.propertyForm.value.name,
+      id: this.propertyForm.value.id
     };
     this.onPropertiesSave.emit(updatedField);
     this.modalRef.hide();

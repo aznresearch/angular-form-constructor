@@ -3,7 +3,7 @@
 <div class="test-form" cdkDropList (cdkDropListDropped)="onDrop($event)">
   <form [formGroup]="dynamicForm">
     <ng-container *ngFor="let field of addedFields">
-      <label *ngIf="field.type != 'checkbox'" [for]="field.name" class="form-label">{{
+      <label *ngIf="field.type != 'checkbox'" [for]="field.id" class="form-label">{{
         field.label
       }}</label>
       <div class="test-form__field" [ngSwitch]="field.type" cdkDrag>
@@ -13,15 +13,15 @@
         </div>
         <ng-container *ngSwitchCase="'textarea'">
           <textarea
-            [id]="field.name"
-            [formControlName]="field.name"
+            [id]="field.id"
+            [formControlName]="field.id"
             (mousedown)="preventDefault($event)"
             class="form-control"></textarea>
         </ng-container>
         <ng-container *ngSwitchCase="'select'">
           <select
-            [id]="field.name"
-            [formControlName]="field.name"
+            [id]="field.id"
+            [formControlName]="field.id"
             (mousedown)="preventDefault($event)"
             class="form-select">
             <option value="">Select your Country</option>
@@ -33,21 +33,21 @@
         <ng-container *ngSwitchCase="'checkbox'">
           <div class="form-check">
             <input
-              [id]="field.name"
+              [id]="field.id"
               type="checkbox"
-              [formControlName]="field.name"
+              [formControlName]="field.id"
               class="form-check-input"
               (mousedown)="preventDefault($event)" />
-            <label [for]="field.name" class="form-check-label">{{ field.label }}</label>
+            <label [for]="field.id" class="form-check-label">{{ field.label }}</label>
           </div>
         </ng-container>
         <ng-container *ngSwitchCase="'radio'">
           <div *ngFor="let option of field.options" class="form-check">
             <label class="form-check-label">
               <input
-                [id]="field.name"
+                [id]="field.id"
                 type="radio"
-                [formControlName]="field.name"
+                [formControlName]="field.id"
                 [value]="option.value"
                 class="form-check-input"
                 (mousedown)="preventDefault($event)" />
@@ -57,9 +57,9 @@
         </ng-container>
         <ng-container *ngSwitchDefault>
           <input
-            [id]="field.name"
+            [id]="field.id"
             [type]="field.type"
-            [formControlName]="field.name"
+            [formControlName]="field.id"
             class="form-control"
             (mousedown)="preventDefault($event)"
             (click)="preventDefault($event)" />

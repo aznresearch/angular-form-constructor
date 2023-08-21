@@ -7,6 +7,7 @@ import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-pro
 
 interface FormField {
   name: string;
+  id: string;
   label: string;
   type: string;
   options?: { value: any; label: string }[];
@@ -31,16 +32,12 @@ export class UIComponent implements OnInit {
 
   addControlToForm(field: FormField) {
     const control = new FormControl('');
-    this.dynamicForm.addControl(field.name, control);
-    console.log(this.dynamicForm);
-    console.log(this.addedFields);
+    this.dynamicForm.addControl(field.id, control);
   }
 
   openFieldsInsertingModal() {
     this.openModal(UIModalFieldsInsertingComponent);
     this.modalRef?.content.onFieldSelect.subscribe((selectedField: FormField) => {
-      console.log(selectedField);
-
       if (selectedField) {
         this.addedFields.push(selectedField);
         this.addControlToForm(selectedField);
@@ -78,7 +75,6 @@ export class UIComponent implements OnInit {
       this.addedFields.splice(index, 1);
       this.dynamicForm.removeControl(field.name);
     }
-    console.log(this.dynamicForm);
   }
 
   preventDefault(event: Event) {

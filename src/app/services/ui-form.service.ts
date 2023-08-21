@@ -21,10 +21,11 @@ export class UiFormService {
     const fieldOptions = form.value;
     fieldOptions.type = fieldType;
     fieldOptions.name = fieldOptions.name || this.generateUniqueId().toString();
+    fieldOptions.id = this.generateUniqueId().toString();
     return fieldOptions;
   }
 
   generateUniqueId(): number {
-    return Math.floor(Math.random() * 1000000);
+    return Math.floor(Math.random() * 100000000);
   }
 }

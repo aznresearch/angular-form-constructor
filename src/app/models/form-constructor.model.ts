@@ -5,7 +5,7 @@ export interface FormField {
   validators?: Validator[];
   options?: string[];
   classes?: string[];
-  key?: string;
+  id?: string;
   name?: string;
 }
 
