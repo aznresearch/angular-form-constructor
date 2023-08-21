@@ -9,7 +9,7 @@
       <div class="test-form__field" [ngSwitch]="field.type" cdkDrag>
         <div class="test-form__field-toolbar">
           <span (click)="removeField(field)">Удалить</span>&nbsp;&nbsp;&nbsp;
-          <span>Редактировать</span>
+          <span (click)="openFieldPropertiesModal(field)">Редактировать</span>
         </div>
         <ng-container *ngSwitchCase="'textarea'">
           <textarea
@@ -69,4 +69,4 @@
   </form>
 </div>
 
-<button class="btn btn-primary" (click)="openFieldsInsertingModal()">Open Modal</button>
+<button class="btn btn-primary" (click)="openFieldsInsertingModal()">Insert Field</button>

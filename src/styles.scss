@@ -31,6 +31,7 @@ input.ng-invalid.ng-touched {
 
 .test-form {
   &__field {
+    margin-bottom: 20px;
     &:hover {
       .test-form__field-toolbar {
         opacity: 1;

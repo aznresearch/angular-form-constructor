@@ -1,10 +1,12 @@
 export interface FormField {
-  type: string;
-  label: string;
+  placeholder?: string;
+  type?: string;
+  label?: string;
   validators?: Validator[];
   options?: string[];
   classes?: string[];
   key?: string;
+  name?: string;
 }
 
 export interface FormOptions {

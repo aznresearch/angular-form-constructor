@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-properties/ui-modal-field-properties.component';
 
 interface FormField {
   key: string;
@@ -45,8 +46,26 @@ export class UIComponent implements OnInit {
     });
   }
 
-  openModal(component: Type<any>) {
+  openFieldPropertiesModal(field: FormField) {
+    const initialState = {
+      field: field
+    };
+
+    this.openModal(UIModalFieldPropertiesComponent, initialState);
+
+    this.modalRef?.content.onPropertiesSave.subscribe((updatedField: FormField) => {
+      if (updatedField) {
+        const index = this.addedFields.indexOf(field);
+        if (index !== -1) {
+          this.addedFields[index] = updatedField;
+        }
+      }
+    });
+  }
+
+  openModal(component: Type<any>, initialState?: any) {
     this.modalRef = this.modalService.show(component, {
+      initialState,
       class: 'modal-dialog-centered'
     });
   }

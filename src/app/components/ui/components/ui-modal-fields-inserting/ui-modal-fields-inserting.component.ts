@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 interface FormField {
@@ -14,7 +14,7 @@ interface FormField {
   styleUrls: ['./ui-modal-fields-inserting.component.scss']
 })
 export class UIModalFieldsInsertingComponent implements OnInit {
-  onBlockSelect: EventEmitter<FormField> = new EventEmitter<FormField>();
+  @Output() onBlockSelect: EventEmitter<FormField> = new EventEmitter<FormField>();
 
   availableBlocks: FormField[] = [
     { key: '', label: 'Text Field', type: 'input' },
