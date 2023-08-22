@@ -37,7 +37,7 @@ export class UIComponent implements OnInit {
 
   openFieldsInsertingModal() {
     this.openModal(UIModalFieldsInsertingComponent);
-    this.modalRef?.content.onFieldSelect.subscribe((selectedField: FormField) => {
+    this.modalRef?.content.fieldSelect.subscribe((selectedField: FormField) => {
       if (selectedField) {
         this.addedFields.push(selectedField);
         this.addControlToForm(selectedField);
@@ -47,12 +47,12 @@ export class UIComponent implements OnInit {
 
   openFieldPropertiesModal(field: FormField) {
     const initialState = {
-      field: field
+      field
     };
 
     this.openModal(UIModalFieldPropertiesComponent, initialState);
 
-    this.modalRef?.content.onPropertiesSave.subscribe((updatedField: FormField) => {
+    this.modalRef?.content.propertiesSave.subscribe((updatedField: FormField) => {
       if (updatedField) {
         const index = this.addedFields.indexOf(field);
         if (index !== -1) {

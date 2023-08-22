@@ -10,7 +10,7 @@ import { FormField } from 'src/app/models/form-constructor.model';
 })
 export class UIModalFieldPropertiesComponent implements OnInit {
   @Input() field: FormField = {};
-  @Output() onPropertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
+  @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
 
   propertyForm: FormGroup = this.fb.group({});
 
@@ -49,7 +49,7 @@ export class UIModalFieldPropertiesComponent implements OnInit {
       name: this.propertyForm.value.name,
       id: this.propertyForm.value.id
     };
-    this.onPropertiesSave.emit(updatedField);
+    this.propertiesSave.emit(updatedField);
     this.modalRef.hide();
   }
 }

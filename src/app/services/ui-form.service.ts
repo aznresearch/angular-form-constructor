@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +10,35 @@ export class UiFormService {
   createPropertyForm(): FormGroup {
     return this.fb.group({
       name: '',
-      validators: '',
       classes: '',
       placeholder: '',
-      label: ''
+      label: '',
+      validators: this.createFormArray(),
+      options: this.createFormArray()
     });
+  }
+
+  createControl(): FormControl {
+    return this.fb.control('');
+  }
+
+  createFormArray(): FormArray {
+    return this.fb.array([]);
+  }
+
+  createGroup(controlName: string): FormGroup {
+    const group = this.fb.group({});
+
+    if (controlName === 'validators') {
+      group.addControl('type', this.createControl());
+      group.addControl('value', this.createControl());
+      group.addControl('errormsg', this.createControl());
+    } else if (controlName === 'options') {
+      group.addControl('name', this.createControl());
+      group.addControl('value', this.createControl());
+    }
+
+    return group;
   }
 
   saveFieldProperties(form: FormGroup, fieldType: string): any {
