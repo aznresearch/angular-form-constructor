@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormField } from 'src/app/models/form-constructor.model';
+import { UiFormService } from 'src/app/services/ui-form.service';
 
 @Component({
   selector: 'app-ui-modal-field-properties',
@@ -14,26 +15,23 @@ export class UIModalFieldPropertiesComponent implements OnInit {
 
   propertyForm: FormGroup = this.fb.group({});
 
-  constructor(public modalRef: BsModalRef, private fb: FormBuilder) {}
+  constructor(
+    public modalRef: BsModalRef,
+    private fb: FormBuilder,
+    private uiFormService: UiFormService
+  ) {}
 
   ngOnInit(): void {
-    this.propertyForm = this.fb.group({
-      validators: [''],
-      classes: [''],
-      placeholder: [''],
-      name: [''],
-      id: ['']
-    });
+    this.createPropertyForm();
+    this.patchFieldProperties();
+  }
 
-    this.propertyForm.patchValue({
-      validators: this.field.validators,
-      classes: this.field.classes,
-      placeholder: this.field.placeholder,
-      name: this.field.name,
-      id: this.field.id
-    });
+  createPropertyForm() {
+    this.propertyForm = this.uiFormService.createPropertyForm();
+  }
 
-    console.log(this.field);
+  patchFieldProperties() {
+    this.propertyForm.patchValue(this.field);
   }
 
   closeModal() {
@@ -41,15 +39,11 @@ export class UIModalFieldPropertiesComponent implements OnInit {
   }
 
   saveFieldProperties() {
-    const updatedField: FormField = {
+    const updatedFieldProperties: FormField = {
       ...this.field,
-      validators: this.propertyForm.value.validators,
-      classes: this.propertyForm.value.classes,
-      placeholder: this.propertyForm.value.placeholder,
-      name: this.propertyForm.value.name,
-      id: this.propertyForm.value.id
+      ...this.propertyForm.value
     };
-    this.propertiesSave.emit(updatedField);
+    this.propertiesSave.emit(updatedFieldProperties);
     this.modalRef.hide();
   }
 }
