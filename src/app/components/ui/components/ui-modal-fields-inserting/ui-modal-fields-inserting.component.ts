@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { formFieldTypes } from 'src/app/constants/ui-constants';
+import { fieldsToCreate, formFieldTypes } from 'src/app/constants/ui-constants';
 import { UiFormService } from 'src/app/services/ui-form.service';
 
 interface FormField {
@@ -17,7 +17,7 @@ interface FormField {
   styleUrls: ['./ui-modal-fields-inserting.component.scss']
 })
 export class UIModalFieldsInsertingComponent implements OnInit {
-  @Output() fieldSelect: EventEmitter<FormField> = new EventEmitter<FormField>();
+  @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
 
   selectedFieldType = '';
   propertyForm: FormGroup = this.fb.group({});
@@ -40,7 +40,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   }
 
   createPropertyForm() {
-    this.propertyForm = this.uiFormService.createPropertyForm();
+    this.propertyForm = this.uiFormService.createPropertyForm(fieldsToCreate);
   }
 
   saveFieldProperties() {
@@ -50,7 +50,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
     );
     console.log(fieldProperties);
 
-    this.fieldSelect.emit(fieldProperties);
+    this.propertiesSave.emit(fieldProperties);
     this.modalRef.hide();
   }
 }

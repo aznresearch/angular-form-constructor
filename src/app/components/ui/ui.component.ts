@@ -37,7 +37,7 @@ export class UIComponent implements OnInit {
 
   openFieldsInsertingModal() {
     this.openModal(UIModalFieldsInsertingComponent);
-    this.modalRef?.content.fieldSelect.subscribe((selectedField: FormField) => {
+    this.modalRef?.content.propertiesSave.subscribe((selectedField: FormField) => {
       if (selectedField) {
         this.addedFields.push(selectedField);
         this.addControlToForm(selectedField);

@@ -24,7 +24,10 @@ export const step1Data = {
   gender: {
     type: 'radio',
     label: 'Gender',
-    options: ['Male', 'Female']
+    options: [
+      { name: 'Male', value: 'Male' },
+      { name: 'Female', value: 'Female' }
+    ]
   }
 };
 
@@ -38,7 +41,11 @@ export const step2Data = {
     type: 'select',
     label: 'Country',
     validators: [{ type: 'required' }],
-    options: ['USA', 'Canada', 'UK']
+    options: [
+      { name: 'USA', value: 'USA' },
+      { name: 'Canada', value: 'Canada' },
+      { name: 'UK', value: 'UK' }
+    ]
   }
 };
 
@@ -73,12 +80,19 @@ export const step4Data = {
     type: 'select',
     label: 'Country',
     validators: [{ type: 'required' }],
-    options: ['USA', 'Canada', 'UK']
+    options: [
+      { name: 'USA', value: 'USA' },
+      { name: 'Canada', value: 'Canada' },
+      { name: 'UK', value: 'UK' }
+    ]
   },
   AccountTypeNigeria: {
     type: 'radio',
     label: 'Account Type',
-    options: ['Personal', 'Buisness']
+    options: [
+      { name: 'Personal', value: 'Personal' },
+      { name: 'Business', value: 'Business' }
+    ]
   }
 };
 

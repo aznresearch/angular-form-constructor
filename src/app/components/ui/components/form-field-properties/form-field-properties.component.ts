@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
-import { validatorTypes } from 'src/app/constants/ui-constants';
+import { validatorTypes, fieldsToCreate } from 'src/app/constants/ui-constants';
+import { FieldsToCreate } from 'src/app/models/ui-form.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   @Input() propertyForm?: FormGroup;
 
   validatorOptions = validatorTypes;
+  fieldsToCreate: FieldsToCreate[] = fieldsToCreate;
 
   constructor(private uiFormService: UiFormService) {}
 

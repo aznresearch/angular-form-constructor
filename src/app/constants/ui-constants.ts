@@ -47,3 +47,12 @@ export const validatorTypes: ValidatorType[] = [
   ValidatorType.Max,
   ValidatorType.RequiredTrue
 ];
+
+export const fieldsToCreate = [
+  { name: 'name', isArray: false },
+  { name: 'classes', isArray: false },
+  { name: 'placeholder', isArray: false },
+  { name: 'label', isArray: false },
+  { name: 'validators', isArray: true },
+  { name: 'options', isArray: true }
+];

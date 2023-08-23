@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FieldsToCreate } from '../models/ui-form.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,15 +8,18 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class UiFormService {
   constructor(private fb: FormBuilder) {}
 
-  createPropertyForm(): FormGroup {
-    return this.fb.group({
-      name: '',
-      classes: '',
-      placeholder: '',
-      label: '',
-      validators: this.createFormArray(),
-      options: this.createFormArray()
-    });
+  createPropertyForm(fieldsToCreate: FieldsToCreate[]): FormGroup {
+    const formGroupConfig: { [key: string]: FormArray | string } = {};
+
+    for (const field of fieldsToCreate) {
+      if (field.isArray) {
+        formGroupConfig[field.name] = this.createFormArray();
+      } else {
+        formGroupConfig[field.name] = '';
+      }
+    }
+
+    return this.fb.group(formGroupConfig);
   }
 
   createControl(): FormControl {

@@ -3,7 +3,7 @@ export interface FormField {
   type?: string;
   label?: string;
   validators?: Validator[];
-  options?: string[];
+  options?: Option[];
   classes?: string[];
   id?: string;
   name?: string;
@@ -18,6 +18,11 @@ export interface Validator {
   type: string;
   value?: number | string;
   errormsg?: string;
+}
+
+export interface Option {
+  name: string;
+  value: string;
 }
 
 export interface UniqueFormData {
