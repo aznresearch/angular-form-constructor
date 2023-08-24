@@ -58,40 +58,31 @@ input.ng-invalid.ng-touched {
   padding: 20px;
 }
 
-.field-selector {
-  display: flex;
-
-  .form-group {
-    margin-bottom: 10px;
-  }
-
-  &__column {
-    padding-left: 20px;
-    padding-right: 20px;
-    width: 50%;
-  }
-  &__item {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: 0.2s;
-    background-color: transparent;
-
-    &::first-letter {
-      text-transform: uppercase;
-    }
-
-    &:hover {
-      background-color: rgba(55, 53, 47, 0.09);
-    }
-  }
-}
-
 .modal-dialog-centered {
   max-width: none;
   width: 700px;
   h2 {
     white-space: nowrap;
+  }
+}
+
+.form-row {
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.form-buttons {
+  margin-bottom: 5px;
+  margin-top: 5px;
+
+  .btn {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

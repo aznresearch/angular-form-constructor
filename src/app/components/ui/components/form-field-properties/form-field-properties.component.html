@@ -1,6 +1,6 @@
 <form [formGroup]="propertyForm">
   <ng-container *ngFor="let field of fieldsToCreate">
-    <div [ngSwitch]="field.name">
+    <div class="form-row" [ngSwitch]="field.name">
       <div *ngSwitchCase="'validators'" formArrayName="validators">
         <label>Validators</label>
         <div
@@ -13,12 +13,24 @@
             </select>
             <input type="text" formControlName="value" placeholder="Value" />
             <input type="text" formControlName="errormsg" placeholder="Error Message" />
-            <button type="button" (click)="removeControlFromFormArray('validators', i)">
-              Remove Validator
-            </button>
+            <div class="form-buttons">
+              <button
+                class="btn btn-secondary"
+                type="button"
+                (click)="removeControlFromFormArray('validators', i)">
+                Remove Validator
+              </button>
+            </div>
           </div>
         </div>
-        <button type="button" (click)="addControlToFormArray('validators')">Add Validator</button>
+        <div class="form-buttons">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            (click)="addControlToFormArray('validators')">
+            Add Validator
+          </button>
+        </div>
       </div>
       <div *ngSwitchCase="'options'" formArrayName="options">
         <label>Options</label>
@@ -27,11 +39,23 @@
           [formGroupName]="i">
           <input type="text" formControlName="name" placeholder="Option Name" />
           <input type="text" formControlName="value" placeholder="Option Value" />
-          <button type="button" (click)="removeControlFromFormArray('options', i)">
-            Remove Option
+          <div class="form-buttons">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              (click)="removeControlFromFormArray('options', i)">
+              Remove Option
+            </button>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            (click)="addControlToFormArray('options')">
+            Add Option
           </button>
         </div>
-        <button type="button" (click)="addControlToFormArray('options')">Add Option</button>
       </div>
       <div *ngSwitchDefault [formGroup]="propertyForm">
         <div class="form-group">

@@ -18,10 +18,11 @@
         <div>
           <app-form-field-properties [propertyForm]="propertyForm"></app-form-field-properties>
         </div>
-        <div>
+        <div class="field-selector__buttons">
           <button type="button" class="btn btn-primary" (click)="saveFieldProperties()">
-            Сохранить
+            Save
           </button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
         </div>
       </div>
     </div>
