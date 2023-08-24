@@ -12,6 +12,7 @@ import { UIComponent } from './components/ui/ui.component';
 import { UIModalFieldsInsertingComponent } from './components/ui/components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
 import { UIModalFieldPropertiesComponent } from './components/ui/components/ui-modal-field-properties/ui-modal-field-properties.component';
 import { FormFieldPropertiesComponent } from './components/ui/components/form-field-properties/form-field-properties.component';
+import { SharedModalConfirmationComponent } from './components/shared/shared-modal-confirmation/shared-modal-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FormFieldPropertiesComponent } from './components/ui/components/form-fi
     UIComponent,
     UIModalFieldsInsertingComponent,
     UIModalFieldPropertiesComponent,
-    FormFieldPropertiesComponent
+    FormFieldPropertiesComponent,
+    SharedModalConfirmationComponent
   ],
   imports: [
     BrowserModule,
