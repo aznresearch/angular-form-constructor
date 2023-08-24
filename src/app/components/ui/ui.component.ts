@@ -22,12 +22,22 @@ export class UIComponent implements OnInit {
   modalRef: BsModalRef | undefined;
 
   dynamicForm!: FormGroup;
+  formData: FormField[][] = [];
   addedFields: FormField[] = [];
+
+  currentStep = 0;
 
   constructor(private modalService: BsModalService) {}
 
   ngOnInit(): void {
+    this.createForm();
+  }
+
+  createForm() {
     this.dynamicForm = new FormGroup({});
+    this.addedFields.forEach((field) => {
+      this.addControlToForm(field);
+    });
   }
 
   addControlToForm(field: FormField) {
@@ -74,6 +84,30 @@ export class UIComponent implements OnInit {
     if (index !== -1) {
       this.addedFields.splice(index, 1);
       this.dynamicForm.removeControl(field.name);
+    }
+  }
+
+  goToStep(step: number) {
+    this.currentStep = step;
+    this.addedFields = this.formData[this.currentStep] ? [...this.formData[this.currentStep]] : [];
+    this.createForm();
+  }
+
+  saveCurrentStepData() {
+    this.formData[this.currentStep] = [...this.addedFields];
+  }
+
+  goToNextStep() {
+    this.saveCurrentStepData();
+    this.currentStep++;
+    this.goToStep(this.currentStep);
+  }
+
+  goToPreviousStep() {
+    if (this.currentStep > 0) {
+      this.saveCurrentStepData();
+      this.currentStep--;
+      this.goToStep(this.currentStep);
     }
   }
 

@@ -1,0 +1,28 @@
+.test-form {
+  &__field {
+    margin-bottom: 20px;
+    &:hover {
+      .test-form__field-toolbar {
+        opacity: 1;
+      }
+    }
+
+    &-toolbar {
+      opacity: 0;
+      transition: 0.2s;
+    }
+  }
+
+  &__stepButtons {
+    display: flex;
+    margin-bottom: 30px;
+
+    .btn {
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

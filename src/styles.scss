@@ -29,22 +29,6 @@ input.ng-invalid.ng-touched {
   }
 }
 
-.test-form {
-  &__field {
-    margin-bottom: 20px;
-    &:hover {
-      .test-form__field-toolbar {
-        opacity: 1;
-      }
-    }
-
-    &-toolbar {
-      opacity: 0;
-      transition: 0.2s;
-    }
-  }
-}
-
 .countrySelect {
   margin-bottom: 20px;
   margin-top: 20px;

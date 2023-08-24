@@ -1,4 +1,5 @@
 <h2>UI</h2>
+<h3>Step {{ currentStep + 1 }}</h3>
 
 <div class="test-form" cdkDropList (cdkDropListDropped)="onDrop($event)">
   <form [formGroup]="dynamicForm">
@@ -68,5 +69,25 @@
     </ng-container>
   </form>
 </div>
+<div class="test-form__stepButtons">
+  <button class="btn btn-primary" (click)="openFieldsInsertingModal()">Insert Field</button>
+</div>
 
-<button class="btn btn-primary" (click)="openFieldsInsertingModal()">Insert Field</button>
+<div class="test-form__stepButtons">
+  <button *ngIf="currentStep > 0" class="btn btn-primary" (click)="goToPreviousStep()">
+    Previous Step
+  </button>
+  <button class="btn btn-primary" (click)="goToNextStep()">Next Step</button>
+</div>
+
+<ng-container *ngIf="formData.length > 0">
+  <span>Go to:</span>
+  <div class="test-form__stepButtons">
+    <button
+      class="btn btn-secondary"
+      *ngFor="let step of formData; let i = index"
+      (click)="goToStep(i)">
+      Step {{ i + 1 }}
+    </button>
+  </div>
+</ng-container>
