@@ -131,12 +131,18 @@ export class UIComponent implements OnInit {
 
   clearCurrentStep() {
     this.addedFields = [];
-    this.formData[this.currentStep] = [];
+
+    this.formData.splice(this.currentStep, 1);
+
     Object.keys(this.dynamicForm.controls).forEach((controlName) => {
       if (this.dynamicForm.contains(controlName)) {
         this.dynamicForm.removeControl(controlName);
       }
     });
+
+    if (this.formData.length > 0 && this.currentStep >= this.formData.length) {
+      this.goToStep(this.currentStep - 1);
+    }
   }
 
   preventDefault(event: Event) {

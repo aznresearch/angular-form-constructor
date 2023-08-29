@@ -1,6 +1,32 @@
 .test-form {
+  &__header {
+    padding-left: 60px;
+    padding-right: 60px;
+
+    h3 {
+      margin-bottom: 40px;
+    }
+  }
+
+  &__footer {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  &__body {
+    min-height: 200px;
+  }
+
   &__field {
     margin-bottom: 20px;
+    position: relative;
+    padding-left: 60px;
+    padding-right: 60px;
+    cursor: move;
+
+    input {
+      cursor: move;
+    }
     &:hover {
       .test-form__field-toolbar {
         opacity: 1;
@@ -8,9 +34,55 @@
     }
 
     &-toolbar {
+      padding-left: 10px;
+      padding-right: 10px;
       opacity: 0;
       transition: 0.2s;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      display: flex;
+
+      &-icon {
+        display: block;
+        margin-right: 5px;
+        cursor: pointer;
+        position: relative;
+
+        &:before {
+          content: attr(data-tooltip);
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, -100%);
+          top: 0;
+
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 14px;
+          white-space: nowrap;
+          visibility: hidden;
+          opacity: 0;
+          transition: opacity 0.3s, visibility 0.3s;
+          z-index: 1;
+        }
+
+        &:hover:before {
+          visibility: visible;
+          opacity: 1;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
+  }
+
+  &__label {
+    padding-left: 60px;
+    padding-right: 60px;
   }
 
   &__stepButtons {
