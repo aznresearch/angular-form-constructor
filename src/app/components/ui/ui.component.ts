@@ -1,18 +1,13 @@
 import { Component, OnInit, Type } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
+import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
 import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-properties/ui-modal-field-properties.component';
 import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
-
-interface FormField {
-  name: string;
-  id: string;
-  label: string;
-  type: string;
-  options?: { value: any; label: string }[];
-}
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { FormField } from 'src/app/models/form-constructor.model';
 
 @Component({
   selector: 'app-ui',
@@ -35,9 +30,13 @@ export class UIComponent implements OnInit {
     class: 'modal-md'
   };
 
-  constructor(private modalService: BsModalService) {}
+  constructor(
+    private modalService: BsModalService,
+    private localStorageService: LocalStorageService
+  ) {}
 
   ngOnInit(): void {
+    this.restoreFormDataFromLocalStorage();
     this.createForm();
   }
 
@@ -59,6 +58,7 @@ export class UIComponent implements OnInit {
       if (selectedField) {
         this.addedFields.push(selectedField);
         this.addControlToForm(selectedField);
+        this.saveCurrentStepData();
       }
     });
   }
@@ -76,6 +76,7 @@ export class UIComponent implements OnInit {
         if (index !== -1) {
           this.addedFields[index] = updatedField;
         }
+        this.saveCurrentStepData();
       }
     });
   }
@@ -93,6 +94,7 @@ export class UIComponent implements OnInit {
       this.addedFields.splice(index, 1);
       this.dynamicForm.removeControl(field.name);
     }
+    this.saveCurrentStepData();
   }
 
   goToStep(step: number) {
@@ -103,6 +105,7 @@ export class UIComponent implements OnInit {
 
   saveCurrentStepData() {
     this.formData[this.currentStep] = [...this.addedFields];
+    this.saveFormDataToLocalStorage();
   }
 
   goToNextStep() {
@@ -131,7 +134,6 @@ export class UIComponent implements OnInit {
 
   clearCurrentStep() {
     this.addedFields = [];
-
     this.formData.splice(this.currentStep, 1);
 
     Object.keys(this.dynamicForm.controls).forEach((controlName) => {
@@ -143,6 +145,24 @@ export class UIComponent implements OnInit {
     if (this.formData.length > 0 && this.currentStep >= this.formData.length) {
       this.goToStep(this.currentStep - 1);
     }
+
+    this.saveFormDataToLocalStorage();
+  }
+
+  restoreFormDataFromLocalStorage() {
+    const savedFormData = this.localStorageService.getItem('formData');
+
+    if (savedFormData) {
+      this.formData = savedFormData;
+    } else {
+      this.formData = [];
+    }
+
+    this.addedFields = this.formData[this.currentStep] ?? [];
+  }
+
+  saveFormDataToLocalStorage() {
+    this.localStorageService.setItem('formData', this.formData);
   }
 
   preventDefault(event: Event) {
@@ -151,5 +171,6 @@ export class UIComponent implements OnInit {
 
   onDrop(event: CdkDragDrop<FormField[]>) {
     moveItemInArray(this.addedFields, event.previousIndex, event.currentIndex);
+    this.saveCurrentStepData();
   }
 }

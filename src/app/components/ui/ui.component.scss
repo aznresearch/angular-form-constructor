@@ -24,7 +24,9 @@
     padding-right: 60px;
     cursor: move;
 
-    input {
+    input,
+    select,
+    textarea {
       cursor: move;
     }
     &:hover {
