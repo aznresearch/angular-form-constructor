@@ -15,6 +15,7 @@ export class UIModalFieldPropertiesComponent implements OnInit {
   @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
 
   propertyForm: FormGroup = this.fb.group({});
+  selectedFieldType = '';
 
   constructor(
     public modalRef: BsModalRef,
@@ -23,6 +24,7 @@ export class UIModalFieldPropertiesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.selectedFieldType = this.field.type ?? '';
     this.createPropertyForm();
     this.patchFieldProperties();
   }
