@@ -33,29 +33,31 @@
         </div>
       </div>
       <div *ngSwitchCase="'options'" formArrayName="options">
-        <label>Options</label>
-        <div
-          *ngFor="let optionControl of propertyForm?.get('options')?.controls; let i = index"
-          [formGroupName]="i">
-          <input type="text" formControlName="name" placeholder="Option Name" />
-          <input type="text" formControlName="value" placeholder="Option Value" />
+        <ng-container *ngIf="shouldShowOptions()">
+          <label>Options</label>
+          <div
+            *ngFor="let optionControl of propertyForm?.get('options')?.controls; let i = index"
+            [formGroupName]="i">
+            <input type="text" formControlName="name" placeholder="Option Name" />
+            <input type="text" formControlName="value" placeholder="Option Value" />
+            <div class="form-buttons">
+              <button
+                class="btn btn-secondary"
+                type="button"
+                (click)="removeControlFromFormArray('options', i)">
+                Remove Option
+              </button>
+            </div>
+          </div>
           <div class="form-buttons">
             <button
               class="btn btn-secondary"
               type="button"
-              (click)="removeControlFromFormArray('options', i)">
-              Remove Option
+              (click)="addControlToFormArray('options')">
+              Add Option
             </button>
           </div>
-        </div>
-        <div class="form-buttons">
-          <button
-            class="btn btn-secondary"
-            type="button"
-            (click)="addControlToFormArray('options')">
-            Add Option
-          </button>
-        </div>
+        </ng-container>
       </div>
       <div *ngSwitchDefault [formGroup]="propertyForm">
         <div class="form-group">

@@ -38,7 +38,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
     if (this.isFormCreated) {
       const modalRef = this.modalService.show(SharedModalConfirmationComponent, this.modalOptions);
 
-      modalRef.content.close.subscribe((result: boolean) => {
+      modalRef.content.confirm.subscribe((result: boolean) => {
         if (result) {
           this.resetFormAndSelectField(fieldType);
         }

@@ -12,6 +12,7 @@ import { UiFormService } from 'src/app/services/ui-form.service';
 })
 export class FormFieldPropertiesComponent implements OnInit {
   @Input() propertyForm?: FormGroup;
+  @Input() selectedFieldType = '';
 
   validatorOptions = validatorTypes;
   fieldsToCreate: FieldsToCreate[] = fieldsToCreate;
@@ -29,5 +30,10 @@ export class FormFieldPropertiesComponent implements OnInit {
   removeControlFromFormArray(arrayName: string, index: number): void {
     const formArray = this.propertyForm?.get(arrayName) as FormArray;
     formArray.removeAt(index);
+  }
+
+  shouldShowOptions(): boolean {
+    const allowedFieldTypes = ['select', 'checkbox', 'radio'];
+    return allowedFieldTypes.includes(this.selectedFieldType);
   }
 }

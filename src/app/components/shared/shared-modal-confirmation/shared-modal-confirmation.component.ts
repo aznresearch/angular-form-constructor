@@ -8,13 +8,13 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class SharedModalConfirmationComponent implements OnInit {
   message = '';
-  @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() confirm: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(public modalRef: BsModalRef) {}
   ngOnInit(): void {}
 
-  confirm() {
-    this.close.emit(true);
+  confirmModal() {
+    this.confirm.emit(true);
     this.modalRef.hide();
   }
 

@@ -122,7 +122,7 @@ export class UIComponent implements OnInit {
   clearFormConfirmation() {
     const modalRef = this.modalService.show(SharedModalConfirmationComponent, this.modalOptions);
 
-    modalRef.content.close.subscribe((result: boolean) => {
+    modalRef.content.confirm.subscribe((result: boolean) => {
       if (result) {
         this.clearCurrentStep();
       }

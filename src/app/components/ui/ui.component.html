@@ -4,7 +4,7 @@
 <div class="test-form" cdkDropList (cdkDropListDropped)="onDrop($event)">
   <form [formGroup]="dynamicForm">
     <ng-container *ngFor="let field of addedFields">
-      <label class="form-label">{{ field.label }}</label>
+      <label class="form-label">{{ field.title }}</label>
       <div class="test-form__field" [ngSwitch]="field.type" cdkDrag>
         <div class="test-form__field-toolbar">
           <span (click)="removeField(field)">Удалить</span>&nbsp;&nbsp;&nbsp;

@@ -52,7 +52,7 @@ export const fieldsToCreate = [
   { name: 'name', isArray: false },
   { name: 'classes', isArray: false },
   { name: 'placeholder', isArray: false },
-  { name: 'label', isArray: false },
+  { name: 'title', isArray: false },
   { name: 'validators', isArray: true },
   { name: 'options', isArray: true }
 ];
