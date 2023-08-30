@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FieldsToCreate } from '../models/ui-form.model';
+import { FormField, Validator } from '../models/form-constructor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,8 +46,11 @@ export class UiFormService {
     return group;
   }
 
-  saveFieldProperties(form: FormGroup, fieldType: string): any {
+  saveFieldProperties(form: FormGroup, fieldType: string): FormField {
     const fieldOptions = form.value;
+    fieldOptions.validators = fieldOptions.validators.filter((validator: Validator) => {
+      return Object.values(validator).some((property) => property !== '');
+    });
     fieldOptions.type = fieldType;
     fieldOptions.name = fieldOptions.name || this.generateUniqueId().toString();
     fieldOptions.id = this.generateUniqueId().toString();

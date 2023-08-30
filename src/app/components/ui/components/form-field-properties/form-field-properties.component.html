@@ -12,6 +12,7 @@
               <option *ngFor="let option of validatorOptions" [value]="option">{{ option }}</option>
             </select>
             <input
+              *ngIf="showValueInput(control.get('type').value)"
               class="form-control form-control-sm"
               type="text"
               formControlName="value"

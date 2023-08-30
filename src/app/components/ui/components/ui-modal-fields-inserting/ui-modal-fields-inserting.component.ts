@@ -82,7 +82,6 @@ export class UIModalFieldsInsertingComponent implements OnInit {
       this.propertyForm,
       this.selectedFieldType
     );
-
     this.propertiesSave.emit(fieldProperties);
     this.modalRef.hide();
   }

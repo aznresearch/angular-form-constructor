@@ -36,4 +36,9 @@ export class FormFieldPropertiesComponent implements OnInit {
     const allowedFieldTypes = ['select', 'checkbox', 'radio'];
     return allowedFieldTypes.includes(this.selectedFieldType);
   }
+
+  showValueInput(validatorType: string): boolean {
+    const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];
+    return !withoutValueValidatorTypes.includes(validatorType);
+  }
 }
