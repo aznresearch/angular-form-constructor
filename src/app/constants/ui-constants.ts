@@ -56,3 +56,8 @@ export const fieldsToCreate = [
   { name: 'validators', isArray: true },
   { name: 'options', isArray: true }
 ];
+
+export const defaultOptionValues: { name: string; value: string }[] = [
+  { name: 'Default Option', value: 'Default Value' },
+  { name: 'Default Option2', value: 'Default Value2' }
+];

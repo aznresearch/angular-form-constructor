@@ -2,6 +2,8 @@ import { FormOptionsMock } from '../models/form-constructor.model';
 
 export const step1Data = {
   name: {
+    id: 'name',
+    name: 'name',
     type: 'text',
     label: 'Name',
     validators: [
@@ -11,17 +13,23 @@ export const step1Data = {
     classes: ['col-6', 'someClass']
   },
   birthdate: {
+    id: 'birthdate',
+    name: 'birthdate',
     type: 'date',
     label: 'Date of Birth',
     validators: [],
     classes: ['col-4']
   },
   file: {
+    id: 'file',
+    name: 'file',
     type: 'file',
     label: 'Add File',
     validators: []
   },
   gender: {
+    id: 'gender',
+    name: 'gender',
     type: 'radio',
     label: 'Gender',
     options: [
@@ -33,11 +41,15 @@ export const step1Data = {
 
 export const step2Data = {
   terms: {
+    id: 'terms',
+    name: 'terms',
     type: 'checkbox',
     label: 'Agree to Terms',
     validators: [{ type: 'requiredTrue', errormsg: 'Must agree to terms' }]
   },
   country: {
+    id: 'country',
+    name: 'country',
     type: 'select',
     label: 'Country',
     validators: [{ type: 'required' }],
@@ -51,11 +63,15 @@ export const step2Data = {
 
 export const step3Data = {
   email: {
+    id: 'email',
+    name: 'email',
     type: 'email',
     label: 'Email',
     validators: [{ type: 'required' }, { type: 'email', errormsg: 'Invalid email format' }]
   },
   phone: {
+    id: 'phone',
+    name: 'phone',
     type: 'tel',
     label: 'Phone',
     validators: [
@@ -64,6 +80,8 @@ export const step3Data = {
     ]
   },
   information: {
+    id: 'information',
+    name: 'information',
     type: 'textarea',
     label: 'Additional Information',
     validators: []
@@ -72,11 +90,15 @@ export const step3Data = {
 
 export const step4Data = {
   termsNigeria: {
+    id: 'termsNigeria',
+    name: 'termsNigeria',
     type: 'checkbox',
     label: 'Agree to Terms',
     validators: [{ type: 'requiredTrue' }]
   },
   countryNigeria: {
+    id: 'countryNigeria',
+    name: 'countryNigeria',
     type: 'select',
     label: 'Country',
     validators: [{ type: 'required' }],
@@ -87,6 +109,8 @@ export const step4Data = {
     ]
   },
   AccountTypeNigeria: {
+    id: 'AccountTypeNigeria',
+    name: 'AccountTypeNigeria',
     type: 'radio',
     label: 'Account Type',
     options: [

@@ -5,8 +5,8 @@ export interface FormField {
   validators?: Validator[];
   options?: Option[];
   classes?: string[];
-  id?: string;
-  name?: string;
+  id: string;
+  name: string;
 }
 
 export interface FormOptions {

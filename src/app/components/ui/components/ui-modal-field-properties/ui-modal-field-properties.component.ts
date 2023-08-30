@@ -11,7 +11,7 @@ import { UiFormService } from 'src/app/services/ui-form.service';
   styleUrls: ['./ui-modal-field-properties.component.scss']
 })
 export class UIModalFieldPropertiesComponent implements OnInit {
-  @Input() field: FormField = {};
+  @Input() field: FormField = { id: '', name: '' };
   @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
 
   propertyForm: FormGroup = this.fb.group({});

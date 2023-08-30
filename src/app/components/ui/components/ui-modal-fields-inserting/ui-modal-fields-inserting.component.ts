@@ -1,8 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { SharedModalConfirmationComponent } from 'src/app/components/shared/shared-modal-confirmation/shared-modal-confirmation.component';
-import { fieldsToCreate, formFieldTypes } from 'src/app/constants/ui-constants';
+import {
+  fieldsToCreate,
+  formFieldTypes,
+  defaultOptionValues
+} from 'src/app/constants/ui-constants';
 import { FormField } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
 
@@ -54,6 +58,18 @@ export class UIModalFieldsInsertingComponent implements OnInit {
       this.selectedFieldType = foundFieldType;
     }
     this.createPropertyForm();
+    this.setDefaultOptionValues();
+  }
+
+  setDefaultOptionValues() {
+    const formArray = this.propertyForm?.get('options') as FormArray;
+    defaultOptionValues.forEach((option) => {
+      const group = this.fb.group({
+        name: this.fb.control(option.name),
+        value: this.fb.control(option.value)
+      });
+      formArray.push(group);
+    });
   }
 
   createPropertyForm() {
@@ -66,7 +82,6 @@ export class UIModalFieldsInsertingComponent implements OnInit {
       this.propertyForm,
       this.selectedFieldType
     );
-    console.log(fieldProperties);
 
     this.propertiesSave.emit(fieldProperties);
     this.modalRef.hide();
