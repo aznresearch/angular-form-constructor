@@ -37,6 +37,20 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.Phone
 ];
 
+export const fieldTypesNames = {
+  [FormFieldType.Text]: 'Text Input',
+  [FormFieldType.Textarea]: 'Text Area',
+  [FormFieldType.Date]: 'Date',
+  [FormFieldType.Select]: 'Select',
+  [FormFieldType.Number]: 'Number',
+  [FormFieldType.Checkbox]: 'Checkboxes',
+  [FormFieldType.Radio]: 'Radio',
+  [FormFieldType.File]: 'File Attachment',
+  [FormFieldType.Password]: 'Password',
+  [FormFieldType.Email]: 'Email',
+  [FormFieldType.Phone]: 'Phone number'
+};
+
 export const validatorTypes: ValidatorType[] = [
   ValidatorType.Required,
   ValidatorType.MinLength,

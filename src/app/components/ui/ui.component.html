@@ -12,6 +12,9 @@
             <label class="form-label">{{ field.title }}</label>
           </div>
           <div class="test-form__field" [ngSwitch]="field.type" cdkDrag>
+            <div class="test-form__field-label">
+              <span>{{ fieldLabels[field.type] }}</span>
+            </div>
             <div class="test-form__field-toolbar">
               <span
                 class="test-form__field-toolbar-icon"

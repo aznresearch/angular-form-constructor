@@ -8,6 +8,7 @@ import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-pro
 import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { FormField } from 'src/app/models/form-constructor.model';
+import { fieldTypesNames } from 'src/app/constants/ui-constants';
 
 @Component({
   selector: 'app-ui',
@@ -20,6 +21,7 @@ export class UIComponent implements OnInit {
   dynamicForm!: FormGroup;
   formData: FormField[][] = [];
   addedFields: FormField[] = [];
+  fieldLabels = fieldTypesNames;
 
   currentStep = 0;
 
