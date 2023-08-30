@@ -19,7 +19,9 @@ export class FormFieldPropertiesComponent implements OnInit {
 
   constructor(private uiFormService: UiFormService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.propertyForm);
+  }
 
   addControlToFormArray(arrayName: string): void {
     const formArray = this.propertyForm?.get(arrayName) as FormArray;

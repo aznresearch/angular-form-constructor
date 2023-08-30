@@ -7,8 +7,13 @@ import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-in
 import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-properties/ui-modal-field-properties.component';
 import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { FormField } from 'src/app/models/form-constructor.model';
+import { ConditionalLogicBlock, FormField } from 'src/app/models/form-constructor.model';
 import { fieldTypesNames } from 'src/app/constants/ui-constants';
+
+interface StepData {
+  addedFields: FormField[];
+  conditionalLogicBlocks: ConditionalLogicBlock[];
+}
 
 @Component({
   selector: 'app-ui',
@@ -19,9 +24,11 @@ export class UIComponent implements OnInit {
   modalRef: BsModalRef | undefined;
 
   dynamicForm!: FormGroup;
-  formData: FormField[][] = [];
+  formData: StepData[] = [];
   addedFields: FormField[] = [];
   fieldLabels = fieldTypesNames;
+
+  conditionalLogicBlocks: ConditionalLogicBlock[] = [];
 
   currentStep = 0;
 
@@ -34,11 +41,11 @@ export class UIComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService // private fb: FormBuilder, // private uiFormService: UiFormService
   ) {}
 
   ngOnInit(): void {
-    this.restoreFormDataFromLocalStorage();
+    // this.restoreFormDataFromLocalStorage();
     this.createForm();
   }
 
@@ -47,7 +54,17 @@ export class UIComponent implements OnInit {
     this.addedFields.forEach((field) => {
       this.addControlToForm(field);
     });
+
+    // const blocksArray = this.dynamicForm.get('conditionalLogicBlocks') as FormArray;
+    // this.conditionalLogicBlocks.forEach((block) => {
+    //   const blockGroup = this.createConditionalLogicBlockGroup(block);
+    //   blocksArray.push(blockGroup);
+    // });
   }
+
+  // createConditionalLogicBlockGroup(block: ConditionalLogicBlock): FormGroup {
+  //   return this.fb.group(block);
+  // }
 
   addControlToForm(field: FormField) {
     const control = new FormControl('');
@@ -83,13 +100,6 @@ export class UIComponent implements OnInit {
     });
   }
 
-  openModal(component: Type<any>, initialState?: any) {
-    this.modalRef = this.modalService.show(component, {
-      initialState,
-      class: 'modal-dialog-centered'
-    });
-  }
-
   removeField(field: FormField) {
     const index = this.addedFields.indexOf(field);
     if (index !== -1) {
@@ -99,14 +109,63 @@ export class UIComponent implements OnInit {
     this.saveCurrentStepData();
   }
 
+  insertConditionalLogicBlock() {
+    // const newBlock = this.fb.group({
+    //   selectedField: [''],
+    //   selectedCondition: [''],
+    //   conditionValue: [''],
+    //   selectedAction: [''],
+    //   selectedTargetField: ['']
+    // });
+    // const blocksArray = this.dynamicForm.get('conditionalLogicBlocks') as FormArray;
+    // blocksArray.push(newBlock);
+    // console.log(newBlock);
+    // console.log(blocksArray);
+    // const formArray = this.dynamicForm?.get('conditionalLogicBlocks') as FormArray;
+    // const newGroup = this.uiFormService.createGroup('conditionalLogicBlocks');
+    // formArray.push(newGroup);
+    // console.log(this.dynamicForm?.get('conditionalLogicBlocks'));
+  }
+
+  // removeConditionalLogicBlock(index: number) {
+  //   const blocksArray = this.dynamicForm.get('conditionalLogicBlocks') as FormArray;
+  //   blocksArray.removeAt(index);
+  // }
+
+  addConditionalLogicBlock() {
+    const newBlock: ConditionalLogicBlock = {
+      selectedField: '',
+      selectedCondition: '',
+      conditionValue: '',
+      selectedAction: '',
+      selectedTargetField: '',
+      type: 'conditionalLogicBlock'
+    };
+
+    this.conditionalLogicBlocks.push(newBlock);
+  }
+
+  removeConditionalLogicBlock(index: number) {
+    this.conditionalLogicBlocks.splice(index, 1);
+  }
+
   goToStep(step: number) {
     this.currentStep = step;
-    this.addedFields = this.formData[this.currentStep] ? [...this.formData[this.currentStep]] : [];
+
+    this.addedFields = this.formData[this.currentStep]?.addedFields
+      ? this.formData[this.currentStep].addedFields
+      : [];
+    this.conditionalLogicBlocks = this.formData[this.currentStep]?.conditionalLogicBlocks
+      ? this.formData[this.currentStep].conditionalLogicBlocks
+      : [];
     this.createForm();
   }
 
   saveCurrentStepData() {
-    this.formData[this.currentStep] = [...this.addedFields];
+    this.formData[this.currentStep] = {
+      addedFields: [...this.addedFields],
+      conditionalLogicBlocks: [...this.conditionalLogicBlocks]
+    };
     this.saveFormDataToLocalStorage();
   }
 
@@ -136,6 +195,7 @@ export class UIComponent implements OnInit {
 
   clearCurrentStep() {
     this.addedFields = [];
+    this.conditionalLogicBlocks = [];
     this.formData.splice(this.currentStep, 1);
 
     Object.keys(this.dynamicForm.controls).forEach((controlName) => {
@@ -151,20 +211,27 @@ export class UIComponent implements OnInit {
     this.saveFormDataToLocalStorage();
   }
 
-  restoreFormDataFromLocalStorage() {
-    const savedFormData = this.localStorageService.getItem('formData');
+  // restoreFormDataFromLocalStorage() {
+  //   const savedFormData = this.localStorageService.getItem('formData');
 
-    if (savedFormData) {
-      this.formData = savedFormData;
-    } else {
-      this.formData = [];
-    }
+  //   if (savedFormData) {
+  //     this.formData = savedFormData;
+  //   } else {
+  //     this.formData = [];
+  //   }
 
-    this.addedFields = this.formData[this.currentStep] ?? [];
-  }
+  //   this.addedFields = this.formData[this.currentStep] ?? [];
+  // }
 
   saveFormDataToLocalStorage() {
     this.localStorageService.setItem('formData', this.formData);
+  }
+
+  openModal(component: Type<any>, initialState?: any) {
+    this.modalRef = this.modalService.show(component, {
+      initialState,
+      class: 'modal-dialog-centered'
+    });
   }
 
   preventDefault(event: Event) {

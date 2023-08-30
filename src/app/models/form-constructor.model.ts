@@ -9,6 +9,15 @@ export interface FormField {
   name: string;
 }
 
+export interface ConditionalLogicBlock {
+  selectedField: string;
+  selectedCondition: string;
+  conditionValue: string;
+  selectedAction: string;
+  selectedTargetField: string;
+  type: string;
+}
+
 export interface FormOptions {
   title: string;
   data: { [key: string]: FormField };

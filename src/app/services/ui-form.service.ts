@@ -41,6 +41,12 @@ export class UiFormService {
     } else if (controlName === 'options') {
       group.addControl('name', this.createControl());
       group.addControl('value', this.createControl());
+    } else if (controlName === 'conditionalLogicBlocks') {
+      group.addControl('selectedField', this.createControl());
+      group.addControl('selectedCondition', this.createControl());
+      group.addControl('conditionValue', this.createControl());
+      group.addControl('selectedAction', this.createControl());
+      group.addControl('selectedTargetField', this.createControl());
     }
 
     return group;
