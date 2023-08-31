@@ -1,10 +1,10 @@
 <div class="test-form" cdkDropList (cdkDropListDropped)="onDrop($event)">
   <div class="test-form__header">
-    <h2>UI</h2>
-    <h3>Step {{ currentStep + 1 }}</h3>
+    <h2 class="test-form__title">Form Constructor</h2>
   </div>
 
   <div class="test-form__body">
+    <h3 class="test-form__step">Step {{ currentStep + 1 }}</h3>
     <form [formGroup]="dynamicForm">
       <ng-container *ngFor="let field of addedFields">
         <div class="test-form__block" cdkDrag>
@@ -110,7 +110,10 @@
       <button class="btn btn-primary" (click)="insertConditionalLogicBlock()">
         Insert Conditional Logic Block
       </button>
-      <button class="btn btn-primary" (click)="saveCurrentStepData()">
+      <button
+        class="btn btn-primary"
+        (click)="saveCurrentStepData()"
+        [disabled]="!conditionalLogicBlocks.length">
         Save Conditional Logic Blocks Data
       </button>
     </div>

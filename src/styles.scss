@@ -3,8 +3,6 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
 body {
-  padding: 100px;
-  padding-top: 50px;
   box-sizing: border-box;
 }
 
@@ -41,6 +39,10 @@ input.ng-invalid.ng-touched {
 
 .modal-content {
   padding: 20px;
+
+  h2 {
+    text-align: center;
+  }
 }
 
 .modal-dialog-centered {
@@ -69,5 +71,49 @@ input.ng-invalid.ng-touched {
     &:last-child {
       margin-right: 0;
     }
+  }
+}
+
+.btn-primary {
+  background-color: rgba(169, 157, 184, 0.8) !important;
+  border-color: rgba(169, 157, 184, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(169, 157, 184, 1) !important;
+    border-color: rgba(169, 157, 184, 1) !important;
+  }
+}
+
+.btn-secondary {
+  background-color: rgba(148, 169, 160, 0.8) !important;
+  border-color: rgba(148, 169, 160, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(148, 169, 160, 1) !important;
+    border-color: rgba(148, 169, 160, 1) !important;
+  }
+}
+
+.btn-danger {
+  background-color: rgba(230, 88, 88, 0.8) !important;
+  border-color: rgba(230, 88, 88, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(230, 88, 88, 1) !important;
+    border-color: rgba(230, 88, 88, 1) !important;
+  }
+}
+
+.btn-success {
+  background-color: rgba(81, 167, 76, 0.8) !important;
+  border-color: rgba(81, 167, 76, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(81, 167, 76, 1) !important;
+    border-color: rgba(81, 167, 76, 1) !important;
   }
 }
