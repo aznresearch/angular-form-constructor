@@ -18,17 +18,17 @@
   }
 
   &__block {
-    background-color: rgba(203, 197, 197, 0.15);
+    background-color: rgba(148, 169, 160, 0.15);
     padding-bottom: 40px;
-    padding-top: 30px;
+    padding-top: 33px;
     position: relative;
     margin-bottom: 20px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e5e7ebba;
     border-radius: 5px;
     transition: 0.2s;
 
     &:hover {
-      background-color: rgba(203, 197, 197, 0.08);
+      background-color: rgba(148, 169, 160, 0.08);
       .test-form__field-toolbar {
         opacity: 1;
       }

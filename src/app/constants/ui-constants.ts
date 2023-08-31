@@ -51,7 +51,7 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.File]: 'File Attachment',
   [FormFieldType.Password]: 'Password',
   [FormFieldType.Email]: 'Email',
-  [FormFieldType.Phone]: 'Phone number'
+  [FormFieldType.Phone]: 'Phone Number'
 };
 
 export type FieldTypesNames = {
