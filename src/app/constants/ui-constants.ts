@@ -1,4 +1,5 @@
-import { ControlsMap } from '../models/ui-form.model';
+import { ConditionalLogicBlock } from '../models/form-constructor.model';
+import { ControlsMap, FieldsToCreate } from '../models/ui-form.model';
 
 export enum FormFieldType {
   Text = 'text',
@@ -39,7 +40,7 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.Phone
 ];
 
-export const fieldTypesNames = {
+export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Text]: 'Text Input',
   [FormFieldType.Textarea]: 'Text Area',
   [FormFieldType.Date]: 'Date',
@@ -53,6 +54,10 @@ export const fieldTypesNames = {
   [FormFieldType.Phone]: 'Phone number'
 };
 
+export type FieldTypesNames = {
+  [key in FormFieldType]: string;
+};
+
 export const validatorTypes: ValidatorType[] = [
   ValidatorType.Required,
   ValidatorType.MinLength,
@@ -64,7 +69,7 @@ export const validatorTypes: ValidatorType[] = [
   ValidatorType.RequiredTrue
 ];
 
-export const fieldsToCreate = [
+export const fieldsToCreate: FieldsToCreate[] = [
   { name: 'name', isArray: false },
   { name: 'classes', isArray: false },
   { name: 'placeholder', isArray: false },
@@ -88,4 +93,13 @@ export const controlsMap: ControlsMap = {
     'selectedAction',
     'selectedTargetField'
   ]
+};
+
+export const defaultConditionalLogicBlock: ConditionalLogicBlock = {
+  selectedField: '',
+  selectedCondition: '',
+  conditionValue: '',
+  selectedAction: '',
+  selectedTargetField: '',
+  type: ''
 };

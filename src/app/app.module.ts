@@ -13,6 +13,7 @@ import { UIModalFieldsInsertingComponent } from './components/ui/components/ui-m
 import { UIModalFieldPropertiesComponent } from './components/ui/components/ui-modal-field-properties/ui-modal-field-properties.component';
 import { FormFieldPropertiesComponent } from './components/ui/components/form-field-properties/form-field-properties.component';
 import { SharedModalConfirmationComponent } from './components/shared/shared-modal-confirmation/shared-modal-confirmation.component';
+import { ConditionalLogicBlockComponent } from './components/ui/components/conditional-logic-block/conditional-logic-block.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SharedModalConfirmationComponent } from './components/shared/shared-mod
     UIModalFieldsInsertingComponent,
     UIModalFieldPropertiesComponent,
     FormFieldPropertiesComponent,
-    SharedModalConfirmationComponent
+    SharedModalConfirmationComponent,
+    ConditionalLogicBlockComponent
   ],
   imports: [
     BrowserModule,

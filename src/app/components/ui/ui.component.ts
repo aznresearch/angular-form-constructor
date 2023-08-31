@@ -8,7 +8,7 @@ import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-pro
 import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ConditionalLogicBlock, FormField } from 'src/app/models/form-constructor.model';
-import { fieldTypesNames } from 'src/app/constants/ui-constants';
+import { FieldTypesNames, fieldTypesNames } from 'src/app/constants/ui-constants';
 
 interface StepData {
   addedFields: FormField[];
@@ -26,9 +26,8 @@ export class UIComponent implements OnInit {
   dynamicForm!: FormGroup;
   formData: StepData[] = [];
   addedFields: FormField[] = [];
-  fieldLabels = fieldTypesNames;
-
   conditionalLogicBlocks: ConditionalLogicBlock[] = [];
+  fieldLabels: FieldTypesNames = fieldTypesNames;
 
   currentStep = 0;
 

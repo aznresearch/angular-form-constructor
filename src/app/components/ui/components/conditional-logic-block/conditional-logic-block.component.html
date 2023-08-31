@@ -1,0 +1,38 @@
+<div class="conditional-logic-block">
+  <div class="conditional-logic-block__top">
+    <label for="fieldSelect">Select Field:</label>
+    <select id="fieldSelect" [(ngModel)]="block.selectedField">
+      <option *ngFor="let field of addedFields" [value]="field.id">
+        {{ field.title || "Untitled " + fieldLabels[field.type] + " Field" }}
+      </option>
+    </select>
+
+    <label for="conditionSelect">Select Condition:</label>
+    <select id="conditionSelect" [(ngModel)]="block.selectedCondition">
+      <option value="equals">Equals</option>
+      <option value="greater">Greater Than</option>
+    </select>
+
+    <label for="conditionInput">Condition Value:</label>
+    <input type="text" id="conditionInput" [(ngModel)]="block.conditionValue" />
+  </div>
+
+  <div class="conditional-logic-block__bottom">
+    <label for="actionSelect">Select Action:</label>
+    <select id="actionSelect" [(ngModel)]="block.selectedAction">
+      <option value="show">Show Block</option>
+      <option value="hide">Hide Block</option>
+    </select>
+
+    <label for="targetFieldSelect">Select Target Field:</label>
+    <select id="targetFieldSelect" [(ngModel)]="block.selectedTargetField">
+      <option *ngFor="let field of addedFields" [value]="field.id">
+        {{ field.title || "Untitled " + fieldLabels[field.type] + " Field" }}
+      </option>
+    </select>
+  </div>
+
+  <button class="btn btn-danger" (click)="removeConditionalLogicBlock()">
+    Remove Conditional Logic Block
+  </button>
+</div>
