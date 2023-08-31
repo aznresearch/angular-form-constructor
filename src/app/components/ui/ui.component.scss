@@ -42,13 +42,6 @@
   &__field {
     padding-left: 60px;
     padding-right: 60px;
-    cursor: move;
-
-    input,
-    select,
-    textarea {
-      cursor: move;
-    }
 
     &-label {
       position: absolute;
@@ -81,6 +74,7 @@
         margin-right: 5px;
         cursor: pointer;
         position: relative;
+        padding: 2px;
 
         &:before {
           content: attr(data-tooltip);
@@ -108,6 +102,16 @@
 
         &:last-child {
           margin-right: 0;
+        }
+
+        .bi {
+          &:before {
+            font-size: 16px;
+          }
+        }
+
+        &--move {
+          cursor: move;
         }
       }
     }

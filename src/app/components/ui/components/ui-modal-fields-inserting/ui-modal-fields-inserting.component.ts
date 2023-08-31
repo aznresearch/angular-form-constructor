@@ -58,7 +58,10 @@ export class UIModalFieldsInsertingComponent implements OnInit {
       this.selectedFieldType = foundFieldType;
     }
     this.createPropertyForm();
-    this.setDefaultOptionValues();
+    const haveOptionsFieldTypes = ['select', 'checkbox', 'radio'];
+    if (haveOptionsFieldTypes.includes(this.selectedFieldType)) {
+      this.setDefaultOptionValues();
+    }
   }
 
   setDefaultOptionValues() {
@@ -82,6 +85,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
       this.propertyForm,
       this.selectedFieldType
     );
+
     this.propertiesSave.emit(fieldProperties);
     this.modalRef.hide();
   }

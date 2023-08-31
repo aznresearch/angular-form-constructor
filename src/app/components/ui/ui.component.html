@@ -7,11 +7,11 @@
   <div class="test-form__body">
     <form [formGroup]="dynamicForm">
       <ng-container *ngFor="let field of addedFields">
-        <div class="test-form__block">
+        <div class="test-form__block" cdkDrag>
           <div class="test-form__label">
             <label class="form-label">{{ field.title }}</label>
           </div>
-          <div class="test-form__field" [ngSwitch]="field.type" cdkDrag>
+          <div class="test-form__field" [ngSwitch]="field.type">
             <div class="test-form__field-label">
               <span>{{ fieldLabels[field.type] }}</span>
             </div>
@@ -28,6 +28,12 @@
                 (click)="openFieldPropertiesModal(field)"
                 ><i class="bi bi-pencil"></i
               ></span>
+              <span
+                class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
+                data-tooltip="Move"
+                cdkDragHandle>
+                <i class="bi bi-arrows-move"></i>
+              </span>
             </div>
             <ng-container *ngSwitchCase="'textarea'">
               <textarea
@@ -42,7 +48,7 @@
                 [formControlName]="field.id"
                 (mousedown)="preventDefault($event)"
                 class="form-select">
-                <option value="">Select your Country</option>
+                <option value="">{{ field.placeholder }}</option>
                 <option *ngFor="let option of field.options" [value]="option.value">
                   {{ option.label }}
                 </option>

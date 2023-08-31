@@ -19,9 +19,7 @@ export class FormFieldPropertiesComponent implements OnInit {
 
   constructor(private uiFormService: UiFormService) {}
 
-  ngOnInit(): void {
-    console.log(this.propertyForm);
-  }
+  ngOnInit(): void {}
 
   addControlToFormArray(arrayName: string): void {
     const formArray = this.propertyForm?.get(arrayName) as FormArray;
@@ -35,8 +33,8 @@ export class FormFieldPropertiesComponent implements OnInit {
   }
 
   shouldShowOptions(): boolean {
-    const allowedFieldTypes = ['select', 'checkbox', 'radio'];
-    return allowedFieldTypes.includes(this.selectedFieldType);
+    const haveOptionsFieldTypes = ['select', 'checkbox', 'radio'];
+    return haveOptionsFieldTypes.includes(this.selectedFieldType);
   }
 
   showValueInput(validatorType: string): boolean {
