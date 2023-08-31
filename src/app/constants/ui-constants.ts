@@ -1,3 +1,5 @@
+import { ControlsMap } from '../models/ui-form.model';
+
 export enum FormFieldType {
   Text = 'text',
   Textarea = 'textarea',
@@ -75,3 +77,15 @@ export const defaultOptionValues: { name: string; value: string }[] = [
   { name: 'Default Option', value: 'Default Value' },
   { name: 'Default Option2', value: 'Default Value2' }
 ];
+
+export const controlsMap: ControlsMap = {
+  validators: ['type', 'value', 'errormsg'],
+  options: ['name', 'value'],
+  conditionalLogicBlocks: [
+    'selectedField',
+    'selectedCondition',
+    'conditionValue',
+    'selectedAction',
+    'selectedTargetField'
+  ]
+};

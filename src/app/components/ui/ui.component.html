@@ -94,50 +94,6 @@
           </div>
         </div>
       </ng-container>
-
-      <!-- <ng-container
-        *ngFor="let block of dynamicForm?.get('conditionalLogicBlocks')?.controls; let i = index">
-        <div class="conditional-logic-block">
-          <div class="conditional-logic-block__top">
-            <label for="fieldSelect">Select Field:</label>
-            <select id="fieldSelect" [formControl]="block.get('selectedField')">
-              <option *ngFor="let field of addedFields" [value]="field.id">
-                {{ field.title || "Untitled " + fieldLabels[field.type] + " Field" }}
-              </option>
-            </select>
-
-            <label for="conditionSelect">Select Condition:</label>
-            <select id="conditionSelect" [formControl]="block.get('selectedCondition')">
-              <option value="equals">Equals</option>
-              <option value="greater">Greater Than</option>
-
-            </select>
-
-            <label for="conditionInput">Condition Value:</label>
-            <input type="text" id="conditionInput" [formControl]="block.get('conditionValue')" />
-          </div>
-
-          <div class="conditional-logic-block__bottom">
-            <label for="actionSelect">Select Action:</label>
-            <select id="actionSelect" [formControl]="block.get('selectedAction')">
-              <option value="show">Show Block</option>
-              <option value="hide">Hide Block</option>
-
-            </select>
-
-            <label for="targetFieldSelect">Select Target Field:</label>
-            <select id="targetFieldSelect" [formControl]="block.get('selectedTargetField')">
-              <option *ngFor="let field of addedFields" [value]="field.id">
-                {{ field.title || "Untitled " + fieldLabels[field.type] + " Field" }}
-              </option>
-            </select>
-          </div>
-
-          <button class="btn btn-danger" (click)="removeConditionalLogicBlock(i)">
-            Remove Conditional Logic Block
-          </button>
-        </div>
-      </ng-container> -->
     </form>
 
     <ng-container *ngFor="let block of conditionalLogicBlocks; let i = index">
@@ -184,8 +140,11 @@
   <div class="test-form__footer">
     <div class="test-form__stepButtons">
       <button class="btn btn-primary" (click)="openFieldsInsertingModal()">Insert Field</button>
-      <button class="btn btn-primary" (click)="addConditionalLogicBlock()">
+      <button class="btn btn-primary" (click)="insertConditionalLogicBlock()">
         Insert Conditional Logic Block
+      </button>
+      <button class="btn btn-primary" (click)="saveCurrentStepData()">
+        Save Conditional Logic Block Data
       </button>
     </div>
 

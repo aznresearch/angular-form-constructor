@@ -41,11 +41,11 @@ export class UIComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-    private localStorageService: LocalStorageService // private fb: FormBuilder, // private uiFormService: UiFormService
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
-    // this.restoreFormDataFromLocalStorage();
+    this.restoreFormDataFromLocalStorage();
     this.createForm();
   }
 
@@ -54,17 +54,7 @@ export class UIComponent implements OnInit {
     this.addedFields.forEach((field) => {
       this.addControlToForm(field);
     });
-
-    // const blocksArray = this.dynamicForm.get('conditionalLogicBlocks') as FormArray;
-    // this.conditionalLogicBlocks.forEach((block) => {
-    //   const blockGroup = this.createConditionalLogicBlockGroup(block);
-    //   blocksArray.push(blockGroup);
-    // });
   }
-
-  // createConditionalLogicBlockGroup(block: ConditionalLogicBlock): FormGroup {
-  //   return this.fb.group(block);
-  // }
 
   addControlToForm(field: FormField) {
     const control = new FormControl('');
@@ -110,29 +100,6 @@ export class UIComponent implements OnInit {
   }
 
   insertConditionalLogicBlock() {
-    // const newBlock = this.fb.group({
-    //   selectedField: [''],
-    //   selectedCondition: [''],
-    //   conditionValue: [''],
-    //   selectedAction: [''],
-    //   selectedTargetField: ['']
-    // });
-    // const blocksArray = this.dynamicForm.get('conditionalLogicBlocks') as FormArray;
-    // blocksArray.push(newBlock);
-    // console.log(newBlock);
-    // console.log(blocksArray);
-    // const formArray = this.dynamicForm?.get('conditionalLogicBlocks') as FormArray;
-    // const newGroup = this.uiFormService.createGroup('conditionalLogicBlocks');
-    // formArray.push(newGroup);
-    // console.log(this.dynamicForm?.get('conditionalLogicBlocks'));
-  }
-
-  // removeConditionalLogicBlock(index: number) {
-  //   const blocksArray = this.dynamicForm.get('conditionalLogicBlocks') as FormArray;
-  //   blocksArray.removeAt(index);
-  // }
-
-  addConditionalLogicBlock() {
     const newBlock: ConditionalLogicBlock = {
       selectedField: '',
       selectedCondition: '',
@@ -143,10 +110,12 @@ export class UIComponent implements OnInit {
     };
 
     this.conditionalLogicBlocks.push(newBlock);
+    this.saveCurrentStepData();
   }
 
   removeConditionalLogicBlock(index: number) {
     this.conditionalLogicBlocks.splice(index, 1);
+    this.saveCurrentStepData();
   }
 
   goToStep(step: number) {
@@ -211,17 +180,18 @@ export class UIComponent implements OnInit {
     this.saveFormDataToLocalStorage();
   }
 
-  // restoreFormDataFromLocalStorage() {
-  //   const savedFormData = this.localStorageService.getItem('formData');
+  restoreFormDataFromLocalStorage() {
+    const savedFormData = this.localStorageService.getItem('formData');
 
-  //   if (savedFormData) {
-  //     this.formData = savedFormData;
-  //   } else {
-  //     this.formData = [];
-  //   }
+    if (savedFormData) {
+      this.formData = savedFormData;
+    } else {
+      this.formData = [];
+    }
 
-  //   this.addedFields = this.formData[this.currentStep] ?? [];
-  // }
+    this.addedFields = this.formData[this.currentStep].addedFields ?? [];
+    this.conditionalLogicBlocks = this.formData[this.currentStep].conditionalLogicBlocks ?? [];
+  }
 
   saveFormDataToLocalStorage() {
     this.localStorageService.setItem('formData', this.formData);
