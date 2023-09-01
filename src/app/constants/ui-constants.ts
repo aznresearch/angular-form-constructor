@@ -101,5 +101,5 @@ export const defaultConditionalLogicBlock: ConditionalLogicBlock = {
   conditionValue: '',
   selectedAction: '',
   selectedTargetField: '',
-  type: ''
+  type: 'conditionalLogicBlock'
 };

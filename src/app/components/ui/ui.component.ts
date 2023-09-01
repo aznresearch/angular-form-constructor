@@ -8,7 +8,12 @@ import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-pro
 import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ConditionalLogicBlock, FormField } from 'src/app/models/form-constructor.model';
-import { FieldTypesNames, fieldTypesNames } from 'src/app/constants/ui-constants';
+import {
+  FieldTypesNames,
+  defaultConditionalLogicBlock,
+  fieldTypesNames
+} from 'src/app/constants/ui-constants';
+import { UiFormService } from 'src/app/services/ui-form.service';
 
 interface StepData {
   addedFields: FormField[];
@@ -40,7 +45,8 @@ export class UIComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private uiFormService: UiFormService
   ) {}
 
   ngOnInit(): void {
@@ -93,20 +99,23 @@ export class UIComponent implements OnInit {
     const index = this.addedFields.indexOf(field);
     if (index !== -1) {
       this.addedFields.splice(index, 1);
-      this.dynamicForm.removeControl(field.name);
+      this.dynamicForm.removeControl(field.id);
     }
     this.saveCurrentStepData();
   }
 
+  copyField(field: FormField) {
+    const copiedField = { ...field };
+    copiedField.id = this.uiFormService.generateUniqueId();
+    const originalFieldIndex = this.addedFields.indexOf(field);
+    this.addedFields.splice(originalFieldIndex + 1, 0, copiedField);
+    const newFormControl = this.uiFormService.createControl();
+    this.dynamicForm.addControl(copiedField.id, newFormControl);
+    this.saveCurrentStepData();
+  }
+
   insertConditionalLogicBlock() {
-    const newBlock: ConditionalLogicBlock = {
-      selectedField: '',
-      selectedCondition: '',
-      conditionValue: '',
-      selectedAction: '',
-      selectedTargetField: '',
-      type: 'conditionalLogicBlock'
-    };
+    const newBlock: ConditionalLogicBlock = defaultConditionalLogicBlock;
 
     this.conditionalLogicBlocks.push(newBlock);
     this.saveCurrentStepData();

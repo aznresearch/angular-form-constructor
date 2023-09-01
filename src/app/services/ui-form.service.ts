@@ -59,7 +59,7 @@ export class UiFormService {
     return fieldOptions;
   }
 
-  generateUniqueId(): number {
-    return Math.floor(Math.random() * 100000000);
+  generateUniqueId(): string {
+    return Math.floor(Math.random() * 100000000).toString();
   }
 }
