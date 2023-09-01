@@ -1,5 +1,4 @@
-import { ConditionalLogicBlock } from '../models/form-constructor.model';
-import { ControlsMap, FieldsToCreate } from '../models/ui-form.model';
+import { ConditionalLogicBlock, FormField } from '../models/form-constructor.model';
 
 export enum FormFieldType {
   Text = 'text',
@@ -69,13 +68,13 @@ export const validatorTypes: ValidatorType[] = [
   ValidatorType.RequiredTrue
 ];
 
-export const fieldsToCreate: FieldsToCreate[] = [
-  { name: 'name', isArray: false },
-  { name: 'classes', isArray: false },
-  { name: 'placeholder', isArray: false },
-  { name: 'title', isArray: false },
-  { name: 'validators', isArray: true },
-  { name: 'options', isArray: true }
+export const fieldsToCreate: FormField[] = [
+  { id: 'name', name: 'name', isArray: false },
+  { id: 'classes', name: 'classes', isArray: false },
+  { id: 'placeholder', name: 'placeholder', isArray: false },
+  { id: 'title', name: 'title', isArray: false },
+  { id: 'validators', name: 'validators', isArray: true },
+  { id: 'options', name: 'options', isArray: true }
 ];
 
 export const defaultOptionValues: { name: string; value: string }[] = [
@@ -83,16 +82,9 @@ export const defaultOptionValues: { name: string; value: string }[] = [
   { name: 'Default Option2', value: 'Default Value2' }
 ];
 
-export const controlsMap: ControlsMap = {
+export const controlsMap: Record<string, string[]> = {
   validators: ['type', 'value', 'errormsg'],
-  options: ['name', 'value'],
-  conditionalLogicBlocks: [
-    'selectedField',
-    'selectedCondition',
-    'conditionValue',
-    'selectedAction',
-    'selectedTargetField'
-  ]
+  options: ['name', 'value']
 };
 
 export const defaultConditionalLogicBlock: ConditionalLogicBlock = {

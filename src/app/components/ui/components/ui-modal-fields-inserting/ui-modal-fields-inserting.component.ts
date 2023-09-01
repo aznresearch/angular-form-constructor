@@ -76,7 +76,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   }
 
   createPropertyForm() {
-    this.propertyForm = this.uiFormService.createPropertyForm(fieldsToCreate);
+    this.propertyForm = this.uiFormService.createFormGroup(fieldsToCreate);
     this.isFormCreated = true;
   }
 

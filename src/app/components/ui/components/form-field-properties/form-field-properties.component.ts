@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { validatorTypes, fieldsToCreate } from 'src/app/constants/ui-constants';
-import { FieldsToCreate } from 'src/app/models/ui-form.model';
+import { FormField } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   @Input() selectedFieldType = '';
 
   validatorOptions = validatorTypes;
-  fieldsToCreate: FieldsToCreate[] = fieldsToCreate;
+  fieldsToCreate: FormField[] = fieldsToCreate;
 
   constructor(private uiFormService: UiFormService) {}
 
@@ -23,7 +23,7 @@ export class FormFieldPropertiesComponent implements OnInit {
 
   addControlToFormArray(arrayName: string): void {
     const formArray = this.propertyForm?.get(arrayName) as FormArray;
-    const newGroup = this.uiFormService.createGroup(arrayName);
+    const newGroup = this.uiFormService.createGroupForArray(arrayName);
     formArray.push(newGroup);
   }
 

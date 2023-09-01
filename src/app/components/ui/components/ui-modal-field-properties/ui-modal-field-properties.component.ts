@@ -30,7 +30,7 @@ export class UIModalFieldPropertiesComponent implements OnInit {
   }
 
   createPropertyForm() {
-    this.propertyForm = this.uiFormService.createPropertyForm(fieldsToCreate);
+    this.propertyForm = this.uiFormService.createFormGroup(fieldsToCreate);
   }
 
   patchFieldProperties() {

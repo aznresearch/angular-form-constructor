@@ -1,5 +1,5 @@
 import { Component, OnInit, Type } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -55,15 +55,7 @@ export class UIComponent implements OnInit {
   }
 
   createForm() {
-    this.dynamicForm = new FormGroup({});
-    this.addedFields.forEach((field) => {
-      this.addControlToForm(field);
-    });
-  }
-
-  addControlToForm(field: FormField) {
-    const control = new FormControl('');
-    this.dynamicForm.addControl(field.id, control);
+    this.dynamicForm = this.uiFormService.createFormGroup(this.addedFields);
   }
 
   openFieldsInsertingModal() {
@@ -71,7 +63,8 @@ export class UIComponent implements OnInit {
     this.modalRef?.content.propertiesSave.subscribe((selectedField: FormField) => {
       if (selectedField) {
         this.addedFields.push(selectedField);
-        this.addControlToForm(selectedField);
+        const newFormControl = this.uiFormService.createControl();
+        this.dynamicForm.addControl(selectedField.id, newFormControl);
         this.saveCurrentStepData();
       }
     });

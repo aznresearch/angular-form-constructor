@@ -7,6 +7,7 @@ export interface FormField {
   classes?: string[];
   id: string;
   name: string;
+  isArray?: boolean;
 }
 
 export interface ConditionalLogicBlock {

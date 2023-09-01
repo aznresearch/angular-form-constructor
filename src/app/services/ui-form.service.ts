@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { FieldsToCreate } from '../models/ui-form.model';
 import { FormField, Validator } from '../models/form-constructor.model';
 import { controlsMap } from '../constants/ui-constants';
 
@@ -10,18 +9,25 @@ import { controlsMap } from '../constants/ui-constants';
 export class UiFormService {
   constructor(private fb: FormBuilder) {}
 
-  createPropertyForm(fieldsToCreate: FieldsToCreate[]): FormGroup {
-    const formGroupConfig: { [key: string]: FormArray | string } = {};
+  createFormGroup(addedFields: FormField[]): FormGroup {
+    const formGroupConfig = this.generateFormGroupConfig(addedFields);
+    return this.fb.group(formGroupConfig);
+  }
 
-    for (const field of fieldsToCreate) {
+  generateFormGroupConfig(addedFields: FormField[]): Record<string, FormArray | string> {
+    const formGroupConfig: Record<string, FormArray | string> = {};
+
+    for (const field of addedFields) {
+      console.log(field);
+
       if (field.isArray) {
-        formGroupConfig[field.name] = this.createFormArray();
+        formGroupConfig[field.id] = this.createFormArray();
       } else {
-        formGroupConfig[field.name] = '';
+        formGroupConfig[field.id] = '';
       }
     }
 
-    return this.fb.group(formGroupConfig);
+    return formGroupConfig;
   }
 
   createControl(): FormControl {
@@ -32,19 +38,16 @@ export class UiFormService {
     return this.fb.array([]);
   }
 
-  createGroup(controlName: string): FormGroup {
+  createGroupForArray(arrayName: string): FormGroup {
     const group = this.fb.group({});
-
-    const controlFields = controlsMap[controlName];
-
+    const controlFields = controlsMap[arrayName];
     if (controlFields) {
       controlFields.forEach((fieldName: string) => {
         group.addControl(fieldName, this.createControl());
       });
     } else {
-      console.log(`Invalid controlName: ${controlName}`);
+      console.log(`Invalid controlName: ${arrayName}`);
     }
-
     return group;
   }
 
