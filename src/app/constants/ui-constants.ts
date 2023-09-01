@@ -96,10 +96,29 @@ export const controlsMap: ControlsMap = {
 };
 
 export const defaultConditionalLogicBlock: ConditionalLogicBlock = {
-  selectedField: '',
+  selectedField: {
+    type: '',
+    id: '',
+    name: ''
+  },
   selectedCondition: '',
   conditionValue: '',
   selectedAction: '',
   selectedTargetField: '',
   type: 'conditionalLogicBlock'
+};
+
+export const conditionOptions: Record<string, string[]> = {
+  text: ['equals', 'contains', 'is empty', 'is not empty'],
+  checkbox: ['is empty', 'is not empty'],
+  number: [
+    'equals',
+    'not equals',
+    'greater',
+    'less',
+    'greater or equals',
+    'less or equals',
+    'is empty',
+    'is not empty'
+  ]
 };

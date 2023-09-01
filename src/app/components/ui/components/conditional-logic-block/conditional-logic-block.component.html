@@ -17,15 +17,20 @@
       </div>
       <div>
         <select id="fieldSelect" [(ngModel)]="block.selectedField" class="form-select">
-          <option *ngFor="let field of addedFields" [value]="field.id">
+          <option *ngFor="let field of addedFields" [ngValue]="field">
             {{ field.title || "Untitled " + fieldLabels[field.type] + " Field" }}
           </option>
         </select>
       </div>
       <div>
         <select id="conditionSelect" [(ngModel)]="block.selectedCondition" class="form-select">
-          <option value="equals">Equals</option>
-          <option value="greater">Greater Than</option>
+          <ng-container *ngIf="block.selectedField">
+            <option
+              *ngFor="let option of conditionOptions[block.selectedField.type]"
+              [value]="option">
+              {{ option }}
+            </option>
+          </ng-container>
         </select>
       </div>
       <div>

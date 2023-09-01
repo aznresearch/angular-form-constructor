@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FieldTypesNames,
+  conditionOptions,
   defaultConditionalLogicBlock,
   fieldTypesNames
 } from 'src/app/constants/ui-constants';
@@ -17,6 +18,7 @@ export class ConditionalLogicBlockComponent implements OnInit {
   @Output() remove = new EventEmitter<void>();
 
   fieldLabels: FieldTypesNames = fieldTypesNames;
+  conditionOptions: Record<string, string[]> = conditionOptions;
 
   constructor() {}
 

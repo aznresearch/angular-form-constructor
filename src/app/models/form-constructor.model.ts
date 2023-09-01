@@ -10,7 +10,7 @@ export interface FormField {
 }
 
 export interface ConditionalLogicBlock {
-  selectedField: string;
+  selectedField: FormField;
   selectedCondition: string;
   conditionValue: string;
   selectedAction: string;
