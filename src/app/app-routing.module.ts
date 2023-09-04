@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormComponent } from './components/form-constructor/components/form/form.component';
+import { FormConstructorComponent } from './components/form-constructor/form-constructor.component';
+import { UIComponent } from './components/ui/ui.component';
 
 const routes: Routes = [
-  { path: 'form', component: FormComponent },
+  { path: 'finish', component: FormConstructorComponent },
+  { path: 'form', component: UIComponent },
   { path: '**', redirectTo: '/form' }
 ];
 

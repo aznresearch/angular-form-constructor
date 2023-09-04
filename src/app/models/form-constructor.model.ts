@@ -19,6 +19,11 @@ export interface ConditionalLogicBlock {
   type: string;
 }
 
+export interface StepData {
+  addedFields: FormField[];
+  conditionalLogicBlocks: ConditionalLogicBlock[];
+}
+
 export interface FormOptions {
   title: string;
   data: { [key: string]: FormField };

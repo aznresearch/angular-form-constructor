@@ -18,8 +18,6 @@ export class UiFormService {
     const formGroupConfig: Record<string, FormArray | string> = {};
 
     for (const field of addedFields) {
-      console.log(field);
-
       if (field.isArray) {
         formGroupConfig[field.id] = this.createFormArray();
       } else {

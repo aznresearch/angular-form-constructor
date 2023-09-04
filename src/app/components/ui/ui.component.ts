@@ -7,18 +7,15 @@ import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-in
 import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-properties/ui-modal-field-properties.component';
 import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { ConditionalLogicBlock, FormField } from 'src/app/models/form-constructor.model';
+import { ConditionalLogicBlock, FormField, StepData } from 'src/app/models/form-constructor.model';
 import {
   FieldTypesNames,
   defaultConditionalLogicBlock,
   fieldTypesNames
 } from 'src/app/constants/ui-constants';
 import { UiFormService } from 'src/app/services/ui-form.service';
-
-interface StepData {
-  addedFields: FormField[];
-  conditionalLogicBlocks: ConditionalLogicBlock[];
-}
+import { Router } from '@angular/router';
+import { FormDataService } from 'src/app/services/form-data.service';
 
 @Component({
   selector: 'app-ui',
@@ -46,7 +43,9 @@ export class UIComponent implements OnInit {
   constructor(
     private modalService: BsModalService,
     private localStorageService: LocalStorageService,
-    private uiFormService: UiFormService
+    private uiFormService: UiFormService,
+    private router: Router,
+    private formDataService: FormDataService
   ) {}
 
   ngOnInit(): void {
@@ -196,6 +195,12 @@ export class UIComponent implements OnInit {
 
   saveFormDataToLocalStorage() {
     this.localStorageService.setItem('formData', this.formData);
+  }
+
+  finishForm() {
+    const payload = this.formData;
+    this.formDataService.setFormData(payload);
+    this.router.navigate(['/finish']);
   }
 
   openModal(component: Type<any>, initialState?: any) {
