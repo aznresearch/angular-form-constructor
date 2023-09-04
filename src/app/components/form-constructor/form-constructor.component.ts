@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
+
 import { StepData } from 'src/app/models/form-constructor.model';
 import { FormConstructorService } from 'src/app/services/form-constructor.service';
 import { FormDataService } from 'src/app/services/form-data.service';
@@ -15,7 +17,8 @@ export class FormConstructorComponent implements OnInit {
 
   constructor(
     private formConstructorService: FormConstructorService,
-    private formDataService: FormDataService
+    private formDataService: FormDataService,
+    private clipboard: Clipboard
   ) {}
 
   ngOnInit() {
@@ -24,5 +27,11 @@ export class FormConstructorComponent implements OnInit {
     this.formConstructorService.getFormValue().subscribe((formData) => {
       this.formValue = formData;
     });
+  }
+
+  copyFormData() {
+    const formDataString = JSON.stringify(this.formData);
+    this.clipboard.copy(formDataString);
+    alert('Form data copied to clipboard!');
   }
 }

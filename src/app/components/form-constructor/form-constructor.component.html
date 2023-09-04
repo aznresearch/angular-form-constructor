@@ -5,4 +5,7 @@
   <pre>{{ formValue | json }}</pre>
 </div> -->
 
-<pre>{{ formData | json }}</pre>
+<div class="final-form">
+  <pre>{{ formData | json }}</pre>
+  <button class="btn btn-primary" (click)="copyFormData()">Copy Form Data</button>
+</div>

@@ -198,6 +198,7 @@ export class UIComponent implements OnInit {
   }
 
   finishForm() {
+    this.saveCurrentStepData();
     const payload = this.formData;
     this.formDataService.setFormData(payload);
     this.router.navigate(['/finish']);
