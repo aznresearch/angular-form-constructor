@@ -1,7 +1,7 @@
 export interface FormField {
   placeholder?: string;
   type?: string;
-  label?: string;
+  title?: string;
   validators?: Validator[];
   options?: Option[];
   classes?: string[];
@@ -26,7 +26,8 @@ export interface StepData {
 
 export interface FormOptions {
   title: string;
-  data: { [key: string]: FormField };
+  data: Record<string, FormField>;
+  conditionalLogicBlocks: ConditionalLogicBlock[];
 }
 
 export interface Validator {
@@ -40,14 +41,12 @@ export interface Option {
   value: string;
 }
 
-export interface UniqueFormData {
-  title: string;
+export interface UniqueFormData extends FormOptions {
   countryCode: string;
   step: number;
-  data: { [key: string]: FormField };
 }
 
-export interface FormOptionsMock {
+export interface FormOptionsFull {
   formData: FormOptions[];
   options: {
     name: string;

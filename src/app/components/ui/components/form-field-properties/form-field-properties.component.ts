@@ -1,7 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
-import { validatorTypes, fieldsToCreate } from 'src/app/constants/ui-constants';
+import {
+  validatorTypes,
+  fieldsToCreate,
+  haveOptionsFieldTypes,
+  withoutValueValidatorTypes
+} from 'src/app/constants/ui-constants';
 import { FormField } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
 
@@ -23,22 +28,19 @@ export class FormFieldPropertiesComponent implements OnInit {
 
   addControlToFormArray(arrayName: string): void {
     const formArray = this.propertyForm?.get(arrayName) as FormArray;
-    const newGroup = this.uiFormService.createGroupForArray(arrayName);
-    formArray.push(newGroup);
+    this.uiFormService.addControlToFormArray(formArray, arrayName);
   }
 
   removeControlFromFormArray(arrayName: string, index: number): void {
     const formArray = this.propertyForm?.get(arrayName) as FormArray;
-    formArray.removeAt(index);
+    this.uiFormService.removeControlFromFormArray(formArray, index);
   }
 
   shouldShowOptions(): boolean {
-    const haveOptionsFieldTypes = ['select', 'checkbox', 'radio'];
     return haveOptionsFieldTypes.includes(this.selectedFieldType);
   }
 
   showValueInput(validatorType: string): boolean {
-    const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];
     return !withoutValueValidatorTypes.includes(validatorType);
   }
 }

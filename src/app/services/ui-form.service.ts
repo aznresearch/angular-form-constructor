@@ -36,6 +36,15 @@ export class UiFormService {
     return this.fb.array([]);
   }
 
+  addControlToFormArray(formArray: FormArray, arrayName: string): void {
+    const newGroup = this.createGroupForArray(arrayName);
+    formArray.push(newGroup);
+  }
+
+  removeControlFromFormArray(formArray: FormArray, index: number): void {
+    formArray.removeAt(index);
+  }
+
   createGroupForArray(arrayName: string): FormGroup {
     const group = this.fb.group({});
     const controlFields = controlsMap[arrayName];

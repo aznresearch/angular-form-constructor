@@ -4,7 +4,7 @@ import { defaultErrorMessages } from 'src/app/constants/validator-constants';
 import {
   FormField,
   FormOptions,
-  FormOptionsMock,
+  FormOptionsFull,
   Validator
 } from 'src/app/models/form-constructor.model';
 import { FormConstructorService } from 'src/app/services/form-constructor.service';
@@ -17,7 +17,7 @@ import { FormConstructorService } from 'src/app/services/form-constructor.servic
 export class FormComponent implements OnInit {
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
-  formOptionsFullObject!: FormOptionsMock;
+  formOptionsFullObject!: FormOptionsFull;
   formOptions!: FormOptions[];
   currentStep!: number;
   forms!: FormGroup[];

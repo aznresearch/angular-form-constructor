@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 
-import { StepData } from 'src/app/models/form-constructor.model';
+import { FormOptionsFull } from 'src/app/models/form-constructor.model';
 import { FormConstructorService } from 'src/app/services/form-constructor.service';
 import { FormDataService } from 'src/app/services/form-data.service';
+import { defaultFormOptionsObject } from 'src/app/constants/form-constants';
 
 @Component({
   selector: 'app-form-constructor',
@@ -13,7 +14,7 @@ import { FormDataService } from 'src/app/services/form-data.service';
 export class FormConstructorComponent implements OnInit {
   formValue: any = null;
 
-  formData: StepData[] = [];
+  formOptionsFull: FormOptionsFull = defaultFormOptionsObject;
 
   constructor(
     private formConstructorService: FormConstructorService,
@@ -22,7 +23,7 @@ export class FormConstructorComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.formData = this.formDataService.getFormData();
+    this.formOptionsFull = this.formDataService.getFormData();
 
     this.formConstructorService.getFormValue().subscribe((formData) => {
       this.formValue = formData;
@@ -30,7 +31,7 @@ export class FormConstructorComponent implements OnInit {
   }
 
   copyFormData() {
-    const formDataString = JSON.stringify(this.formData);
+    const formDataString = JSON.stringify(this.formOptionsFull);
     this.clipboard.copy(formDataString);
     alert('Form data copied to clipboard!');
   }

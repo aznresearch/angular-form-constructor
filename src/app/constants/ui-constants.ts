@@ -114,3 +114,7 @@ export const conditionOptions: Record<string, string[]> = {
     'is not empty'
   ]
 };
+
+export const haveOptionsFieldTypes = ['select', 'checkbox', 'radio'];
+
+export const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];
