@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { defaultFormOptionsObject } from 'src/app/constants/form-constants';
 import { defaultErrorMessages } from 'src/app/constants/validator-constants';
 import {
   FormField,
@@ -17,18 +18,16 @@ import { FormConstructorService } from 'src/app/services/form-constructor.servic
 export class FormComponent implements OnInit {
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
-  formOptionsFullObject!: FormOptionsFull;
-  formOptions!: FormOptions[];
-  currentStep!: number;
-  forms!: FormGroup[];
-  formContent!: { [key: string]: FormField }[];
-  formFields!: FormField[][];
+  formOptionsFullObject: FormOptionsFull = defaultFormOptionsObject;
+  formOptions: FormOptions[] = [];
+  currentStep: number = 0;
+  forms: FormGroup[] = [];
+  formContent: Record<string, FormField>[] = [];
+  formFields: FormField[][] = [[]];
   formValue: any;
-
   countryOptions: string[] = ['NG', 'GH'];
   country = '';
-
-  formFieldsText!: string;
+  formFieldsText: string = '';
 
   constructor(private formConstructorService: FormConstructorService) {}
 
@@ -46,11 +45,6 @@ export class FormComponent implements OnInit {
   }
 
   initForms(formOptions: FormOptions[]) {
-    this.currentStep = 0;
-    this.forms = [];
-    this.formContent = [];
-    this.formFields = [];
-
     this.addUniqueFormData();
     formOptions.forEach((formOption, i) => {
       this.formContent.push(formOption.data);
