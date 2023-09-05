@@ -1,17 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { defaultFormOptionsObject } from '../constants/form-constants';
-import { FormOptionsFull } from '../models/form-constructor.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormConstructorService {
-  private formOptionsFull: BehaviorSubject<FormOptionsFull> = new BehaviorSubject<FormOptionsFull>(
-    defaultFormOptionsObject
-  );
-  formOptionsFull$: Observable<FormOptionsFull> = this.formOptionsFull.asObservable();
   private formValueSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   formValueSubject$: Observable<any> = this.formValueSubject.asObservable();
 
@@ -28,6 +22,7 @@ export class FormConstructorService {
       const formControl = this.fb.control(initialValue, this.getValidators(field.validators));
       formGroup.addControl(key, formControl);
     }
+
     return formGroup;
   }
 
@@ -47,10 +42,6 @@ export class FormConstructorService {
     return validators
       .map((validator) => validatorMap[validator.type]?.(validator.value))
       .filter((validator) => validator !== null);
-  }
-
-  getFormOptions(): Observable<FormOptionsFull> {
-    return this.formOptionsFull$;
   }
 
   setFormValue(formData: any) {

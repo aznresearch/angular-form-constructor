@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { FormField, FormOptionsFull, StepData } from '../models/form-constructor.model';
 import { defaultFormOptionsObject } from '../constants/form-constants';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormDataService {
-  private formOptionsFull: FormOptionsFull = defaultFormOptionsObject;
+  private formOptionsFull: BehaviorSubject<FormOptionsFull> = new BehaviorSubject<FormOptionsFull>(
+    defaultFormOptionsObject
+  );
 
   setFormData(data: FormOptionsFull) {
-    this.formOptionsFull = data;
+    this.formOptionsFull.next(data);
   }
 
-  getFormData(): FormOptionsFull {
-    return this.formOptionsFull;
+  getFormData(): Observable<FormOptionsFull> {
+    return this.formOptionsFull.asObservable();
   }
 
   prepareFormData(formData: StepData[]): FormOptionsFull {

@@ -8,7 +8,7 @@
       <ng-container *ngFor="let field of formFields[currentStep]">
         <div class="mb-3" [ngClass]="field.classes">
           <label *ngIf="field.type != 'checkbox'" [for]="field.key" class="form-label">{{
-            field.label
+            field.title
           }}</label>
           <div [ngSwitch]="field.type">
             <ng-container *ngSwitchCase="'textarea'">
@@ -32,7 +32,7 @@
                   type="checkbox"
                   [formControlName]="field.key"
                   class="form-check-input" />
-                <label [for]="field.key" class="form-check-label">{{ field.label }}</label>
+                <label [for]="field.key" class="form-check-label">{{ field.title }}</label>
               </div>
             </ng-container>
             <ng-container *ngSwitchCase="'radio'">

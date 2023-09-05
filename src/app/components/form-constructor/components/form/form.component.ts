@@ -9,6 +9,7 @@ import {
   Validator
 } from 'src/app/models/form-constructor.model';
 import { FormConstructorService } from 'src/app/services/form-constructor.service';
+import { FormDataService } from 'src/app/services/form-data.service';
 
 @Component({
   selector: 'app-form',
@@ -20,16 +21,19 @@ export class FormComponent implements OnInit {
 
   formOptionsFullObject: FormOptionsFull = defaultFormOptionsObject;
   formOptions: FormOptions[] = [];
-  currentStep: number = 0;
+  currentStep = 0;
   forms: FormGroup[] = [];
   formContent: Record<string, FormField>[] = [];
-  formFields: FormField[][] = [[]];
+  formFields: FormField[][] = [];
   formValue: any;
   countryOptions: string[] = ['NG', 'GH'];
   country = '';
-  formFieldsText: string = '';
+  formFieldsText = '';
 
-  constructor(private formConstructorService: FormConstructorService) {}
+  constructor(
+    private formConstructorService: FormConstructorService,
+    private formDataService: FormDataService
+  ) {}
 
   ngOnInit() {
     this.initFormOptions();
@@ -38,9 +42,14 @@ export class FormComponent implements OnInit {
   }
 
   initFormOptions() {
-    this.formConstructorService.getFormOptions().subscribe((formOptionsFull) => {
-      this.formOptionsFullObject = formOptionsFull;
+    this.formDataService.getFormData().subscribe((data) => {
+      this.formOptionsFullObject = data;
     });
+
+    this.formOptionsFullObject.formData.forEach((element) => {
+      delete element.conditionalLogicBlocks;
+    });
+
     this.formOptions = this.formOptionsFullObject.formData;
   }
 
@@ -135,7 +144,9 @@ export class FormComponent implements OnInit {
 
   createFormFromText() {
     try {
-      const parsedFormFields = JSON.parse(this.formFieldsText);
+      const formDataObject = JSON.parse(this.formFieldsText);
+      this.formDataService.setFormData(formDataObject);
+      const parsedFormFields = formDataObject;
       const parsedFormFieldsOptions = parsedFormFields.formData;
       if (Array.isArray(parsedFormFieldsOptions)) {
         this.formOptions = parsedFormFieldsOptions;
