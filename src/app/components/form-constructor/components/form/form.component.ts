@@ -23,8 +23,7 @@ export class FormComponent implements OnInit {
   formOptions: FormOptions[] = [];
   currentStep = 0;
   forms: FormGroup[] = [];
-  formContent: Record<string, FormField>[] = [];
-  formFields: FormField[][] = [];
+  formContent: FormField[][] = [];
   formValue: any;
   countryOptions: string[] = ['NG', 'GH'];
   country = '';
@@ -57,9 +56,6 @@ export class FormComponent implements OnInit {
     this.addUniqueFormData();
     formOptions.forEach((formOption, i) => {
       this.formContent.push(formOption.data);
-      const fieldNames = Object.keys(this.formContent[i]);
-      const fieldObjects = fieldNames.map((key) => ({ key, ...this.formContent[i][key] }));
-      this.formFields.push(fieldObjects);
       this.forms.push(this.buildForm(this.formContent[i]));
     });
   }
@@ -87,9 +83,9 @@ export class FormComponent implements OnInit {
     }
   }
 
-  getValidationMessage(formIndex: number, formFieldName: string): string | undefined {
-    const formErrors = this.forms[formIndex].get(formFieldName)?.errors;
-    const validators = this.formContent[formIndex][formFieldName].validators;
+  getValidationMessage(formIndex: number, field: FormField): string | undefined {
+    const formErrors = this.forms[formIndex].get(field.name)?.errors;
+    const validators = field.validators;
     if (formErrors && validators) {
       const validator = validators.find(
         (item: Validator) => item.type === Object.keys(formErrors)[0]

@@ -21,8 +21,6 @@ export class FormConstructorComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this);
-
     this.formDataService.getFormData().subscribe((data) => {
       this.formOptionsFull = data;
     });

@@ -13,14 +13,13 @@ export class FormConstructorService {
 
   buildForm(formFields: any): FormGroup {
     const formGroup = this.fb.group({});
-    for (const key of Object.keys(formFields)) {
+    for (const field of formFields) {
       let initialValue: any = '';
-      if (formFields[key].type === 'checkbox') {
+      if (field.type === 'checkbox') {
         initialValue = false;
       }
-      const field = formFields[key];
       const formControl = this.fb.control(initialValue, this.getValidators(field.validators));
-      formGroup.addControl(key, formControl);
+      formGroup.addControl(field.name, formControl);
     }
 
     return formGroup;

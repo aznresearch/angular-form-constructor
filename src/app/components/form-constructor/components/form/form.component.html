@@ -5,20 +5,20 @@
     *ngIf="i === currentStep || forms.length === 1"
     class="needs-validation">
     <div class="row">
-      <ng-container *ngFor="let field of formFields[currentStep]">
+      <ng-container *ngFor="let field of formContent[currentStep]">
         <div class="mb-3" [ngClass]="field.classes">
-          <label *ngIf="field.type != 'checkbox'" [for]="field.key" class="form-label">{{
+          <label *ngIf="field.type != 'checkbox'" [for]="field.name" class="form-label">{{
             field.title
           }}</label>
           <div [ngSwitch]="field.type">
             <ng-container *ngSwitchCase="'textarea'">
               <textarea
-                [id]="field.key"
-                [formControlName]="field.key"
+                [id]="field.name"
+                [formControlName]="field.name"
                 class="form-control"></textarea>
             </ng-container>
             <ng-container *ngSwitchCase="'select'">
-              <select [id]="field.key" [formControlName]="field.key" class="form-select">
+              <select [id]="field.name" [formControlName]="field.name" class="form-select">
                 <option value="">Select your Country</option>
                 <option *ngFor="let option of field.options" [value]="option">
                   {{ option }}
@@ -28,20 +28,20 @@
             <ng-container *ngSwitchCase="'checkbox'">
               <div class="form-check">
                 <input
-                  [id]="field.key"
+                  [id]="field.name"
                   type="checkbox"
-                  [formControlName]="field.key"
+                  [formControlName]="field.name"
                   class="form-check-input" />
-                <label [for]="field.key" class="form-check-label">{{ field.title }}</label>
+                <label [for]="field.name" class="form-check-label">{{ field.title }}</label>
               </div>
             </ng-container>
             <ng-container *ngSwitchCase="'radio'">
               <div *ngFor="let option of field.options" class="form-check">
                 <label class="form-check-label">
                   <input
-                    [id]="field.key"
+                    [id]="field.name"
                     type="radio"
-                    [formControlName]="field.key"
+                    [formControlName]="field.name"
                     [value]="option"
                     class="form-check-input" />
                   {{ option }}
@@ -50,15 +50,15 @@
             </ng-container>
             <ng-container *ngSwitchDefault>
               <input
-                [id]="field.key"
+                [id]="field.name"
                 [type]="field.type"
-                [formControlName]="field.key"
+                [formControlName]="field.name"
                 class="form-control" />
             </ng-container>
           </div>
 
-          <div class="validation-error" *ngIf="isFieldInvalid(form, field.key)">
-            {{ getValidationMessage(currentStep, field.key) }}
+          <div class="validation-error" *ngIf="isFieldInvalid(form, field.name)">
+            {{ getValidationMessage(currentStep, field) }}
           </div>
         </div>
       </ng-container>

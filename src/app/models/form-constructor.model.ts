@@ -26,7 +26,7 @@ export interface StepData {
 
 export interface FormOptions {
   title: string;
-  data: Record<string, FormField>;
+  data: FormField[];
   conditionalLogicBlocks: ConditionalLogicBlock[];
 }
 

@@ -23,8 +23,7 @@ export class FormDataService {
     const formOptionsFullObject: FormOptionsFull = defaultFormOptionsObject;
 
     formData.forEach((stepFormData, index) => {
-      const stepData: Record<string, FormField> = {};
-
+      const stepData: FormField[] = [];
       stepFormData.addedFields.forEach((field) => {
         const fieldData: FormField = {
           id: field.id,
@@ -35,7 +34,7 @@ export class FormDataService {
           classes: field.classes,
           options: field.options
         };
-        stepData[field.name] = fieldData;
+        stepData.push(fieldData);
       });
 
       formOptionsFullObject.formData[index] = {
