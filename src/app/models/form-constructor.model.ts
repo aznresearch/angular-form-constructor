@@ -27,7 +27,7 @@ export interface StepData {
 export interface FormOptions {
   title: string;
   data: FormField[];
-  conditionalLogicBlocks: ConditionalLogicBlock[];
+  conditionalLogicBlocks?: ConditionalLogicBlock[];
 }
 
 export interface Validator {

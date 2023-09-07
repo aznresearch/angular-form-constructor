@@ -54,9 +54,11 @@ export class FormComponent implements OnInit {
 
   initForms(formOptions: FormOptions[]) {
     this.addUniqueFormData();
+    this.formContent.length = 0;
     formOptions.forEach((formOption, i) => {
       this.formContent.push(formOption.data);
       this.forms.push(this.buildForm(this.formContent[i]));
+      this.forms[i].reset();
     });
   }
 
@@ -142,11 +144,11 @@ export class FormComponent implements OnInit {
     try {
       const formDataObject = JSON.parse(this.formFieldsText);
       this.formDataService.setFormData(formDataObject);
-      const parsedFormFields = formDataObject;
-      const parsedFormFieldsOptions = parsedFormFields.formData;
+      const parsedFormFieldsOptions = formDataObject.formData;
       if (Array.isArray(parsedFormFieldsOptions)) {
         this.formOptions = parsedFormFieldsOptions;
         this.initForms(this.formOptions);
+        this.currentStep = 0;
       } else {
         console.log('Invalid formOptions format');
       }

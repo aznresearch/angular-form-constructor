@@ -157,7 +157,18 @@ import { FormOptionsFull } from '../models/form-constructor.model';
 // };
 
 export const defaultFormOptionsObject: FormOptionsFull = {
-  formData: [],
+  formData: [
+    {
+      title: 'Step 1',
+      data: [
+        {
+          id: 'id',
+          name: 'name',
+          title: 'title'
+        }
+      ]
+    }
+  ],
   options: {
     name: 'formName',
     type: 'formType',
