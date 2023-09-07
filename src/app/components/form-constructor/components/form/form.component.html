@@ -7,9 +7,7 @@
     <div class="row">
       <ng-container *ngFor="let field of formContent[currentStep]">
         <div class="mb-3" [ngClass]="field.classes">
-          <label *ngIf="field.type != 'checkbox'" [for]="field.name" class="form-label">{{
-            field.title
-          }}</label>
+          <label [for]="field.name" class="form-label">{{ field.title }}</label>
           <div [ngSwitch]="field.type">
             <ng-container *ngSwitchCase="'textarea'">
               <textarea
@@ -26,13 +24,16 @@
               </select>
             </ng-container>
             <ng-container *ngSwitchCase="'checkbox'">
-              <div class="form-check">
-                <input
-                  [id]="field.name"
-                  type="checkbox"
-                  [formControlName]="field.name"
-                  class="form-check-input" />
-                <label [for]="field.name" class="form-check-label">{{ field.title }}</label>
+              <div *ngFor="let option of field.options" class="form-check">
+                <label class="form-check-label">
+                  <input
+                    [id]="field.name"
+                    type="checkbox"
+                    [formControlName]="field.name"
+                    [value]="option.value"
+                    class="form-check-input" />
+                  {{ option.name }}
+                </label>
               </div>
             </ng-container>
             <ng-container *ngSwitchCase="'radio'">
@@ -42,9 +43,9 @@
                     [id]="field.name"
                     type="radio"
                     [formControlName]="field.name"
-                    [value]="option"
+                    [value]="option.value"
                     class="form-check-input" />
-                  {{ option }}
+                  {{ option.name }}
                 </label>
               </div>
             </ng-container>

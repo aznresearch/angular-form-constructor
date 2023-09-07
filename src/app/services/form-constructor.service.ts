@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { FormField } from '../models/form-constructor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class FormConstructorService {
 
   constructor(private fb: FormBuilder) {}
 
-  buildForm(formFields: any): FormGroup {
+  buildForm(formFields: FormField[]): FormGroup {
     const formGroup = this.fb.group({});
     for (const field of formFields) {
       let initialValue: any = '';

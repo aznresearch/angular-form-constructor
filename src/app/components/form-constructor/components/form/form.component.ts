@@ -66,7 +66,7 @@ export class FormComponent implements OnInit {
     this.formFieldsText = JSON.stringify(this.formOptionsFullObject, null, 2);
   }
 
-  buildForm(formContent: any): FormGroup {
+  buildForm(formContent: FormField[]): FormGroup {
     return this.formConstructorService.buildForm(formContent);
   }
 
