@@ -82,7 +82,6 @@
       <button
         *ngIf="currentStep !== formOptions.length - 1"
         type="button"
-        [disabled]="forms[currentStep].invalid"
         (click)="onNextStep()"
         class="btn btn-primary">
         Next

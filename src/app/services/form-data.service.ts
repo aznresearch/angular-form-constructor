@@ -34,6 +34,21 @@ export class FormDataService {
           classes: field.classes,
           options: field.options
         };
+
+        const hasNonRequiredValidator = field.validators?.some(
+          (validator) => validator.type !== 'required'
+        );
+        const hasRequiredValidator = field.validators?.some(
+          (validator) => validator.type === 'required'
+        );
+
+        if (hasNonRequiredValidator && !hasRequiredValidator) {
+          fieldData.validators?.push({
+            type: 'required',
+            errormsg: 'This field is required'
+          });
+        }
+
         stepData.push(fieldData);
       });
 
