@@ -16,7 +16,11 @@
         <div class="conditional-logic-block__row-label"><span>IF</span></div>
       </div>
       <div>
-        <select id="fieldSelect" [(ngModel)]="block.selectedField" class="form-select">
+        <select
+          id="fieldSelect"
+          [(ngModel)]="block.selectedField"
+          class="form-select"
+          [compareWith]="compareFields">
           <option *ngFor="let field of addedFields" [ngValue]="field">
             {{ field.title || "Untitled " + fieldLabels[field.type] + " Field" }}
           </option>
@@ -38,7 +42,8 @@
           type="text"
           id="conditionInput"
           [(ngModel)]="block.conditionValue"
-          class="form-control" />
+          class="form-control"
+          *ngIf="isConditionInputVisible()" />
       </div>
     </div>
   </div>

@@ -45,10 +45,6 @@ export class FormComponent implements OnInit {
       this.formOptionsFullObject = data;
     });
 
-    this.formOptionsFullObject.formData.forEach((element) => {
-      delete element.conditionalLogicBlocks;
-    });
-
     this.formOptions = this.formOptionsFullObject.formData;
   }
 
@@ -139,6 +135,32 @@ export class FormComponent implements OnInit {
     const control = form.get(formFieldName);
     return control?.invalid && (control?.dirty || control?.touched);
   }
+
+  // isFieldVisible(selectedField: any, logicBlocks: any[]): boolean {
+  //   if (logicBlocks) {
+  //     for (const logicBlock of logicBlocks) {
+  //       if (logicBlock.selectedField.id === selectedField.id) {
+  //         switch (logicBlock.selectedCondition) {
+  //           case 'is empty':
+  //             console.log('cscscscsc');
+
+  //             console.log(selectedField);
+
+  //             console.log(selectedField.value !== '');
+
+  //             return selectedField.value !== '';
+  //           case 'equals':
+  //             return selectedField.value === logicBlock.conditionValue;
+  //           case 'not equals':
+  //             return selectedField.value !== logicBlock.conditionValue;
+  //           default:
+  //             return true;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return true;
+  // }
 
   createFormFromText() {
     try {

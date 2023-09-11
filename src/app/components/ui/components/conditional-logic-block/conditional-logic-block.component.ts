@@ -27,4 +27,14 @@ export class ConditionalLogicBlockComponent implements OnInit {
   removeConditionalLogicBlock() {
     this.remove.emit();
   }
+
+  isConditionInputVisible(): boolean {
+    return (
+      this.block.selectedCondition !== 'is empty' && this.block.selectedCondition !== 'is not empty'
+    );
+  }
+
+  compareFields(field1: any, field2: any): boolean {
+    return field1 && field2 && field1.id === field2.id;
+  }
 }

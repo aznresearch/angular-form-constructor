@@ -135,6 +135,7 @@ export class UIComponent implements OnInit {
       addedFields: [...this.addedFields],
       conditionalLogicBlocks: [...this.conditionalLogicBlocks]
     };
+
     this.saveFormDataToLocalStorage();
   }
 
