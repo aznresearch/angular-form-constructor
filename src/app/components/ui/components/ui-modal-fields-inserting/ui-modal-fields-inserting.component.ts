@@ -5,7 +5,10 @@ import { SharedModalConfirmationComponent } from 'src/app/components/shared/shar
 import {
   fieldsToCreate,
   formFieldTypes,
-  defaultOptionValues
+  defaultOptionValues,
+  FieldTypesNames,
+  fieldTypesNames,
+  haveOptionsFieldTypes
 } from 'src/app/constants/ui-constants';
 import { FormField } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
@@ -21,6 +24,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   selectedFieldType = '';
   propertyForm: FormGroup = this.fb.group({});
   availableFieldTypes = formFieldTypes;
+  fieldLabels: FieldTypesNames = fieldTypesNames;
   isFormCreated = false;
   modalOptions = {
     initialState: {
@@ -58,7 +62,6 @@ export class UIModalFieldsInsertingComponent implements OnInit {
       this.selectedFieldType = foundFieldType;
     }
     this.createPropertyForm();
-    const haveOptionsFieldTypes = ['select', 'checkbox', 'radio'];
     if (haveOptionsFieldTypes.includes(this.selectedFieldType)) {
       this.setDefaultOptionValues();
     }

@@ -7,6 +7,7 @@ export enum FormFieldType {
   Select = 'select',
   Number = 'number',
   Checkbox = 'checkbox',
+  CheckboxGroup = 'checkbox-group',
   Radio = 'radio',
   File = 'file',
   Password = 'password',
@@ -32,6 +33,7 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.Select,
   FormFieldType.Number,
   FormFieldType.Checkbox,
+  FormFieldType.CheckboxGroup,
   FormFieldType.Radio,
   FormFieldType.File,
   FormFieldType.Password,
@@ -45,7 +47,8 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Date]: 'Date',
   [FormFieldType.Select]: 'Select',
   [FormFieldType.Number]: 'Number',
-  [FormFieldType.Checkbox]: 'Checkboxes',
+  [FormFieldType.Checkbox]: 'Checkbox',
+  [FormFieldType.CheckboxGroup]: 'Checkboxes',
   [FormFieldType.Radio]: 'Radio',
   [FormFieldType.File]: 'File Attachment',
   [FormFieldType.Password]: 'Password',
@@ -116,6 +119,6 @@ export const conditionOptions: Record<string, string[]> = {
   ]
 };
 
-export const haveOptionsFieldTypes = ['select', 'checkbox', 'radio'];
+export const haveOptionsFieldTypes = ['select', 'checkbox-group', 'radio'];
 
 export const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];

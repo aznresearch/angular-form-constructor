@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { FormField } from '../models/form-constructor.model';
+import { FormField, Option } from '../models/form-constructor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,10 @@ export class FormConstructorService {
       if (field.type === 'checkbox') {
         initialValue = false;
       }
+      if (field.type === 'checkbox-group' && field.options) {
+        const checkboxArray = this.createCheckboxArray(field.options);
+        formGroup.addControl(field.name, checkboxArray);
+      }
 
       if (field.initial !== undefined) {
         initialValue = field.initial;
@@ -31,6 +35,15 @@ export class FormConstructorService {
     }
 
     return formGroup;
+  }
+
+  createCheckboxArray(options: Option[]): FormArray {
+    const checkboxArray = this.fb.array([]);
+    for (const _ of options) {
+      const checkboxControl = this.fb.control(false);
+      checkboxArray.push(checkboxControl);
+    }
+    return checkboxArray;
   }
 
   getValidators(validators: any[] = []): ValidatorFn[] {

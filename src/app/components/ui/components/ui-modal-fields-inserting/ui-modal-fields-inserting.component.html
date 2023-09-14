@@ -7,7 +7,7 @@
           class="field-selector__item"
           *ngFor="let fieldType of availableFieldTypes"
           (click)="selectField(fieldType)">
-          {{ fieldType }}
+          {{ fieldLabels[fieldType] }}
         </li>
       </ul>
     </div>

@@ -60,20 +60,18 @@
                 </option>
               </select>
             </ng-container>
-            <!-- <ng-container *ngSwitchCase="'checkbox'">
+            <ng-container *ngSwitchCase="'checkbox-group'">
               <div *ngFor="let option of field.options" class="form-check">
                 <input
-                  [id]="field.id + option.value"
+                  [id]="field.id"
                   type="checkbox"
                   [formControlName]="field.id"
                   [value]="option.value"
                   class="form-check-input"
                   (mousedown)="preventDefault($event)" />
-                <label [for]="field.id + option.value" class="form-check-label">{{
-                  option.name
-                }}</label>
+                <label [for]="field.id" class="form-check-label">{{ option.name }}</label>
               </div>
-            </ng-container> -->
+            </ng-container>
             <ng-container *ngSwitchCase="'checkbox'">
               <input
                 [id]="field.id"

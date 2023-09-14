@@ -23,19 +23,21 @@
                 </option>
               </select>
             </ng-container>
-            <!-- <ng-container *ngSwitchCase="'checkbox'">
-              <div *ngFor="let option of field.options" class="form-check">
-                <label class="form-check-label">
-                  <input
-                    [id]="field.name"
-                    type="checkbox"
-                    [formControlName]="field.name"
-                    [value]="option.value"
-                    class="form-check-input" />
-                  {{ option.name }}
-                </label>
+            <ng-container *ngSwitchCase="'checkbox-group'">
+              <div [formArrayName]="field.name">
+                <div *ngFor="let option of field.options; let i = index" class="form-check">
+                  <label class="form-check-label">
+                    <input
+                      [id]="field.name + i"
+                      type="checkbox"
+                      [formControlName]="i"
+                      [value]="option.value"
+                      class="form-check-input" />
+                    {{ option.name }}
+                  </label>
+                </div>
               </div>
-            </ng-container> -->
+            </ng-container>
             <ng-container *ngSwitchCase="'checkbox'">
               <input
                 [id]="field.name"
