@@ -60,7 +60,7 @@
                 </option>
               </select>
             </ng-container>
-            <ng-container *ngSwitchCase="'checkbox'">
+            <!-- <ng-container *ngSwitchCase="'checkbox'">
               <div *ngFor="let option of field.options" class="form-check">
                 <input
                   [id]="field.id + option.value"
@@ -73,6 +73,13 @@
                   option.name
                 }}</label>
               </div>
+            </ng-container> -->
+            <ng-container *ngSwitchCase="'checkbox'">
+              <input
+                [id]="field.id"
+                type="checkbox"
+                [formControlName]="field.id"
+                class="form-check-input" />
             </ng-container>
             <ng-container *ngSwitchCase="'radio'">
               <div *ngFor="let option of field.options" class="form-check">

@@ -73,6 +73,7 @@ export const fieldsToCreate: FormField[] = [
   { id: 'classes', name: 'classes', isArray: false },
   { id: 'placeholder', name: 'placeholder', isArray: false },
   { id: 'title', name: 'title', isArray: false },
+  { id: 'initial', name: 'Default value', isArray: false },
   { id: 'validators', name: 'validators', isArray: true },
   { id: 'options', name: 'options', isArray: true }
 ];

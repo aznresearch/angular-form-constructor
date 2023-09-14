@@ -79,11 +79,7 @@
       <div *ngSwitchDefault [formGroup]="propertyForm">
         <div class="form-group">
           <label class="propertyForm__label" [for]="field.name">{{ field.name }}</label>
-          <input
-            [type]="text"
-            [id]="field.name"
-            [formControlName]="field.name"
-            class="form-control" />
+          <input [type]="text" [id]="field.id" [formControlName]="field.id" class="form-control" />
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ export interface FormField {
   placeholder?: string;
   type?: string;
   title?: string;
+  initial?: string;
   validators?: Validator[];
   options?: Option[];
   classes?: string[];

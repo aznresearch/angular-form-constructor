@@ -14,11 +14,18 @@ export class FormConstructorService {
 
   buildForm(formFields: FormField[]): FormGroup {
     const formGroup = this.fb.group({});
+
     for (const field of formFields) {
       let initialValue: any = '';
+
       if (field.type === 'checkbox') {
         initialValue = false;
       }
+
+      if (field.initial !== undefined) {
+        initialValue = field.initial;
+      }
+
       const formControl = this.fb.control(initialValue, this.getValidators(field.validators));
       formGroup.addControl(field.name, formControl);
     }

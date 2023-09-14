@@ -4,6 +4,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { FormOptionsFull } from 'src/app/models/form-constructor.model';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { defaultFormOptionsObject } from 'src/app/constants/form-constants';
+import { FormConstructorService } from 'src/app/services/form-constructor.service';
 
 @Component({
   selector: 'app-form-constructor',
@@ -16,13 +17,17 @@ export class FormConstructorComponent implements OnInit {
   formOptionsFull: FormOptionsFull = defaultFormOptionsObject;
   constructor(
     private formDataService: FormDataService,
-
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private formConstructorService: FormConstructorService
   ) {}
 
   ngOnInit() {
     this.formDataService.getFormData().subscribe((data) => {
       this.formOptionsFull = data;
+    });
+
+    this.formConstructorService.getFormValue().subscribe((formData) => {
+      this.formValue = formData;
     });
   }
 

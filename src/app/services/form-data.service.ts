@@ -30,6 +30,7 @@ export class FormDataService {
           name: field.name,
           type: field.type,
           title: field.title,
+          initial: field.initial,
           validators: field.validators,
           classes: field.classes,
           options: field.options

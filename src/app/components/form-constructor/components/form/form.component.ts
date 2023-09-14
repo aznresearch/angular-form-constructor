@@ -54,7 +54,6 @@ export class FormComponent implements OnInit {
     formOptions.forEach((formOption, i) => {
       this.formContent.push(formOption.data);
       this.forms.push(this.buildForm(this.formContent[i]));
-      this.forms[i].reset();
     });
   }
 
@@ -110,6 +109,8 @@ export class FormComponent implements OnInit {
   onSubmit() {
     if (this.isLastStepValid()) {
       this.formValue = this.collectFormValues();
+      console.log(this.formValue);
+
       this.formConstructorService.setFormValue(this.formValue);
     } else {
       this.markAllFieldsAsTouched();
