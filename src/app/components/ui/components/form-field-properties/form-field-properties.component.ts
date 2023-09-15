@@ -3,7 +3,6 @@ import { FormArray, FormGroup } from '@angular/forms';
 
 import {
   validatorTypes,
-  fieldsToCreate,
   haveOptionsFieldTypes,
   withoutValueValidatorTypes
 } from 'src/app/constants/ui-constants';
@@ -16,15 +15,23 @@ import { UiFormService } from 'src/app/services/ui-form.service';
   styleUrls: ['./form-field-properties.component.scss']
 })
 export class FormFieldPropertiesComponent implements OnInit {
-  @Input() propertyForm?: FormGroup;
+  @Input() propertyForm: FormGroup | undefined;
   @Input() selectedFieldType = '';
 
   validatorOptions = validatorTypes;
-  fieldsToCreate: FormField[] = fieldsToCreate;
+  fieldsToCreate: FormField[] = [];
 
   constructor(private uiFormService: UiFormService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscribeToFieldsToCreate();
+  }
+
+  subscribeToFieldsToCreate(): void {
+    this.uiFormService.getFieldsToCreate().subscribe((updatedFieldsToCreate) => {
+      this.fieldsToCreate = updatedFieldsToCreate;
+    });
+  }
 
   addControlToFormArray(arrayName: string): void {
     const formArray = this.propertyForm?.get(arrayName) as FormArray;

@@ -8,7 +8,8 @@ import {
   defaultOptionValues,
   FieldTypesNames,
   fieldTypesNames,
-  haveOptionsFieldTypes
+  haveOptionsFieldTypes,
+  FormFieldType
 } from 'src/app/constants/ui-constants';
 import { FormField } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
@@ -21,11 +22,12 @@ import { UiFormService } from 'src/app/services/ui-form.service';
 export class UIModalFieldsInsertingComponent implements OnInit {
   @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
 
-  selectedFieldType = '';
+  selectedFieldType!: FormFieldType;
   propertyForm: FormGroup = this.fb.group({});
   availableFieldTypes = formFieldTypes;
   fieldLabels: FieldTypesNames = fieldTypesNames;
   isFormCreated = false;
+  fieldsToCreate: FormField[] = [];
   modalOptions = {
     initialState: {
       message: 'Are you sure you want to complete field creation without saving?'
@@ -61,6 +63,8 @@ export class UIModalFieldsInsertingComponent implements OnInit {
     if (foundFieldType) {
       this.selectedFieldType = foundFieldType;
     }
+    this.uiFormService.setFieldsToCreate(fieldType);
+
     this.createPropertyForm();
     if (haveOptionsFieldTypes.includes(this.selectedFieldType)) {
       this.setDefaultOptionValues();
@@ -68,8 +72,16 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   }
 
   setDefaultOptionValues() {
+    let _defaultOptionValues = defaultOptionValues;
     const formArray = this.propertyForm?.get('options') as FormArray;
-    defaultOptionValues.forEach((option) => {
+    console.log(this.selectedFieldType);
+    if (this.selectedFieldType == 'radio-boolean') {
+      _defaultOptionValues = [
+        { name: 'Yes', value: 'true' },
+        { name: 'No', value: 'false' }
+      ];
+    }
+    _defaultOptionValues.forEach((option) => {
       const group = this.fb.group({
         name: this.fb.control(option.name),
         value: this.fb.control(option.value)

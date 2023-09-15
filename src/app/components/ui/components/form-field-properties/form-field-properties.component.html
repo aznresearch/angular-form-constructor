@@ -1,6 +1,6 @@
 <form [formGroup]="propertyForm" class="propertyForm">
   <ng-container *ngFor="let field of fieldsToCreate">
-    <div class="form-row" [ngSwitch]="field.name">
+    <div class="form-row" [ngSwitch]="field.id">
       <div *ngSwitchCase="'validators'" formArrayName="validators" class="propertyForm__array">
         <label class="propertyForm__label">Validators</label>
         <div

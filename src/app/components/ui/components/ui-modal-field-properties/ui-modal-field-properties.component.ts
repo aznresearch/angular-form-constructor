@@ -16,6 +16,7 @@ export class UIModalFieldPropertiesComponent implements OnInit {
 
   propertyForm: FormGroup = this.fb.group({});
   selectedFieldType = '';
+  fieldsToCreate: FormField[] = [];
 
   constructor(
     public modalRef: BsModalRef,
@@ -25,6 +26,7 @@ export class UIModalFieldPropertiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedFieldType = this.field.type ?? '';
+    this.uiFormService.setFieldsToCreate(this.selectedFieldType);
     this.createPropertyForm();
     this.patchFieldProperties();
   }
