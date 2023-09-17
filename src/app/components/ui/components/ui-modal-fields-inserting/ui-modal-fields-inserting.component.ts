@@ -64,7 +64,6 @@ export class UIModalFieldsInsertingComponent implements OnInit {
       this.selectedFieldType = foundFieldType;
     }
     this.uiFormService.setFieldsToCreate(fieldType);
-
     this.createPropertyForm();
     if (haveOptionsFieldTypes.includes(this.selectedFieldType)) {
       this.setDefaultOptionValues();
@@ -72,16 +71,15 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   }
 
   setDefaultOptionValues() {
-    let _defaultOptionValues = defaultOptionValues;
+    let optionValues = defaultOptionValues;
     const formArray = this.propertyForm?.get('options') as FormArray;
-    console.log(this.selectedFieldType);
-    if (this.selectedFieldType == 'radio-boolean') {
-      _defaultOptionValues = [
+    if (this.selectedFieldType === 'radio-boolean') {
+      optionValues = [
         { name: 'Yes', value: 'true' },
         { name: 'No', value: 'false' }
       ];
     }
-    _defaultOptionValues.forEach((option) => {
+    optionValues.forEach((option) => {
       const group = this.fb.group({
         name: this.fb.control(option.name),
         value: this.fb.control(option.value)

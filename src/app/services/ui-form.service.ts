@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FormField, Validator } from '../models/form-constructor.model';
-import { controlsMap } from '../constants/ui-constants';
+import { controlsMap, fieldsToCreate, likertFields, textFields } from '../constants/ui-constants';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UiFormService {
+  private fieldsToCreate: FormField[] = [];
+  private fieldsToCreateSubject = new BehaviorSubject<FormField[]>(this.fieldsToCreate);
+
   constructor(private fb: FormBuilder) {}
 
   createFormGroup(addedFields: FormField[]): FormGroup {
@@ -71,5 +75,24 @@ export class UiFormService {
 
   generateUniqueId(): string {
     return Math.floor(Math.random() * 100000000).toString();
+  }
+
+  setFieldsToCreate(fieldType: string): void {
+    switch (fieldType) {
+      case 'text':
+        this.fieldsToCreate = textFields;
+        break;
+      case 'likert':
+        this.fieldsToCreate = likertFields;
+        break;
+      default:
+        this.fieldsToCreate = fieldsToCreate;
+    }
+
+    this.fieldsToCreateSubject.next(this.fieldsToCreate);
+  }
+
+  getFieldsToCreate(): Observable<FormField[]> {
+    return this.fieldsToCreateSubject.asObservable();
   }
 }

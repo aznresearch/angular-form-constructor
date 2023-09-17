@@ -9,10 +9,12 @@ export enum FormFieldType {
   Checkbox = 'checkbox',
   CheckboxGroup = 'checkbox-group',
   Radio = 'radio',
+  RadioBoolean = 'radio-boolean',
   File = 'file',
   Password = 'password',
   Email = 'email',
-  Phone = 'phone'
+  Phone = 'phone',
+  Likert = 'likert'
 }
 
 export enum ValidatorType {
@@ -35,10 +37,12 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.Checkbox,
   FormFieldType.CheckboxGroup,
   FormFieldType.Radio,
+  FormFieldType.RadioBoolean,
   FormFieldType.File,
   FormFieldType.Password,
   FormFieldType.Email,
-  FormFieldType.Phone
+  FormFieldType.Phone,
+  FormFieldType.Likert
 ];
 
 export const fieldTypesNames: FieldTypesNames = {
@@ -50,15 +54,15 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Checkbox]: 'Checkbox',
   [FormFieldType.CheckboxGroup]: 'Checkboxes',
   [FormFieldType.Radio]: 'Radio',
+  [FormFieldType.RadioBoolean]: 'Radio (Yes/No)',
   [FormFieldType.File]: 'File Attachment',
   [FormFieldType.Password]: 'Password',
   [FormFieldType.Email]: 'Email',
-  [FormFieldType.Phone]: 'Phone Number'
+  [FormFieldType.Phone]: 'Phone Number',
+  [FormFieldType.Likert]: 'Likert Scale'
 };
 
-export type FieldTypesNames = {
-  [key in FormFieldType]: string;
-};
+export type FieldTypesNames = Record<FormFieldType, string>;
 
 export const validatorTypes: ValidatorType[] = [
   ValidatorType.Required,
@@ -76,9 +80,41 @@ export const fieldsToCreate: FormField[] = [
   { id: 'classes', name: 'classes', isArray: false },
   { id: 'placeholder', name: 'placeholder', isArray: false },
   { id: 'title', name: 'title', isArray: false },
+  { id: 'subtitle', name: 'subtitle', isArray: false },
+  { id: 'optionsTitle', name: 'Options Title', isArray: false },
+  { id: 'option1', name: 'Option 1 title', isArray: false },
+  { id: 'option2', name: 'Option 2 title', isArray: false },
+  { id: 'option3', name: 'Option 3 title', isArray: false },
+  { id: 'option4', name: 'Option 4 title', isArray: false },
+  { id: 'option5', name: 'Option 5 title', isArray: false },
   { id: 'initial', name: 'Default value', isArray: false },
   { id: 'validators', name: 'validators', isArray: true },
-  { id: 'options', name: 'options', isArray: true }
+  { id: 'options', name: 'options', isArray: true },
+  { id: 'rows', name: 'rows', isArray: true }
+];
+
+export const textFields = [
+  { id: 'name', name: 'name', isArray: false },
+  { id: 'classes', name: 'classes', isArray: false },
+  { id: 'placeholder', name: 'placeholder', isArray: false },
+  { id: 'title', name: 'title', isArray: false },
+  { id: 'subtitle', name: 'subtitle', isArray: false },
+  { id: 'validators', name: 'validators', isArray: true }
+];
+
+export const likertFields = [
+  { id: 'name', name: 'name', isArray: false },
+  { id: 'classes', name: 'classes', isArray: false },
+  { id: 'title', name: 'title', isArray: false },
+  { id: 'subtitle', name: 'subtitle', isArray: false },
+  { id: 'optionsTitle', name: 'Options Title', isArray: false },
+  { id: 'option1', name: 'Option 1 title', isArray: false },
+  { id: 'option2', name: 'Option 2 title', isArray: false },
+  { id: 'option3', name: 'Option 3 title', isArray: false },
+  { id: 'option4', name: 'Option 4 title', isArray: false },
+  { id: 'option5', name: 'Option 5 title', isArray: false },
+  { id: 'validators', name: 'validators', isArray: true },
+  { id: 'rows', name: 'rows', isArray: true }
 ];
 
 export const defaultOptionValues: { name: string; value: string }[] = [
@@ -88,7 +124,8 @@ export const defaultOptionValues: { name: string; value: string }[] = [
 
 export const controlsMap: Record<string, string[]> = {
   validators: ['type', 'value', 'errormsg'],
-  options: ['name', 'value']
+  options: ['name', 'value'],
+  rows: ['name']
 };
 
 export const defaultConditionalLogicBlock: ConditionalLogicBlock = {
@@ -119,6 +156,6 @@ export const conditionOptions: Record<string, string[]> = {
   ]
 };
 
-export const haveOptionsFieldTypes = ['select', 'checkbox-group', 'radio'];
+export const haveOptionsFieldTypes = ['select', 'checkbox-group', 'radio', 'radio-boolean'];
 
 export const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];

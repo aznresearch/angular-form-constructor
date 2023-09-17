@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { FormField, Option } from '../models/form-constructor.model';
 
 @Injectable({
@@ -8,7 +8,6 @@ import { FormField, Option } from '../models/form-constructor.model';
 })
 export class FormConstructorService {
   private formValueSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  formValueSubject$: Observable<any> = this.formValueSubject.asObservable();
 
   constructor(private fb: FormBuilder) {}
 
@@ -69,6 +68,6 @@ export class FormConstructorService {
   }
 
   getFormValue() {
-    return this.formValueSubject$;
+    return this.formValueSubject.asObservable();
   }
 }

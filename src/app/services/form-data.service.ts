@@ -24,17 +24,9 @@ export class FormDataService {
 
     formData.forEach((stepFormData, index) => {
       const stepData: FormField[] = [];
+
       stepFormData.addedFields.forEach((field) => {
-        const fieldData: FormField = {
-          id: field.id,
-          name: field.name,
-          type: field.type,
-          title: field.title,
-          initial: field.initial,
-          validators: field.validators,
-          classes: field.classes,
-          options: field.options
-        };
+        const fieldData: FormField = field;
 
         const hasNonRequiredValidator = field.validators?.some(
           (validator) => validator.type !== 'required'

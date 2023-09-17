@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { fieldsToCreate } from 'src/app/constants/ui-constants';
-import { FormField, Option, Validator } from 'src/app/models/form-constructor.model';
+import { FormField, Option, Row, Validator } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
 
 @Component({
@@ -40,14 +40,16 @@ export class UIModalFieldPropertiesComponent implements OnInit {
 
     const validatorsArray = this.propertyForm.get('validators') as FormArray;
     const optionsArray = this.propertyForm.get('options') as FormArray;
+    const rowsArray = this.propertyForm.get('rows') as FormArray;
 
     this.patchArrayData(validatorsArray, this.field.validators);
     this.patchArrayData(optionsArray, this.field.options);
+    this.patchArrayData(rowsArray, this.field.rows);
   }
 
-  patchArrayData(array: FormArray, data: (Validator | Option)[] | undefined) {
+  patchArrayData(array: FormArray, data: (Validator | Option | Row)[] | undefined) {
     if (data) {
-      data.forEach((item: Validator | Option) => {
+      data.forEach((item: Validator | Option | Row) => {
         array.push(this.fb.group(item));
       });
     }

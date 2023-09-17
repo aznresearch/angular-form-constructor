@@ -2,10 +2,12 @@ export interface FormField {
   placeholder?: string;
   type?: string;
   title?: string;
+  subtitle?: string;
   initial?: string;
   validators?: Validator[];
   options?: Option[];
   classes?: string[];
+  rows?: Row[];
   id: string;
   name: string;
   isArray?: boolean;
@@ -40,6 +42,10 @@ export interface Validator {
 export interface Option {
   name: string;
   value: string;
+}
+
+export interface Row {
+  name: string;
 }
 
 export interface UniqueFormData extends FormOptions {

@@ -93,6 +93,63 @@
                 }}</label>
               </div>
             </ng-container>
+            <ng-container *ngSwitchCase="'radio-boolean'">
+              <div *ngFor="let option of field.options" class="form-check">
+                <input
+                  [id]="field.id + option.value"
+                  type="radio"
+                  [formControlName]="field.id"
+                  [value]="option.value"
+                  class="form-check-input"
+                  (mousedown)="preventDefault($event)" />
+                <label [for]="field.id + option.value" class="form-check-label">{{
+                  option.name
+                }}</label>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'likert'">
+              <div class="answer__container-table">
+                <div class="row answer__container-row border-0">
+                  <div class="col text-center answer__container-column p-0">
+                    <h3>{{ field.title }}</h3>
+                    <p>{{ field.subtitle }}</p>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div class="col text-right">
+                    <span>{{ field.optionsTitle }}</span>
+                  </div>
+                  <div class="col text-center">
+                    <span>{{ field.option1 }}</span>
+                  </div>
+                  <div class="col text-center">
+                    <span>{{ field.option2 }}</span>
+                  </div>
+                  <div class="col text-center">
+                    <span>{{ field.option3 }}</span>
+                  </div>
+                  <div class="col text-center">
+                    <span>{{ field.option4 }}</span>
+                  </div>
+                  <div class="col text-center">
+                    <span>{{ field.option5 }}</span>
+                  </div>
+                </div>
+                <div *ngFor="let row of field.rows" class="row text-center">
+                  <div class="col-xl-2 text-left">
+                    {{ row.name }}
+                  </div>
+                  <div class="col text-center" *ngFor="let value of [1, 2, 3, 4, 5]">
+                    <input
+                      type="radio"
+                      class="form-check-input"
+                      [name]="field.id + row.name"
+                      [value]="value" />
+                  </div>
+                </div>
+              </div>
+            </ng-container>
             <ng-container *ngSwitchDefault>
               <input
                 [id]="field.id"
