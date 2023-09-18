@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FormField, Validator } from '../models/form-constructor.model';
-import { controlsMap, fieldsToCreate, likertFields, textFields } from '../constants/ui-constants';
+import { FormFieldType, controlsMap, fieldsByType } from '../constants/ui-constants';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -78,15 +78,10 @@ export class UiFormService {
   }
 
   setFieldsToCreate(fieldType: string): void {
-    switch (fieldType) {
-      case 'text':
-        this.fieldsToCreate = textFields;
-        break;
-      case 'likert':
-        this.fieldsToCreate = likertFields;
-        break;
-      default:
-        this.fieldsToCreate = fieldsToCreate;
+    if (fieldType !== 'all-fields') {
+      this.fieldsToCreate = fieldsByType[fieldType as FormFieldType];
+    } else {
+      this.fieldsToCreate = fieldsByType[FormFieldType.AllFields];
     }
 
     this.fieldsToCreateSubject.next(this.fieldsToCreate);

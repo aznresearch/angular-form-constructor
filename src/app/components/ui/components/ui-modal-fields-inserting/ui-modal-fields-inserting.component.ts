@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { SharedModalConfirmationComponent } from 'src/app/components/shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import {
-  fieldsToCreate,
+  fieldsByType,
   formFieldTypes,
   defaultOptionValues,
   FieldTypesNames,
@@ -89,7 +89,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   }
 
   createPropertyForm() {
-    this.propertyForm = this.uiFormService.createFormGroup(fieldsToCreate);
+    this.propertyForm = this.uiFormService.createFormGroup(fieldsByType['all-fields']);
     this.isFormCreated = true;
   }
 

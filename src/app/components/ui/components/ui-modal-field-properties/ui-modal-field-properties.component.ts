@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { fieldsToCreate } from 'src/app/constants/ui-constants';
+import { fieldsByType } from 'src/app/constants/ui-constants';
 import { FormField, Option, Row, Validator } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
 
@@ -32,7 +32,7 @@ export class UIModalFieldPropertiesComponent implements OnInit {
   }
 
   createPropertyForm() {
-    this.propertyForm = this.uiFormService.createFormGroup(fieldsToCreate);
+    this.propertyForm = this.uiFormService.createFormGroup(fieldsByType['all-fields']);
   }
 
   patchFieldProperties() {
