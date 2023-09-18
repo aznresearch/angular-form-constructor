@@ -42,6 +42,17 @@ export class FormDataService {
           });
         }
 
+        if (
+          field.type === 'textarea' &&
+          !fieldData.validators?.some((validator) => validator.type === 'maxlength')
+        ) {
+          fieldData.validators?.push({
+            type: 'maxlength',
+            value: 1000,
+            errormsg: 'Text is too long'
+          });
+        }
+
         stepData.push(fieldData);
       });
 
