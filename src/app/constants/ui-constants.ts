@@ -15,6 +15,7 @@ export enum FormFieldType {
   Email = 'email',
   Phone = 'phone',
   Likert = 'likert',
+  Csat = 'csat',
   AllFields = 'all-fields'
 }
 
@@ -43,7 +44,8 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.Password,
   FormFieldType.Email,
   FormFieldType.Phone,
-  FormFieldType.Likert
+  FormFieldType.Likert,
+  FormFieldType.Csat
 ];
 
 export const fieldTypesNames: FieldTypesNames = {
@@ -61,6 +63,7 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Email]: 'Email',
   [FormFieldType.Phone]: 'Phone Number',
   [FormFieldType.Likert]: 'Likert Scale',
+  [FormFieldType.Csat]: 'CSAT Scale',
   [FormFieldType.AllFields]: 'All Fields'
 };
 
@@ -127,7 +130,8 @@ export const fieldsByType: Record<FormFieldType, Field[]> = {
     { id: 'option4', name: 'Option 4 Title', isArray: false },
     { id: 'option5', name: 'Option 5 Title', isArray: false },
     { id: 'rows', name: 'rows', isArray: true }
-  ]
+  ],
+  [FormFieldType.Csat]: [...commonFields]
 };
 
 export const defaultOptionValues: { name: string; value: string }[] = [
