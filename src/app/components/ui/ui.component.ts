@@ -86,7 +86,7 @@ export class UIComponent implements OnInit {
     });
   }
 
-  openFieldPropertiesModal(field: FormField) {
+  openFieldPropertiesModal(field: FormField, isGeneral: boolean) {
     const initialState = {
       field
     };
@@ -95,31 +95,59 @@ export class UIComponent implements OnInit {
 
     this.modalRef?.content.propertiesSave.subscribe((updatedField: FormField) => {
       if (updatedField) {
-        const index = this.addedFields.indexOf(field);
+        let fieldsArray: FormField[];
+
+        if (isGeneral) {
+          fieldsArray = this.generalFields;
+        } else {
+          fieldsArray = this.addedFields;
+        }
+        const index = fieldsArray.indexOf(field);
         if (index !== -1) {
-          this.addedFields[index] = updatedField;
+          fieldsArray[index] = updatedField;
         }
         this.saveCurrentStepData();
       }
     });
   }
 
-  removeField(field: FormField) {
-    const index = this.addedFields.indexOf(field);
+  removeField(field: FormField, isGeneral: boolean) {
+    let fieldsArray: FormField[];
+    let formGroup: FormGroup;
+
+    if (isGeneral) {
+      fieldsArray = this.generalFields;
+      formGroup = this.generalForm;
+    } else {
+      fieldsArray = this.addedFields;
+      formGroup = this.dynamicForm;
+    }
+
+    const index = fieldsArray.indexOf(field);
     if (index !== -1) {
-      this.addedFields.splice(index, 1);
-      this.dynamicForm.removeControl(field.id);
+      fieldsArray.splice(index, 1);
+      formGroup.removeControl(field.id);
     }
     this.saveCurrentStepData();
   }
 
-  copyField(field: FormField) {
+  copyField(field: FormField, isGeneral: boolean) {
+    let fieldsArray: FormField[];
+    let formGroup: FormGroup;
+
+    if (isGeneral) {
+      fieldsArray = this.generalFields;
+      formGroup = this.generalForm;
+    } else {
+      fieldsArray = this.addedFields;
+      formGroup = this.dynamicForm;
+    }
     const copiedField = { ...field };
     copiedField.id = this.uiFormService.generateUniqueId();
-    const originalFieldIndex = this.addedFields.indexOf(field);
-    this.addedFields.splice(originalFieldIndex + 1, 0, copiedField);
+    const originalFieldIndex = fieldsArray.indexOf(field);
+    fieldsArray.splice(originalFieldIndex + 1, 0, copiedField);
     const newFormControl = this.uiFormService.createControl();
-    this.dynamicForm.addControl(copiedField.id, newFormControl);
+    formGroup.addControl(copiedField.id, newFormControl);
     this.saveCurrentStepData();
   }
 

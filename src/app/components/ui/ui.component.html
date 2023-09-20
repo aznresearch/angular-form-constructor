@@ -19,19 +19,19 @@
               <span
                 class="test-form__field-toolbar-icon"
                 data-tooltip="Delete"
-                (click)="removeField(field)"
+                (click)="removeField(field, true)"
                 ><i class="bi bi-trash"></i
               ></span>
               <span
                 class="test-form__field-toolbar-icon"
                 data-tooltip="Edit"
-                (click)="openFieldPropertiesModal(field)"
+                (click)="openFieldPropertiesModal(field, true)"
                 ><i class="bi bi-pencil"></i
               ></span>
               <span
                 class="test-form__field-toolbar-icon"
                 data-tooltip="Copy"
-                (click)="copyField(field)"
+                (click)="copyField(field, true)"
                 ><i class="bi bi-files"></i
               ></span>
               <span
@@ -91,19 +91,19 @@
               <span
                 class="test-form__field-toolbar-icon"
                 data-tooltip="Delete"
-                (click)="removeField(field)"
+                (click)="removeField(field, false)"
                 ><i class="bi bi-trash"></i
               ></span>
               <span
                 class="test-form__field-toolbar-icon"
                 data-tooltip="Edit"
-                (click)="openFieldPropertiesModal(field)"
+                (click)="openFieldPropertiesModal(field, false)"
                 ><i class="bi bi-pencil"></i
               ></span>
               <span
                 class="test-form__field-toolbar-icon"
                 data-tooltip="Copy"
-                (click)="copyField(field)"
+                (click)="copyField(field, false)"
                 ><i class="bi bi-files"></i
               ></span>
               <span
