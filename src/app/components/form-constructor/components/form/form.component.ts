@@ -4,8 +4,8 @@ import { defaultFormOptionsObject } from 'src/app/constants/form-constants';
 import { defaultErrorMessages } from 'src/app/constants/validator-constants';
 import {
   FormField,
-  FormOptions,
   FormOptionsFull,
+  StepData,
   Validator
 } from 'src/app/models/form-constructor.model';
 import { FormConstructorService } from 'src/app/services/form-constructor.service';
@@ -20,7 +20,7 @@ export class FormComponent implements OnInit {
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
   formOptionsFullObject: FormOptionsFull = defaultFormOptionsObject;
-  formOptions: FormOptions[] = [];
+  formOptions: StepData[] = [];
   currentStep = 0;
   forms: FormGroup[] = [];
   formContent: FormField[][] = [];
@@ -45,14 +45,14 @@ export class FormComponent implements OnInit {
       this.formOptionsFullObject = data;
     });
 
-    this.formOptions = this.formOptionsFullObject.formData;
+    this.formOptions = this.formOptionsFullObject.formData.steps;
   }
 
-  initForms(formOptions: FormOptions[]) {
+  initForms(formOptions: StepData[]) {
     this.addUniqueFormData();
     this.formContent.length = 0;
     formOptions.forEach((formOption, i) => {
-      this.formContent.push(formOption.data);
+      this.formContent.push(formOption.addedFields);
       this.forms.push(this.buildForm(this.formContent[i]));
     });
   }
@@ -109,8 +109,6 @@ export class FormComponent implements OnInit {
   onSubmit() {
     if (this.isLastStepValid()) {
       this.formValue = this.collectFormValues();
-      console.log(this.formValue);
-
       this.formConstructorService.setFormValue(this.formValue);
     } else {
       this.markAllFieldsAsTouched();

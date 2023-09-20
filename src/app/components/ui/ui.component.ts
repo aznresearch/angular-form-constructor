@@ -7,7 +7,11 @@ import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-in
 import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-properties/ui-modal-field-properties.component';
 import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { ConditionalLogicBlock, FormField, StepData } from 'src/app/models/form-constructor.model';
+import {
+  ConditionalLogicBlock,
+  FormDataStructure,
+  FormField
+} from 'src/app/models/form-constructor.model';
 import {
   FieldTypesNames,
   defaultConditionalLogicBlock,
@@ -26,8 +30,13 @@ export class UIComponent implements OnInit {
   modalRef: BsModalRef | undefined;
 
   dynamicForm!: FormGroup;
-  formData: StepData[] = [];
+  generalForm!: FormGroup;
+  formData: FormDataStructure = {
+    steps: [],
+    generalFields: []
+  };
   addedFields: FormField[] = [];
+  generalFields: FormField[] = [];
   conditionalLogicBlocks: ConditionalLogicBlock[] = [];
   fieldLabels: FieldTypesNames = fieldTypesNames;
 
@@ -55,13 +64,21 @@ export class UIComponent implements OnInit {
 
   createForm() {
     this.dynamicForm = this.uiFormService.createFormGroup(this.addedFields);
+    this.generalForm = this.uiFormService.createFormGroup(this.generalFields);
   }
 
-  openFieldsInsertingModal() {
-    this.openModal(UIModalFieldsInsertingComponent);
+  openFieldsInsertingModal(isGeneral: boolean) {
+    const initialState = {
+      isGeneral
+    };
+    this.openModal(UIModalFieldsInsertingComponent, initialState);
     this.modalRef?.content.propertiesSave.subscribe((selectedField: FormField) => {
       if (selectedField) {
-        this.addedFields.push(selectedField);
+        if (isGeneral) {
+          this.generalFields.push(selectedField);
+        } else {
+          this.addedFields.push(selectedField);
+        }
         const newFormControl = this.uiFormService.createControl();
         this.dynamicForm.addControl(selectedField.id, newFormControl);
         this.saveCurrentStepData();
@@ -108,7 +125,6 @@ export class UIComponent implements OnInit {
 
   insertConditionalLogicBlock() {
     const newBlock: ConditionalLogicBlock = defaultConditionalLogicBlock;
-
     this.conditionalLogicBlocks.push(newBlock);
     this.saveCurrentStepData();
   }
@@ -121,21 +137,21 @@ export class UIComponent implements OnInit {
   goToStep(step: number) {
     this.currentStep = step;
 
-    this.addedFields = this.formData[this.currentStep]?.addedFields
-      ? this.formData[this.currentStep].addedFields
+    this.addedFields = this.formData.steps[this.currentStep]?.addedFields
+      ? this.formData.steps[this.currentStep].addedFields
       : [];
-    this.conditionalLogicBlocks = this.formData[this.currentStep]?.conditionalLogicBlocks
-      ? this.formData[this.currentStep].conditionalLogicBlocks
+    this.conditionalLogicBlocks = this.formData.steps[this.currentStep]?.conditionalLogicBlocks
+      ? this.formData.steps[this.currentStep].conditionalLogicBlocks
       : [];
     this.createForm();
   }
 
   saveCurrentStepData() {
-    this.formData[this.currentStep] = {
+    this.formData.generalFields = [...this.generalFields];
+    this.formData.steps[this.currentStep] = {
       addedFields: [...this.addedFields],
       conditionalLogicBlocks: [...this.conditionalLogicBlocks]
     };
-
     this.saveFormDataToLocalStorage();
   }
 
@@ -166,7 +182,7 @@ export class UIComponent implements OnInit {
   clearCurrentStep() {
     this.addedFields = [];
     this.conditionalLogicBlocks = [];
-    this.formData.splice(this.currentStep, 1);
+    this.formData.steps.splice(this.currentStep, 1);
 
     Object.keys(this.dynamicForm.controls).forEach((controlName) => {
       if (this.dynamicForm.contains(controlName)) {
@@ -174,7 +190,7 @@ export class UIComponent implements OnInit {
       }
     });
 
-    if (this.formData.length > 0 && this.currentStep >= this.formData.length) {
+    if (this.formData.steps.length > 0 && this.currentStep >= this.formData.steps.length) {
       this.goToStep(this.currentStep - 1);
     }
 
@@ -187,11 +203,16 @@ export class UIComponent implements OnInit {
     if (savedFormData) {
       this.formData = savedFormData;
     } else {
-      this.formData = [];
+      this.formData = {
+        steps: [],
+        generalFields: []
+      };
     }
 
-    this.addedFields = this.formData[this.currentStep].addedFields ?? [];
-    this.conditionalLogicBlocks = this.formData[this.currentStep].conditionalLogicBlocks ?? [];
+    this.addedFields = this.formData.steps[this.currentStep].addedFields ?? [];
+    this.generalFields = this.formData.generalFields ?? [];
+    this.conditionalLogicBlocks =
+      this.formData.steps[this.currentStep].conditionalLogicBlocks ?? [];
   }
 
   saveFormDataToLocalStorage() {

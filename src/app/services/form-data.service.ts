@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormField, FormOptionsFull, StepData } from '../models/form-constructor.model';
+import { FormDataStructure, FormField, FormOptionsFull } from '../models/form-constructor.model';
 import { defaultFormOptionsObject } from '../constants/form-constants';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -19,10 +19,12 @@ export class FormDataService {
     return this.formOptionsFull.asObservable();
   }
 
-  prepareFormData(formData: StepData[]): FormOptionsFull {
+  prepareFormData(formData: FormDataStructure): FormOptionsFull {
     const formOptionsFullObject: FormOptionsFull = defaultFormOptionsObject;
+    formOptionsFullObject.formData.generalFields = formData.generalFields;
+    const formDataSteps = formData.steps;
 
-    formData.forEach((stepFormData, index) => {
+    formDataSteps.forEach((stepFormData, index) => {
       const stepData: FormField[] = [];
 
       stepFormData.addedFields.forEach((field) => {
@@ -56,9 +58,9 @@ export class FormDataService {
         stepData.push(fieldData);
       });
 
-      formOptionsFullObject.formData[index] = {
+      formOptionsFullObject.formData.steps[index] = {
         title: `Step ${index + 1}`,
-        data: stepData,
+        addedFields: stepData,
         conditionalLogicBlocks: stepFormData.conditionalLogicBlocks
       };
     });

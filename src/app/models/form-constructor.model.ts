@@ -23,14 +23,19 @@ export interface ConditionalLogicBlock {
 }
 
 export interface StepData {
+  title?: string;
   addedFields: FormField[];
   conditionalLogicBlocks: ConditionalLogicBlock[];
 }
 
+export interface FormDataStructure {
+  steps: StepData[];
+  generalFields: FormField[];
+}
+
 export interface FormOptions {
-  title: string;
-  data: FormField[];
-  conditionalLogicBlocks?: ConditionalLogicBlock[];
+  steps: StepData[];
+  generalFields: FormField[];
 }
 
 export interface Validator {
@@ -48,13 +53,13 @@ export interface Row {
   name: string;
 }
 
-export interface UniqueFormData extends FormOptions {
+export interface UniqueFormData extends StepData {
   countryCode: string;
   step: number;
 }
 
 export interface FormOptionsFull {
-  formData: FormOptions[];
+  formData: FormOptions;
   options: {
     name: string;
     type: string;

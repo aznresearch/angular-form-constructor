@@ -22,6 +22,7 @@ import { UiFormService } from 'src/app/services/ui-form.service';
 export class UIModalFieldsInsertingComponent implements OnInit {
   @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
 
+  isGeneral = false;
   selectedFieldType!: FormFieldType;
   propertyForm: FormGroup = this.fb.group({});
   availableFieldTypes = formFieldTypes;
@@ -42,7 +43,17 @@ export class UIModalFieldsInsertingComponent implements OnInit {
     private modalService: BsModalService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setAvailableFieldTypes();
+  }
+
+  setAvailableFieldTypes() {
+    if (this.isGeneral) {
+      this.availableFieldTypes = [FormFieldType.Text, FormFieldType.Checkbox, FormFieldType.Select];
+    } else {
+      this.availableFieldTypes = formFieldTypes;
+    }
+  }
 
   selectField(fieldType: string) {
     if (this.isFormCreated) {

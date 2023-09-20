@@ -4,8 +4,80 @@
   </div>
 
   <div class="test-form__body">
-    <h3 class="test-form__step">Step {{ currentStep + 1 }}</h3>
+    <form [formGroup]="generalForm">
+      <h3 class="test-form__step">General Fields</h3>
+      <ng-container *ngFor="let field of generalFields">
+        <div class="test-form__block" cdkDrag>
+          <div class="test-form__label">
+            <label class="form-label">{{ field.title }}</label>
+          </div>
+          <div class="test-form__field" [ngSwitch]="field.type">
+            <div class="test-form__field-label">
+              <span>{{ fieldLabels[field.type] }}</span>
+            </div>
+            <div class="test-form__field-toolbar">
+              <span
+                class="test-form__field-toolbar-icon"
+                data-tooltip="Delete"
+                (click)="removeField(field)"
+                ><i class="bi bi-trash"></i
+              ></span>
+              <span
+                class="test-form__field-toolbar-icon"
+                data-tooltip="Edit"
+                (click)="openFieldPropertiesModal(field)"
+                ><i class="bi bi-pencil"></i
+              ></span>
+              <span
+                class="test-form__field-toolbar-icon"
+                data-tooltip="Copy"
+                (click)="copyField(field)"
+                ><i class="bi bi-files"></i
+              ></span>
+              <span
+                class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
+                data-tooltip="Move"
+                cdkDragHandle>
+                <i class="bi bi-arrows-move"></i>
+              </span>
+            </div>
+
+            <ng-container *ngSwitchCase="'select'">
+              <select
+                [id]="field.id"
+                [formControlName]="field.id"
+                (mousedown)="preventDefault($event)"
+                class="form-select">
+                <option value="">{{ field.placeholder }}</option>
+                <option *ngFor="let option of field.options" [value]="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'checkbox'">
+              <input
+                [id]="field.id"
+                type="checkbox"
+                [formControlName]="field.id"
+                class="form-check-input" />
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <input
+                [id]="field.id"
+                [type]="field.type"
+                [formControlName]="field.id"
+                class="form-control"
+                (mousedown)="preventDefault($event)"
+                (click)="preventDefault($event)" />
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </form>
     <form [formGroup]="dynamicForm">
+      <h3 class="test-form__step">Step {{ currentStep + 1 }}</h3>
       <ng-container *ngFor="let field of addedFields">
         <div class="test-form__block" cdkDrag>
           <div class="test-form__label">
@@ -150,6 +222,57 @@
                 </div>
               </div>
             </ng-container>
+            <ng-container *ngSwitchCase="'csat'">
+              <div class="csat__container">
+                <div class="row">
+                  <div class="col text-center">
+                    <h3>{{ field.title }}</h3>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div class="col">
+                    <label>1</label>
+                    <input type="radio" class="form-check-input" [name]="field.id" [value]="1" />
+                  </div>
+                  <div class="col">
+                    <label>2</label>
+                    <input type="radio" class="form-check-input" [name]="field.id" [value]="2" />
+                  </div>
+                  <div class="col">
+                    <label>3</label>
+                    <input type="radio" class="form-check-input" [name]="field.id" [value]="3" />
+                  </div>
+                  <div class="col">
+                    <label>4</label>
+                    <input type="radio" class="form-check-input" [name]="field.id" [value]="4" />
+                  </div>
+                  <div class="col">
+                    <label>5</label>
+                    <input type="radio" class="form-check-input" [name]="field.id" [value]="5" />
+                  </div>
+                  <div class="col">
+                    <label>6</label>
+                    <input type="radio" class="form-check-input" [name]="field.id" [value]="6" />
+                  </div>
+                  <div class="col">
+                    <label>7</label>
+                    <input type="radio" class="form-check-input" [name]="field.id" [value]="7" />
+                  </div>
+                  <div class="col">
+                    <label>8</label>
+                    <input type="radio" class="form-check-input" [name]="field.id" [value]="8" />
+                  </div>
+                  <div class="col">
+                    <label>9</label>
+                    <input type="radio" class="form-check-input" [name]="field.id" [value]="9" />
+                  </div>
+                  <div class="col">
+                    <label>10</label>
+                    <input type="radio" class="form-check-input" [name]="field.id" [value]="10" />
+                  </div>
+                </div>
+              </div>
+            </ng-container>
             <ng-container *ngSwitchDefault>
               <input
                 [id]="field.id"
@@ -174,7 +297,12 @@
   </div>
   <div class="test-form__footer">
     <div class="test-form__stepButtons">
-      <button class="btn btn-primary" (click)="openFieldsInsertingModal()">Insert Field</button>
+      <button class="btn btn-primary" (click)="openFieldsInsertingModal(false)">
+        Insert Field
+      </button>
+      <button class="btn btn-primary" (click)="openFieldsInsertingModal(true)">
+        Insert General Field
+      </button>
       <button class="btn btn-primary" (click)="insertConditionalLogicBlock()">
         Insert Conditional Logic Block
       </button>
@@ -195,12 +323,12 @@
       <button class="btn btn-success" (click)="finishForm()">Finish</button>
     </div>
 
-    <ng-container *ngIf="formData.length > 0">
+    <ng-container *ngIf="formData.steps.length > 0">
       <span>Go to:</span>
       <div class="test-form__stepButtons">
         <button
           class="btn btn-secondary"
-          *ngFor="let step of formData; let i = index"
+          *ngFor="let step of formData.steps; let i = index"
           (click)="goToStep(i)">
           Step {{ i + 1 }}
         </button>
