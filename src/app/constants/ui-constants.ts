@@ -16,6 +16,7 @@ export enum FormFieldType {
   Phone = 'phone',
   Likert = 'likert',
   Csat = 'csat',
+  NPS = 'nps',
   AllFields = 'all-fields'
 }
 
@@ -45,7 +46,8 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.Email,
   FormFieldType.Phone,
   FormFieldType.Likert,
-  FormFieldType.Csat
+  FormFieldType.Csat,
+  FormFieldType.NPS
 ];
 
 export const fieldTypesNames: FieldTypesNames = {
@@ -64,6 +66,7 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Phone]: 'Phone Number',
   [FormFieldType.Likert]: 'Likert Scale',
   [FormFieldType.Csat]: 'CSAT Scale',
+  [FormFieldType.NPS]: 'NPS Scale',
   [FormFieldType.AllFields]: 'All Fields'
 };
 
@@ -106,7 +109,11 @@ export const fieldsByType: Record<FormFieldType, Field[]> = {
     { id: 'option5', name: 'Option 5 title', isArray: false },
     { id: 'initial', name: 'Default value', isArray: false },
     { id: 'options', name: 'options', isArray: true },
-    { id: 'rows', name: 'rows', isArray: true }
+    { id: 'rows', name: 'rows', isArray: true },
+    { id: 'commentTitle', name: 'Comment question', isArray: false },
+    { id: 'commentSubtitle', name: 'Comment question subtitle', isArray: false },
+    { id: 'firstAnswer', name: 'First answer', isArray: false },
+    { id: 'lastAnswer', name: 'Last answer', isArray: false }
   ],
   [FormFieldType.Text]: [...commonFields],
   [FormFieldType.Textarea]: [...commonFields],
@@ -131,7 +138,14 @@ export const fieldsByType: Record<FormFieldType, Field[]> = {
     { id: 'option5', name: 'Option 5 Title', isArray: false },
     { id: 'rows', name: 'rows', isArray: true }
   ],
-  [FormFieldType.Csat]: [...commonFields]
+  [FormFieldType.Csat]: [...commonFields],
+  [FormFieldType.NPS]: [
+    ...commonFields,
+    { id: 'commentTitle', name: 'Comment question', isArray: false },
+    { id: 'commentSubtitle', name: 'Comment question subtitle', isArray: false },
+    { id: 'firstAnswer', name: 'First answer', isArray: false },
+    { id: 'lastAnswer', name: 'Last answer', isArray: false }
+  ]
 };
 
 export const defaultOptionValues: { name: string; value: string }[] = [
