@@ -5,7 +5,7 @@
 
   <div class="test-form__body">
     <form [formGroup]="generalForm">
-      <h3 class="test-form__step">General Fields</h3>
+      <h3 *ngIf="generalFields.length" class="test-form__step">General Fields</h3>
       <ng-container *ngFor="let field of generalFields">
         <div class="test-form__block" cdkDrag>
           <div class="test-form__label">
