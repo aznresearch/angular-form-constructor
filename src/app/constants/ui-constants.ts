@@ -108,7 +108,10 @@ export const fieldsByType: Record<string, Field[]> = {
     { id: 'options', name: 'Options', isArray: true }
   ],
   [FormFieldType.Radio]: [...commonFields, { id: 'options', name: 'Options', isArray: true }],
-  [FormFieldType.RadioBoolean]: [...commonFields],
+  [FormFieldType.RadioBoolean]: [
+    ...commonFields,
+    { id: 'options', name: 'Options', isArray: true }
+  ],
   [FormFieldType.File]: [...commonFields],
   [FormFieldType.Password]: [...commonFields],
   [FormFieldType.Email]: [...commonFields],

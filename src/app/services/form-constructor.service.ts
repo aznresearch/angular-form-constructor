@@ -33,6 +33,8 @@ export class FormConstructorService {
       return this.createCheckboxFormGroup(field);
     } else if (field.type === 'likert') {
       return this.createLikertFormGroup(field);
+    } else if (field.type === 'nps') {
+      return this.createNpsFormGroup(field);
     } else {
       return this.createDefaultFormControl(field);
     }
@@ -58,6 +60,15 @@ export class FormConstructorService {
       }
     }
     return likertFormGroup;
+  }
+
+  createNpsFormGroup(field: FormField): FormGroup {
+    const npsFormGroup = this.fb.group({});
+    const valueControl = this.fb.control('', this.getValidators(field.validators));
+    npsFormGroup.addControl(field.name + 'value', valueControl);
+    const commentControl = this.fb.control('', this.getValidators(field.validators));
+    npsFormGroup.addControl(field.name + 'comment', commentControl);
+    return npsFormGroup;
   }
 
   createDefaultFormControl(field: FormField): FormControl {
