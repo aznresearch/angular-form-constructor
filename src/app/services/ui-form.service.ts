@@ -78,12 +78,7 @@ export class UiFormService {
   }
 
   setFieldsToCreate(fieldType: string): void {
-    if (fieldType !== 'all-fields') {
-      this.fieldsToCreate = fieldsByType[fieldType as FormFieldType];
-    } else {
-      this.fieldsToCreate = fieldsByType[FormFieldType.AllFields];
-    }
-
+    this.fieldsToCreate = fieldsByType[fieldType as FormFieldType];
     this.fieldsToCreateSubject.next(this.fieldsToCreate);
   }
 

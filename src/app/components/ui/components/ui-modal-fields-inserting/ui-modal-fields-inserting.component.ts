@@ -100,7 +100,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   }
 
   createPropertyForm() {
-    this.propertyForm = this.uiFormService.createFormGroup(fieldsByType['all-fields']);
+    this.propertyForm = this.uiFormService.createFormGroup(fieldsByType[this.selectedFieldType]);
     this.isFormCreated = true;
   }
 

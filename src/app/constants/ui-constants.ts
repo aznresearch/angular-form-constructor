@@ -16,8 +16,7 @@ export enum FormFieldType {
   Phone = 'phone',
   Likert = 'likert',
   Csat = 'csat',
-  NPS = 'nps',
-  AllFields = 'all-fields'
+  NPS = 'nps'
 }
 
 export enum ValidatorType {
@@ -66,8 +65,7 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Phone]: 'Phone Number',
   [FormFieldType.Likert]: 'Likert Scale',
   [FormFieldType.Csat]: 'CSAT Scale',
-  [FormFieldType.NPS]: 'NPS Scale',
-  [FormFieldType.AllFields]: 'All Fields'
+  [FormFieldType.NPS]: 'NPS Scale'
 };
 
 export type FieldTypesNames = Record<FormFieldType, string>;
@@ -98,23 +96,7 @@ const commonFields: Field[] = [
   { id: 'validators', name: 'Validators', isArray: true }
 ];
 
-export const fieldsByType: Record<FormFieldType, Field[]> = {
-  [FormFieldType.AllFields]: [
-    ...commonFields,
-    { id: 'optionsTitle', name: 'Options Title', isArray: false },
-    { id: 'option1', name: 'Option 1 title', isArray: false },
-    { id: 'option2', name: 'Option 2 title', isArray: false },
-    { id: 'option3', name: 'Option 3 title', isArray: false },
-    { id: 'option4', name: 'Option 4 title', isArray: false },
-    { id: 'option5', name: 'Option 5 title', isArray: false },
-    { id: 'initial', name: 'Default value', isArray: false },
-    { id: 'options', name: 'options', isArray: true },
-    { id: 'rows', name: 'rows', isArray: true },
-    { id: 'commentTitle', name: 'Comment question', isArray: false },
-    { id: 'commentSubtitle', name: 'Comment question subtitle', isArray: false },
-    { id: 'firstAnswer', name: 'First answer', isArray: false },
-    { id: 'lastAnswer', name: 'Last answer', isArray: false }
-  ],
+export const fieldsByType: Record<string, Field[]> = {
   [FormFieldType.Text]: [...commonFields],
   [FormFieldType.Textarea]: [...commonFields],
   [FormFieldType.Date]: [...commonFields],
