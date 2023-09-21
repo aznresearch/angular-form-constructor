@@ -121,8 +121,11 @@ export const fieldsByType: Record<FormFieldType, Field[]> = {
   [FormFieldType.Select]: [...commonFields, { id: 'options', name: 'Options', isArray: true }],
   [FormFieldType.Number]: [...commonFields],
   [FormFieldType.Checkbox]: [...commonFields],
-  [FormFieldType.CheckboxGroup]: [...commonFields],
-  [FormFieldType.Radio]: [...commonFields],
+  [FormFieldType.CheckboxGroup]: [
+    ...commonFields,
+    { id: 'options', name: 'Options', isArray: true }
+  ],
+  [FormFieldType.Radio]: [...commonFields, { id: 'options', name: 'Options', isArray: true }],
   [FormFieldType.RadioBoolean]: [...commonFields],
   [FormFieldType.File]: [...commonFields],
   [FormFieldType.Password]: [...commonFields],
