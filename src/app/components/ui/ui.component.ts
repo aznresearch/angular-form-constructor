@@ -128,6 +128,7 @@ export class UIComponent implements OnInit {
       fieldsArray.splice(index, 1);
       formGroup.removeControl(field.id);
     }
+    this.removeStepIfEmpty();
     this.saveCurrentStepData();
   }
 
@@ -159,28 +160,24 @@ export class UIComponent implements OnInit {
 
   removeConditionalLogicBlock(index: number) {
     this.conditionalLogicBlocks.splice(index, 1);
+    this.removeStepIfEmpty();
     this.saveCurrentStepData();
   }
 
   goToStep(step: number) {
     this.currentStep = step;
 
-    this.addedFields = this.formData.steps[this.currentStep]?.addedFields
-      ? this.formData.steps[this.currentStep].addedFields
-      : [];
-    this.conditionalLogicBlocks = this.formData.steps[this.currentStep]?.conditionalLogicBlocks
-      ? this.formData.steps[this.currentStep].conditionalLogicBlocks
-      : [];
-    this.createForm();
-  }
+    if (!this.formData.steps[this.currentStep]) {
+      this.formData.steps[this.currentStep] = {
+        addedFields: [],
+        conditionalLogicBlocks: []
+      };
+    }
 
-  saveCurrentStepData() {
-    this.formData.generalFields = [...this.generalFields];
-    this.formData.steps[this.currentStep] = {
-      addedFields: [...this.addedFields],
-      conditionalLogicBlocks: [...this.conditionalLogicBlocks]
-    };
-    this.saveFormDataToLocalStorage();
+    this.addedFields = this.formData.steps[this.currentStep].addedFields;
+    this.conditionalLogicBlocks = this.formData.steps[this.currentStep].conditionalLogicBlocks;
+
+    this.createForm();
   }
 
   goToNextStep() {
@@ -197,6 +194,15 @@ export class UIComponent implements OnInit {
     }
   }
 
+  saveCurrentStepData() {
+    this.formData.generalFields = [...this.generalFields];
+    this.formData.steps[this.currentStep] = {
+      addedFields: [...this.addedFields],
+      conditionalLogicBlocks: [...this.conditionalLogicBlocks]
+    };
+    this.saveFormDataToLocalStorage();
+  }
+
   clearFormConfirmation() {
     const modalRef = this.modalService.show(SharedModalConfirmationComponent, this.modalOptions);
 
@@ -207,11 +213,16 @@ export class UIComponent implements OnInit {
     });
   }
 
+  removeStepIfEmpty() {
+    if (this.addedFields.length === 0 && this.conditionalLogicBlocks.length === 0) {
+      this.clearCurrentStep();
+    }
+  }
+
   clearCurrentStep() {
     this.addedFields = [];
     this.conditionalLogicBlocks = [];
     this.formData.steps.splice(this.currentStep, 1);
-
     Object.keys(this.dynamicForm.controls).forEach((controlName) => {
       if (this.dynamicForm.contains(controlName)) {
         this.dynamicForm.removeControl(controlName);
@@ -221,8 +232,7 @@ export class UIComponent implements OnInit {
     if (this.formData.steps.length > 0 && this.currentStep >= this.formData.steps.length) {
       this.goToStep(this.currentStep - 1);
     }
-
-    this.saveFormDataToLocalStorage();
+    this.saveCurrentStepData();
   }
 
   restoreFormDataFromLocalStorage() {
@@ -237,10 +247,10 @@ export class UIComponent implements OnInit {
       };
     }
 
-    this.addedFields = this.formData.steps[this.currentStep].addedFields ?? [];
+    this.addedFields = this.formData.steps[this.currentStep]?.addedFields ?? [];
     this.generalFields = this.formData.generalFields ?? [];
     this.conditionalLogicBlocks =
-      this.formData.steps[this.currentStep].conditionalLogicBlocks ?? [];
+      this.formData.steps[this.currentStep]?.conditionalLogicBlocks ?? [];
   }
 
   saveFormDataToLocalStorage() {

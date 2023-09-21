@@ -20,7 +20,6 @@ export class FormConstructorService {
 
   buildForm(formFields: FormField[]): FormGroup {
     const formGroup = this.fb.group({});
-
     for (const field of formFields) {
       const fieldFormGroup = this.createFieldFormGroup(field);
       formGroup.addControl(field.name, fieldFormGroup);
