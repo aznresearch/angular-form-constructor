@@ -140,7 +140,7 @@
                     <input
                       type="radio"
                       class="form-check-input"
-                      [formControlName]="field.name + 'value'"
+                      [formControlName]="field.name + '-value'"
                       [value]="value" />
                   </div>
                 </div>
@@ -150,7 +150,7 @@
                     <p>{{ field.commentSubtitle }}</p>
                     <textarea
                       class="form-control"
-                      [formControlName]="field.name + 'comment'"></textarea>
+                      [formControlName]="field.name + '-comment'"></textarea>
                   </div>
                 </div>
               </div>

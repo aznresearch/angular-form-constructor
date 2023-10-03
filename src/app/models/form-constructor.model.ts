@@ -1,4 +1,4 @@
-export interface FormField {
+export interface FormField extends Field {
   placeholder?: string;
   type?: string;
   title?: string;
@@ -8,9 +8,14 @@ export interface FormField {
   options?: Option[];
   classes?: string[];
   rows?: Row[];
+}
+
+export interface Field {
   id: string;
   name: string;
   isArray?: boolean;
+  parentArray?: string;
+  children?: Field[];
 }
 
 export interface ConditionalLogicBlock {

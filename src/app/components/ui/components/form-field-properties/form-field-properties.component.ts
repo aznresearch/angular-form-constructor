@@ -29,13 +29,27 @@ export class FormFieldPropertiesComponent implements OnInit {
     });
   }
 
-  addControlToFormArray(arrayName: string): void {
-    const formArray = this.propertyForm?.get(arrayName) as FormArray;
-    this.uiFormService.addControlToFormArray(formArray, arrayName);
+  addControlToFormArray(arrayName: string, parentArrayName?: string, index?: number): void {
+    const formArray = parentArrayName
+      ? ((this.propertyForm?.get(parentArrayName) as FormArray)
+          ?.at(index !== undefined ? index : -1)
+          ?.get(arrayName) as FormArray)
+      : (this.propertyForm?.get(arrayName) as FormArray);
+
+    let nestedArrayConfig;
+    if (this.fieldsToCreate.find((obj) => obj.id === arrayName)?.children) {
+      nestedArrayConfig = this.uiFormService.generateFormGroupConfig(
+        this.fieldsToCreate.find((obj) => obj.id === arrayName)?.children as FormField[]
+      );
+    }
+
+    this.uiFormService.addControlToFormArray(formArray, arrayName, nestedArrayConfig);
   }
 
-  removeControlFromFormArray(arrayName: string, index: number): void {
-    const formArray = this.propertyForm?.get(arrayName) as FormArray;
+  removeControlFromFormArray(arrayName: string, index: number, parentArrayName?: string): void {
+    const formArray = parentArrayName
+      ? (this.propertyForm?.get(parentArrayName)?.get(arrayName) as FormArray)
+      : (this.propertyForm?.get(arrayName) as FormArray);
     this.uiFormService.removeControlFromFormArray(formArray, index);
   }
 

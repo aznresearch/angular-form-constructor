@@ -74,6 +74,76 @@
           </button>
         </div>
       </div>
+
+      <div *ngSwitchCase="'qeScales'" formArrayName="qeScales" class="propertyForm__array">
+        <label class="propertyForm__label">QE Scales</label>
+        <div
+          *ngFor="let qeScaleControl of propertyForm?.get('qeScales')?.controls; let i = index"
+          [formGroupName]="i">
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            formControlName="title"
+            placeholder="QE Scale Title" />
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            formControlName="subtitle"
+            placeholder="QE Scale Subtitle" />
+
+          <div formArrayName="qeScaleChildren" class="qe-scale-child">
+            <div
+              *ngFor="
+                let childControl of qeScaleControl?.get('qeScaleChildren')?.controls;
+                let j = index
+              "
+              [formGroupName]="j">
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                formControlName="title"
+                placeholder="Child Title" />
+
+              <div class="form-buttons">
+                <button
+                  class="btn btn-danger btn-sm"
+                  type="button"
+                  (click)="removeControlFromFormArray('qeScales.' + i + '.qeScaleChildren', j)">
+                  Remove Child QE Scale
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-buttons">
+            <button
+              class="btn btn-success btn-sm"
+              type="button"
+              (click)="addControlToFormArray('qeScaleChildren', 'qeScales', i)">
+              Add Child QE Scale
+            </button>
+          </div>
+
+          <div class="form-buttons">
+            <button
+              class="btn btn-danger btn-sm"
+              type="button"
+              (click)="removeControlFromFormArray('qeScales')">
+              Remove QE Scale
+            </button>
+          </div>
+        </div>
+
+        <div class="form-buttons">
+          <button
+            class="btn btn-success btn-sm"
+            type="button"
+            (click)="addControlToFormArray('qeScales')">
+            Add QE Scale
+          </button>
+        </div>
+      </div>
+
       <div *ngSwitchCase="'rows'" formArrayName="rows" class="propertyForm__array">
         <label class="propertyForm__label">Rows</label>
         <div
@@ -102,7 +172,7 @@
           </button>
         </div>
       </div>
-      <div *ngSwitchDefault [formGroup]="propertyForm">
+      <div *ngSwitchDefault>
         <div class="form-group">
           <label class="propertyForm__label" [for]="field.name">{{ field.name }}</label>
           <input [type]="text" [id]="field.id" [formControlName]="field.id" class="form-control" />

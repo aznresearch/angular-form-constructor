@@ -64,9 +64,9 @@ export class FormConstructorService {
   createNpsFormGroup(field: FormField): FormGroup {
     const npsFormGroup = this.fb.group({});
     const valueControl = this.fb.control('', this.getValidators(field.validators));
-    npsFormGroup.addControl(field.name + 'value', valueControl);
+    npsFormGroup.addControl(field.name + '-value', valueControl);
     const commentControl = this.fb.control('', this.getValidators(field.validators));
-    npsFormGroup.addControl(field.name + 'comment', commentControl);
+    npsFormGroup.addControl(field.name + '-comment', commentControl);
     return npsFormGroup;
   }
 

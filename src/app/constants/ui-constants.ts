@@ -1,4 +1,4 @@
-import { ConditionalLogicBlock } from '../models/form-constructor.model';
+import { ConditionalLogicBlock, Field } from '../models/form-constructor.model';
 
 export enum FormFieldType {
   Text = 'text',
@@ -16,7 +16,8 @@ export enum FormFieldType {
   Phone = 'phone',
   Likert = 'likert',
   Csat = 'csat',
-  NPS = 'nps'
+  NPS = 'nps',
+  QE = 'qe'
 }
 
 export enum ValidatorType {
@@ -46,7 +47,8 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.Phone,
   FormFieldType.Likert,
   FormFieldType.Csat,
-  FormFieldType.NPS
+  FormFieldType.NPS,
+  FormFieldType.QE
 ];
 
 export const fieldTypesNames: FieldTypesNames = {
@@ -65,7 +67,8 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Phone]: 'Phone Number',
   [FormFieldType.Likert]: 'Likert Scale',
   [FormFieldType.Csat]: 'CSAT Scale',
-  [FormFieldType.NPS]: 'NPS Scale'
+  [FormFieldType.NPS]: 'NPS Scale',
+  [FormFieldType.QE]: 'QE Scale'
 };
 
 export type FieldTypesNames = Record<FormFieldType, string>;
@@ -80,12 +83,6 @@ export const validatorTypes: ValidatorType[] = [
   ValidatorType.Max,
   ValidatorType.RequiredTrue
 ];
-
-export interface Field {
-  id: string;
-  name: string;
-  isArray: boolean;
-}
 
 const commonFields: Field[] = [
   { id: 'name', name: 'Name', isArray: false },
@@ -133,6 +130,24 @@ export const fieldsByType: Record<string, Field[]> = {
     { id: 'commentSubtitle', name: 'Comment question subtitle', isArray: false },
     { id: 'firstAnswer', name: 'First answer', isArray: false },
     { id: 'lastAnswer', name: 'Last answer', isArray: false }
+  ],
+  [FormFieldType.QE]: [
+    ...commonFields,
+    { id: 'firstAnswer', name: 'First answer', isArray: false },
+    { id: 'lastAnswer', name: 'Last answer', isArray: false },
+    {
+      id: 'qeScales',
+      name: 'QE Scales',
+      isArray: true,
+      children: [
+        {
+          id: 'qeScaleChildren',
+          name: 'QE Scales Children',
+          isArray: true,
+          parentArray: 'qeScales'
+        }
+      ]
+    }
   ]
 };
 
@@ -144,7 +159,9 @@ export const defaultOptionValues: { name: string; value: string }[] = [
 export const controlsMap: Record<string, string[]> = {
   validators: ['type', 'value', 'errormsg'],
   options: ['name', 'value'],
-  rows: ['name']
+  rows: ['name'],
+  qeScales: ['title', 'subtitle', 'qeScaleChildren'],
+  qeScaleChildren: ['title']
 };
 
 export const defaultConditionalLogicBlock: ConditionalLogicBlock = {

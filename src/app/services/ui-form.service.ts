@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FormField, Validator } from '../models/form-constructor.model';
 import { FormFieldType, controlsMap, fieldsByType } from '../constants/ui-constants';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -23,7 +23,14 @@ export class UiFormService {
 
     for (const field of addedFields) {
       if (field.isArray) {
-        formGroupConfig[field.id] = this.createFormArray();
+        if (field.children) {
+          const nestedArray = this.generateFormGroupConfig(field.children);
+          formGroupConfig[field.id] = this.fb.array([
+            this.createGroupForArray(field.id, nestedArray)
+          ]);
+        } else {
+          formGroupConfig[field.id] = this.createFormArray();
+        }
       } else {
         formGroupConfig[field.id] = '';
       }
@@ -40,8 +47,12 @@ export class UiFormService {
     return this.fb.array([]);
   }
 
-  addControlToFormArray(formArray: FormArray, arrayName: string): void {
-    const newGroup = this.createGroupForArray(arrayName);
+  addControlToFormArray(
+    formArray: FormArray,
+    arrayName: string,
+    nestedArrayConfig?: Record<string, FormArray | string>
+  ): void {
+    const newGroup = this.createGroupForArray(arrayName, nestedArrayConfig);
     formArray.push(newGroup);
   }
 
@@ -49,12 +60,19 @@ export class UiFormService {
     formArray.removeAt(index);
   }
 
-  createGroupForArray(arrayName: string): FormGroup {
+  createGroupForArray(
+    arrayName: string,
+    nestedArrayConfig?: Record<string, FormArray | string>
+  ): FormGroup {
     const group = this.fb.group({});
     const controlFields = controlsMap[arrayName];
     if (controlFields) {
       controlFields.forEach((fieldName: string) => {
-        group.addControl(fieldName, this.createControl());
+        if (nestedArrayConfig && fieldName in nestedArrayConfig) {
+          group.addControl(fieldName, nestedArrayConfig[fieldName] as AbstractControl);
+        } else {
+          group.addControl(fieldName, this.createControl());
+        }
       });
     } else {
       console.log(`Invalid controlName: ${arrayName}`);
