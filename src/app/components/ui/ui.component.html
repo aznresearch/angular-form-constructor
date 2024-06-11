@@ -1,10 +1,14 @@
-<div class="test-form" cdkDropList (cdkDropListDropped)="onDrop($event)">
+<div class="test-form">
   <div class="test-form__header">
     <h2 class="test-form__title">Form Constructor</h2>
   </div>
 
   <div class="test-form__body">
-    <form [formGroup]="generalForm">
+    <form
+      [formGroup]="generalForm"
+      cdkDropList
+      [cdkDropListData]="generalFields"
+      (cdkDropListDropped)="onDrop($event)">
       <h3 *ngIf="generalFields.length" class="test-form__step">General Fields</h3>
       <ng-container *ngFor="let field of generalFields">
         <div class="test-form__block" cdkDrag>
@@ -76,7 +80,11 @@
         </div>
       </ng-container>
     </form>
-    <form [formGroup]="dynamicForm">
+    <form
+      [formGroup]="dynamicForm"
+      cdkDropList
+      [cdkDropListData]="addedFields"
+      (cdkDropListDropped)="onDrop($event)">
       <h3 class="test-form__step">Step {{ currentStep + 1 }}</h3>
       <ng-container *ngFor="let field of addedFields">
         <div class="test-form__block" cdkDrag>

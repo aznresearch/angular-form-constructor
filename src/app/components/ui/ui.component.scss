@@ -29,7 +29,6 @@
     margin-bottom: 20px;
     border: 1px solid #e5e7ebba;
     border-radius: 5px;
-    transition: 0.2s;
 
     &:hover {
       background-color: rgba(148, 169, 160, 0.08);
@@ -146,4 +145,13 @@
   .form-check {
     background-color: #fff;
   }
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item that has been dropped. */
+.cdk-drag-animating {
+  transition: transform 100ms cubic-bezier(0, 0, 0.2, 1);
 }

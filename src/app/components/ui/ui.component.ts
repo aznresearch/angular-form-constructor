@@ -74,13 +74,15 @@ export class UIComponent implements OnInit {
     this.openModal(UIModalFieldsInsertingComponent, initialState);
     this.modalRef?.content.propertiesSave.subscribe((selectedField: FormField) => {
       if (selectedField) {
+        const newFormControl = this.uiFormService.createControl();
+
         if (isGeneral) {
           this.generalFields.push(selectedField);
+          this.generalForm.addControl(selectedField.id, newFormControl);
         } else {
           this.addedFields.push(selectedField);
+          this.dynamicForm.addControl(selectedField.id, newFormControl);
         }
-        const newFormControl = this.uiFormService.createControl();
-        this.dynamicForm.addControl(selectedField.id, newFormControl);
         this.saveCurrentStepData();
       }
     });
@@ -276,7 +278,8 @@ export class UIComponent implements OnInit {
   }
 
   onDrop(event: CdkDragDrop<FormField[]>) {
-    moveItemInArray(this.addedFields, event.previousIndex, event.currentIndex);
+    const formArray = event.container.data;
+    moveItemInArray(formArray, event.previousIndex, event.currentIndex);
     this.saveCurrentStepData();
   }
 }
