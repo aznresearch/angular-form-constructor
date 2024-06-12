@@ -1,0 +1,183 @@
+<form [formGroup]="propertyForm" class="propertyForm">
+  <ng-container *ngFor="let field of fieldsToCreate">
+    <div class="form-row" [ngSwitch]="field.id">
+      <div *ngSwitchCase="'validators'" formArrayName="validators" class="propertyForm__array">
+        <label class="propertyForm__label">Validators</label>
+        <div
+          *ngFor="let control of propertyForm?.get('validators')?.controls; let i = index"
+          [formGroupName]="i">
+          <div class="validator-group">
+            <select formControlName="type" class="form-select">
+              <option value="" disabled>Select a validator</option>
+              <option *ngFor="let option of validatorOptions" [value]="option">{{ option }}</option>
+            </select>
+            <input
+              *ngIf="showValueInput(control.get('type').value)"
+              class="form-control form-control-sm"
+              type="text"
+              formControlName="value"
+              placeholder="Value" />
+            <input
+              class="form-control form-control-sm"
+              type="text"
+              formControlName="errormsg"
+              placeholder="Error Message" />
+            <div class="form-buttons">
+              <button
+                class="btn btn-danger btn-sm"
+                type="button"
+                (click)="removeControlFromFormArray('validators', i)">
+                Remove Validator
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <button
+            class="btn btn-success btn-sm"
+            type="button"
+            (click)="addControlToFormArray('validators')">
+            Add Validator
+          </button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'options'" formArrayName="options" class="propertyForm__array">
+        <label class="propertyForm__label">Options</label>
+        <div
+          *ngFor="let optionControl of propertyForm?.get('options')?.controls; let i = index"
+          [formGroupName]="i">
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            formControlName="name"
+            placeholder="Option Name" />
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            formControlName="value"
+            placeholder="Option Value" />
+          <div class="form-buttons">
+            <button
+              class="btn btn-danger btn-sm"
+              type="button"
+              (click)="removeControlFromFormArray('options', i)">
+              Remove Option
+            </button>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <button
+            class="btn btn-success btn-sm"
+            type="button"
+            (click)="addControlToFormArray('options')">
+            Add Option
+          </button>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="'qeScales'" formArrayName="qeScales" class="propertyForm__array">
+        <label class="propertyForm__label">QE Scales</label>
+        <div
+          *ngFor="let qeScaleControl of propertyForm?.get('qeScales')?.controls; let i = index"
+          [formGroupName]="i">
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            formControlName="title"
+            placeholder="QE Scale Title" />
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            formControlName="subtitle"
+            placeholder="QE Scale Subtitle" />
+
+          <div formArrayName="qeScaleChildren" class="qe-scale-child">
+            <div
+              *ngFor="
+                let childControl of qeScaleControl?.get('qeScaleChildren')?.controls;
+                let j = index
+              "
+              [formGroupName]="j">
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                formControlName="title"
+                placeholder="Child Title" />
+
+              <div class="form-buttons">
+                <button
+                  class="btn btn-danger btn-sm"
+                  type="button"
+                  (click)="removeControlFromFormArray('qeScales.' + i + '.qeScaleChildren', j)">
+                  Remove Child QE Scale
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-buttons">
+            <button
+              class="btn btn-success btn-sm"
+              type="button"
+              (click)="addControlToFormArray('qeScaleChildren', 'qeScales', i)">
+              Add Child QE Scale
+            </button>
+          </div>
+
+          <div class="form-buttons">
+            <button
+              class="btn btn-danger btn-sm"
+              type="button"
+              (click)="removeControlFromFormArray('qeScales')">
+              Remove QE Scale
+            </button>
+          </div>
+        </div>
+
+        <div class="form-buttons">
+          <button
+            class="btn btn-success btn-sm"
+            type="button"
+            (click)="addControlToFormArray('qeScales')">
+            Add QE Scale
+          </button>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="'rows'" formArrayName="rows" class="propertyForm__array">
+        <label class="propertyForm__label">Rows</label>
+        <div
+          *ngFor="let rowControl of propertyForm?.get('rows')?.controls; let i = index"
+          [formGroupName]="i">
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            formControlName="name"
+            placeholder="Row Name" />
+          <div class="form-buttons">
+            <button
+              class="btn btn-danger btn-sm"
+              type="button"
+              (click)="removeControlFromFormArray('rows', i)">
+              Remove Row
+            </button>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <button
+            class="btn btn-success btn-sm"
+            type="button"
+            (click)="addControlToFormArray('rows')">
+            Add Row
+          </button>
+        </div>
+      </div>
+      <div *ngSwitchDefault>
+        <div class="form-group">
+          <label class="propertyForm__label" [for]="field.name">{{ field.name }}</label>
+          <input [type]="text" [id]="field.id" [formControlName]="field.id" class="form-control" />
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</form>

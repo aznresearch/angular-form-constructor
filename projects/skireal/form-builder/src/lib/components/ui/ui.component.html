@@ -1,0 +1,422 @@
+<div class="test-form">
+  <div class="test-form__header">
+    <h2 class="test-form__title">Form Constructor</h2>
+  </div>
+  <div class="test-form__body">
+    <form
+      [formGroup]="generalForm"
+      cdkDropList
+      [cdkDropListData]="generalFields"
+      (cdkDropListDropped)="onDrop($event)">
+      <h3 *ngIf="generalFields.length" class="test-form__step">General Fields</h3>
+      <ng-container *ngFor="let field of generalFields">
+        <div class="test-form__block" cdkDrag>
+          <div class="test-form__label">
+            <label class="form-label">{{ field.title }}</label>
+          </div>
+          <div class="test-form__field" [ngSwitch]="field.type">
+            <div class="test-form__field-label">
+              <span>{{ fieldLabels[field.type] }}</span>
+            </div>
+            <div class="test-form__field-toolbar">
+              <span
+                class="test-form__field-toolbar-icon"
+                data-tooltip="Delete"
+                (click)="removeField(field, true)"
+                ><i class="bi bi-trash"></i
+              ></span>
+              <span
+                class="test-form__field-toolbar-icon"
+                data-tooltip="Edit"
+                (click)="openFieldPropertiesModal(field, true)"
+                ><i class="bi bi-pencil"></i
+              ></span>
+              <span
+                class="test-form__field-toolbar-icon"
+                data-tooltip="Copy"
+                (click)="copyField(field, true)"
+                ><i class="bi bi-files"></i
+              ></span>
+              <span
+                class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
+                data-tooltip="Move"
+                cdkDragHandle>
+                <i class="bi bi-arrows-move"></i>
+              </span>
+            </div>
+
+            <ng-container *ngSwitchCase="'select'">
+              <select
+                [id]="field.id"
+                [formControlName]="field.id"
+                (mousedown)="preventDefault($event)"
+                class="form-select">
+                <option value="">{{ field.placeholder }}</option>
+                <option *ngFor="let option of field.options" [value]="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'checkbox'">
+              <input
+                [id]="field.id"
+                type="checkbox"
+                [formControlName]="field.id"
+                class="form-check-input" />
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <input
+                [id]="field.id"
+                [type]="field.type"
+                [formControlName]="field.id"
+                class="form-control"
+                (mousedown)="preventDefault($event)"
+                (click)="preventDefault($event)" />
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+    <form
+      [formGroup]="dynamicForm"
+      cdkDropList
+      [cdkDropListData]="addedFields"
+      (cdkDropListDropped)="onDrop($event)">
+      <h3 class="test-form__step">Step {{ currentStep + 1 }}</h3>
+      <ng-container *ngFor="let field of addedFields">
+        <div class="test-form__block" cdkDrag>
+          <div class="test-form__label">
+            <label class="form-label">{{ field.title }}</label>
+          </div>
+          <div class="test-form__field" [ngSwitch]="field.type">
+            <div class="test-form__field-label">
+              <span>{{ fieldLabels[field.type] }}</span>
+            </div>
+            <div class="test-form__field-toolbar">
+              <span
+                class="test-form__field-toolbar-icon"
+                data-tooltip="Delete"
+                (click)="removeField(field, false)"
+                ><i class="bi bi-trash"></i
+              ></span>
+              <span
+                class="test-form__field-toolbar-icon"
+                data-tooltip="Edit"
+                (click)="openFieldPropertiesModal(field, false)"
+                ><i class="bi bi-pencil"></i
+              ></span>
+              <span
+                class="test-form__field-toolbar-icon"
+                data-tooltip="Copy"
+                (click)="copyField(field, false)"
+                ><i class="bi bi-files"></i
+              ></span>
+              <span
+                class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
+                data-tooltip="Move"
+                cdkDragHandle>
+                <i class="bi bi-arrows-move"></i>
+              </span>
+            </div>
+            <ng-container *ngSwitchCase="'textarea'">
+              <textarea
+                [id]="field.id"
+                [formControlName]="field.id"
+                (mousedown)="preventDefault($event)"
+                class="form-control"></textarea>
+            </ng-container>
+            <ng-container *ngSwitchCase="'select'">
+              <select
+                [id]="field.id"
+                [formControlName]="field.id"
+                (mousedown)="preventDefault($event)"
+                class="form-select">
+                <option value="">{{ field.placeholder }}</option>
+                <option *ngFor="let option of field.options" [value]="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
+            </ng-container>
+            <ng-container *ngSwitchCase="'checkbox-group'">
+              <div *ngFor="let option of field.options" class="form-check">
+                <input
+                  [id]="field.id"
+                  type="checkbox"
+                  [formControlName]="field.id"
+                  [value]="option.value"
+                  class="form-check-input"
+                  (mousedown)="preventDefault($event)" />
+                <label [for]="field.id" class="form-check-label">{{ option.name }}</label>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'checkbox'">
+              <input
+                [id]="field.id"
+                type="checkbox"
+                [formControlName]="field.id"
+                class="form-check-input" />
+            </ng-container>
+            <ng-container *ngSwitchCase="'radio'">
+              <div *ngFor="let option of field.options" class="form-check">
+                <input
+                  [id]="field.id + option.value"
+                  type="radio"
+                  [formControlName]="field.id"
+                  [value]="option.value"
+                  class="form-check-input"
+                  (mousedown)="preventDefault($event)" />
+                <label [for]="field.id + option.value" class="form-check-label">{{
+                  option.name
+                }}</label>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'radio-boolean'">
+              <div *ngFor="let option of field.options" class="form-check">
+                <input
+                  [id]="field.id + option.value"
+                  type="radio"
+                  [formControlName]="field.id"
+                  [value]="option.value"
+                  class="form-check-input"
+                  (mousedown)="preventDefault($event)" />
+                <label [for]="field.id + option.value" class="form-check-label">{{
+                  option.name
+                }}</label>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'likert'">
+              <div class="answer__container-table">
+                <div class="row answer__container-row border-0">
+                  <div class="col text-center answer__container-column p-0">
+                    <h3>{{ field.title }}</h3>
+                    <p>{{ field.subtitle }}</p>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div class="col text-right">
+                    <span>{{ field.optionsTitle }}</span>
+                  </div>
+                  <div class="col text-center">
+                    <span>{{ field.option1 }}</span>
+                  </div>
+                  <div class="col text-center">
+                    <span>{{ field.option2 }}</span>
+                  </div>
+                  <div class="col text-center">
+                    <span>{{ field.option3 }}</span>
+                  </div>
+                  <div class="col text-center">
+                    <span>{{ field.option4 }}</span>
+                  </div>
+                  <div class="col text-center">
+                    <span>{{ field.option5 }}</span>
+                  </div>
+                </div>
+                <div *ngFor="let row of field.rows" class="row text-center">
+                  <div class="col-xl-2 text-left">
+                    {{ row.name }}
+                  </div>
+                  <div class="col text-center" *ngFor="let value of [1, 2, 3, 4, 5]">
+                    <input
+                      type="radio"
+                      class="form-check-input"
+                      [name]="field.id + row.name"
+                      [value]="value" />
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'csat'">
+              <div class="csat__container">
+                <div class="row">
+                  <div class="col text-center">
+                    <h3>{{ field.title }}</h3>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+                    <label>{{ value }}</label>
+                    <input
+                      type="radio"
+                      class="form-check-input"
+                      [name]="field.id"
+                      [value]="value" />
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'nps'">
+              <div class="nps__container">
+                <div class="row">
+                  <div class="col text-center">
+                    <h3>{{ field.title }}</h3>
+                    <p>{{ field.subtitle }}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col text-left">
+                    <p>{{ field.firstAnswer }}</p>
+                  </div>
+                  <div class="col text-right">
+                    <p>{{ field.lastAnswer }}</p>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+                    <label>{{ value }}</label>
+                    <input
+                      type="radio"
+                      class="form-check-input"
+                      [name]="field.id"
+                      [value]="value" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <h3>{{ field.commentTitle }}</h3>
+                    <p>{{ field.commentSubtitle }}</p>
+                    <textarea (mousedown)="preventDefault($event)" class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'qe'">
+              <div class="qe__container">
+                <div class="row">
+                  <div class="col text-center">
+                    <h3>{{ field.title }}</h3>
+                    <p>{{ field.subtitle }}</p>
+                  </div>
+                </div>
+                <ng-container *ngFor="let qeScale of field.qeScales; let qeScaleIndex = index">
+                  <div class="qe-scale__container">
+                    <div class="row">
+                      <div class="col text-center">
+                        <h3>{{ qeScale.title }}</h3>
+                        <p>{{ qeScale.subtitle }}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col text-left">
+                        <p>{{ field.firstAnswer }}</p>
+                      </div>
+                      <div class="col text-right">
+                        <p>{{ field.lastAnswer }}</p>
+                      </div>
+                    </div>
+                    <div class="row text-center">
+                      <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+                        <label>{{ value }}</label>
+                        <input
+                          type="radio"
+                          class="form-check-input"
+                          [name]="'qeScale_' + field.id + '_' + qeScaleIndex"
+                          [value]="value" />
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container
+                    *ngIf="qeScale.qeScaleChildren && qeScale.qeScaleChildren.length > 0">
+                    <div class="qe-scale__child">
+                      <ng-container
+                        *ngFor="let child of qeScale.qeScaleChildren; let childIndex = index">
+                        <div class="row">
+                          <div class="col text-center">
+                            <h3>{{ child.title }}</h3>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col text-left">
+                            <p>{{ field.firstAnswer }}</p>
+                          </div>
+                          <div class="col text-right">
+                            <p>{{ field.lastAnswer }}</p>
+                          </div>
+                        </div>
+                        <div class="row text-center">
+                          <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+                            <label>{{ value }}</label>
+                            <input
+                              type="radio"
+                              class="form-check-input"
+                              [name]="
+                                'qeScaleChild_' + field.id + '_' + qeScaleIndex + '_' + childIndex
+                              "
+                              [value]="value" />
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <input
+                [id]="field.id"
+                [type]="field.type"
+                [formControlName]="field.id"
+                class="form-control"
+                (mousedown)="preventDefault($event)"
+                (click)="preventDefault($event)" />
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+
+    <ng-container *ngFor="let block of conditionalLogicBlocks; let i = index">
+      <app-conditional-logic-block
+        [block]="block"
+        [addedFields]="addedFields"
+        (remove)="removeConditionalLogicBlock(i)">
+      </app-conditional-logic-block>
+    </ng-container>
+  </div>
+  <div class="test-form__footer">
+    <div class="test-form__stepButtons">
+      <button class="btn btn-primary" (click)="openFieldsInsertingModal(false)">
+        Insert Field
+      </button>
+      <button class="btn btn-primary" (click)="openFieldsInsertingModal(true)">
+        Insert General Field
+      </button>
+      <button class="btn btn-primary" (click)="insertConditionalLogicBlock()">
+        Insert Conditional Logic Block
+      </button>
+      <button
+        class="btn btn-primary"
+        (click)="saveCurrentStepData()"
+        [disabled]="!conditionalLogicBlocks.length">
+        Save Conditional Logic Blocks Data
+      </button>
+    </div>
+
+    <div class="test-form__stepButtons">
+      <button *ngIf="currentStep > 0" class="btn btn-primary" (click)="goToPreviousStep()">
+        Previous Step
+      </button>
+      <button class="btn btn-primary" (click)="goToNextStep()">Next Step</button>
+      <button class="btn btn-danger" (click)="clearFormConfirmation()">Clear Step</button>
+      <button class="btn btn-success" (click)="finishForm()">Finish</button>
+    </div>
+
+    <ng-container *ngIf="formData.steps.length > 1">
+      <span>Go to:</span>
+      <div class="test-form__stepButtons">
+        <button
+          class="btn btn-secondary"
+          *ngFor="let step of formData.steps; let i = index"
+          (click)="goToStep(i)">
+          Step {{ i + 1 }}
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>

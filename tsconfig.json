@@ -17,12 +17,18 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@skireal/form-builder": [
+        "dist/skireal/form-builder/skireal-form-builder",
+        "dist/skireal/form-builder",
+      ]
+    }
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
     "strict": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": true
   }
 }

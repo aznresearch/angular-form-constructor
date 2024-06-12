@@ -1,0 +1,32 @@
+<div>
+  <div class="field-selector">
+    <div class="field-selector__column">
+      <h2>Select a Field</h2>
+      <ul>
+        <li
+          class="field-selector__item"
+          *ngFor="let fieldType of availableFieldTypes"
+          (click)="selectField(fieldType)">
+          {{ fieldLabels[fieldType] }}
+        </li>
+      </ul>
+    </div>
+    <div class="field-selector__column">
+      <h2>Add Options</h2>
+      <h3>{{ fieldLabels[selectedFieldType] }}</h3>
+      <div *ngIf="selectedFieldType">
+        <div>
+          <app-form-field-properties
+            [propertyForm]="propertyForm"
+            [selectedFieldType]="selectedFieldType"></app-form-field-properties>
+        </div>
+        <div class="field-selector__buttons">
+          <button type="button" class="btn btn-primary" (click)="saveFieldProperties()">
+            Save
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

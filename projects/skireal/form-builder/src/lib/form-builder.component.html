@@ -1,0 +1,4 @@
+<div class="container-xl">
+  <app-ui (finishClicked)="onFinishClicked()" *ngIf="!isShowResult"></app-ui>
+  <app-form-constructor *ngIf="isShowResult"></app-form-constructor>
+</div>

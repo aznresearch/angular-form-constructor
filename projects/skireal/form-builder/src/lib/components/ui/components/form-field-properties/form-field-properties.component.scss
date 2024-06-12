@@ -1,0 +1,21 @@
+.propertyForm {
+  &__label {
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &__array {
+    .form-select {
+      margin-bottom: 5px;
+    }
+
+    .form-control {
+      margin-bottom: 5px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

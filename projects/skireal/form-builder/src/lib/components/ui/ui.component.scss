@@ -1,0 +1,157 @@
+.test-form {
+  padding-bottom: 50px;
+  &__header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 3rem;
+  }
+
+  &__step {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  }
+
+  &__body {
+    min-height: 200px;
+  }
+
+  &__block {
+    background-color: rgba(148, 169, 160, 0.15);
+    padding-bottom: 40px;
+    padding-top: 33px;
+    position: relative;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7ebba;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: rgba(148, 169, 160, 0.08);
+      .test-form__field-toolbar {
+        opacity: 1;
+      }
+
+      .test-form__field-label {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__field {
+    padding-left: 60px;
+    padding-right: 60px;
+
+    &-label {
+      position: absolute;
+      opacity: 0;
+      transition: 0.2s;
+      right: 10px;
+      top: 10px;
+
+      span {
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 14px;
+        white-space: nowrap;
+        display: block;
+      }
+    }
+
+    &-toolbar {
+      opacity: 0;
+      transition: 0.2s;
+      position: absolute;
+      left: 10px;
+      top: 7px;
+      display: flex;
+
+      &-icon {
+        display: block;
+        margin-right: 5px;
+        cursor: pointer;
+        position: relative;
+        padding: 2px;
+
+        &:before {
+          content: attr(data-tooltip);
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, -100%);
+          top: 0;
+
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 14px;
+          white-space: nowrap;
+          visibility: hidden;
+          opacity: 0;
+          transition: opacity 0.3s, visibility 0.3s;
+          z-index: 1;
+        }
+
+        &:hover:before {
+          visibility: visible;
+          opacity: 1;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        .bi {
+          &:before {
+            font-size: 16px;
+          }
+        }
+
+        &--move {
+          cursor: move;
+        }
+      }
+    }
+  }
+
+  &__label {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  &__stepButtons {
+    display: flex;
+    margin-bottom: 30px;
+
+    .btn {
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .form-check-label {
+    pointer-events: none;
+  }
+
+  .form-check {
+    background-color: #fff;
+  }
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item that has been dropped. */
+.cdk-drag-animating {
+  transition: transform 100ms cubic-bezier(0, 0, 0.2, 1);
+}

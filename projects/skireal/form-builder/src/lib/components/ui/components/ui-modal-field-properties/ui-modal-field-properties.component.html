@@ -1,0 +1,12 @@
+<div class="properties-form">
+  <h2 class="modal-title">Edit Field Properties</h2>
+
+  <app-form-field-properties
+    [propertyForm]="propertyForm"
+    [selectedFieldType]="selectedFieldType"></app-form-field-properties>
+
+  <div class="form-buttons">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="saveFieldProperties()">Save</button>
+  </div>
+</div>
