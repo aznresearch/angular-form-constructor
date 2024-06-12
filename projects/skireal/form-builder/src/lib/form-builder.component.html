@@ -1,4 +1,7 @@
 <div class="container-xl">
-  <app-ui (finishClicked)="onFinishClicked()" *ngIf="!isShowResult"></app-ui>
+  <app-ui
+    (finishClicked)="onFinishClicked()"
+    *ngIf="!isShowResult"
+    [enableGeneralFields]="enableGeneralFields"></app-ui>
   <app-form-constructor *ngIf="isShowResult"></app-form-constructor>
 </div>

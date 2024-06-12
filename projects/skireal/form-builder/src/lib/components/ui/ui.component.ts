@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Type } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Type } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -26,6 +26,8 @@ import { FormDataService } from '../../services/form-data.service';
   styleUrls: ['./ui.component.scss']
 })
 export class UIComponent implements OnInit {
+  @Input() enableGeneralFields = true;
+
   @Output() finishClicked: EventEmitter<void> = new EventEmitter<void>();
 
   modalRef: BsModalRef | undefined;
@@ -64,7 +66,9 @@ export class UIComponent implements OnInit {
 
   createForm() {
     this.dynamicForm = this.uiFormService.createFormGroup(this.addedFields);
-    this.generalForm = this.uiFormService.createFormGroup(this.generalFields);
+    if (this.enableGeneralFields) {
+      this.generalForm = this.uiFormService.createFormGroup(this.generalFields);
+    }
   }
 
   openFieldsInsertingModal(isGeneral: boolean) {

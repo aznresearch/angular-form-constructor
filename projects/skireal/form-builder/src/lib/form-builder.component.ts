@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'form-builder',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./form-builder.component.scss']
 })
 export class FormBuilderComponent {
+  @Input() enableGeneralFields = true;
+
   title = 'formBuilder';
   isShowResult = false;
 

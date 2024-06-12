@@ -4,6 +4,7 @@
   </div>
   <div class="test-form__body">
     <form
+      *ngIf="enableGeneralFields === true"
       [formGroup]="generalForm"
       cdkDropList
       [cdkDropListData]="generalFields"
@@ -384,9 +385,11 @@
       <button class="btn btn-primary" (click)="openFieldsInsertingModal(false)">
         Insert Field
       </button>
-      <button class="btn btn-primary" (click)="openFieldsInsertingModal(true)">
-        Insert General Field
-      </button>
+      <ng-container *ngIf="enableGeneralFields">
+        <button class="btn btn-primary" (click)="openFieldsInsertingModal(true)">
+          Insert General Field
+        </button>
+      </ng-container>
       <button class="btn btn-primary" (click)="insertConditionalLogicBlock()">
         Insert Conditional Logic Block
       </button>
