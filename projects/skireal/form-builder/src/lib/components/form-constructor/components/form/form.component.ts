@@ -49,7 +49,6 @@ export class FormComponent implements OnInit {
   }
 
   initForms(formOptions: StepData[]) {
-    this.addUniqueFormData();
     this.formContent.length = 0;
     formOptions.forEach((formOption, i) => {
       this.formContent.push(formOption.addedFields);
@@ -63,21 +62,6 @@ export class FormComponent implements OnInit {
 
   buildForm(formContent: FormField[]): FormGroup {
     return this.formConstructorService.buildForm(formContent);
-  }
-
-  addUniqueFormData(): void {
-    if (this.formOptionsFullObject.uniqueFormData !== undefined) {
-      const index = this.formOptionsFullObject.uniqueFormData.findIndex(
-        (formData) => formData.countryCode === this.country
-      );
-      if (index >= 0) {
-        this.formOptions.splice(
-          this.formOptionsFullObject.uniqueFormData[index].step,
-          0,
-          this.formOptionsFullObject.uniqueFormData[index]
-        );
-      }
-    }
   }
 
   getValidationMessage(formIndex: number, field: FormField): string | undefined {
@@ -133,48 +117,5 @@ export class FormComponent implements OnInit {
   isFieldInvalid(form: FormGroup, formFieldName: string): boolean | undefined {
     const control = form.get(formFieldName);
     return control?.invalid && (control?.dirty || control?.touched);
-  }
-
-  // isFieldVisible(selectedField: any, logicBlocks: any[]): boolean {
-  //   if (logicBlocks) {
-  //     for (const logicBlock of logicBlocks) {
-  //       if (logicBlock.selectedField.id === selectedField.id) {
-  //         switch (logicBlock.selectedCondition) {
-  //           case 'is empty':
-  //             console.log('cscscscsc');
-
-  //             console.log(selectedField);
-
-  //             console.log(selectedField.value !== '');
-
-  //             return selectedField.value !== '';
-  //           case 'equals':
-  //             return selectedField.value === logicBlock.conditionValue;
-  //           case 'not equals':
-  //             return selectedField.value !== logicBlock.conditionValue;
-  //           default:
-  //             return true;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return true;
-  // }
-
-  createFormFromText() {
-    try {
-      const formDataObject = JSON.parse(this.formFieldsText);
-      this.formDataService.setFormData(formDataObject);
-      const parsedFormFieldsOptions = formDataObject.formData;
-      if (Array.isArray(parsedFormFieldsOptions)) {
-        this.formOptions = parsedFormFieldsOptions;
-        this.initForms(this.formOptions);
-        this.currentStep = 0;
-      } else {
-        console.log('Invalid formOptions format');
-      }
-    } catch (error) {
-      console.log('Error parsing formOptions:', error);
-    }
   }
 }

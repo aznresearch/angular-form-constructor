@@ -13,19 +13,4 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-
-  it(`should have as title 'formBuilder'`, () => {
-    const fixture = TestBed.createComponent(FormBuilderComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('formBuilder');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(FormBuilderComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain(
-      'formBuilder app is running!'
-    );
-  });
 });

@@ -58,17 +58,6 @@ export interface Row {
   name: string;
 }
 
-export interface UniqueFormData extends StepData {
-  countryCode: string;
-  step: number;
-}
-
 export interface FormOptionsFull {
   formData: FormOptions;
-  options: {
-    name: string;
-    type: string;
-    country: string;
-  };
-  uniqueFormData?: UniqueFormData[];
 }

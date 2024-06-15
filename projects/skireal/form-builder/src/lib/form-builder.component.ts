@@ -8,7 +8,6 @@ import { Component, Input } from '@angular/core';
 export class FormBuilderComponent {
   @Input() enableGeneralFields = true;
 
-  title = 'formBuilder';
   isShowResult = false;
 
   onFinishClicked() {
