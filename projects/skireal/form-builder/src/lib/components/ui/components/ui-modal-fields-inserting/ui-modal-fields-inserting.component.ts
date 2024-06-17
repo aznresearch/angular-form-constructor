@@ -9,7 +9,8 @@ import {
   FieldTypesNames,
   fieldTypesNames,
   haveOptionsFieldTypes,
-  FormFieldType
+  FormFieldType,
+  surveyFieldTypes
 } from '../../../../constants/ui-constants';
 import { FormField } from '../../../../models/form-constructor.model';
 import { UiFormService } from '../../../../services/ui-form.service';
@@ -24,6 +25,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
 
   isGeneral = false;
+  isSurvey = true;
   selectedFieldType!: FormFieldType;
   propertyForm: FormGroup = this.fb.group({});
   availableFieldTypes = formFieldTypes;
@@ -51,6 +53,8 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   setAvailableFieldTypes() {
     if (this.isGeneral) {
       this.availableFieldTypes = [FormFieldType.Text, FormFieldType.Checkbox, FormFieldType.Select];
+    } else if (this.isSurvey) {
+      this.availableFieldTypes = surveyFieldTypes;
     } else {
       this.availableFieldTypes = formFieldTypes;
     }

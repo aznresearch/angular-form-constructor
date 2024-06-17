@@ -1,7 +1,4 @@
 <div class="test-form">
-  <div class="test-form__header">
-    <h2 class="test-form__title">Form Constructor</h2>
-  </div>
   <div class="test-form__body">
     <form
       *ngIf="enableGeneralFields === true"
@@ -371,34 +368,38 @@
         </div>
       </ng-container>
     </form>
-
-    <ng-container *ngFor="let block of conditionalLogicBlocks; let i = index">
-      <app-conditional-logic-block
-        [block]="block"
-        [addedFields]="addedFields"
-        (remove)="removeConditionalLogicBlock(i)">
-      </app-conditional-logic-block>
+    <ng-container *ngIf="enableConditionalLogicBlocks">
+      <ng-container *ngFor="let block of conditionalLogicBlocks; let i = index">
+        <app-conditional-logic-block
+          [block]="block"
+          [addedFields]="addedFields"
+          (remove)="removeConditionalLogicBlock(i)">
+        </app-conditional-logic-block>
+      </ng-container>
     </ng-container>
   </div>
   <div class="test-form__footer">
     <div class="test-form__stepButtons">
-      <button class="btn btn-primary" (click)="openFieldsInsertingModal(false)">
+      <button class="btn btn-primary" (click)="openFieldsInsertingModal(false, isSurvey)">
         Insert Field
       </button>
       <ng-container *ngIf="enableGeneralFields">
-        <button class="btn btn-primary" (click)="openFieldsInsertingModal(true)">
+        <button class="btn btn-primary" (click)="openFieldsInsertingModal(true, isSurvey)">
           Insert General Field
         </button>
       </ng-container>
-      <button class="btn btn-primary" (click)="insertConditionalLogicBlock()">
-        Insert Conditional Logic Block
-      </button>
-      <button
-        class="btn btn-primary"
-        (click)="saveCurrentStepData()"
-        [disabled]="!conditionalLogicBlocks.length">
-        Save Conditional Logic Blocks Data
-      </button>
+
+      <ng-container *ngIf="enableConditionalLogicBlocks">
+        <button class="btn btn-primary" (click)="insertConditionalLogicBlock()">
+          Insert Conditional Logic Block
+        </button>
+        <button
+          class="btn btn-primary"
+          (click)="saveCurrentStepData()"
+          [disabled]="!conditionalLogicBlocks.length">
+          Save Conditional Logic Blocks Data
+        </button>
+      </ng-container>
     </div>
 
     <div class="test-form__stepButtons">

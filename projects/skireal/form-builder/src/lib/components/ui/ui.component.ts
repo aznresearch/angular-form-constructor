@@ -27,6 +27,8 @@ import { FormDataService } from '../../services/form-data.service';
 })
 export class UIComponent implements OnInit {
   @Input() enableGeneralFields = true;
+  @Input() enableConditionalLogicBlocks = false;
+  @Input() isSurvey = true;
 
   @Output() finishClicked: EventEmitter<void> = new EventEmitter<void>();
 
@@ -71,9 +73,10 @@ export class UIComponent implements OnInit {
     }
   }
 
-  openFieldsInsertingModal(isGeneral: boolean) {
+  openFieldsInsertingModal(isGeneral: boolean, isSurvey: boolean) {
     const initialState = {
-      isGeneral
+      isGeneral,
+      isSurvey
     };
     this.openModal(UIModalFieldsInsertingComponent, initialState);
     this.modalRef?.content.propertiesSave.subscribe((selectedField: FormField) => {

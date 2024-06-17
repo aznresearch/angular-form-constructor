@@ -51,6 +51,23 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.QE
 ];
 
+export const surveyFieldTypes: FormFieldType[] = [
+  FormFieldType.Text,
+  FormFieldType.Textarea,
+  FormFieldType.Date,
+  FormFieldType.Select,
+  FormFieldType.Number,
+  FormFieldType.Checkbox,
+  FormFieldType.CheckboxGroup,
+  FormFieldType.Radio,
+  FormFieldType.RadioBoolean,
+  FormFieldType.Email,
+  FormFieldType.Likert,
+  FormFieldType.Csat,
+  FormFieldType.NPS,
+  FormFieldType.QE
+];
+
 export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Text]: 'Text Input',
   [FormFieldType.Textarea]: 'Text Area',
