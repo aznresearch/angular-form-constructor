@@ -125,7 +125,7 @@
     padding-right: 60px;
   }
 
-  &__stepButtons {
+  &__buttons {
     display: flex;
     margin-bottom: 30px;
 
@@ -135,6 +135,19 @@
       &:last-child {
         margin-right: 0;
       }
+    }
+  }
+
+  &__stepButtons {
+    display: flex;
+    margin-bottom: 30px;
+  }
+
+  &__stepButton {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
     }
   }
 
@@ -154,4 +167,75 @@
 /* Animate an item that has been dropped. */
 .cdk-drag-animating {
   transition: transform 100ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.stepButton {
+  position: relative;
+
+  &:hover {
+    .stepButton__toolbar {
+      opacity: 1;
+    }
+  }
+
+  &__toolbar {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    opacity: 0;
+    transition: 0.2s;
+    z-index: 1;
+    width: 100%;
+    justify-content: center;
+
+    &-icon {
+      display: block;
+      margin-right: 5px;
+      cursor: pointer;
+      position: relative;
+      padding: 2px;
+
+      &:before {
+        content: attr(data-tooltip);
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        top: 100%;
+
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 14px;
+        white-space: nowrap;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s, visibility 0.3s;
+        z-index: 1;
+      }
+
+      &:hover:before {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      .bi {
+        &:before {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  &--active {
+    .btn-secondary {
+      background-color: #94a9a0 !important;
+      border-color: #94a9a0 !important;
+    }
+  }
 }

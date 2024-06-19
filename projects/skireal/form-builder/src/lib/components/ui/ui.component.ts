@@ -289,4 +289,16 @@ export class UIComponent implements OnInit {
     moveItemInArray(formArray, event.previousIndex, event.currentIndex);
     this.saveCurrentStepData();
   }
+
+  copyStep(index: number) {
+    const copiedStep = { ...this.formData.steps[index] };
+    copiedStep.addedFields = copiedStep.addedFields.map((field) => ({
+      ...field,
+      id: this.uiFormService.generateUniqueId()
+    }));
+
+    this.formData.steps.splice(index + 1, 0, copiedStep);
+    this.goToStep(index + 1);
+    this.saveCurrentStepData();
+  }
 }
