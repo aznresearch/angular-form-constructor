@@ -6,7 +6,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { FormBuilderComponent } from './form-builder.component';
 import { FormConstructorComponent } from './components/form-constructor/form-constructor.component';
-import { FormComponent } from './components/form-constructor/components/form/form.component';
 import { UIComponent } from './components/ui/ui.component';
 import { UIModalFieldsInsertingComponent } from './components/ui/components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
 import { UIModalFieldPropertiesComponent } from './components/ui/components/ui-modal-field-properties/ui-modal-field-properties.component';
@@ -18,7 +17,6 @@ import { ConditionalLogicBlockComponent } from './components/ui/components/condi
   declarations: [
     FormBuilderComponent,
     FormConstructorComponent,
-    FormComponent,
     UIComponent,
     UIModalFieldsInsertingComponent,
     UIModalFieldPropertiesComponent,

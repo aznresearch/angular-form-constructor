@@ -419,13 +419,18 @@
           [ngClass]="{ 'stepButton--active': i === currentStep }"
           *ngFor="let step of formData.steps; let i = index">
           <div class="stepButton__toolbar">
-            <span *ngIf="i > 0" class="stepButton__toolbar-icon" data-tooltip="Move step"
+            <span
+              *ngIf="i > 0"
+              class="stepButton__toolbar-icon"
+              data-tooltip="Move step"
+              (click)="moveStep(i, 'prev')"
               ><i class="bi bi-arrow-left"></i
             ></span>
             <span
               *ngIf="i < formData.steps.length - 1"
               class="stepButton__toolbar-icon"
               data-tooltip="Move step"
+              (click)="moveStep(i, 'next')"
               ><i class="bi bi-arrow-right"></i
             ></span>
             <span

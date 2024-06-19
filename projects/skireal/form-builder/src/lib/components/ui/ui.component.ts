@@ -301,4 +301,21 @@ export class UIComponent implements OnInit {
     this.goToStep(index + 1);
     this.saveCurrentStepData();
   }
+
+  moveStep(index: number, direction: 'next' | 'prev') {
+    if (direction === 'next') {
+      [this.formData.steps[index], this.formData.steps[index + 1]] = [
+        this.formData.steps[index + 1],
+        this.formData.steps[index]
+      ];
+    } else if (direction === 'prev') {
+      [this.formData.steps[index], this.formData.steps[index - 1]] = [
+        this.formData.steps[index - 1],
+        this.formData.steps[index]
+      ];
+    }
+
+    this.goToStep(index);
+    this.saveCurrentStepData();
+  }
 }
