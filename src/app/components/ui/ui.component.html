@@ -381,7 +381,7 @@
     </ng-container>
   </div>
   <div class="test-form__footer">
-    <div class="test-form__stepButtons">
+    <div class="test-form__buttons">
       <button class="btn btn-primary" (click)="openFieldsInsertingModal(false)">
         Insert Field
       </button>
@@ -399,24 +399,48 @@
       </button>
     </div>
 
-    <div class="test-form__stepButtons">
+    <div class="test-form__buttons">
       <button *ngIf="currentStep > 0" class="btn btn-primary" (click)="goToPreviousStep()">
         Previous Step
       </button>
       <button class="btn btn-primary" (click)="goToNextStep()">Next Step</button>
-      <button class="btn btn-danger" (click)="clearFormConfirmation()">Clear Step</button>
       <button class="btn btn-success" (click)="finishForm()">Finish</button>
     </div>
-
-    <ng-container *ngIf="formData.steps.length > 1">
+    <ng-container *ngIf="formData.steps.length > 0">
       <span>Go to:</span>
       <div class="test-form__stepButtons">
-        <button
-          class="btn btn-secondary"
-          *ngFor="let step of formData.steps; let i = index"
-          (click)="goToStep(i)">
-          Step {{ i + 1 }}
-        </button>
+        <div
+          class="test-form__stepButton stepButton"
+          [ngClass]="{ 'stepButton--active': i === currentStep }"
+          *ngFor="let step of formData.steps; let i = index">
+          <div class="stepButton__toolbar">
+            <span
+              class="stepButton__toolbar-icon"
+              data-tooltip="Move step"
+              (click)="moveStep(i, 'prev')"
+              [ngClass]="{ 'stepButton__toolbar-icon--disabled': i === 0 }"
+              ><i class="bi bi-arrow-left"></i
+            ></span>
+            <span
+              class="stepButton__toolbar-icon"
+              data-tooltip="Move step"
+              (click)="moveStep(i, 'next')"
+              [ngClass]="{ 'stepButton__toolbar-icon--disabled': i === formData.steps.length - 1 }"
+              ><i class="bi bi-arrow-right"></i
+            ></span>
+            <span class="stepButton__toolbar-icon" data-tooltip="Copy step" (click)="copyStep(i)"
+              ><i class="bi bi-files"></i
+            ></span>
+            <span
+              class="stepButton__toolbar-icon"
+              data-tooltip="Delete step"
+              (click)="deleteStepConfirmation(i)"
+              [ngClass]="{ 'stepButton__toolbar-icon--disabled': formData.steps.length === 1 }"
+              ><i class="bi bi-trash"></i
+            ></span>
+          </div>
+          <button class="btn btn-secondary" (click)="goToStep(i)">Step {{ i + 1 }}</button>
+        </div>
       </div>
     </ng-container>
   </div>
