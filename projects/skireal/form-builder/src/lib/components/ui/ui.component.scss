@@ -187,6 +187,8 @@
     transition: 0.2s;
     z-index: 1;
     width: 100%;
+    flex-wrap: wrap;
+    margin-right: -5px;
     justify-content: center;
 
     &-icon {
@@ -213,6 +215,7 @@
         opacity: 0;
         transition: opacity 0.3s, visibility 0.3s;
         z-index: 1;
+        pointer-events: none;
       }
 
       &:hover:before {
@@ -220,14 +223,15 @@
         opacity: 1;
       }
 
-      &:last-child {
-        margin-right: 0;
-      }
-
       .bi {
         &:before {
           font-size: 16px;
         }
+      }
+
+      &--disabled {
+        opacity: 0.5;
+        pointer-events: none;
       }
     }
   }
