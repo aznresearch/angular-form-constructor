@@ -27,8 +27,7 @@
     "querystring": "^0.2.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "@skireal/form-builder": "file:dist/@skireal/form-builder"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.0",

@@ -14,7 +14,6 @@ import { UIModalFieldPropertiesComponent } from './components/ui/components/ui-m
 import { FormFieldPropertiesComponent } from './components/ui/components/form-field-properties/form-field-properties.component';
 import { SharedModalConfirmationComponent } from './components/shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import { ConditionalLogicBlockComponent } from './components/ui/components/conditional-logic-block/conditional-logic-block.component';
-import { FormBuilderModule } from '@skireal/form-builder';
 
 @NgModule({
   declarations: [
@@ -34,8 +33,7 @@ import { FormBuilderModule } from '@skireal/form-builder';
     ReactiveFormsModule,
     AppRoutingModule,
     ModalModule.forRoot(),
-    DragDropModule,
-    FormBuilderModule
+    DragDropModule
   ],
   providers: [BsModalRef],
   bootstrap: [AppComponent]

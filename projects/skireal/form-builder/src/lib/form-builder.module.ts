@@ -24,7 +24,7 @@ import { ConditionalLogicBlockComponent } from './components/ui/components/condi
     SharedModalConfirmationComponent,
     ConditionalLogicBlockComponent
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, ModalModule.forRoot(), DragDropModule],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, ModalModule, DragDropModule],
   exports: [FormBuilderComponent],
   providers: [BsModalRef],
   bootstrap: [FormBuilderComponent]
