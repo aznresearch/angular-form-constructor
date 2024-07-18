@@ -2,6 +2,8 @@
   <app-ui
     (finishClicked)="onFinishClicked()"
     *ngIf="!isShowResult"
-    [enableGeneralFields]="enableGeneralFields"></app-ui>
+    [enableGeneralFields]="enableGeneralFields"
+    [enableConditionalLogicBlocks]="enableConditionalLogicBlocks"
+    [isSurvey]="isSurvey"></app-ui>
   <app-form-constructor *ngIf="isShowResult"></app-form-constructor>
 </div>

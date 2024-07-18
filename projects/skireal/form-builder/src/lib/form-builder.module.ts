@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
@@ -12,6 +11,7 @@ import { UIModalFieldPropertiesComponent } from './components/ui/components/ui-m
 import { FormFieldPropertiesComponent } from './components/ui/components/form-field-properties/form-field-properties.component';
 import { SharedModalConfirmationComponent } from './components/shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import { ConditionalLogicBlockComponent } from './components/ui/components/conditional-logic-block/conditional-logic-block.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -24,9 +24,15 @@ import { ConditionalLogicBlockComponent } from './components/ui/components/condi
     SharedModalConfirmationComponent,
     ConditionalLogicBlockComponent
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, ModalModule, DragDropModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ModalModule, DragDropModule],
   exports: [FormBuilderComponent],
   providers: [BsModalRef],
-  bootstrap: [FormBuilderComponent]
+  bootstrap: [FormBuilderComponent],
+  entryComponents: [
+    UIModalFieldsInsertingComponent,
+    UIModalFieldPropertiesComponent,
+    SharedModalConfirmationComponent,
+    ConditionalLogicBlockComponent
+  ]
 })
 export class FormBuilderModule {}

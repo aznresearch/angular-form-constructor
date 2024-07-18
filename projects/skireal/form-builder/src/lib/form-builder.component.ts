@@ -7,6 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class FormBuilderComponent {
   @Input() enableGeneralFields = true;
+  @Input() enableConditionalLogicBlocks = false;
+  @Input() isSurvey = true;
 
   isShowResult = false;
 
