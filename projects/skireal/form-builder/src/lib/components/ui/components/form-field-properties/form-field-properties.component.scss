@@ -33,6 +33,7 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
+  height: auto;
   padding: 6px 12px;
   font-size: 16px;
   font-weight: 400;
@@ -114,6 +115,9 @@ input {
 
 .form-row {
   margin-bottom: 10px;
+  display: block;
+  margin-left: 0;
+  margin-right: 0;
 
   &:last-child {
     margin-bottom: 0;
