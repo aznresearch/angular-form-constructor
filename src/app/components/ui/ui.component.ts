@@ -42,6 +42,8 @@ export class UIComponent implements OnInit {
 
   currentStep = 0;
 
+  enableSetValidationOptions = true;
+
   modalOptions = {
     initialState: {
       message: 'Are you sure you want to delete the step?'
@@ -69,7 +71,8 @@ export class UIComponent implements OnInit {
 
   openFieldsInsertingModal(isGeneral: boolean) {
     const initialState = {
-      isGeneral
+      isGeneral,
+      enableSetValidationOptions: this.enableSetValidationOptions
     };
     this.openModal(UIModalFieldsInsertingComponent, initialState);
     this.modalRef?.content.propertiesSave.subscribe((selectedField: FormField) => {
@@ -90,7 +93,8 @@ export class UIComponent implements OnInit {
 
   openFieldPropertiesModal(field: FormField, isGeneral: boolean) {
     const initialState = {
-      field
+      field,
+      enableSetValidationOptions: this.enableSetValidationOptions
     };
 
     this.openModal(UIModalFieldPropertiesComponent, initialState);

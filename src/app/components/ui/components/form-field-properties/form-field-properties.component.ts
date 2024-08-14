@@ -13,6 +13,7 @@ import { UiFormService } from 'src/app/services/ui-form.service';
 export class FormFieldPropertiesComponent implements OnInit {
   @Input() propertyForm: FormGroup | undefined;
   @Input() selectedFieldType = '';
+  @Input() enableSetValidationOptions = false;
 
   validatorOptions = validatorTypes;
   fieldsToCreate: FormField[] = [];

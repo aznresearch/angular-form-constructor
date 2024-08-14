@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { fieldsByType } from 'src/app/constants/ui-constants';
@@ -12,6 +12,7 @@ import { UiFormService } from 'src/app/services/ui-form.service';
 })
 export class UIModalFieldPropertiesComponent implements OnInit {
   @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
+  @Input() enableSetValidationOptions = false;
 
   field: FormField = { id: '', name: '' };
   propertyForm: FormGroup = this.fb.group({});

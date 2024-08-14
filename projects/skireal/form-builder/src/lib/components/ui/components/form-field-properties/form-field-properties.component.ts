@@ -13,23 +13,24 @@ import { UiFormService } from '../../../../services/ui-form.service';
 export class FormFieldPropertiesComponent implements OnInit {
   @Input() propertyForm: FormGroup | undefined;
   @Input() selectedFieldType = '';
+  @Input() enableSetValidationOptions = false;
 
   validatorOptions = validatorTypes;
   fieldsToCreate: FormField[] = [];
 
   constructor(private uiFormService: UiFormService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.subscribeToFieldsToCreate();
   }
 
-  subscribeToFieldsToCreate(): void {
+  subscribeToFieldsToCreate() {
     this.uiFormService.getFieldsToCreate().subscribe((updatedFieldsToCreate) => {
       this.fieldsToCreate = updatedFieldsToCreate;
     });
   }
 
-  addControlToFormArray(arrayName: string, parentArrayName?: string, index?: number): void {
+  addControlToFormArray(arrayName: string, parentArrayName?: string, index?: number) {
     const formArray = parentArrayName
       ? ((this.propertyForm?.get(parentArrayName) as FormArray)
           ?.at(index !== undefined ? index : -1)
@@ -46,7 +47,7 @@ export class FormFieldPropertiesComponent implements OnInit {
     this.uiFormService.addControlToFormArray(formArray, arrayName, nestedArrayConfig);
   }
 
-  removeControlFromFormArray(arrayName: string, index: number, parentArrayName?: string): void {
+  removeControlFromFormArray(arrayName: string, index: number, parentArrayName?: string) {
     const formArray = parentArrayName
       ? (this.propertyForm?.get(parentArrayName)?.get(arrayName) as FormArray)
       : (this.propertyForm?.get(arrayName) as FormArray);

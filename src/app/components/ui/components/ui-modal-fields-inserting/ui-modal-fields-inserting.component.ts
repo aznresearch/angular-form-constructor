@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { SharedModalConfirmationComponent } from 'src/app/components/shared/shared-modal-confirmation/shared-modal-confirmation.component';
@@ -21,8 +21,9 @@ import { UiFormService } from 'src/app/services/ui-form.service';
 })
 export class UIModalFieldsInsertingComponent implements OnInit {
   @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
+  @Input() isGeneral = false;
+  @Input() enableSetValidationOptions = false;
 
-  isGeneral = false;
   selectedFieldType!: FormFieldType;
   propertyForm: FormGroup = this.fb.group({});
   availableFieldTypes = formFieldTypes;

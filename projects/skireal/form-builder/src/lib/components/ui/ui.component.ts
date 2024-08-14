@@ -29,7 +29,8 @@ export class UIComponent implements OnInit {
   @Input() enableGeneralFields = true;
   @Input() enableConditionalLogicBlocks = false;
   @Input() isSurvey = true;
-  @Input() incomingFormData: FormDataStructure;
+  @Input() incomingFormData: FormDataStructure = { steps: [], generalFields: [] };
+  @Input() enableSetValidationOptions = false;
 
   @Output() finishClicked: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
 
@@ -76,7 +77,8 @@ export class UIComponent implements OnInit {
   openFieldsInsertingModal(isGeneral: boolean, isSurvey: boolean) {
     const initialState = {
       isGeneral,
-      isSurvey
+      isSurvey,
+      enableSetValidationOptions: this.enableSetValidationOptions
     };
     this.openModal(UIModalFieldsInsertingComponent, initialState);
     this.modalRef?.content.propertiesSave.subscribe((selectedField: FormField) => {
@@ -97,7 +99,8 @@ export class UIComponent implements OnInit {
 
   openFieldPropertiesModal(field: FormField, isGeneral: boolean) {
     const initialState = {
-      field
+      field,
+      enableSetValidationOptions: this.enableSetValidationOptions
     };
 
     this.openModal(UIModalFieldPropertiesComponent, initialState);

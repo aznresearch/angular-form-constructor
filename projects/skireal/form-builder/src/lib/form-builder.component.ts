@@ -11,7 +11,8 @@ export class FormBuilderComponent {
   @Input() enableGeneralFields = true;
   @Input() enableConditionalLogicBlocks = false;
   @Input() isSurvey = true;
-  @Input() incomingFormData: FormDataStructure;
+  @Input() incomingFormData: FormDataStructure = { steps: [], generalFields: [] };
+  @Input() enableSetValidationOptions = false;
 
   @Output() jsonCreated: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
 
