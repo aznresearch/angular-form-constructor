@@ -10,7 +10,8 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import {
   ConditionalLogicBlock,
   FormDataStructure,
-  FormField
+  FormField,
+  FormOptionsFull
 } from '../../models/form-constructor.model';
 import {
   FieldTypesNames,
@@ -30,7 +31,7 @@ export class UIComponent implements OnInit {
   @Input() enableConditionalLogicBlocks = false;
   @Input() isSurvey = true;
 
-  @Output() finishClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() finishClicked: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
 
   modalRef: BsModalRef | undefined;
 
@@ -233,7 +234,7 @@ export class UIComponent implements OnInit {
     this.saveCurrentStepData();
     const payload = this.formDataService.prepareFormData(this.formData);
     this.formDataService.setFormData(payload);
-    this.finishClicked.emit();
+    this.finishClicked.emit(payload);
   }
 
   openModal(component: Type<any>, initialState?: any) {

@@ -1,4 +1,5 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { FormOptionsFull } from './models/form-constructor.model';
 
 @Component({
   selector: 'form-builder',
@@ -11,9 +12,12 @@ export class FormBuilderComponent {
   @Input() enableConditionalLogicBlocks = false;
   @Input() isSurvey = true;
 
+  @Output() jsonCreated: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
+
   isShowResult = false;
 
-  onFinishClicked() {
+  onFinishClicked($event: FormOptionsFull) {
     this.isShowResult = true;
+    this.jsonCreated.emit($event);
   }
 }

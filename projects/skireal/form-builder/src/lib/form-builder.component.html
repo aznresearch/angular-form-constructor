@@ -1,6 +1,6 @@
 <div class="container-xl">
   <app-ui
-    (finishClicked)="onFinishClicked()"
+    (finishClicked)="onFinishClicked($event)"
     *ngIf="!isShowResult"
     [enableGeneralFields]="enableGeneralFields"
     [enableConditionalLogicBlocks]="enableConditionalLogicBlocks"
