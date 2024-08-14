@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { FormOptionsFull } from './models/form-constructor.model';
+import { FormDataStructure, FormOptionsFull } from './models/form-constructor.model';
 
 @Component({
   selector: 'form-builder',
@@ -11,6 +11,7 @@ export class FormBuilderComponent {
   @Input() enableGeneralFields = true;
   @Input() enableConditionalLogicBlocks = false;
   @Input() isSurvey = true;
+  @Input() incomingFormData: FormDataStructure;
 
   @Output() jsonCreated: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
 

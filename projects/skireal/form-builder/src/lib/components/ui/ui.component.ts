@@ -6,7 +6,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
 import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-properties/ui-modal-field-properties.component';
 import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
-import { LocalStorageService } from '../../services/local-storage.service';
 import {
   ConditionalLogicBlock,
   FormDataStructure,
@@ -30,6 +29,7 @@ export class UIComponent implements OnInit {
   @Input() enableGeneralFields = true;
   @Input() enableConditionalLogicBlocks = false;
   @Input() isSurvey = true;
+  @Input() incomingFormData: FormDataStructure;
 
   @Output() finishClicked: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
 
@@ -57,13 +57,12 @@ export class UIComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-    private localStorageService: LocalStorageService,
     private uiFormService: UiFormService,
     private formDataService: FormDataService
   ) {}
 
   ngOnInit(): void {
-    this.restoreFormDataFromLocalStorage();
+    this.insertFormData();
     this.createForm();
   }
 
@@ -205,14 +204,13 @@ export class UIComponent implements OnInit {
       addedFields: [...this.addedFields],
       conditionalLogicBlocks: [...this.conditionalLogicBlocks]
     };
-    this.saveFormDataToLocalStorage();
   }
 
-  restoreFormDataFromLocalStorage() {
-    const savedFormData = this.localStorageService.getItem('formData');
+  insertFormData() {
+    const incomingFormData = this.incomingFormData;
 
-    if (savedFormData) {
-      this.formData = savedFormData;
+    if (incomingFormData) {
+      this.formData = incomingFormData;
     } else {
       this.formData = {
         steps: [],
@@ -224,10 +222,6 @@ export class UIComponent implements OnInit {
     this.generalFields = this.formData.generalFields ?? [];
     this.conditionalLogicBlocks =
       this.formData.steps[this.currentStep]?.conditionalLogicBlocks ?? [];
-  }
-
-  saveFormDataToLocalStorage() {
-    this.localStorageService.setItem('formData', this.formData);
   }
 
   finishForm() {
