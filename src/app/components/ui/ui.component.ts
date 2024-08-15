@@ -48,7 +48,7 @@ export class UIComponent implements OnInit {
     initialState: {
       message: 'Are you sure you want to delete the step?'
     },
-    class: 'modal-md'
+    class: 'modal-dialog-form-builder'
   };
 
   constructor(
@@ -236,7 +236,7 @@ export class UIComponent implements OnInit {
   openModal(component: Type<any>, initialState?: any) {
     this.modalRef = this.modalService.show(component, {
       initialState,
-      class: 'modal-dialog-centered'
+      class: 'modal-dialog-form-builder'
     });
   }
 
