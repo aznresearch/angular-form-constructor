@@ -1,11 +1,9 @@
 <div class="container-xl">
   <app-ui
     (finishClicked)="onFinishClicked($event)"
-    *ngIf="!isShowResult"
     [enableGeneralFields]="enableGeneralFields"
     [enableConditionalLogicBlocks]="enableConditionalLogicBlocks"
     [isSurvey]="isSurvey"
-    [incomingFormData]="incomingFormData"
+    [incomingFormData]="formData"
     [enableSetValidationOptions]="enableSetValidationOptions"></app-ui>
-  <app-form-constructor *ngIf="isShowResult"></app-form-constructor>
 </div>

@@ -11,15 +11,19 @@ export class FormBuilderComponent {
   @Input() enableGeneralFields = true;
   @Input() enableConditionalLogicBlocks = false;
   @Input() isSurvey = true;
-  @Input() incomingFormData: FormDataStructure = { steps: [], generalFields: [] };
+  @Input() incomingFormData = '';
   @Input() enableSetValidationOptions = false;
 
-  @Output() jsonCreated: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
+  @Output() jsonCreated: EventEmitter<string> = new EventEmitter<string>();
 
-  isShowResult = false;
+  formData: FormDataStructure = { steps: [], generalFields: [] };
+
+  ngOnInit() {
+    this.formData = JSON.parse(this.incomingFormData);
+  }
 
   onFinishClicked($event: FormOptionsFull) {
-    this.isShowResult = true;
-    this.jsonCreated.emit($event);
+    const jsonData = JSON.stringify($event);
+    this.jsonCreated.emit(jsonData);
   }
 }
