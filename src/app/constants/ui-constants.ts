@@ -86,7 +86,7 @@ export const validatorTypes: ValidatorType[] = [
 
 const commonFields: Field[] = [
   { id: 'name', name: 'Name', isArray: false },
-  { id: 'classes', name: 'Classes', isArray: false },
+  { id: 'classes', name: 'Classes', isArray: false, placeholder: 'e.g., class1 class2' },
   { id: 'placeholder', name: 'Placeholder', isArray: false },
   { id: 'title', name: 'Title', isArray: false },
   { id: 'subtitle', name: 'Subtitle', isArray: false },

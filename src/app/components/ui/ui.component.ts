@@ -1,4 +1,4 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, OnInit, Renderer2, Type } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -27,6 +27,8 @@ import { FormDataService } from 'src/app/services/form-data.service';
   styleUrls: ['./ui.component.scss']
 })
 export class UIComponent implements OnInit {
+  private observer?: MutationObserver;
+
   modalRef: BsModalRef | undefined;
 
   dynamicForm!: FormGroup;
@@ -56,12 +58,39 @@ export class UIComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private uiFormService: UiFormService,
     private router: Router,
-    private formDataService: FormDataService
+    private formDataService: FormDataService,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
     this.restoreFormDataFromLocalStorage();
     this.createForm();
+  }
+
+  ngAfterViewInit() {
+    this.observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            const element = node as HTMLElement;
+            if (element.classList && element.classList.contains('modal')) {
+              this.renderer.addClass(element, 'modal-form-builder');
+              element.addEventListener('hidden.bs.modal', () => {
+                this.renderer.removeClass(element, 'modal-form-builder');
+              });
+            }
+          });
+        }
+      });
+    });
+
+    this.observer.observe(document.body, { childList: true, subtree: true });
+  }
+
+  ngOnDestroy(): void {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   }
 
   createForm() {

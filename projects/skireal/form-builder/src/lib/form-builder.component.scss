@@ -108,90 +108,46 @@ $modal-show-transform: none !default;
 $modal-transition: transform 0s ease-out !default;
 $modal-scale-transform: scale(1.02) !default;
 
-// .modal-open      - body class for killing the scroll
-// .modal           - container to scroll within
-// .modal-dialog    - positioning shell for the actual modal
-// .modal-content   - actual modal w/ bg and corners and stuff
-// Container that the modal scrolls within
 .modal {
-  // scss-docs-start modal-css-vars
-  --#{$prefix}modal-zindex: #{$zindex-modal};
-  --#{$prefix}modal-width: #{$modal-md};
-  --#{$prefix}modal-padding: #{$modal-inner-padding};
-  --#{$prefix}modal-margin: #{$modal-dialog-margin};
-  --#{$prefix}modal-color: #{$modal-content-color};
-  --#{$prefix}modal-bg: #{$modal-content-bg};
-  --#{$prefix}modal-border-color: #{$modal-content-border-color};
-  --#{$prefix}modal-border-width: #{$modal-content-border-width};
-  --#{$prefix}modal-border-radius: #{$modal-content-border-radius};
-  --#{$prefix}modal-box-shadow: #{$modal-content-box-shadow-xs};
-  --#{$prefix}modal-inner-border-radius: #{$modal-content-inner-border-radius};
-  --#{$prefix}modal-header-padding-x: #{$modal-header-padding-x};
-  --#{$prefix}modal-header-padding-y: #{$modal-header-padding-y};
-  --#{$prefix}modal-header-padding: #{$modal-header-padding}; // Todo in v6: Split this padding into x and y
-  --#{$prefix}modal-header-border-color: #{$modal-header-border-color};
-  --#{$prefix}modal-header-border-width: #{$modal-header-border-width};
-  --#{$prefix}modal-title-line-height: #{$modal-title-line-height};
-  --#{$prefix}modal-footer-gap: #{$modal-footer-margin-between};
-  --#{$prefix}modal-footer-bg: #{$modal-footer-bg};
-  --#{$prefix}modal-footer-border-color: #{$modal-footer-border-color};
-  --#{$prefix}modal-footer-border-width: #{$modal-footer-border-width};
-  // scss-docs-end modal-css-vars
-
   position: fixed;
-  top: 0;
-  left: 0;
-  z-index: var(--#{$prefix}modal-zindex);
-  display: none;
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  // Prevent Chrome on Windows from adding a focus outline. For details, see
-  // https://github.com/twbs/bootstrap/pull/10951.
-  outline: 0;
-  // We deliberately don't use `-webkit-overflow-scrolling: touch;` due to a
-  // gnarly iOS Safari bug: https://bugs.webkit.org/show_bug.cgi?id=158342
-  // See also https://github.com/twbs/bootstrap/issues/17695
 }
 
-// Shell div to position the modal with bottom padding
-.modal-dialog {
-  position: relative;
-  width: auto;
-  margin: var(--#{$prefix}modal-margin);
-  // allow clicks to pass through for custom click handling to close modal
-  pointer-events: none;
+.modal-form-builder {
+  &.modal {
+    // scss-docs-start modal-css-vars
+    --#{$prefix}modal-zindex: #{$zindex-modal};
+    --#{$prefix}modal-width: #{$modal-md};
+    --#{$prefix}modal-padding: #{$modal-inner-padding};
+    --#{$prefix}modal-margin: #{$modal-dialog-margin};
+    --#{$prefix}modal-color: #{$modal-content-color};
+    --#{$prefix}modal-bg: #{$modal-content-bg};
+    --#{$prefix}modal-border-color: #{$modal-content-border-color};
+    --#{$prefix}modal-border-width: #{$modal-content-border-width};
+    --#{$prefix}modal-border-radius: #{$modal-content-border-radius};
+    --#{$prefix}modal-box-shadow: #{$modal-content-box-shadow-xs};
+    --#{$prefix}modal-inner-border-radius: #{$modal-content-inner-border-radius};
+    --#{$prefix}modal-header-padding-x: #{$modal-header-padding-x};
+    --#{$prefix}modal-header-padding-y: #{$modal-header-padding-y};
+    --#{$prefix}modal-header-padding: #{$modal-header-padding}; // Todo in v6: Split this padding into x and y
+    --#{$prefix}modal-header-border-color: #{$modal-header-border-color};
+    --#{$prefix}modal-header-border-width: #{$modal-header-border-width};
+    --#{$prefix}modal-title-line-height: #{$modal-title-line-height};
+    --#{$prefix}modal-footer-gap: #{$modal-footer-margin-between};
+    --#{$prefix}modal-footer-bg: #{$modal-footer-bg};
+    --#{$prefix}modal-footer-border-color: #{$modal-footer-border-color};
+    --#{$prefix}modal-footer-border-width: #{$modal-footer-border-width};
+    // scss-docs-end modal-css-vars
 
-  // When fading in the modal, animate it to slide down
-  .modal.fade & {
-    transition: $modal-transition;
-    transform: $modal-fade-transform;
-  }
-  .modal.show & {
-    transform: $modal-show-transform;
-  }
-
-  .modal.in & {
-    transform: $modal-show-transform;
-  }
-
-  // When trying to close, animate focus to scale
-  .modal.modal-static & {
-    transform: $modal-scale-transform;
-  }
-}
-
-.modal-dialog-scrollable {
-  height: calc(100% - var(--#{$prefix}modal-margin) * 2);
-
-  .modal-content {
-    max-height: 100%;
-    overflow: hidden;
-  }
-
-  .modal-body {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: var(--#{$prefix}modal-zindex);
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
+    outline: 0;
   }
 }
 
@@ -201,6 +157,42 @@ $modal-scale-transform: scale(1.02) !default;
   min-height: calc(100% - var(--#{$prefix}modal-margin) * 2);
   max-width: none;
   width: 700px;
+
+  &.modal-dialog {
+    position: relative;
+    pointer-events: none;
+
+    // When fading in the modal, animate it to slide down
+    .modal-form-builder.modal.fade & {
+      transition: $modal-transition;
+      transform: $modal-fade-transform;
+    }
+    .modal-form-builder.modal.show & {
+      transform: $modal-show-transform;
+    }
+
+    .modal-form-builder.modal.in & {
+      transform: $modal-show-transform;
+    }
+
+    // When trying to close, animate focus to scale
+    .modal-form-builder.modal.modal-static & {
+      transform: $modal-scale-transform;
+    }
+  }
+
+  &.modal-dialog-scrollable {
+    height: calc(100% - var(--#{$prefix}modal-margin) * 2);
+
+    .modal-content {
+      max-height: 100%;
+      overflow: hidden;
+    }
+
+    .modal-body {
+      overflow-y: auto;
+    }
+  }
   h2 {
     white-space: nowrap;
   }
@@ -230,44 +222,6 @@ $modal-scale-transform: scale(1.02) !default;
       text-align: center;
     }
   }
-}
-
-@mixin overlay-backdrop($zindex, $backdrop-bg, $backdrop-opacity) {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: $zindex;
-  width: 100vw;
-  height: 100vh;
-  background-color: $backdrop-bg;
-  transition: 0.3s;
-
-  // Fade for backdrop
-  &.fade {
-    opacity: 0;
-  }
-  &.show {
-    opacity: $backdrop-opacity;
-  }
-
-  &.in {
-    opacity: $backdrop-opacity;
-  }
-}
-
-// Modal background
-.modal-backdrop {
-  // scss-docs-start modal-backdrop-css-vars
-  --#{$prefix}backdrop-zindex: #{$zindex-modal-backdrop};
-  --#{$prefix}backdrop-bg: #{$modal-backdrop-bg};
-  --#{$prefix}backdrop-opacity: #{$modal-backdrop-opacity};
-  // scss-docs-end modal-backdrop-css-vars
-
-  @include overlay-backdrop(
-    var(--#{$prefix}backdrop-zindex),
-    var(--#{$prefix}backdrop-bg),
-    var(--#{$prefix}backdrop-opacity)
-  );
 }
 
 $grid-breakpoints: (
@@ -308,7 +262,7 @@ $grid-breakpoints: (
 
 // Scale up the modal
 @include media-breakpoint-up(sm) {
-  .modal {
+  .modal-form-builder.modal {
     --#{$prefix}modal-margin: #{$modal-dialog-margin-y-sm-up};
     --#{$prefix}modal-box-shadow: #{$modal-content-box-shadow-sm-up};
   }

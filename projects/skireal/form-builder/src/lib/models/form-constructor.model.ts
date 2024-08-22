@@ -6,7 +6,7 @@ export interface FormField extends Field {
   initial?: string;
   validators?: Validator[];
   options?: Option[];
-  classes?: string[];
+  classes?: string;
   rows?: Row[];
 }
 
@@ -15,6 +15,7 @@ export interface Field {
   name: string;
   isArray?: boolean;
   parentArray?: string;
+  placeholder?: string;
   children?: Field[];
 }
 
@@ -45,7 +46,7 @@ export interface FormOptions {
 
 export interface Validator {
   type: string;
-  value?: number | string;
+  value?: string;
   errormsg?: string;
 }
 

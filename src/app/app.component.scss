@@ -108,12 +108,11 @@ $modal-show-transform: none !default;
 $modal-transition: transform 0s ease-out !default;
 $modal-scale-transform: scale(1.02) !default;
 
-// .modal-open      - body class for killing the scroll
-// .modal           - container to scroll within
-// .modal-dialog    - positioning shell for the actual modal
-// .modal-content   - actual modal w/ bg and corners and stuff
-// Container that the modal scrolls within
 .modal {
+  position: fixed;
+}
+
+.modal.modal-form-builder {
   // scss-docs-start modal-css-vars
   --#{$prefix}modal-zindex: #{$zindex-modal};
   --#{$prefix}modal-width: #{$modal-md};
@@ -147,51 +146,31 @@ $modal-scale-transform: scale(1.02) !default;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  // Prevent Chrome on Windows from adding a focus outline. For details, see
-  // https://github.com/twbs/bootstrap/pull/10951.
   outline: 0;
-  // We deliberately don't use `-webkit-overflow-scrolling: touch;` due to a
-  // gnarly iOS Safari bug: https://bugs.webkit.org/show_bug.cgi?id=158342
-  // See also https://github.com/twbs/bootstrap/issues/17695
-}
 
-// Shell div to position the modal with bottom padding
-.modal-dialog {
-  position: relative;
-  width: auto;
-  margin: var(--#{$prefix}modal-margin);
-  // allow clicks to pass through for custom click handling to close modal
-  pointer-events: none;
-
-  // When fading in the modal, animate it to slide down
-  .modal.fade & {
-    transition: $modal-transition;
-    transform: $modal-fade-transform;
-  }
-  .modal.show & {
-    transform: $modal-show-transform;
+  &.fade {
+    .modal-dialog {
+      transition: $modal-transition;
+      transform: $modal-fade-transform;
+    }
   }
 
-  .modal.in & {
-    transform: $modal-show-transform;
+  &.show {
+    .modal-dialog {
+      transform: $modal-show-transform;
+    }
   }
 
-  // When trying to close, animate focus to scale
-  .modal.modal-static & {
-    transform: $modal-scale-transform;
-  }
-}
-
-.modal-dialog-scrollable {
-  height: calc(100% - var(--#{$prefix}modal-margin) * 2);
-
-  .modal-content {
-    max-height: 100%;
-    overflow: hidden;
+  &.in {
+    .modal-dialog {
+      transform: $modal-show-transform;
+    }
   }
 
-  .modal-body {
-    overflow-y: auto;
+  &.modal-static {
+    .modal-dialog {
+      transform: $modal-scale-transform;
+    }
   }
 }
 
@@ -201,6 +180,46 @@ $modal-scale-transform: scale(1.02) !default;
   min-height: calc(100% - var(--#{$prefix}modal-margin) * 2);
   max-width: none;
   width: 700px;
+
+  // Shell div to position the modal with bottom padding
+  &.modal-dialog {
+    position: relative;
+    // width: auto;
+    //margin: var(--#{$prefix}modal-margin);
+    // allow clicks to pass through for custom click handling to close modal
+    pointer-events: none;
+
+    // When fading in the modal, animate it to slide down
+    .modal.fade & {
+      transition: $modal-transition;
+      transform: $modal-fade-transform;
+    }
+    .modal.show & {
+      transform: $modal-show-transform;
+    }
+
+    .modal.in & {
+      transform: $modal-show-transform;
+    }
+
+    // When trying to close, animate focus to scale
+    .modal.modal-static & {
+      transform: $modal-scale-transform;
+    }
+  }
+
+  &.modal-dialog-scrollable {
+    height: calc(100% - var(--#{$prefix}modal-margin) * 2);
+
+    .modal-content {
+      max-height: 100%;
+      overflow: hidden;
+    }
+
+    .modal-body {
+      overflow-y: auto;
+    }
+  }
   h2 {
     white-space: nowrap;
   }
@@ -240,46 +259,6 @@ $modal-scale-transform: scale(1.02) !default;
       text-align: center;
     }
   }
-}
-
-// Actual modal
-
-@mixin overlay-backdrop($zindex, $backdrop-bg, $backdrop-opacity) {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: $zindex;
-  width: 100vw;
-  height: 100vh;
-  background-color: $backdrop-bg;
-  transition: 0.3s;
-
-  // Fade for backdrop
-  &.fade {
-    opacity: 0;
-  }
-  &.show {
-    opacity: $backdrop-opacity;
-  }
-
-  &.in {
-    opacity: $backdrop-opacity;
-  }
-}
-
-// Modal background
-.modal-backdrop {
-  // scss-docs-start modal-backdrop-css-vars
-  --#{$prefix}backdrop-zindex: #{$zindex-modal-backdrop};
-  --#{$prefix}backdrop-bg: #{$modal-backdrop-bg};
-  --#{$prefix}backdrop-opacity: #{$modal-backdrop-opacity};
-  // scss-docs-end modal-backdrop-css-vars
-
-  @include overlay-backdrop(
-    var(--#{$prefix}backdrop-zindex),
-    var(--#{$prefix}backdrop-bg),
-    var(--#{$prefix}backdrop-opacity)
-  );
 }
 
 $grid-breakpoints: (

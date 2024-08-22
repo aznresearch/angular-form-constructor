@@ -179,7 +179,12 @@
       <div *ngSwitchDefault>
         <div class="form-group">
           <label class="propertyForm__label" [for]="field.name">{{ field.name }}</label>
-          <input [type]="text" [id]="field.id" [formControlName]="field.id" class="form-control" />
+          <input
+            [type]="text"
+            [id]="field.id"
+            [formControlName]="field.id"
+            [attr.placeholder]="field.placeholder ? field.placeholder : null"
+            class="form-control" />
         </div>
       </div>
     </div>

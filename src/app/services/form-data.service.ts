@@ -50,7 +50,7 @@ export class FormDataService {
         ) {
           fieldData.validators?.push({
             type: 'maxlength',
-            value: 1000,
+            value: '1000',
             errormsg: 'Text is too long'
           });
         }
