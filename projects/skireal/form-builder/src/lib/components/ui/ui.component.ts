@@ -321,10 +321,17 @@ export class UIComponent implements OnInit {
 
   deleteStep(index: number) {
     this.formData.steps.splice(index, 1);
-    if (this.currentStep > index) {
-      this.currentStep--;
+    if (this.currentStep >= index) {
+      this.currentStep = this.currentStep > 0 ? this.currentStep - 1 : 0;
     }
-    this.updateStep();
+
+    if (this.formData.steps.length > 0) {
+      this.updateStep();
+    } else {
+      this.addedFields = [];
+      this.conditionalLogicBlocks = [];
+      this.createForm();
+    }
     this.saveCurrentStepData();
   }
 
