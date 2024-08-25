@@ -9,8 +9,8 @@ import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirm
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import {
   ConditionalLogicBlock,
-  FormDataStructure,
-  FormField
+  FormField,
+  FormOptionsFull
 } from 'src/app/models/form-constructor.model';
 import {
   FieldTypesNames,
@@ -33,9 +33,17 @@ export class UIComponent implements OnInit {
 
   dynamicForm!: FormGroup;
   generalForm!: FormGroup;
-  formData: FormDataStructure = {
-    steps: [],
-    generalFields: []
+  formData: FormOptionsFull = {
+    formData: {
+      steps: [],
+      generalFields: []
+    },
+    options: {
+      name: '',
+      type: '',
+      country: ''
+    },
+    uniqueFormData: []
   };
   addedFields: FormField[] = [];
   generalFields: FormField[] = [];
@@ -200,8 +208,8 @@ export class UIComponent implements OnInit {
   goToStep(step: number) {
     this.currentStep = step;
 
-    if (!this.formData.steps[this.currentStep]) {
-      this.formData.steps[this.currentStep] = {
+    if (!this.formData.formData.steps[this.currentStep]) {
+      this.formData.formData.steps[this.currentStep] = {
         addedFields: [],
         conditionalLogicBlocks: []
       };
@@ -225,8 +233,8 @@ export class UIComponent implements OnInit {
   }
 
   saveCurrentStepData() {
-    this.formData.generalFields = [...this.generalFields];
-    this.formData.steps[this.currentStep] = {
+    this.formData.formData.generalFields = [...this.generalFields];
+    this.formData.formData.steps[this.currentStep] = {
       addedFields: [...this.addedFields],
       conditionalLogicBlocks: [...this.conditionalLogicBlocks]
     };
@@ -240,15 +248,23 @@ export class UIComponent implements OnInit {
       this.formData = savedFormData;
     } else {
       this.formData = {
-        steps: [],
-        generalFields: []
+        formData: {
+          steps: [],
+          generalFields: []
+        },
+        options: {
+          name: '',
+          type: '',
+          country: ''
+        },
+        uniqueFormData: []
       };
     }
 
-    this.addedFields = this.formData.steps[this.currentStep]?.addedFields ?? [];
-    this.generalFields = this.formData.generalFields ?? [];
+    this.addedFields = this.formData.formData.steps[this.currentStep]?.addedFields ?? [];
+    this.generalFields = this.formData.formData.generalFields ?? [];
     this.conditionalLogicBlocks =
-      this.formData.steps[this.currentStep]?.conditionalLogicBlocks ?? [];
+      this.formData.formData.steps[this.currentStep]?.conditionalLogicBlocks ?? [];
   }
 
   saveFormDataToLocalStorage() {
@@ -280,27 +296,27 @@ export class UIComponent implements OnInit {
   }
 
   copyStep(index: number) {
-    const copiedStep = { ...this.formData.steps[index] };
+    const copiedStep = { ...this.formData.formData.steps[index] };
     copiedStep.addedFields = copiedStep.addedFields.map((field) => ({
       ...field,
       id: this.uiFormService.generateUniqueId()
     }));
 
-    this.formData.steps.splice(index + 1, 0, copiedStep);
+    this.formData.formData.steps.splice(index + 1, 0, copiedStep);
     this.goToStep(index + 1);
     this.saveCurrentStepData();
   }
 
   moveStep(index: number, direction: 'next' | 'prev') {
     if (direction === 'next') {
-      [this.formData.steps[index], this.formData.steps[index + 1]] = [
-        this.formData.steps[index + 1],
-        this.formData.steps[index]
+      [this.formData.formData.steps[index], this.formData.formData.steps[index + 1]] = [
+        this.formData.formData.steps[index + 1],
+        this.formData.formData.steps[index]
       ];
     } else if (direction === 'prev') {
-      [this.formData.steps[index], this.formData.steps[index - 1]] = [
-        this.formData.steps[index - 1],
-        this.formData.steps[index]
+      [this.formData.formData.steps[index], this.formData.formData.steps[index - 1]] = [
+        this.formData.formData.steps[index - 1],
+        this.formData.formData.steps[index]
       ];
     }
 
@@ -319,12 +335,12 @@ export class UIComponent implements OnInit {
   }
 
   deleteStep(index: number) {
-    this.formData.steps.splice(index, 1);
+    this.formData.formData.steps.splice(index, 1);
     if (this.currentStep >= index) {
       this.currentStep = this.currentStep > 0 ? this.currentStep - 1 : 0;
     }
 
-    if (this.formData.steps.length > 0) {
+    if (this.formData.formData.steps.length > 0) {
       this.updateStep();
     } else {
       this.addedFields = [];
@@ -335,8 +351,9 @@ export class UIComponent implements OnInit {
   }
 
   updateStep() {
-    this.addedFields = this.formData.steps[this.currentStep].addedFields;
-    this.conditionalLogicBlocks = this.formData.steps[this.currentStep].conditionalLogicBlocks;
+    this.addedFields = this.formData.formData.steps[this.currentStep].addedFields;
+    this.conditionalLogicBlocks =
+      this.formData.formData.steps[this.currentStep].conditionalLogicBlocks;
     this.createForm();
   }
 }

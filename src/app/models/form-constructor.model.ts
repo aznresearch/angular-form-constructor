@@ -39,11 +39,6 @@ export interface FormDataStructure {
   generalFields: FormField[];
 }
 
-export interface FormOptions {
-  steps: StepData[];
-  generalFields: FormField[];
-}
-
 export interface Validator {
   type: string;
   value?: string;
@@ -65,7 +60,7 @@ export interface UniqueFormData extends StepData {
 }
 
 export interface FormOptionsFull {
-  formData: FormOptions;
+  formData: FormDataStructure;
   options: {
     name: string;
     type: string;

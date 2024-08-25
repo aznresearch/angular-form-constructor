@@ -15,5 +15,11 @@ export const defaultFormOptionsObject: FormOptionsFull = {
       }
     ],
     generalFields: []
-  }
+  },
+  options: {
+    name: 'formName',
+    type: 'formType',
+    country: 'NG'
+  },
+  uniqueFormData: []
 };

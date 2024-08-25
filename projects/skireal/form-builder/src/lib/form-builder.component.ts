@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { FormDataStructure, FormOptionsFull } from './models/form-constructor.model';
+import { FormOptionsFull } from './models/form-constructor.model';
 
 @Component({
   selector: 'form-builder',
@@ -16,7 +16,18 @@ export class FormBuilderComponent {
 
   @Output() jsonCreated: EventEmitter<string> = new EventEmitter<string>();
 
-  formData: FormDataStructure = { steps: [], generalFields: [] };
+  formData: FormOptionsFull = {
+    formData: {
+      steps: [],
+      generalFields: []
+    },
+    options: {
+      name: '',
+      type: '',
+      country: ''
+    },
+    uniqueFormData: []
+  };
 
   ngOnInit() {
     this.formData = JSON.parse(this.incomingFormData);

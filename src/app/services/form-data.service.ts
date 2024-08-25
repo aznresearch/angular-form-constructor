@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormDataStructure, FormField, FormOptionsFull } from '../models/form-constructor.model';
+import { FormField, FormOptionsFull } from '../models/form-constructor.model';
 import { defaultFormOptionsObject } from '../constants/form-constants';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -19,10 +19,10 @@ export class FormDataService {
     return this.formOptionsFull.asObservable();
   }
 
-  prepareFormData(formData: FormDataStructure): FormOptionsFull {
+  prepareFormData(formData: FormOptionsFull): FormOptionsFull {
     const formOptionsFullObject: FormOptionsFull = defaultFormOptionsObject;
-    formOptionsFullObject.formData.generalFields = formData.generalFields;
-    const formDataSteps = formData.steps;
+    formOptionsFullObject.formData.generalFields = formData.formData.generalFields;
+    const formDataSteps = formData.formData.steps;
 
     formDataSteps.forEach((stepFormData, index) => {
       const stepData: FormField[] = [];

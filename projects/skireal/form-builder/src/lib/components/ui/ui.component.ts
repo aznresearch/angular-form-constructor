@@ -2,13 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output, Renderer2, Type } from 
 import { FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-
 import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
 import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-properties/ui-modal-field-properties.component';
 import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import {
   ConditionalLogicBlock,
-  FormDataStructure,
   FormField,
   FormOptionsFull
 } from '../../models/form-constructor.model';
@@ -29,7 +27,18 @@ export class UIComponent implements OnInit {
   @Input() enableGeneralFields = true;
   @Input() enableConditionalLogicBlocks = false;
   @Input() isSurvey = true;
-  @Input() incomingFormData: FormDataStructure = { steps: [], generalFields: [] };
+  @Input() incomingFormData: FormOptionsFull = {
+    formData: {
+      steps: [],
+      generalFields: []
+    },
+    options: {
+      name: '',
+      type: '',
+      country: ''
+    },
+    uniqueFormData: []
+  };
   @Input() enableSetValidationOptions = false;
 
   @Output() finishClicked: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
@@ -40,9 +49,17 @@ export class UIComponent implements OnInit {
 
   dynamicForm!: FormGroup;
   generalForm!: FormGroup;
-  formData: FormDataStructure = {
-    steps: [],
-    generalFields: []
+  formData: FormOptionsFull = {
+    formData: {
+      steps: [],
+      generalFields: []
+    },
+    options: {
+      name: '',
+      type: '',
+      country: ''
+    },
+    uniqueFormData: []
   };
   addedFields: FormField[] = [];
   generalFields: FormField[] = [];
@@ -206,8 +223,8 @@ export class UIComponent implements OnInit {
   goToStep(step: number) {
     this.currentStep = step;
 
-    if (!this.formData.steps[this.currentStep]) {
-      this.formData.steps[this.currentStep] = {
+    if (!this.formData.formData.steps[this.currentStep]) {
+      this.formData.formData.steps[this.currentStep] = {
         addedFields: [],
         conditionalLogicBlocks: []
       };
@@ -231,8 +248,8 @@ export class UIComponent implements OnInit {
   }
 
   saveCurrentStepData() {
-    this.formData.generalFields = [...this.generalFields];
-    this.formData.steps[this.currentStep] = {
+    this.formData.formData.generalFields = [...this.generalFields];
+    this.formData.formData.steps[this.currentStep] = {
       addedFields: [...this.addedFields],
       conditionalLogicBlocks: [...this.conditionalLogicBlocks]
     };
@@ -245,15 +262,23 @@ export class UIComponent implements OnInit {
       this.formData = incomingFormData;
     } else {
       this.formData = {
-        steps: [],
-        generalFields: []
+        formData: {
+          steps: [],
+          generalFields: []
+        },
+        options: {
+          name: '',
+          type: '',
+          country: ''
+        },
+        uniqueFormData: []
       };
     }
 
-    this.addedFields = this.formData.steps[this.currentStep]?.addedFields ?? [];
-    this.generalFields = this.formData.generalFields ?? [];
+    this.addedFields = this.formData.formData.steps[this.currentStep]?.addedFields ?? [];
+    this.generalFields = this.formData.formData.generalFields ?? [];
     this.conditionalLogicBlocks =
-      this.formData.steps[this.currentStep]?.conditionalLogicBlocks ?? [];
+      this.formData.formData.steps[this.currentStep]?.conditionalLogicBlocks ?? [];
   }
 
   finishForm() {
@@ -281,27 +306,27 @@ export class UIComponent implements OnInit {
   }
 
   copyStep(index: number) {
-    const copiedStep = { ...this.formData.steps[index] };
+    const copiedStep = { ...this.formData.formData.steps[index] };
     copiedStep.addedFields = copiedStep.addedFields.map((field) => ({
       ...field,
       id: this.uiFormService.generateUniqueId()
     }));
 
-    this.formData.steps.splice(index + 1, 0, copiedStep);
+    this.formData.formData.steps.splice(index + 1, 0, copiedStep);
     this.goToStep(index + 1);
     this.saveCurrentStepData();
   }
 
   moveStep(index: number, direction: 'next' | 'prev') {
     if (direction === 'next') {
-      [this.formData.steps[index], this.formData.steps[index + 1]] = [
-        this.formData.steps[index + 1],
-        this.formData.steps[index]
+      [this.formData.formData.steps[index], this.formData.formData.steps[index + 1]] = [
+        this.formData.formData.steps[index + 1],
+        this.formData.formData.steps[index]
       ];
     } else if (direction === 'prev') {
-      [this.formData.steps[index], this.formData.steps[index - 1]] = [
-        this.formData.steps[index - 1],
-        this.formData.steps[index]
+      [this.formData.formData.steps[index], this.formData.formData.steps[index - 1]] = [
+        this.formData.formData.steps[index - 1],
+        this.formData.formData.steps[index]
       ];
     }
 
@@ -320,12 +345,12 @@ export class UIComponent implements OnInit {
   }
 
   deleteStep(index: number) {
-    this.formData.steps.splice(index, 1);
+    this.formData.formData.steps.splice(index, 1);
     if (this.currentStep >= index) {
       this.currentStep = this.currentStep > 0 ? this.currentStep - 1 : 0;
     }
 
-    if (this.formData.steps.length > 0) {
+    if (this.formData.formData.steps.length > 0) {
       this.updateStep();
     } else {
       this.addedFields = [];
@@ -336,8 +361,9 @@ export class UIComponent implements OnInit {
   }
 
   updateStep() {
-    this.addedFields = this.formData.steps[this.currentStep].addedFields;
-    this.conditionalLogicBlocks = this.formData.steps[this.currentStep].conditionalLogicBlocks;
+    this.addedFields = this.formData.formData.steps[this.currentStep].addedFields;
+    this.conditionalLogicBlocks =
+      this.formData.formData.steps[this.currentStep].conditionalLogicBlocks;
     this.createForm();
   }
 }
