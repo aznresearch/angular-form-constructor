@@ -33,7 +33,7 @@ export class FormBuilderComponent {
     this.formData = JSON.parse(this.incomingFormData);
   }
 
-  onFinishClicked($event: FormOptionsFull) {
+  onSaveClicked($event: FormOptionsFull) {
     const jsonData = JSON.stringify($event);
     this.jsonCreated.emit(jsonData);
   }

@@ -41,7 +41,7 @@ export class UIComponent implements OnInit {
   };
   @Input() enableSetValidationOptions = false;
 
-  @Output() finishClicked: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
+  @Output() saveClicked: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
 
   private observer: MutationObserver | null = null;
 
@@ -281,11 +281,11 @@ export class UIComponent implements OnInit {
       this.formData.formData.steps[this.currentStep]?.conditionalLogicBlocks ?? [];
   }
 
-  finishForm() {
+  saveForm() {
     this.saveCurrentStepData();
     const payload = this.formDataService.prepareFormData(this.formData);
     this.formDataService.setFormData(payload);
-    this.finishClicked.emit(payload);
+    this.saveClicked.emit(payload);
   }
 
   openModal(component: Type<any>, initialState?: any) {

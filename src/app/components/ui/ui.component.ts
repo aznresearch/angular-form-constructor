@@ -271,7 +271,7 @@ export class UIComponent implements OnInit {
     this.localStorageService.setItem('formData', this.formData);
   }
 
-  finishForm() {
+  saveForm() {
     this.saveCurrentStepData();
     const payload = this.formDataService.prepareFormData(this.formData);
     this.formDataService.setFormData(payload);
