@@ -51,7 +51,7 @@
   vertical-align: middle;
   word-spacing: normal;
   letter-spacing: normal;
-  line-height: 24px;
+  line-height: 18px;
   color: rgb(255, 255, 255);
   background-color: rgba(169, 157, 184, 0.8);
   border: 0.8px solid rgba(169, 157, 184, 0.8);
@@ -260,6 +260,11 @@
     padding-left: 60px;
     padding-right: 60px;
 
+    @media screen and (max-width: 768px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
     &-label {
       position: absolute;
       opacity: 0;
@@ -337,6 +342,11 @@
   &__label {
     padding-left: 60px;
     padding-right: 60px;
+
+    @media screen and (max-width: 768px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
 
   &__buttons {

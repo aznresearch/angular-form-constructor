@@ -181,6 +181,10 @@ $modal-scale-transform: scale(1.02) !default;
   max-width: none;
   width: 700px;
 
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
+
   &.modal-dialog-form-builder--sm {
     width: 400px;
   }

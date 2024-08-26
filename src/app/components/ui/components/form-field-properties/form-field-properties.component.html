@@ -176,9 +176,19 @@
           </button>
         </div>
       </div>
+      <div *ngSwitchCase="'hasOther'" class="propertyForm__array">
+        <div class="form-group form-check">
+          <input
+            [id]="field.id"
+            type="checkbox"
+            [formControlName]="field.id"
+            class="form-check-input" />
+          <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
+        </div>
+      </div>
       <div *ngSwitchDefault>
         <div class="form-group">
-          <label class="propertyForm__label" [for]="field.name">{{ field.name }}</label>
+          <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>
           <input
             [type]="text"
             [id]="field.id"
