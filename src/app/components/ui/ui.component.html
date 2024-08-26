@@ -129,14 +129,9 @@
                 class="form-control"></textarea>
             </ng-container>
             <ng-container *ngSwitchCase="'select'">
-              <select
-                [id]="field.id"
-                [formControlName]="field.id"
-                (mousedown)="preventDefault($event)"
-                class="form-select">
-                <option value="">{{ field.placeholder }}</option>
-                <option *ngFor="let option of field.options" [value]="option.value">
-                  {{ option.label }}
+              <select [id]="field.id" [formControlName]="field.id" class="form-select">
+                <option *ngFor="let option of field.options" [value]="option.value" disabled>
+                  {{ option.name }}
                 </option>
               </select>
             </ng-container>
