@@ -37,7 +37,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
     initialState: {
       message: 'Are you sure you want to complete field creation without saving?'
     },
-    class: 'modal-dialog-form-builder'
+    class: 'modal-dialog-form-builder modal-dialog-form-builder--sm'
   };
 
   constructor(

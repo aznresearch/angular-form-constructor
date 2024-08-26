@@ -58,7 +58,7 @@ export class UIComponent implements OnInit {
     initialState: {
       message: 'Are you sure you want to delete the step?'
     },
-    class: 'modal-dialog-form-builder'
+    class: 'modal-dialog-form-builder modal-dialog-form-builder--sm'
   };
 
   constructor(

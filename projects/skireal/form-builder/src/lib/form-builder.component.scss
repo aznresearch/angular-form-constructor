@@ -9,8 +9,8 @@ $prefix: fb- !default;
       format("woff");
 }
 
-$zindex-modal-backdrop: 1050 !default;
-$zindex-modal: 1055 !default;
+$zindex-modal-backdrop: 10000002 !important;
+$zindex-modal: 10000004 !important;
 
 $line-height-base: 1.5 !default;
 $line-height-sm: 1.25 !default;
@@ -157,6 +157,10 @@ $modal-scale-transform: scale(1.02) !default;
   min-height: calc(100% - var(--#{$prefix}modal-margin) * 2);
   max-width: none;
   width: 700px;
+
+  &.modal-dialog-form-builder--sm {
+    width: 400px;
+  }
 
   &.modal-dialog {
     position: relative;
