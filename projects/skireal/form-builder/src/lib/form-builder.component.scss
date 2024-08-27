@@ -173,6 +173,8 @@ $modal-scale-transform: scale(1.02) !default;
   &.modal-dialog {
     position: relative;
     pointer-events: none;
+    margin-right: auto;
+    margin-left: auto;
 
     // When fading in the modal, animate it to slide down
     .modal-form-builder.modal.fade & {
@@ -277,12 +279,6 @@ $grid-breakpoints: (
   .modal-form-builder.modal {
     --#{$prefix}modal-margin: #{$modal-dialog-margin-y-sm-up};
     --#{$prefix}modal-box-shadow: #{$modal-content-box-shadow-sm-up};
-  }
-
-  // Automatically set modal's width for larger viewports
-  .modal-dialog-form-builder.modal-dialog {
-    margin-right: auto;
-    margin-left: auto;
   }
 
   .modal-sm {

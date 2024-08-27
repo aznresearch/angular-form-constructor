@@ -353,10 +353,11 @@
   &__buttons {
     display: flex;
     margin-bottom: 30px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
 
     .btn {
-      margin-right: 10px;
-
       &:last-child {
         margin-right: 0;
       }
@@ -365,12 +366,12 @@
 
   &__stepButtons {
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-bottom: 30px;
   }
 
   &__stepButton {
-    margin-right: 10px;
-
     &:last-child {
       margin-right: 0;
     }
@@ -399,7 +400,8 @@
 
   &:hover {
     .stepButton__toolbar {
-      opacity: 1;
+      opacity: 0.8;
+      pointer-events: auto;
     }
   }
 
@@ -415,6 +417,8 @@
     flex-wrap: wrap;
     margin-right: -5px;
     justify-content: center;
+    pointer-events: none;
+    background-color: #fff;
 
     &-icon {
       display: block;

@@ -187,6 +187,10 @@ $modal-scale-transform: scale(1.02) !default;
 
   &.modal-dialog-form-builder--sm {
     width: 400px;
+
+    @media screen and (max-width: 768px) {
+      width: 90%;
+    }
   }
 
   // Shell div to position the modal with bottom padding
@@ -196,6 +200,8 @@ $modal-scale-transform: scale(1.02) !default;
     //margin: var(--#{$prefix}modal-margin);
     // allow clicks to pass through for custom click handling to close modal
     pointer-events: none;
+    margin-right: auto;
+    margin-left: auto;
 
     // When fading in the modal, animate it to slide down
     .modal.fade & {
@@ -310,12 +316,6 @@ $grid-breakpoints: (
   .modal {
     --#{$prefix}modal-margin: #{$modal-dialog-margin-y-sm-up};
     --#{$prefix}modal-box-shadow: #{$modal-content-box-shadow-sm-up};
-  }
-
-  // Automatically set modal's width for larger viewports
-  .modal-dialog-form-builder.modal-dialog {
-    margin-right: auto;
-    margin-left: auto;
   }
 
   .modal-sm {
