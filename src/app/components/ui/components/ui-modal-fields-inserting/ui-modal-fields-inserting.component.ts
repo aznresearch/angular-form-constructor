@@ -9,7 +9,8 @@ import {
   FieldTypesNames,
   fieldTypesNames,
   haveOptionsFieldTypes,
-  FormFieldType
+  FormFieldType,
+  surveyFieldTypes
 } from 'src/app/constants/ui-constants';
 import { FormField } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
@@ -52,7 +53,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
     if (this.isGeneral) {
       this.availableFieldTypes = [FormFieldType.Text, FormFieldType.Checkbox, FormFieldType.Select];
     } else {
-      this.availableFieldTypes = formFieldTypes;
+      this.availableFieldTypes = surveyFieldTypes;
     }
   }
 

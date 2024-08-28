@@ -17,7 +17,12 @@ export enum FormFieldType {
   Likert = 'likert',
   Csat = 'csat',
   NPS = 'nps',
-  QE = 'qe'
+  QE = 'qe',
+  ContactName = 'contact-name',
+  ContactSurname = 'contact-surname',
+  ContactEmail = 'contact-email',
+  ContactPhone = 'contact-phone',
+  CountryDropdown = 'country-dropdown'
 }
 
 export enum ValidatorType {
@@ -51,6 +56,26 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.QE
 ];
 
+export const surveyFieldTypes: FormFieldType[] = [
+  FormFieldType.Text,
+  FormFieldType.Textarea,
+  FormFieldType.Date,
+  FormFieldType.Select,
+  FormFieldType.Checkbox,
+  FormFieldType.CheckboxGroup,
+  FormFieldType.Radio,
+  FormFieldType.RadioBoolean,
+  FormFieldType.Likert,
+  FormFieldType.Csat,
+  FormFieldType.NPS,
+  FormFieldType.QE,
+  FormFieldType.ContactName,
+  FormFieldType.ContactSurname,
+  FormFieldType.ContactEmail,
+  FormFieldType.ContactPhone,
+  FormFieldType.CountryDropdown
+];
+
 export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Text]: 'Text Input',
   [FormFieldType.Textarea]: 'Text Area',
@@ -68,7 +93,12 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Likert]: 'Likert Scale',
   [FormFieldType.Csat]: 'CSAT Scale',
   [FormFieldType.NPS]: 'NPS Scale',
-  [FormFieldType.QE]: 'QE Scale'
+  [FormFieldType.QE]: 'QE Scale',
+  [FormFieldType.ContactName]: 'Contact Name',
+  [FormFieldType.ContactSurname]: 'Contact Surname',
+  [FormFieldType.ContactEmail]: 'Contact Email',
+  [FormFieldType.ContactPhone]: 'Contact Phone',
+  [FormFieldType.CountryDropdown]: 'Country'
 };
 
 export type FieldTypesNames = Record<FormFieldType, string>;
@@ -90,7 +120,9 @@ const commonFields: Field[] = [
   { id: 'placeholder', name: 'Placeholder', isArray: false },
   { id: 'title', name: 'Title', isArray: false },
   { id: 'subtitle', name: 'Subtitle', isArray: false },
-  { id: 'validators', name: 'Validators', isArray: true }
+  { id: 'validators', name: 'Validators', isArray: true },
+  { id: 'required', name: 'Required', isArray: false },
+  { id: 'warningMessage', name: 'Warning message', isArray: false }
 ];
 
 export const fieldsByType: Record<string, Field[]> = {
@@ -157,7 +189,12 @@ export const fieldsByType: Record<string, Field[]> = {
         }
       ]
     }
-  ]
+  ],
+  [FormFieldType.ContactName]: [...commonFields],
+  [FormFieldType.ContactSurname]: [...commonFields],
+  [FormFieldType.ContactEmail]: [...commonFields],
+  [FormFieldType.ContactPhone]: [...commonFields],
+  [FormFieldType.CountryDropdown]: [...commonFields]
 };
 
 export const defaultOptionValues: { name: string; value: string }[] = [

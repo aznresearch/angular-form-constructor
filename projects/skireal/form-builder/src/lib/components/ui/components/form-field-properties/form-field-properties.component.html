@@ -186,6 +186,31 @@
           <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
         </div>
       </div>
+      <div *ngSwitchCase="'required'" class="propertyForm__array">
+        <ng-container *ngIf="!enableSetValidationOptions">
+          <div class="form-group form-check">
+            <input
+              [id]="field.id"
+              type="checkbox"
+              [formControlName]="field.id"
+              class="form-check-input" />
+            <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
+          </div>
+        </ng-container>
+      </div>
+      <div *ngSwitchCase="'warningMessage'" class="propertyForm__array">
+        <ng-container *ngIf="!enableSetValidationOptions">
+          <div class="form-group">
+            <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>
+            <input
+              [type]="text"
+              [id]="field.id"
+              [formControlName]="field.id"
+              [attr.placeholder]="field.placeholder ? field.placeholder : null"
+              class="form-control" />
+          </div>
+        </ng-container>
+      </div>
       <div *ngSwitchDefault>
         <div class="form-group">
           <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>

@@ -139,6 +139,13 @@
                 </option>
               </select>
             </ng-container>
+            <ng-container *ngSwitchCase="'country-dropdown'">
+              <select
+                [id]="field.id"
+                [formControlName]="field.id"
+                class="form-select"
+                (mousedown)="preventDefault($event)"></select>
+            </ng-container>
             <ng-container *ngSwitchCase="'checkbox-group'">
               <div *ngFor="let option of field.options" class="form-check">
                 <input
