@@ -2,9 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { fieldsByType } from 'src/app/constants/ui-constants';
-import { FormField, Option, Row, Validator } from 'src/app/models/form-constructor.model';
+import { FieldItem, FormField } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
-
 @Component({
   selector: 'app-ui-modal-field-properties',
   templateUrl: './ui-modal-field-properties.component.html',
@@ -42,16 +41,32 @@ export class UIModalFieldPropertiesComponent implements OnInit {
     const validatorsArray = this.propertyForm.get('validators') as FormArray;
     const optionsArray = this.propertyForm.get('options') as FormArray;
     const rowsArray = this.propertyForm.get('rows') as FormArray;
+    const qeScalesArray = this.propertyForm.get('qeScales') as FormArray;
 
     this.patchArrayData(validatorsArray, this.field.validators);
     this.patchArrayData(optionsArray, this.field.options);
     this.patchArrayData(rowsArray, this.field.rows);
+    this.patchArrayData(qeScalesArray, this.field.qeScales);
   }
 
-  patchArrayData(array: FormArray, data: (Validator | Option | Row)[] | undefined) {
+  patchArrayData(array: FormArray, data: FieldItem[] | undefined) {
     if (data) {
-      data.forEach((item: Validator | Option | Row) => {
-        array.push(this.fb.group(item));
+      data.forEach((item) => {
+        const group = this.fb.group({});
+
+        Object.keys(item).forEach((key) => {
+          const itemKey = key as keyof FieldItem;
+
+          if (Array.isArray(item[itemKey])) {
+            const nestedArray = this.fb.array([]);
+            this.patchArrayData(nestedArray, item[itemKey] as any[]);
+            group.addControl(itemKey, nestedArray);
+          } else {
+            group.addControl(itemKey, this.fb.control(item[itemKey]));
+          }
+        });
+
+        array.push(group);
       });
     }
   }

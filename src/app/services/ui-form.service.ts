@@ -23,14 +23,7 @@ export class UiFormService {
 
     for (const field of addedFields) {
       if (field.isArray) {
-        if (field.children) {
-          const nestedArray = this.generateFormGroupConfig(field.children);
-          formGroupConfig[field.id] = this.fb.array([
-            this.createGroupForArray(field.id, nestedArray)
-          ]);
-        } else {
-          formGroupConfig[field.id] = this.createFormArray();
-        }
+        formGroupConfig[field.id] = this.createFormArray();
       } else {
         formGroupConfig[field.id] = '';
       }

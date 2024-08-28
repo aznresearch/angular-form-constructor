@@ -78,7 +78,6 @@
           </button>
         </div>
       </div>
-
       <div *ngSwitchCase="'qeScales'" formArrayName="qeScales" class="propertyForm__array">
         <label class="propertyForm__label">QE Scales</label>
         <div
@@ -132,7 +131,7 @@
             <button
               class="btn btn-danger btn-sm"
               type="button"
-              (click)="removeControlFromFormArray('qeScales')">
+              (click)="removeControlFromFormArray('qeScales', i)">
               Remove QE Scale
             </button>
           </div>

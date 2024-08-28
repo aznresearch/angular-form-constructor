@@ -85,7 +85,14 @@
       <h3 class="test-form__step">Step {{ currentStep + 1 }}</h3>
       <ng-container *ngFor="let field of addedFields">
         <div class="test-form__block" cdkDrag>
-          <div class="test-form__label">
+          <div
+            class="test-form__label"
+            *ngIf="
+              field.type !== 'likert' &&
+              field.type !== 'csat' &&
+              field.type !== 'qe' &&
+              field.type !== 'nps'
+            ">
             <label class="form-label">{{ field.title }}</label>
           </div>
           <div class="test-form__field" [ngSwitch]="field.type">
@@ -282,7 +289,7 @@
             <ng-container *ngSwitchCase="'qe'">
               <div class="qe__container">
                 <div class="row">
-                  <div class="col text-center">
+                  <div class="col">
                     <h3>{{ field.title }}</h3>
                     <p>{{ field.subtitle }}</p>
                   </div>
@@ -290,7 +297,7 @@
                 <ng-container *ngFor="let qeScale of field.qeScales; let qeScaleIndex = index">
                   <div class="qe-scale__container">
                     <div class="row">
-                      <div class="col text-center">
+                      <div class="col">
                         <h3>{{ qeScale.title }}</h3>
                         <p>{{ qeScale.subtitle }}</p>
                       </div>
@@ -304,7 +311,7 @@
                       </div>
                     </div>
                     <div class="row text-center">
-                      <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+                      <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'N/A']">
                         <label>{{ value }}</label>
                         <input
                           type="radio"
@@ -320,7 +327,7 @@
                       <ng-container
                         *ngFor="let child of qeScale.qeScaleChildren; let childIndex = index">
                         <div class="row">
-                          <div class="col text-center">
+                          <div class="col">
                             <h3>{{ child.title }}</h3>
                           </div>
                         </div>
@@ -333,7 +340,9 @@
                           </div>
                         </div>
                         <div class="row text-center">
-                          <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+                          <div
+                            class="col"
+                            *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'N/A']">
                             <label>{{ value }}</label>
                             <input
                               type="radio"

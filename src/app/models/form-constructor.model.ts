@@ -8,6 +8,12 @@ export interface FormField extends Field {
   options?: Option[];
   classes?: string;
   rows?: Row[];
+  hasOther?: boolean;
+  commentTitle?: string;
+  commentSubtitle?: string;
+  firstAnswer?: string;
+  lastAnswer?: string;
+  qeScales?: QeScale[];
 }
 
 export interface Field {
@@ -68,3 +74,15 @@ export interface FormOptionsFull {
   };
   uniqueFormData?: UniqueFormData[];
 }
+
+export interface QeScaleChild {
+  title?: string;
+}
+
+export interface QeScale {
+  title?: string;
+  subtitle?: string;
+  qeScaleChildren?: QeScaleChild[];
+}
+
+export type FieldItem = Validator | Option | Row | QeScale;
