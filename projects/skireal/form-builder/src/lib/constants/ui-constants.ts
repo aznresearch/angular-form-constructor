@@ -124,7 +124,8 @@ const commonFields: Field[] = [
   { id: 'subtitle', name: 'Subtitle', isArray: false },
   { id: 'validators', name: 'Validators', isArray: true },
   { id: 'required', name: 'Required', isArray: false },
-  { id: 'warningMessage', name: 'Warning message', isArray: false }
+  { id: 'warningMessage', name: 'Warning message', isArray: false },
+  { id: 'step', name: 'Move to step', isArray: false }
 ];
 
 export const fieldsByType: Record<string, Field[]> = {

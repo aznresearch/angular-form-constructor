@@ -12,8 +12,10 @@ import { UiFormService } from 'src/app/services/ui-form.service';
 export class UIModalFieldPropertiesComponent implements OnInit {
   @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
   @Input() enableSetValidationOptions = false;
+  @Input() currentStep = 0;
+  @Input() stepsLength = 1;
+  @Input() field: FormField = { id: '', name: '' };
 
-  field: FormField = { id: '', name: '' };
   propertyForm: FormGroup = this.fb.group({});
   selectedFieldType = '';
   fieldsToCreate: FormField[] = [];
@@ -80,6 +82,7 @@ export class UIModalFieldPropertiesComponent implements OnInit {
       ...this.field,
       ...this.propertyForm.value
     };
+
     this.propertiesSave.emit(updatedFieldProperties);
     this.modalRef.hide();
   }

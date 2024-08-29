@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-
 import { validatorTypes, withoutValueValidatorTypes } from 'src/app/constants/ui-constants';
 import { FormField } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
@@ -14,14 +13,20 @@ export class FormFieldPropertiesComponent implements OnInit {
   @Input() propertyForm: FormGroup | undefined;
   @Input() selectedFieldType = '';
   @Input() enableSetValidationOptions = false;
+  @Input() isEditFieldProperties = false;
+  @Input() currentStep = 0;
+  @Input() stepsLength = 1;
 
   validatorOptions = validatorTypes;
   fieldsToCreate: FormField[] = [];
+  steps: number[] = [];
 
   constructor(private uiFormService: UiFormService) {}
 
   ngOnInit(): void {
     this.subscribeToFieldsToCreate();
+    this.initializeSteps();
+    this.initializeStepControl();
   }
 
   subscribeToFieldsToCreate(): void {
@@ -56,5 +61,13 @@ export class FormFieldPropertiesComponent implements OnInit {
 
   showValueInput(validatorType: string): boolean {
     return !withoutValueValidatorTypes.includes(validatorType);
+  }
+
+  initializeSteps(): void {
+    this.steps = Array.from({ length: this.stepsLength }, (_, i) => i);
+  }
+
+  initializeStepControl(): void {
+    this.propertyForm?.get('step')?.setValue(this.currentStep);
   }
 }

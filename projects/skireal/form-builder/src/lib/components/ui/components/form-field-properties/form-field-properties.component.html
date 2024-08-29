@@ -211,6 +211,19 @@
           </div>
         </ng-container>
       </div>
+      <div *ngSwitchCase="'step'" class="propertyForm__array">
+        <ng-container *ngIf="isEditFieldProperties && steps.length > 1">
+          <div class="form-group">
+            <label class="propertyForm__label" for="stepSelect">Move to Step</label>
+            <select
+              [id]="field.id"
+              [formControlName]="field.id"
+              class="form-select form-select--w100">
+              <option *ngFor="let step of steps" [value]="step">{{ step + 1 }}</option>
+            </select>
+          </div>
+        </ng-container>
+      </div>
       <div *ngSwitchDefault>
         <div class="form-group">
           <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>

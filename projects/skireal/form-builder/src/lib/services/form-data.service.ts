@@ -28,7 +28,11 @@ export class FormDataService {
       const stepData: FormField[] = [];
 
       stepFormData.addedFields.forEach((field) => {
-        const fieldData: FormField = field;
+        const fieldData: FormField = { ...field };
+
+        if ('step' in fieldData) {
+          delete fieldData.step;
+        }
 
         const hasNonRequiredValidator = field.validators?.some(
           (validator) => validator.type !== 'required'
@@ -41,17 +45,6 @@ export class FormDataService {
           fieldData.validators?.push({
             type: 'required',
             errormsg: 'This field is required'
-          });
-        }
-
-        if (
-          field.type === 'textarea' &&
-          !fieldData.validators?.some((validator) => validator.type === 'maxlength')
-        ) {
-          fieldData.validators?.push({
-            type: 'maxlength',
-            value: '1000',
-            errormsg: 'Text is too long'
           });
         }
 

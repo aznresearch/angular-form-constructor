@@ -14,14 +14,20 @@ export class FormFieldPropertiesComponent implements OnInit {
   @Input() propertyForm: FormGroup | undefined;
   @Input() selectedFieldType = '';
   @Input() enableSetValidationOptions = false;
+  @Input() isEditFieldProperties = false;
+  @Input() currentStep = 0;
+  @Input() stepsLength = 1;
 
   validatorOptions = validatorTypes;
   fieldsToCreate: FormField[] = [];
+  steps: number[] = [];
 
   constructor(private uiFormService: UiFormService) {}
 
   ngOnInit() {
     this.subscribeToFieldsToCreate();
+    this.initializeSteps();
+    this.initializeStepControl();
   }
 
   subscribeToFieldsToCreate() {
@@ -56,5 +62,13 @@ export class FormFieldPropertiesComponent implements OnInit {
 
   showValueInput(validatorType: string): boolean {
     return !withoutValueValidatorTypes.includes(validatorType);
+  }
+
+  initializeSteps(): void {
+    this.steps = Array.from({ length: this.stepsLength }, (_, i) => i);
+  }
+
+  initializeStepControl(): void {
+    this.propertyForm?.get('step')?.setValue(this.currentStep);
   }
 }

@@ -129,9 +129,13 @@ export class UIComponent implements OnInit {
   }
 
   openFieldPropertiesModal(field: FormField, isGeneral: boolean) {
+    const stepsLength = this.formData.formData.steps.length;
+
     const initialState = {
       field,
-      enableSetValidationOptions: this.enableSetValidationOptions
+      enableSetValidationOptions: this.enableSetValidationOptions,
+      currentStep: this.currentStep,
+      stepsLength: stepsLength
     };
 
     this.openModal(UIModalFieldPropertiesComponent, initialState);
@@ -147,7 +151,14 @@ export class UIComponent implements OnInit {
         }
         const index = fieldsArray.indexOf(field);
         if (index !== -1) {
-          fieldsArray[index] = updatedField;
+          if (updatedField.step !== this.currentStep) {
+            fieldsArray.splice(index, 1);
+            const newStepIndex = updatedField.step as number;
+            const targetStep = this.formData.formData.steps[newStepIndex];
+            targetStep.addedFields.push(updatedField);
+          } else {
+            fieldsArray[index] = updatedField;
+          }
         }
         this.saveCurrentStepData();
       }
