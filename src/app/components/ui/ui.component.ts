@@ -53,6 +53,7 @@ export class UIComponent implements OnInit {
   currentStep = 0;
 
   enableSetValidationOptions = true;
+  isSurvey = true;
 
   modalOptions = {
     initialState: {
@@ -109,7 +110,8 @@ export class UIComponent implements OnInit {
   openFieldsInsertingModal(isGeneral: boolean) {
     const initialState = {
       isGeneral,
-      enableSetValidationOptions: this.enableSetValidationOptions
+      enableSetValidationOptions: this.enableSetValidationOptions,
+      isSurvey: this.isSurvey
     };
     this.openModal(UIModalFieldsInsertingComponent, initialState);
     this.modalRef?.content.propertiesSave.subscribe((selectedField: FormField) => {
@@ -134,6 +136,7 @@ export class UIComponent implements OnInit {
     const initialState = {
       field,
       enableSetValidationOptions: this.enableSetValidationOptions,
+      isSurvey: this.isSurvey,
       currentStep: this.currentStep,
       stepsLength: stepsLength
     };

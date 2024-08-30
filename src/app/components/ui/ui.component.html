@@ -182,7 +182,7 @@
                 }}</label>
               </div>
             </ng-container>
-            <ng-container *ngSwitchCase="'radio-boolean'">
+            <ng-container *ngSwitchCase="'need-contact'">
               <div *ngFor="let option of field.options" class="form-check">
                 <input
                   [id]="field.id + option.value"
@@ -202,7 +202,7 @@
                 <div class="row answer__container-row border-0">
                   <div class="col text-center answer__container-column p-0">
                     <h3>{{ field.title }}</h3>
-                    <p>{{ field.subtitle }}</p>
+                    <p>{{ field.description }}</p>
                   </div>
                 </div>
                 <div class="row text-center">
@@ -264,7 +264,7 @@
                 <div class="row">
                   <div class="col text-center">
                     <h3>{{ field.title }}</h3>
-                    <p>{{ field.subtitle }}</p>
+                    <p>{{ field.description }}</p>
                   </div>
                 </div>
                 <div class="row">
@@ -301,7 +301,7 @@
                 <div class="row">
                   <div class="col">
                     <h3>{{ field.title }}</h3>
-                    <p>{{ field.subtitle }}</p>
+                    <p>{{ field.description }}</p>
                   </div>
                 </div>
                 <ng-container *ngFor="let qeScale of field.qeScales; let qeScaleIndex = index">
@@ -312,25 +312,30 @@
                         <p>{{ qeScale.subtitle }}</p>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col text-left">
-                        <p>{{ field.firstAnswer }}</p>
+                    <ng-container *ngIf="qeScale.qeScaleChildren.length == 0">
+                      <div class="row">
+                        <div class="col text-left">
+                          <p>{{ field.firstAnswer }}</p>
+                        </div>
+                        <div class="col text-right">
+                          <p>{{ field.lastAnswer }}</p>
+                        </div>
                       </div>
-                      <div class="col text-right">
-                        <p>{{ field.lastAnswer }}</p>
+                      <div class="row text-center">
+                        <div
+                          class="col"
+                          *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'N/A']">
+                          <label>{{ value }}</label>
+                          <input
+                            type="radio"
+                            class="form-check-input"
+                            [name]="'qeScale_' + field.id + '_' + qeScaleIndex"
+                            [value]="value" />
+                        </div>
                       </div>
-                    </div>
-                    <div class="row text-center">
-                      <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'N/A']">
-                        <label>{{ value }}</label>
-                        <input
-                          type="radio"
-                          class="form-check-input"
-                          [name]="'qeScale_' + field.id + '_' + qeScaleIndex"
-                          [value]="value" />
-                      </div>
-                    </div>
+                    </ng-container>
                   </div>
+
                   <ng-container
                     *ngIf="qeScale.qeScaleChildren && qeScale.qeScaleChildren.length > 0">
                     <div class="qe-scale__child">
@@ -372,7 +377,7 @@
             <ng-container *ngSwitchDefault>
               <input
                 [id]="field.id"
-                [type]="field.type"
+                [type]="text"
                 [formControlName]="field.id"
                 class="form-control"
                 (mousedown)="preventDefault($event)"

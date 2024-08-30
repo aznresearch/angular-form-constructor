@@ -46,37 +46,39 @@
         </ng-container>
       </div>
       <div *ngSwitchCase="'options'" formArrayName="options" class="propertyForm__array">
-        <label class="propertyForm__label">Options</label>
-        <div
-          *ngFor="let optionControl of propertyForm?.get('options')?.controls; let i = index"
-          [formGroupName]="i">
-          <input
-            class="form-control form-control-sm"
-            type="text"
-            formControlName="name"
-            placeholder="Option Text" />
-          <input
-            class="form-control form-control-sm"
-            type="text"
-            formControlName="value"
-            placeholder="Option Value" />
+        <ng-container *ngIf="selectedFieldType !== 'need-contact'">
+          <label class="propertyForm__label">Options</label>
+          <div
+            *ngFor="let optionControl of propertyForm?.get('options')?.controls; let i = index"
+            [formGroupName]="i">
+            <input
+              class="form-control form-control-sm"
+              type="text"
+              formControlName="name"
+              placeholder="Option Text" />
+            <input
+              class="form-control form-control-sm"
+              type="text"
+              formControlName="value"
+              placeholder="Option Value" />
+            <div class="form-buttons">
+              <button
+                class="btn btn-danger btn-sm"
+                type="button"
+                (click)="removeControlFromFormArray('options', i)">
+                Remove Option
+              </button>
+            </div>
+          </div>
           <div class="form-buttons">
             <button
-              class="btn btn-danger btn-sm"
+              class="btn btn-success btn-sm"
               type="button"
-              (click)="removeControlFromFormArray('options', i)">
-              Remove Option
+              (click)="addControlToFormArray('options')">
+              Add Option
             </button>
           </div>
-        </div>
-        <div class="form-buttons">
-          <button
-            class="btn btn-success btn-sm"
-            type="button"
-            (click)="addControlToFormArray('options')">
-            Add Option
-          </button>
-        </div>
+        </ng-container>
       </div>
 
       <div *ngSwitchCase="'qeScales'" formArrayName="qeScales" class="propertyForm__array">
@@ -186,6 +188,16 @@
           <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
         </div>
       </div>
+      <div *ngSwitchCase="'active'" class="propertyForm__array">
+        <div class="form-group form-check">
+          <input
+            [id]="field.id"
+            type="checkbox"
+            [formControlName]="field.id"
+            class="form-check-input" />
+          <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
+        </div>
+      </div>
       <div *ngSwitchCase="'required'" class="propertyForm__array">
         <ng-container *ngIf="!enableSetValidationOptions">
           <div class="form-group form-check">
@@ -214,13 +226,37 @@
       <div *ngSwitchCase="'step'" class="propertyForm__array">
         <ng-container *ngIf="isEditFieldProperties && steps.length > 1">
           <div class="form-group">
-            <label class="propertyForm__label" for="stepSelect">Move to Step</label>
+            <label class="propertyForm__label" for="stepSelect">Move to step</label>
             <select
               [id]="field.id"
               [formControlName]="field.id"
               class="form-select form-select--w100">
               <option *ngFor="let step of steps" [value]="step">{{ step + 1 }}</option>
             </select>
+          </div>
+        </ng-container>
+      </div>
+      <div *ngSwitchCase="'description'" class="propertyForm__array">
+        <div class="form-group">
+          <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>
+          <textarea
+            [id]="field.id"
+            [formControlName]="field.id"
+            [attr.placeholder]="field.placeholder ? field.placeholder : null"
+            rows="3"
+            class="form-control"></textarea>
+        </div>
+      </div>
+      <div *ngSwitchCase="'classes'" class="propertyForm__array">
+        <ng-container *ngIf="!isSurvey">
+          <div class="form-group">
+            <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>
+            <input
+              [type]="text"
+              [id]="field.id"
+              [formControlName]="field.id"
+              [attr.placeholder]="field.placeholder ? field.placeholder : null"
+              class="form-control" />
           </div>
         </ng-container>
       </div>

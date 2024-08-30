@@ -25,8 +25,8 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
   @Input() isGeneral = false;
   @Input() enableSetValidationOptions = false;
+  @Input() isSurvey = true;
 
-  isSurvey = true;
   selectedFieldType!: FormFieldType;
   propertyForm: FormGroup = this.fb.group({});
   availableFieldTypes = formFieldTypes;
@@ -39,6 +39,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
     },
     class: 'modal-dialog-form-builder modal-dialog-form-builder--sm'
   };
+  selectedFiledType = '';
 
   constructor(
     public modalRef: BsModalRef,
@@ -62,7 +63,9 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   }
 
   selectField(fieldType: string) {
-    if (this.isFormCreated) {
+    this.selectedFiledType = fieldType;
+
+    if (this.isFormCreated && this.selectedFieldType !== fieldType) {
       const modalRef = this.modalService.show(SharedModalConfirmationComponent, this.modalOptions);
 
       modalRef.content.confirm.subscribe((result: boolean) => {
@@ -90,7 +93,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   setDefaultOptionValues() {
     let optionValues = defaultOptionValues;
     const formArray = this.propertyForm?.get('options') as FormArray;
-    if (this.selectedFieldType === 'radio-boolean') {
+    if (this.selectedFieldType === 'need-contact') {
       optionValues = [
         { name: 'Yes', value: 'true' },
         { name: 'No', value: 'false' }
@@ -108,6 +111,11 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   createPropertyForm() {
     this.propertyForm = this.uiFormService.createFormGroup(fieldsByType[this.selectedFieldType]);
     this.isFormCreated = true;
+    this.setDefaultValues();
+  }
+
+  setDefaultValues() {
+    this.propertyForm.get('active')?.setValue(true);
   }
 
   saveFieldProperties() {

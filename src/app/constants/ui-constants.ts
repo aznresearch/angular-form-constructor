@@ -9,7 +9,7 @@ export enum FormFieldType {
   Checkbox = 'checkbox',
   CheckboxGroup = 'checkbox-group',
   Radio = 'radio',
-  RadioBoolean = 'radio-boolean',
+  NeedContact = 'need-contact',
   File = 'file',
   Password = 'password',
   Email = 'email',
@@ -45,7 +45,7 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.Checkbox,
   FormFieldType.CheckboxGroup,
   FormFieldType.Radio,
-  FormFieldType.RadioBoolean,
+  FormFieldType.NeedContact,
   FormFieldType.File,
   FormFieldType.Password,
   FormFieldType.Email,
@@ -64,7 +64,7 @@ export const surveyFieldTypes: FormFieldType[] = [
   FormFieldType.Checkbox,
   FormFieldType.CheckboxGroup,
   FormFieldType.Radio,
-  FormFieldType.RadioBoolean,
+  FormFieldType.NeedContact,
   FormFieldType.Likert,
   FormFieldType.Csat,
   FormFieldType.NPS,
@@ -85,7 +85,7 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Checkbox]: 'Checkbox',
   [FormFieldType.CheckboxGroup]: 'Checkboxes',
   [FormFieldType.Radio]: 'Radio',
-  [FormFieldType.RadioBoolean]: 'Radio (Yes/No)',
+  [FormFieldType.NeedContact]: 'Need Contact',
   [FormFieldType.File]: 'File Attachment',
   [FormFieldType.Password]: 'Password',
   [FormFieldType.Email]: 'Email',
@@ -115,14 +115,16 @@ export const validatorTypes: ValidatorType[] = [
 ];
 
 const commonFields: Field[] = [
+  { id: 'active', name: 'Active', isArray: false },
   { id: 'name', name: 'Name', isArray: false },
   { id: 'classes', name: 'Classes', isArray: false, placeholder: 'e.g., class1 class2' },
   { id: 'placeholder', name: 'Placeholder', isArray: false },
   { id: 'title', name: 'Title', isArray: false },
-  { id: 'subtitle', name: 'Subtitle', isArray: false },
+  { id: 'description', name: 'Description', isArray: false },
   { id: 'validators', name: 'Validators', isArray: true },
   { id: 'required', name: 'Required', isArray: false },
   { id: 'warningMessage', name: 'Warning message', isArray: false },
+  { id: 'analyticsTitle', name: 'Analytics title', isArray: false },
   { id: 'step', name: 'Move to step', isArray: false }
 ];
 
@@ -147,10 +149,7 @@ export const fieldsByType: Record<string, Field[]> = {
     { id: 'options', name: 'Options', isArray: true },
     { id: 'hasOther', name: 'Has other', isArray: false }
   ],
-  [FormFieldType.RadioBoolean]: [
-    ...commonFields,
-    { id: 'options', name: 'Options', isArray: true }
-  ],
+  [FormFieldType.NeedContact]: [...commonFields, { id: 'options', name: 'Options', isArray: true }],
   [FormFieldType.File]: [...commonFields],
   [FormFieldType.Password]: [...commonFields],
   [FormFieldType.Email]: [...commonFields],
@@ -165,7 +164,11 @@ export const fieldsByType: Record<string, Field[]> = {
     { id: 'option5', name: 'Option 5 Title', isArray: false },
     { id: 'rows', name: 'rows', isArray: true }
   ],
-  [FormFieldType.Csat]: [...commonFields],
+  [FormFieldType.Csat]: [
+    ...commonFields,
+    { id: 'firstAnswer', name: 'First answer', isArray: false },
+    { id: 'lastAnswer', name: 'Last answer', isArray: false }
+  ],
   [FormFieldType.NPS]: [
     ...commonFields,
     { id: 'commentTitle', name: 'Comment question', isArray: false },
@@ -198,10 +201,7 @@ export const fieldsByType: Record<string, Field[]> = {
   [FormFieldType.CountryDropdown]: [...commonFields]
 };
 
-export const defaultOptionValues: { name: string; value: string }[] = [
-  { name: 'Default Option', value: 'Default Value' },
-  { name: 'Default Option2', value: 'Default Value2' }
-];
+export const defaultOptionValues: { name: string; value: string }[] = [];
 
 export const controlsMap: Record<string, string[]> = {
   validators: ['type', 'value', 'errormsg'],
@@ -239,6 +239,6 @@ export const conditionOptions: Record<string, string[]> = {
   ]
 };
 
-export const haveOptionsFieldTypes = ['select', 'checkbox-group', 'radio', 'radio-boolean'];
+export const haveOptionsFieldTypes = ['select', 'checkbox-group', 'radio', 'need-contact'];
 
 export const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];

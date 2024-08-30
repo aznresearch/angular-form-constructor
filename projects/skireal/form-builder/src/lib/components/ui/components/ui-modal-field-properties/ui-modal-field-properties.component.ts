@@ -13,6 +13,7 @@ import { UiFormService } from '../../../../services/ui-form.service';
 export class UIModalFieldPropertiesComponent implements OnInit {
   @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
   @Input() enableSetValidationOptions = false;
+  @Input() isSurvey = true;
   @Input() field: FormField = { id: '', name: '' };
   @Input() currentStep = 0;
   @Input() stepsLength = 1;
@@ -36,6 +37,11 @@ export class UIModalFieldPropertiesComponent implements OnInit {
 
   createPropertyForm() {
     this.propertyForm = this.uiFormService.createFormGroup(fieldsByType[this.selectedFieldType]);
+    this.setDefaultValues();
+  }
+
+  setDefaultValues() {
+    this.propertyForm.get('active')?.setValue(true);
   }
 
   patchFieldProperties() {

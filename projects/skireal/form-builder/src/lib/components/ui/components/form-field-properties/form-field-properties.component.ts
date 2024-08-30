@@ -15,6 +15,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   @Input() selectedFieldType = '';
   @Input() enableSetValidationOptions = false;
   @Input() isEditFieldProperties = false;
+  @Input() isSurvey = true;
   @Input() currentStep = 0;
   @Input() stepsLength = 1;
 

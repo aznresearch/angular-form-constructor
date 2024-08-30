@@ -2,7 +2,7 @@ export interface FormField extends Field {
   placeholder?: string;
   type?: string;
   title?: string;
-  subtitle?: string;
+  description?: string;
   initial?: string;
   validators?: Validator[];
   options?: Option[];
@@ -15,6 +15,8 @@ export interface FormField extends Field {
   lastAnswer?: string;
   qeScales?: QeScale[];
   step?: number;
+  active?: boolean;
+  analyticsTitle?: string;
 }
 
 export interface Field {
