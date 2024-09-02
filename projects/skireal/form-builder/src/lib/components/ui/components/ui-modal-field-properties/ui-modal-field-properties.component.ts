@@ -2,7 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { fieldsByType } from '../../../../constants/ui-constants';
-import { FieldItem, FormField } from '../../../../models/form-constructor.model';
+import {
+  FieldItem,
+  FormField,
+  Option,
+  QeScale,
+  QeScaleChild
+} from '../../../../models/form-constructor.model';
 import { UiFormService } from '../../../../services/ui-form.service';
 
 @Component({
@@ -86,8 +92,37 @@ export class UIModalFieldPropertiesComponent implements OnInit {
   saveFieldProperties() {
     const updatedFieldProperties: FormField = {
       ...this.field,
-      ...this.propertyForm.value
+      ...this.propertyForm.value,
+      options: this.propertyForm.value.options?.map((option: Option) => {
+        if (!option.id) {
+          return {
+            ...option,
+            id: this.uiFormService.generateUniqueId()
+          };
+        }
+        return option;
+      })
     };
+
+    if (
+      updatedFieldProperties.type === 'nps' &&
+      (updatedFieldProperties.commentTitle || updatedFieldProperties.commentSubtitle) &&
+      !updatedFieldProperties.commentId
+    ) {
+      updatedFieldProperties.commentId = this.uiFormService.generateUniqueId();
+    }
+
+    if (updatedFieldProperties.type === 'qe') {
+      updatedFieldProperties.qeScales = updatedFieldProperties.qeScales?.map((scale: QeScale) => ({
+        ...scale,
+        id: this.uiFormService.generateUniqueId(),
+        qeScaleChildren: scale.qeScaleChildren?.map((child: QeScaleChild) => ({
+          ...child,
+          id: this.uiFormService.generateUniqueId()
+        }))
+      }));
+    }
+
     this.propertiesSave.emit(updatedFieldProperties);
     this.modalRef.hide();
   }

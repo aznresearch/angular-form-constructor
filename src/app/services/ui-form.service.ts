@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { FormField, Validator } from '../models/form-constructor.model';
+import {
+  FormField,
+  Validator,
+  Option,
+  QeScale,
+  QeScaleChild
+} from '../models/form-constructor.model';
 import { FormFieldType, controlsMap, fieldsByType } from '../constants/ui-constants';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -74,13 +80,35 @@ export class UiFormService {
   }
 
   saveFieldProperties(form: FormGroup, fieldType: string): FormField {
-    const fieldOptions = form.value;
-    fieldOptions.validators = fieldOptions.validators.filter((validator: Validator) => {
-      return Object.values(validator).some((property) => property !== '');
-    });
-    fieldOptions.type = fieldType;
-    fieldOptions.name = fieldOptions.name || this.generateUniqueId().toString();
-    fieldOptions.id = this.generateUniqueId().toString();
+    const fieldOptions: FormField = {
+      ...form.value,
+      validators: form.value.validators?.filter((validator: Validator) =>
+        Object.values(validator).some((property) => property !== '')
+      ),
+      type: fieldType,
+      name: form.value.name || this.generateUniqueId().toString(),
+      id: this.generateUniqueId().toString(),
+      options: form.value.options?.map((option: Option) => ({
+        ...option,
+        id: this.generateUniqueId().toString()
+      }))
+    };
+
+    if (fieldType === 'nps' && (form.value.commentTitle || form.value.commentSubtitle)) {
+      fieldOptions.commentId = this.generateUniqueId().toString();
+    }
+
+    if (fieldType === 'qe' && form.value.qeScales) {
+      fieldOptions.qeScales = form.value.qeScales.map((scale: QeScale) => ({
+        ...scale,
+        id: this.generateUniqueId().toString(),
+        qeScaleChildren: scale.qeScaleChildren?.map((child: QeScaleChild) => ({
+          ...child,
+          id: this.generateUniqueId().toString()
+        }))
+      }));
+    }
+
     return fieldOptions;
   }
 

@@ -9,8 +9,10 @@ export interface FormField extends Field {
   classes?: string;
   rows?: Row[];
   hasOther?: boolean;
+  commentId?: string;
   commentTitle?: string;
   commentSubtitle?: string;
+  commentWarningMessage?: string;
   firstAnswer?: string;
   lastAnswer?: string;
   qeScales?: QeScale[];
@@ -55,6 +57,7 @@ export interface Validator {
 }
 
 export interface Option {
+  id: string;
   name: string;
   value: string;
 }
@@ -79,10 +82,12 @@ export interface FormOptionsFull {
 }
 
 export interface QeScaleChild {
+  id?: string;
   title?: string;
 }
 
 export interface QeScale {
+  id?: string;
   title?: string;
   subtitle?: string;
   qeScaleChildren?: QeScaleChild[];

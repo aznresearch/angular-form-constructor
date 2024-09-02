@@ -175,6 +175,7 @@ export const fieldsByType: Record<string, Field[]> = {
     ...commonFields,
     { id: 'commentTitle', name: 'Comment question', isArray: false },
     { id: 'commentSubtitle', name: 'Comment question subtitle', isArray: false },
+    { id: 'commentWarningMessage', name: 'Comment warning message', isArray: false },
     { id: 'firstAnswer', name: 'First answer', isArray: false },
     { id: 'lastAnswer', name: 'Last answer', isArray: false }
   ],
