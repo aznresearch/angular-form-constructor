@@ -203,35 +203,23 @@
                   </div>
                 </div>
                 <div class="row text-center">
-                  <div class="col text-right">
+                  <div class="col-xl-2 text-right">
                     <span>{{ field.optionsTitle }}</span>
                   </div>
-                  <div class="col text-center">
-                    <span>{{ field.option1 }}</span>
-                  </div>
-                  <div class="col text-center">
-                    <span>{{ field.option2 }}</span>
-                  </div>
-                  <div class="col text-center">
-                    <span>{{ field.option3 }}</span>
-                  </div>
-                  <div class="col text-center">
-                    <span>{{ field.option4 }}</span>
-                  </div>
-                  <div class="col text-center">
-                    <span>{{ field.option5 }}</span>
+                  <div *ngFor="let option of field.options" class="col text-center">
+                    <span>{{ option.name }}</span>
                   </div>
                 </div>
                 <div *ngFor="let row of field.rows" class="row text-center">
                   <div class="col-xl-2 text-left">
                     {{ row.name }}
                   </div>
-                  <div class="col text-center" *ngFor="let value of [1, 2, 3, 4, 5]">
+                  <div class="col text-center" *ngFor="let option of field.options">
                     <input
                       type="radio"
                       class="form-check-input"
                       [name]="field.id + row.name"
-                      [value]="value" />
+                      [value]="option.value" />
                   </div>
                 </div>
               </div>

@@ -157,11 +157,7 @@ export const fieldsByType: Record<string, Field[]> = {
   [FormFieldType.Likert]: [
     ...commonFields,
     { id: 'optionsTitle', name: 'Options Title', isArray: false },
-    { id: 'option1', name: 'Option 1 Title', isArray: false },
-    { id: 'option2', name: 'Option 2 Title', isArray: false },
-    { id: 'option3', name: 'Option 3 Title', isArray: false },
-    { id: 'option4', name: 'Option 4 Title', isArray: false },
-    { id: 'option5', name: 'Option 5 Title', isArray: false },
+    { id: 'options', name: 'Options', isArray: true },
     { id: 'rows', name: 'rows', isArray: true }
   ],
   [FormFieldType.Csat]: [
@@ -240,6 +236,12 @@ export const conditionOptions: Record<string, string[]> = {
   ]
 };
 
-export const haveOptionsFieldTypes = ['select', 'checkbox-group', 'radio', 'need-contact'];
+export const haveOptionsFieldTypes = [
+  'select',
+  'checkbox-group',
+  'radio',
+  'likert',
+  'need-contact'
+];
 
 export const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];
