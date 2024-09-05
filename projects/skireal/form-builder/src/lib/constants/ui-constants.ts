@@ -1,4 +1,8 @@
-import { ConditionalLogicBlock, Field } from '../models/form-constructor.model';
+import {
+  ConditionalLogicBlock,
+  Field,
+  FormFieldBooleanKeys
+} from '../models/form-constructor.model';
 
 export enum FormFieldType {
   Text = 'text',
@@ -247,3 +251,5 @@ export const haveOptionsFieldTypes = [
 ];
 
 export const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];
+
+export const booleanFields: FormFieldBooleanKeys[] = ['active', 'required', 'hasOther'];

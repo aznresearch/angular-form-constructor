@@ -19,6 +19,8 @@ export interface FormField extends Field {
   step?: number;
   active?: boolean;
   analyticsTitle?: string;
+  required?: boolean;
+  warningMessage?: string;
 }
 
 export interface Field {
@@ -94,3 +96,5 @@ export interface QeScale {
 }
 
 export type FieldItem = Validator | Option | Row | QeScale;
+
+export type FormFieldBooleanKeys = 'active' | 'required' | 'hasOther';

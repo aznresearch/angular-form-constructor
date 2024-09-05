@@ -7,7 +7,7 @@ import {
   QeScale,
   QeScaleChild
 } from '../models/form-constructor.model';
-import { FormFieldType, controlsMap, fieldsByType } from '../constants/ui-constants';
+import { FormFieldType, booleanFields, controlsMap, fieldsByType } from '../constants/ui-constants';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -93,6 +93,12 @@ export class UiFormService {
         id: this.generateUniqueId().toString()
       }))
     };
+
+    booleanFields.forEach((field) => {
+      if (typeof fieldOptions[field] !== 'boolean') {
+        fieldOptions[field] = false;
+      }
+    });
 
     if (fieldType === 'nps' && (form.value.commentTitle || form.value.commentSubtitle)) {
       fieldOptions.commentId = this.generateUniqueId().toString();
