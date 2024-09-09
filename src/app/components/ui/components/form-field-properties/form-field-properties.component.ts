@@ -71,4 +71,9 @@ export class FormFieldPropertiesComponent implements OnInit {
   initializeStepControl(): void {
     this.propertyForm?.get('step')?.setValue(this.currentStep);
   }
+
+  isCommentAdded(): boolean {
+    const commentControl = this.propertyForm?.get('comment') as FormArray;
+    return commentControl && commentControl.length > 0;
+  }
 }

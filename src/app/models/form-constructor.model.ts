@@ -9,10 +9,7 @@ export interface FormField extends Field {
   classes?: string;
   rows?: Row[];
   hasOther?: boolean;
-  commentId?: string;
-  commentTitle?: string;
-  commentSubtitle?: string;
-  commentWarningMessage?: string;
+  comment?: Comment[];
   firstAnswer?: string;
   lastAnswer?: string;
   qeScales?: QeScale[];
@@ -95,6 +92,13 @@ export interface QeScale {
   qeScaleChildren?: QeScaleChild[];
 }
 
-export type FieldItem = Validator | Option | Row | QeScale;
+export interface Comment {
+  commentId: string;
+  commentTitle?: string;
+  commentSubtitle?: string;
+  commentWarningMessage?: string;
+}
+
+export type FieldItem = Validator | Option | Row | QeScale | Comment;
 
 export type FormFieldBooleanKeys = 'active' | 'required' | 'hasOther';

@@ -3,7 +3,7 @@
     <div class="form-row" [ngSwitch]="field.id">
       <div *ngSwitchCase="'validators'" formArrayName="validators" class="propertyForm__array">
         <ng-container *ngIf="enableSetValidationOptions">
-          <label class="propertyForm__label">Validators</label>
+          <label class="propertyForm__label">{{ field.name }}</label>
           <div
             *ngFor="let control of propertyForm?.get('validators')?.controls; let i = index"
             [formGroupName]="i">
@@ -47,7 +47,7 @@
       </div>
       <div *ngSwitchCase="'options'" formArrayName="options" class="propertyForm__array">
         <ng-container *ngIf="selectedFieldType !== 'need-contact'">
-          <label class="propertyForm__label">Options</label>
+          <label class="propertyForm__label">{{ field.name }}</label>
           <div
             *ngFor="let optionControl of propertyForm?.get('options')?.controls; let i = index"
             [formGroupName]="i">
@@ -80,9 +80,43 @@
           </div>
         </ng-container>
       </div>
-
+      <div *ngSwitchCase="'comment'" formArrayName="comment" class="propertyForm__array">
+        <label class="propertyForm__label">{{ field.name }}</label>
+        <div
+          *ngFor="let commentControl of propertyForm?.get('comment')?.controls; let i = index"
+          [formGroupName]="i">
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            formControlName="commentTitle"
+            placeholder="Comment title" />
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            formControlName="commentSubtitle"
+            placeholder="Comment subtitle" />
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            formControlName="commentWarningMessage"
+            placeholder="Comment warning message" />
+        </div>
+        <div class="form-buttons">
+          <button
+            class="btn btn-sm"
+            [ngClass]="isCommentAdded() ? 'btn-danger' : 'btn-success'"
+            type="button"
+            (click)="
+              isCommentAdded()
+                ? removeControlFromFormArray('comment')
+                : addControlToFormArray('comment')
+            ">
+            {{ isCommentAdded() ? "Remove Comment" : "Add Comment" }}
+          </button>
+        </div>
+      </div>
       <div *ngSwitchCase="'qeScales'" formArrayName="qeScales" class="propertyForm__array">
-        <label class="propertyForm__label">QE Scales</label>
+        <label class="propertyForm__label">{{ field.name }}</label>
         <div
           *ngFor="let qeScaleControl of propertyForm?.get('qeScales')?.controls; let i = index"
           [formGroupName]="i">
@@ -151,7 +185,7 @@
       </div>
 
       <div *ngSwitchCase="'rows'" formArrayName="rows" class="propertyForm__array">
-        <label class="propertyForm__label">Rows</label>
+        <label class="propertyForm__label">{{ field.name }}</label>
         <div
           *ngFor="let rowControl of propertyForm?.get('rows')?.controls; let i = index"
           [formGroupName]="i">
@@ -226,7 +260,7 @@
       <div *ngSwitchCase="'step'" class="propertyForm__array">
         <ng-container *ngIf="isEditFieldProperties && steps.length > 1">
           <div class="form-group">
-            <label class="propertyForm__label" for="stepSelect">Move to step</label>
+            <label class="propertyForm__label" for="stepSelect">{{ field.name }}</label>
             <select
               [id]="field.id"
               [formControlName]="field.id"

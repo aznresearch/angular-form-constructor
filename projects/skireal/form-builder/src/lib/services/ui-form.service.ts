@@ -5,7 +5,8 @@ import {
   Validator,
   Option,
   QeScale,
-  QeScaleChild
+  QeScaleChild,
+  Comment
 } from '../models/form-constructor.model';
 import { FormFieldType, booleanFields, controlsMap, fieldsByType } from '../constants/ui-constants';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -100,8 +101,11 @@ export class UiFormService {
       }
     });
 
-    if (fieldType === 'nps' && (form.value.commentTitle || form.value.commentSubtitle)) {
-      fieldOptions.commentId = this.generateUniqueId().toString();
+    if (fieldType === 'nps' && form.value.comment) {
+      fieldOptions.comment = form.value.comment.map((comment: Comment) => ({
+        ...comment,
+        commentId: this.generateUniqueId().toString()
+      }));
     }
 
     if (fieldType === 'qe' && form.value.qeScales) {

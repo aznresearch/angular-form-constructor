@@ -1,6 +1,7 @@
 import {
   ConditionalLogicBlock,
   Field,
+  FormField,
   FormFieldBooleanKeys
 } from '../models/form-constructor.model';
 
@@ -171,9 +172,7 @@ export const fieldsByType: Record<string, Field[]> = {
   ],
   [FormFieldType.NPS]: [
     ...commonFields,
-    { id: 'commentTitle', name: 'Comment question', isArray: false },
-    { id: 'commentSubtitle', name: 'Comment question subtitle', isArray: false },
-    { id: 'commentWarningMessage', name: 'Comment warning message', isArray: false },
+    { id: 'comment', name: 'Comment', isArray: true },
     { id: 'firstAnswer', name: 'First answer', isArray: false },
     { id: 'lastAnswer', name: 'Last answer', isArray: false }
   ],
@@ -209,7 +208,8 @@ export const controlsMap: Record<string, string[]> = {
   options: ['name', 'value'],
   rows: ['name'],
   qeScales: ['title', 'subtitle', 'qeScaleChildren'],
-  qeScaleChildren: ['title']
+  qeScaleChildren: ['title'],
+  comment: ['commentTitle', 'commentSubtitle', 'commentWarningMessage']
 };
 
 export const defaultConditionalLogicBlock: ConditionalLogicBlock = {
@@ -251,3 +251,11 @@ export const haveOptionsFieldTypes = [
 export const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];
 
 export const booleanFields: FormFieldBooleanKeys[] = ['active', 'required', 'hasOther'];
+
+export const arrayProperties: (keyof FormField)[] = [
+  'validators',
+  'options',
+  'rows',
+  'qeScales',
+  'comment'
+];

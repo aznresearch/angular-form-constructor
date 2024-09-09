@@ -273,14 +273,19 @@
                       [value]="value" />
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="col">
-                    <h3>{{ field.commentTitle }}</h3>
-                    <p>{{ field.commentSubtitle }}</p>
-                    <textarea (mousedown)="preventDefault($event)" class="form-control"></textarea>
-                  </div>
-                </div>
+                <ng-container *ngIf="field.comment.length > 0">
+                  <ng-container *ngFor="let comment of field.comment">
+                    <div class="row">
+                      <div class="col">
+                        <h3>{{ comment.commentTitle }}</h3>
+                        <p>{{ comment.commentSubtitle }}</p>
+                        <textarea
+                          (mousedown)="preventDefault($event)"
+                          class="form-control"></textarea>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
               </div>
             </ng-container>
 

@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { fieldsByType } from '../../../../constants/ui-constants';
+import { arrayProperties, fieldsByType } from '../../../../constants/ui-constants';
 import {
   FieldItem,
   FormField,
   Option,
   QeScale,
-  QeScaleChild
+  QeScaleChild,
+  Comment
 } from '../../../../models/form-constructor.model';
 import { UiFormService } from '../../../../services/ui-form.service';
 
@@ -53,15 +54,14 @@ export class UIModalFieldPropertiesComponent implements OnInit {
   patchFieldProperties() {
     this.propertyForm.patchValue(this.field);
 
-    const validatorsArray = this.propertyForm.get('validators') as FormArray;
-    const optionsArray = this.propertyForm.get('options') as FormArray;
-    const rowsArray = this.propertyForm.get('rows') as FormArray;
-    const qeScalesArray = this.propertyForm.get('qeScales') as FormArray;
+    arrayProperties.forEach((fieldName) => {
+      const propertyArray = this.propertyForm.get(fieldName) as FormArray;
+      const propertyData = this.field[fieldName] as FieldItem[];
 
-    this.patchArrayData(validatorsArray, this.field.validators);
-    this.patchArrayData(optionsArray, this.field.options);
-    this.patchArrayData(rowsArray, this.field.rows);
-    this.patchArrayData(qeScalesArray, this.field.qeScales);
+      if (propertyArray && propertyData) {
+        this.patchArrayData(propertyArray, propertyData);
+      }
+    });
   }
 
   patchArrayData(array: FormArray, data: FieldItem[] | undefined) {
@@ -104,21 +104,20 @@ export class UIModalFieldPropertiesComponent implements OnInit {
       })
     };
 
-    if (
-      updatedFieldProperties.type === 'nps' &&
-      (updatedFieldProperties.commentTitle || updatedFieldProperties.commentSubtitle) &&
-      !updatedFieldProperties.commentId
-    ) {
-      updatedFieldProperties.commentId = this.uiFormService.generateUniqueId();
+    if (updatedFieldProperties.type === 'nps') {
+      updatedFieldProperties.comment = updatedFieldProperties.comment?.map((comment: Comment) => ({
+        ...comment,
+        id: comment.commentId || this.uiFormService.generateUniqueId()
+      }));
     }
 
     if (updatedFieldProperties.type === 'qe') {
       updatedFieldProperties.qeScales = updatedFieldProperties.qeScales?.map((scale: QeScale) => ({
         ...scale,
-        id: this.uiFormService.generateUniqueId(),
+        id: scale.id || this.uiFormService.generateUniqueId(),
         qeScaleChildren: scale.qeScaleChildren?.map((child: QeScaleChild) => ({
           ...child,
-          id: this.uiFormService.generateUniqueId()
+          id: child.id || this.uiFormService.generateUniqueId()
         }))
       }));
     }
