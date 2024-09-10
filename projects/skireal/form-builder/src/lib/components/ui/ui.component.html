@@ -421,7 +421,9 @@
     </div>
 
     <ng-container *ngIf="formData.formData.steps as steps">
-      <span>Go to:</span>
+      <ng-container *ngIf="steps.length > 0">
+        <span>Go to:</span>
+      </ng-container>
       <div class="test-form__stepButtons">
         <div
           class="test-form__stepButton stepButton"
