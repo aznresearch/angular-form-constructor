@@ -2,7 +2,10 @@
   <div class="test-form__header">
     <h2 class="test-form__title">Form Constructor</h2>
   </div>
-
+  <select id="formDataSelector" (change)="onFormDataChange($event.target.value)">
+    <option [value]="incomingFormData">Форма 1</option>
+    <option [value]="incomingFormData2">Форма 2</option>
+  </select>
   <div class="test-form__body">
     <form
       [formGroup]="generalForm"

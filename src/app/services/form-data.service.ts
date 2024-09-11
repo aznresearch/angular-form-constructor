@@ -20,8 +20,7 @@ export class FormDataService {
   }
 
   prepareFormData(formData: FormOptionsFull): FormOptionsFull {
-    const formOptionsFullObject: FormOptionsFull = defaultFormOptionsObject;
-    formOptionsFullObject.formData.generalFields = formData.formData.generalFields;
+    const formOptionsFullObject: FormOptionsFull = formData;
     const formDataSteps = formData.formData.steps;
 
     formDataSteps.forEach((stepFormData, index) => {

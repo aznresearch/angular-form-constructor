@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  SimpleChanges,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { FormOptionsFull } from './models/form-constructor.model';
 
 @Component({
@@ -36,29 +29,7 @@ export class FormBuilderComponent {
     uniqueFormData: []
   };
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['incomingFormData']) {
-      this.resetForm();
-      this.loadFormData();
-    }
-  }
-
-  resetForm() {
-    this.formData = {
-      formData: {
-        steps: [],
-        generalFields: []
-      },
-      options: {
-        name: '',
-        type: '',
-        country: ''
-      },
-      uniqueFormData: []
-    };
-  }
-
-  loadFormData() {
+  ngOnInit() {
     this.formData = JSON.parse(this.incomingFormData);
   }
 
