@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {
   FormField,
   Validator,
   Option,
   QeScale,
-  QeScaleChild,
-  Comment
+  QeScaleChild
 } from '../models/form-constructor.model';
 import { FormFieldType, booleanFields, controlsMap, fieldsByType } from '../constants/ui-constants';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -25,18 +24,35 @@ export class UiFormService {
     return this.fb.group(formGroupConfig);
   }
 
-  generateFormGroupConfig(addedFields: FormField[]): Record<string, FormArray | string> {
-    const formGroupConfig: Record<string, FormArray | string> = {};
+  generateFormGroupConfig(
+    addedFields: FormField[]
+  ): Record<string, FormGroup | FormArray | FormControl> {
+    const formGroupConfig: Record<string, FormGroup | FormArray | FormControl> = {};
 
     for (const field of addedFields) {
-      if (field.isArray) {
-        formGroupConfig[field.id] = this.createFormArray();
-      } else {
-        formGroupConfig[field.id] = '';
-      }
+      formGroupConfig[field.id] = this.createControlForField(field);
+    }
+    return formGroupConfig;
+  }
+
+  createControlForField(field: FormField): FormGroup | FormArray | FormControl {
+    if (field.isArray) {
+      return this.createFormArray();
+    } else if (field.isObject && field.objectFields) {
+      return this.createFormGroupForObject(field.objectFields);
+    } else {
+      return this.createControl();
+    }
+  }
+
+  createFormGroupForObject(objectFields: FormField[]): FormGroup {
+    const formGroupConfig: Record<string, FormGroup | FormArray | FormControl> = {};
+
+    for (const field of objectFields) {
+      formGroupConfig[field.id] = this.createControlForField(field);
     }
 
-    return formGroupConfig;
+    return this.fb.group(formGroupConfig);
   }
 
   createControl(): FormControl {
@@ -50,9 +66,12 @@ export class UiFormService {
   addControlToFormArray(
     formArray: FormArray,
     arrayName: string,
-    nestedArrayConfig?: Record<string, FormArray | string>
+    nestedArrayConfig?: Record<string, FormControl | FormGroup | FormArray | string>
   ): void {
-    const newGroup = this.createGroupForArray(arrayName, nestedArrayConfig);
+    const newGroup = this.createGroupForArray(
+      arrayName,
+      nestedArrayConfig as Record<string, FormControl | FormGroup | FormArray | string>
+    );
     formArray.push(newGroup);
   }
 
@@ -62,14 +81,14 @@ export class UiFormService {
 
   createGroupForArray(
     arrayName: string,
-    nestedArrayConfig?: Record<string, FormArray | string>
+    nestedArrayConfig?: Record<string, FormControl | FormGroup | FormArray | string>
   ): FormGroup {
     const group = this.fb.group({});
-    const controlFields = controlsMap[arrayName];
+    const controlFields = controlsMap[arrayName] || [];
     if (controlFields) {
       controlFields.forEach((fieldName: string) => {
         if (nestedArrayConfig && fieldName in nestedArrayConfig) {
-          group.addControl(fieldName, nestedArrayConfig[fieldName] as AbstractControl);
+          group.addControl(fieldName, nestedArrayConfig[fieldName] as FormGroup | FormArray);
         } else {
           group.addControl(fieldName, this.createControl());
         }
@@ -77,6 +96,7 @@ export class UiFormService {
     } else {
       console.log(`Invalid controlName: ${arrayName}`);
     }
+
     return group;
   }
 
@@ -102,10 +122,16 @@ export class UiFormService {
     });
 
     if (fieldType === 'nps' && form.value.comment) {
-      fieldOptions.comment = form.value.comment.map((comment: Comment) => ({
-        ...comment,
-        commentId: this.generateUniqueId().toString()
-      }));
+      const isCommentEmpty = Object.values(fieldOptions.comment || {}).every(
+        (value) => value === '' || value === null || value === undefined
+      );
+
+      if (!isCommentEmpty) {
+        fieldOptions.comment = {
+          ...fieldOptions.comment,
+          commentId: this.generateUniqueId().toString()
+        };
+      }
     }
 
     if (fieldType === 'qe' && form.value.qeScales) {

@@ -1,4 +1,3 @@
-import { Comment } from './../../../../models/form-constructor.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -105,10 +104,17 @@ export class UIModalFieldPropertiesComponent implements OnInit {
     };
 
     if (updatedFieldProperties.type === 'nps') {
-      updatedFieldProperties.comment = updatedFieldProperties.comment?.map((comment: Comment) => ({
-        ...comment,
-        id: comment.commentId || this.uiFormService.generateUniqueId()
-      }));
+      const isCommentEmpty = Object.values(updatedFieldProperties.comment || {}).every(
+        (value) => value === '' || value === null || value === undefined
+      );
+
+      if (!isCommentEmpty) {
+        updatedFieldProperties.comment = {
+          ...updatedFieldProperties.comment,
+          commentId:
+            updatedFieldProperties.comment?.commentId || this.uiFormService.generateUniqueId()
+        };
+      }
     }
 
     if (updatedFieldProperties.type === 'qe') {

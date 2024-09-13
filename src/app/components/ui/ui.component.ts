@@ -288,6 +288,7 @@ export class UIComponent implements OnInit {
     this.saveCurrentStepData();
     const payload = this.formDataService.prepareFormData(this.formData);
     this.formDataService.setFormData(payload);
+    console.dir(payload);
   }
 
   openModal(component: Type<any>, initialState?: any) {

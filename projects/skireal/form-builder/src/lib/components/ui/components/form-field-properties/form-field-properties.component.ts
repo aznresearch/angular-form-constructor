@@ -22,6 +22,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   validatorOptions = validatorTypes;
   fieldsToCreate: FormField[] = [];
   steps: number[] = [];
+  isFieldVisible: Record<string, boolean> = {};
 
   constructor(private uiFormService: UiFormService) {}
 
@@ -73,8 +74,30 @@ export class FormFieldPropertiesComponent implements OnInit {
     this.propertyForm?.get('step')?.setValue(this.currentStep);
   }
 
-  isCommentAdded(): boolean {
-    const commentControl = this.propertyForm?.get('comment') as FormArray;
-    return commentControl && commentControl.length > 0;
+  toggleFieldVisibility(groupName: string): void {
+    this.isFieldVisible[groupName] = !this.isFieldVisible[groupName];
+
+    if (!this.isFieldVisible[groupName]) {
+      this.resetFieldsInGroup(groupName);
+    }
+  }
+
+  resetFieldsInGroup(groupName: string): void {
+    const group = this.propertyForm?.get(groupName) as FormGroup;
+    if (group) {
+      group.reset();
+    }
+  }
+
+  hasValueInGroup(groupName: string): boolean {
+    const group = this.propertyForm?.get(groupName) as FormGroup;
+    return group ? Object.values(group.controls).some((control) => control.value) : false;
+  }
+
+  shouldShowFields(groupName: string): boolean {
+    if (this.hasValueInGroup(groupName)) {
+      this.isFieldVisible[groupName] = true;
+    }
+    return this.isFieldVisible[groupName];
   }
 }

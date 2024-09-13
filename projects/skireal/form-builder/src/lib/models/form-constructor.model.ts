@@ -9,7 +9,7 @@ export interface FormField extends Field {
   classes?: string;
   rows?: Row[];
   hasOther?: boolean;
-  comment?: Comment[];
+  comment?: Comment;
   firstAnswer?: string;
   lastAnswer?: string;
   qeScales?: QeScale[];
@@ -24,6 +24,8 @@ export interface Field {
   id: string;
   name: string;
   isArray?: boolean;
+  isObject?: boolean;
+  objectFields?: Field[];
   parentArray?: string;
   placeholder?: string;
   children?: Field[];
@@ -93,7 +95,7 @@ export interface QeScale {
 }
 
 export interface Comment {
-  commentId: string;
+  commentId?: string;
   commentTitle?: string;
   commentSubtitle?: string;
   commentWarningMessage?: string;

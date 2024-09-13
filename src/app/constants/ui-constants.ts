@@ -172,7 +172,17 @@ export const fieldsByType: Record<string, Field[]> = {
   ],
   [FormFieldType.NPS]: [
     ...commonFields,
-    { id: 'comment', name: 'Comment', isArray: true },
+    {
+      id: 'comment',
+      name: 'Comment',
+      isArray: false,
+      isObject: true,
+      objectFields: [
+        { id: 'commentTitle', name: 'Comment Title', isArray: false },
+        { id: 'commentSubtitle', name: 'Comment Subtitle', isArray: false },
+        { id: 'commentWarningMessage', name: 'Comment Warning Message', isArray: false }
+      ]
+    },
     { id: 'firstAnswer', name: 'First answer', isArray: false },
     { id: 'lastAnswer', name: 'Last answer', isArray: false }
   ],
@@ -208,8 +218,7 @@ export const controlsMap: Record<string, string[]> = {
   options: ['name', 'value'],
   rows: ['name'],
   qeScales: ['title', 'subtitle', 'qeScaleChildren'],
-  qeScaleChildren: ['title'],
-  comment: ['commentTitle', 'commentSubtitle', 'commentWarningMessage']
+  qeScaleChildren: ['title']
 };
 
 export const defaultConditionalLogicBlock: ConditionalLogicBlock = {
@@ -252,10 +261,4 @@ export const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];
 
 export const booleanFields: FormFieldBooleanKeys[] = ['active', 'required', 'hasOther'];
 
-export const arrayProperties: (keyof FormField)[] = [
-  'validators',
-  'options',
-  'rows',
-  'qeScales',
-  'comment'
-];
+export const arrayProperties: (keyof FormField)[] = ['validators', 'options', 'rows', 'qeScales'];
