@@ -107,7 +107,6 @@ export class UiFormService {
         Object.values(validator).some((property) => property !== '')
       ),
       type: fieldType,
-      name: form.value.name || this.generateUniqueId().toString(),
       id: this.generateUniqueId().toString(),
       options: form.value.options?.map((option: Option) => ({
         ...option,

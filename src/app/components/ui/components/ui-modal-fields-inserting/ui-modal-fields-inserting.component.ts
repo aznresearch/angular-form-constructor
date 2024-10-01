@@ -54,8 +54,10 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   setAvailableFieldTypes() {
     if (this.isGeneral) {
       this.availableFieldTypes = [FormFieldType.Text, FormFieldType.Checkbox, FormFieldType.Select];
-    } else {
+    } else if (this.isSurvey) {
       this.availableFieldTypes = surveyFieldTypes;
+    } else {
+      this.availableFieldTypes = formFieldTypes;
     }
   }
 
@@ -92,8 +94,8 @@ export class UIModalFieldsInsertingComponent implements OnInit {
     const formArray = this.propertyForm?.get('options') as FormArray;
     if (this.selectedFieldType === 'need-contact') {
       optionValues = [
-        { name: 'Yes', value: 'true' },
-        { name: 'No', value: 'false' }
+        { name: 'Yes', value: '1' },
+        { name: 'No', value: '0' }
       ];
     }
     optionValues.forEach((option) => {

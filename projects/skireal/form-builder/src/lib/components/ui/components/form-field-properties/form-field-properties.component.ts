@@ -2,8 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { validatorTypes, withoutValueValidatorTypes } from '../../../../constants/ui-constants';
-import { FormField } from '../../../../models/form-constructor.model';
+import { FormField, Option } from '../../../../models/form-constructor.model';
 import { UiFormService } from '../../../../services/ui-form.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-form-field-properties',
@@ -99,5 +100,13 @@ export class FormFieldPropertiesComponent implements OnInit {
       this.isFieldVisible[groupName] = true;
     }
     return this.isFieldVisible[groupName];
+  }
+
+  onDrop(event: CdkDragDrop<Option[]>) {
+    const formArray = event.container.data;
+    moveItemInArray(formArray, event.previousIndex, event.currentIndex);
+    const formGroupArray = this.propertyForm?.get('options') as FormArray;
+    const reorderedValues = formGroupArray.controls.map((control) => control.value);
+    formGroupArray.setValue(reorderedValues);
   }
 }

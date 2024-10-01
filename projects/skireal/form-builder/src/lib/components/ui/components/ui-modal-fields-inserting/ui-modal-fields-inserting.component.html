@@ -6,6 +6,7 @@
         <li
           class="field-selector__item"
           *ngFor="let fieldType of availableFieldTypes"
+          [ngClass]="{ 'field-selector__item--selected': selectedFieldType === fieldType }"
           (click)="selectField(fieldType)">
           {{ fieldLabels[fieldType] }}
         </li>

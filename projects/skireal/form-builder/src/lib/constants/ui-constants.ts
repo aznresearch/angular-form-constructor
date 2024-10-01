@@ -62,28 +62,27 @@ export const formFieldTypes: FormFieldType[] = [
 ];
 
 export const surveyFieldTypes: FormFieldType[] = [
+  FormFieldType.CountryDropdown,
   FormFieldType.Text,
   FormFieldType.Textarea,
   FormFieldType.Date,
   FormFieldType.Select,
-  FormFieldType.Number,
   FormFieldType.Checkbox,
   FormFieldType.CheckboxGroup,
   FormFieldType.Radio,
-  FormFieldType.NeedContact,
-  FormFieldType.Email,
   FormFieldType.Likert,
   FormFieldType.Csat,
   FormFieldType.NPS,
   FormFieldType.QE,
+  FormFieldType.NeedContact,
   FormFieldType.ContactName,
   FormFieldType.ContactSurname,
   FormFieldType.ContactEmail,
-  FormFieldType.ContactPhone,
-  FormFieldType.CountryDropdown
+  FormFieldType.ContactPhone
 ];
 
 export const fieldTypesNames: FieldTypesNames = {
+  [FormFieldType.CountryDropdown]: 'Country',
   [FormFieldType.Text]: 'Text Input',
   [FormFieldType.Textarea]: 'Text Area',
   [FormFieldType.Date]: 'Date',
@@ -92,7 +91,6 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Checkbox]: 'Checkbox',
   [FormFieldType.CheckboxGroup]: 'Checkboxes',
   [FormFieldType.Radio]: 'Radio',
-  [FormFieldType.NeedContact]: 'Need Contact',
   [FormFieldType.File]: 'File Attachment',
   [FormFieldType.Password]: 'Password',
   [FormFieldType.Email]: 'Email',
@@ -101,11 +99,11 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Csat]: 'CSAT Scale',
   [FormFieldType.NPS]: 'NPS Scale',
   [FormFieldType.QE]: 'QE Scale',
+  [FormFieldType.NeedContact]: 'Need Contact',
   [FormFieldType.ContactName]: 'Contact Name',
   [FormFieldType.ContactSurname]: 'Contact Surname',
   [FormFieldType.ContactEmail]: 'Contact Email',
-  [FormFieldType.ContactPhone]: 'Contact Phone',
-  [FormFieldType.CountryDropdown]: 'Country'
+  [FormFieldType.ContactPhone]: 'Contact Phone'
 };
 
 export type FieldTypesNames = Record<FormFieldType, string>;
@@ -123,7 +121,6 @@ export const validatorTypes: ValidatorType[] = [
 
 const commonFields: Field[] = [
   { id: 'active', name: 'Active', isArray: false },
-  { id: 'name', name: 'Name', isArray: false },
   { id: 'classes', name: 'Classes', isArray: false, placeholder: 'e.g., class1 class2' },
   { id: 'placeholder', name: 'Placeholder', isArray: false },
   { id: 'title', name: 'Title', isArray: false },

@@ -154,6 +154,16 @@
       }
     }
   }
+
+  &__body {
+    .cdk-drag {
+      &:only-child {
+        .test-form__field-toolbar-icon {
+          display: none;
+        }
+      }
+    }
+  }
 }
 
 input {
@@ -171,6 +181,9 @@ input {
 .form-buttons {
   margin-bottom: 5px;
   margin-top: 5px;
+
+  display: flex;
+  align-items: center;
 
   .btn {
     margin-right: 10px;
@@ -190,4 +203,130 @@ input {
 textarea {
   resize: none;
   font-family: sans-serif;
+}
+
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  display: inline-block;
+  font-family: bootstrap-icons !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: -0.125em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bi-arrows-move::before {
+  content: "\f14e";
+}
+
+.test-form {
+  padding-bottom: 50px;
+  &__header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  &__step {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  }
+
+  &__body {
+    min-height: 200px;
+  }
+
+  &__block {
+    background-color: rgba(148, 169, 160, 0.15);
+    padding-bottom: 40px;
+    padding-top: 33px;
+    position: relative;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7ebba;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: rgba(148, 169, 160, 0.08);
+      .test-form__field-toolbar {
+        opacity: 1;
+      }
+
+      .test-form__field-label {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__field {
+    padding-left: 60px;
+    padding-right: 60px;
+
+    &-toolbar {
+      opacity: 0;
+      transition: 0.2s;
+      position: absolute;
+      left: 10px;
+      top: 7px;
+      display: flex;
+
+      &-icon {
+        display: block;
+        margin-right: 5px;
+        cursor: pointer;
+        position: relative;
+        padding: 2px;
+
+        &:before {
+          content: attr(data-tooltip);
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, -100%);
+          top: 0;
+
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 14px;
+          white-space: nowrap;
+          visibility: hidden;
+          opacity: 0;
+          transition: opacity 0.3s, visibility 0.3s;
+          z-index: 1;
+        }
+
+        &:hover:before {
+          visibility: visible;
+          opacity: 1;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        .bi {
+          &:before {
+            font-size: 16px;
+          }
+        }
+
+        &--move {
+          cursor: move;
+        }
+      }
+    }
+  }
 }

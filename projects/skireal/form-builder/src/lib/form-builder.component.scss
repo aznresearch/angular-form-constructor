@@ -342,3 +342,7 @@ input.ng-invalid.ng-touched {
   border: red 1px solid;
   box-shadow: 0 0 0 0.1rem rgba(255, 76, 76, 0.966);
 }
+
+.cdk-drag-preview {
+  z-index: 10000005 !important;
+}
