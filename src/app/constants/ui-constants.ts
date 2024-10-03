@@ -214,7 +214,7 @@ export const defaultOptionValues: { name: string; value: string }[] = [];
 
 export const controlsMap: Record<string, string[]> = {
   validators: ['type', 'value', 'errormsg'],
-  options: ['name', 'value'],
+  options: ['name', 'value', 'country'],
   rows: ['name'],
   qeScales: ['title', 'subtitle', 'qeScaleChildren'],
   qeScaleChildren: ['title']
@@ -261,3 +261,9 @@ export const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];
 export const booleanFields: FormFieldBooleanKeys[] = ['active', 'required', 'hasOther'];
 
 export const arrayProperties: (keyof FormField)[] = ['validators', 'options', 'rows', 'qeScales'];
+
+export const defaultValuesMap: Record<string, Record<string, any>> = {
+  options: {
+    country: 'ZZ'
+  }
+};

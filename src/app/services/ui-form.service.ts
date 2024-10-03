@@ -7,7 +7,13 @@ import {
   QeScale,
   QeScaleChild
 } from '../models/form-constructor.model';
-import { FormFieldType, booleanFields, controlsMap, fieldsByType } from '../constants/ui-constants';
+import {
+  FormFieldType,
+  booleanFields,
+  controlsMap,
+  defaultValuesMap,
+  fieldsByType
+} from '../constants/ui-constants';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -55,8 +61,8 @@ export class UiFormService {
     return this.fb.group(formGroupConfig);
   }
 
-  createControl(): FormControl {
-    return this.fb.control('');
+  createControl(defaultValue: string = ''): FormControl {
+    return this.fb.control(defaultValue);
   }
 
   createFormArray(): FormArray {
@@ -85,12 +91,14 @@ export class UiFormService {
   ): FormGroup {
     const group = this.fb.group({});
     const controlFields = controlsMap[arrayName] || [];
+
     if (controlFields) {
       controlFields.forEach((fieldName: string) => {
         if (nestedArrayConfig && fieldName in nestedArrayConfig) {
           group.addControl(fieldName, nestedArrayConfig[fieldName] as FormGroup | FormArray);
         } else {
-          group.addControl(fieldName, this.createControl());
+          const defaultValue = defaultValuesMap[arrayName]?.[fieldName] || '';
+          group.addControl(fieldName, this.createControl(defaultValue));
         }
       });
     } else {
