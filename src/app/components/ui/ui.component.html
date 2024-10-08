@@ -189,7 +189,7 @@
                   [formControlName]="field.id"
                   [value]="option.value"
                   class="form-check-input"
-                  (mousedown)="preventDefault($event)" />
+                  [(ngModel)]="field.defaultValue" />
                 <label [for]="field.id + option.value" class="form-check-label">{{
                   option.name
                 }}</label>

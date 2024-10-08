@@ -308,6 +308,16 @@
           </div>
         </ng-container>
       </div>
+      <div *ngSwitchCase="'defaultValue'" class="propertyForm__array">
+        <div class="form-group">
+          <label class="propertyForm__label" for="field.id">{{ field.name }}</label>
+          <select [id]="field.id" [formControlName]="field.id" class="form-select">
+            <option value="">N/A</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+      </div>
       <div *ngSwitchDefault>
         <div class="form-group">
           <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>

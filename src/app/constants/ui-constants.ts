@@ -153,7 +153,11 @@ export const fieldsByType: Record<string, Field[]> = {
     { id: 'options', name: 'Options', isArray: true },
     { id: 'hasOther', name: 'Has other', isArray: false }
   ],
-  [FormFieldType.NeedContact]: [...commonFields, { id: 'options', name: 'Options', isArray: true }],
+  [FormFieldType.NeedContact]: [
+    ...commonFields,
+    { id: 'options', name: 'Options', isArray: true },
+    { id: 'defaultValue', name: 'Default value', isArray: false }
+  ],
   [FormFieldType.File]: [...commonFields],
   [FormFieldType.Password]: [...commonFields],
   [FormFieldType.Email]: [...commonFields],
