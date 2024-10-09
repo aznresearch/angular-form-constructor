@@ -174,8 +174,7 @@
                   type="radio"
                   [formControlName]="field.id"
                   [value]="option.value"
-                  class="form-check-input"
-                  (mousedown)="preventDefault($event)" />
+                  class="form-check-input" />
                 <label [for]="field.id + option.value" class="form-check-label">{{
                   option.name
                 }}</label>
@@ -188,8 +187,7 @@
                   type="radio"
                   [formControlName]="field.id"
                   [value]="option.value"
-                  class="form-check-input"
-                  [(ngModel)]="field.defaultValue" />
+                  class="form-check-input" />
                 <label [for]="field.id + option.value" class="form-check-label">{{
                   option.name
                 }}</label>

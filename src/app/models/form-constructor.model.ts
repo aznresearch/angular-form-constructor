@@ -18,6 +18,7 @@ export interface FormField extends Field {
   analyticsTitle?: string;
   required?: boolean;
   warningMessage?: string;
+  defaultValue?: string;
 }
 
 export interface Field {

@@ -106,6 +106,14 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.ContactPhone]: 'Contact Phone'
 };
 
+export const uniqueFieldTypes: FormFieldType[] = [
+  FormFieldType.NeedContact,
+  FormFieldType.ContactName,
+  FormFieldType.ContactSurname,
+  FormFieldType.ContactEmail,
+  FormFieldType.ContactPhone
+];
+
 export type FieldTypesNames = Record<FormFieldType, string>;
 
 export const validatorTypes: ValidatorType[] = [

@@ -26,6 +26,7 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   @Input() isGeneral = false;
   @Input() enableSetValidationOptions = false;
   @Input() isSurvey = true;
+  @Input() usedFieldTypes: FormFieldType[] = [];
 
   selectedFieldType!: FormFieldType;
   propertyForm: FormGroup = this.fb.group({});
@@ -53,13 +54,19 @@ export class UIModalFieldsInsertingComponent implements OnInit {
   }
 
   setAvailableFieldTypes() {
+    let allFieldTypes: FormFieldType[];
+
     if (this.isGeneral) {
-      this.availableFieldTypes = [FormFieldType.Text, FormFieldType.Checkbox, FormFieldType.Select];
+      allFieldTypes = [FormFieldType.Text, FormFieldType.Checkbox, FormFieldType.Select];
     } else if (this.isSurvey) {
-      this.availableFieldTypes = surveyFieldTypes;
+      allFieldTypes = surveyFieldTypes;
     } else {
-      this.availableFieldTypes = formFieldTypes;
+      allFieldTypes = formFieldTypes;
     }
+
+    this.availableFieldTypes = allFieldTypes.filter(
+      (fieldType) => !this.usedFieldTypes.includes(fieldType)
+    );
   }
 
   selectField(fieldType: string) {

@@ -383,6 +383,10 @@
 
   .form-check {
     background-color: #fff;
+
+    input {
+      pointer-events: none;
+    }
   }
 }
 

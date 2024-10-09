@@ -12,8 +12,10 @@ import {
 } from '../../models/form-constructor.model';
 import {
   FieldTypesNames,
+  FormFieldType,
   defaultConditionalLogicBlock,
-  fieldTypesNames
+  fieldTypesNames,
+  uniqueFieldTypes
 } from '../../constants/ui-constants';
 import { UiFormService } from '../../services/ui-form.service';
 import { FormDataService } from '../../services/form-data.service';
@@ -75,6 +77,8 @@ export class UIComponent implements OnInit {
     class: 'modal-dialog-form-builder modal-dialog-form-builder--sm'
   };
 
+  usedFieldTypes: FormFieldType[] = [];
+
   constructor(
     private modalService: BsModalService,
     private uiFormService: UiFormService,
@@ -124,12 +128,13 @@ export class UIComponent implements OnInit {
     const initialState = {
       isGeneral,
       enableSetValidationOptions: this.enableSetValidationOptions,
-      isSurvey: this.isSurvey
+      isSurvey: this.isSurvey,
+      usedFieldTypes: this.usedFieldTypes
     };
     this.openModal(UIModalFieldsInsertingComponent, initialState);
     this.modalRef?.content.propertiesSave.subscribe((selectedField: FormField) => {
       if (selectedField) {
-        const newFormControl = this.uiFormService.createControl();
+        const newFormControl = this.uiFormService.createControl(selectedField.defaultValue);
 
         if (isGeneral) {
           this.generalFields.push(selectedField);
@@ -138,6 +143,11 @@ export class UIComponent implements OnInit {
           this.addedFields.push(selectedField);
           this.dynamicForm.addControl(selectedField.id, newFormControl);
         }
+
+        if (this.isFieldUnique(selectedField.type as FormFieldType)) {
+          this.usedFieldTypes.push(selectedField.type as FormFieldType);
+        }
+
         this.saveCurrentStepData();
       }
     });
@@ -176,6 +186,14 @@ export class UIComponent implements OnInit {
             fieldsArray[index] = updatedField;
           }
         }
+
+        if (updatedField.defaultValue !== undefined) {
+          const formControl = this.dynamicForm.get(updatedField.id);
+          if (formControl) {
+            formControl.setValue(updatedField.defaultValue);
+          }
+        }
+
         this.saveCurrentStepData();
       }
     });
@@ -198,6 +216,14 @@ export class UIComponent implements OnInit {
       fieldsArray.splice(index, 1);
       formGroup.removeControl(field.id);
     }
+
+    if (this.isFieldUnique(field.type as FormFieldType)) {
+      const typeIndex = this.usedFieldTypes.indexOf(field.type as FormFieldType);
+      if (typeIndex !== -1) {
+        this.usedFieldTypes.splice(typeIndex, 1);
+      }
+    }
+
     this.saveCurrentStepData();
   }
 
@@ -377,5 +403,9 @@ export class UIComponent implements OnInit {
     this.conditionalLogicBlocks =
       this.formData.formData.steps[this.currentStep].conditionalLogicBlocks;
     this.createForm();
+  }
+
+  isFieldUnique(fieldType: FormFieldType): boolean {
+    return uniqueFieldTypes.includes(fieldType);
   }
 }
