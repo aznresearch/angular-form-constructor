@@ -66,6 +66,7 @@ export interface Option {
 
 export interface Row {
   name: string;
+  id: string;
 }
 
 export interface UniqueFormData extends StepData {

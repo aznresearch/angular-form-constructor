@@ -212,13 +212,13 @@
                 </div>
                 <div *ngFor="let row of field.rows" class="row text-center">
                   <div class="col-xl-2 text-left">
-                    {{ row.name }}
+                    {{ row.title }}
                   </div>
                   <div class="col text-center" *ngFor="let option of field.options">
                     <input
                       type="radio"
                       class="form-check-input"
-                      [name]="field.id + row.name"
+                      [name]="field.id + row.title"
                       [value]="option.value" />
                   </div>
                 </div>

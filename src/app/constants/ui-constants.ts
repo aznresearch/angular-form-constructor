@@ -98,7 +98,7 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Likert]: 'Likert Scale',
   [FormFieldType.Csat]: 'CSAT Scale',
   [FormFieldType.NPS]: 'NPS Scale',
-  [FormFieldType.QE]: 'QE Scale',
+  [FormFieldType.QE]: 'QE Group',
   [FormFieldType.NeedContact]: 'Need Contact',
   [FormFieldType.ContactName]: 'Contact Name',
   [FormFieldType.ContactSurname]: 'Contact Surname',
@@ -174,7 +174,7 @@ export const fieldsByType: Record<string, Field[]> = {
     ...commonFields,
     { id: 'optionsTitle', name: 'Options Title', isArray: false },
     { id: 'options', name: 'Options', isArray: true },
-    { id: 'rows', name: 'rows', isArray: true }
+    { id: 'rows', name: 'Rows', isArray: true }
   ],
   [FormFieldType.Csat]: [
     ...commonFields,
@@ -203,12 +203,12 @@ export const fieldsByType: Record<string, Field[]> = {
     { id: 'lastAnswer', name: 'Last answer', isArray: false },
     {
       id: 'qeScales',
-      name: 'QE Scales',
+      name: 'QE Groups',
       isArray: true,
       children: [
         {
           id: 'qeScaleChildren',
-          name: 'QE Scales Children',
+          name: 'QE Scales',
           isArray: true,
           parentArray: 'qeScales'
         }
@@ -227,7 +227,7 @@ export const defaultOptionValues: { name: string; value: string }[] = [];
 export const controlsMap: Record<string, string[]> = {
   validators: ['type', 'value', 'errormsg'],
   options: ['name', 'value', 'country'],
-  rows: ['name'],
+  rows: ['title'],
   qeScales: ['title', 'subtitle', 'qeScaleChildren'],
   qeScaleChildren: ['title']
 };

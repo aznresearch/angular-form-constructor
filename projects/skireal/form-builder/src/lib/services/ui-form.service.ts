@@ -5,7 +5,8 @@ import {
   Validator,
   Option,
   QeScale,
-  QeScaleChild
+  QeScaleChild,
+  Row
 } from '../models/form-constructor.model';
 import {
   FormFieldType,
@@ -148,6 +149,13 @@ export class UiFormService {
           ...child,
           id: this.generateUniqueId().toString()
         }))
+      }));
+    }
+
+    if (fieldType === 'likert' && form.value.rows) {
+      fieldOptions.rows = form.value.rows.map((row: Row) => ({
+        ...row,
+        id: this.generateUniqueId().toString()
       }));
     }
 
