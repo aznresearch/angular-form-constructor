@@ -227,49 +227,28 @@
           </button>
         </div>
       </div>
-      <div *ngSwitchCase="'hasOther'" class="propertyForm__array">
-        <div class="form-group form-check">
-          <input
-            [id]="field.id"
-            type="checkbox"
-            [formControlName]="field.id"
-            class="form-check-input" />
-          <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
-        </div>
-      </div>
-      <div *ngSwitchCase="'active'" class="propertyForm__array">
-        <div class="form-group form-check">
-          <input
-            [id]="field.id"
-            type="checkbox"
-            [formControlName]="field.id"
-            class="form-check-input" />
-          <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
-        </div>
-      </div>
-      <div *ngSwitchCase="'required'" class="propertyForm__array">
+
+      <ng-container *ngSwitchCase="'hasOther'">
+        <ng-container *ngTemplateOutlet="defaultCheckbox; context: { field: field }"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'active'">
+        <ng-container *ngTemplateOutlet="defaultCheckbox; context: { field: field }"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'hasNA'">
+        <ng-container *ngTemplateOutlet="defaultCheckbox; context: { field: field }"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'required'">
         <ng-container *ngIf="!enableSetValidationOptions">
-          <div class="form-group form-check">
-            <input
-              [id]="field.id"
-              type="checkbox"
-              [formControlName]="field.id"
-              class="form-check-input" />
-            <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
-          </div>
+          <ng-container *ngTemplateOutlet="defaultCheckbox; context: { field: field }">
+          </ng-container>
         </ng-container>
-      </div>
+      </ng-container>
       <div *ngSwitchCase="'warningMessage'" class="propertyForm__array">
         <ng-container *ngIf="!enableSetValidationOptions">
-          <div class="form-group">
-            <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>
-            <input
-              [type]="text"
-              [id]="field.id"
-              [formControlName]="field.id"
-              [attr.placeholder]="field.placeholder ? field.placeholder : null"
-              class="form-control" />
-          </div>
+          <ng-container *ngTemplateOutlet="defaultInput; context: { field: field }"></ng-container>
         </ng-container>
       </div>
       <div *ngSwitchCase="'step'" class="propertyForm__array">
@@ -298,15 +277,7 @@
       </div>
       <div *ngSwitchCase="'classes'" class="propertyForm__array">
         <ng-container *ngIf="!isSurvey">
-          <div class="form-group">
-            <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>
-            <input
-              [type]="text"
-              [id]="field.id"
-              [formControlName]="field.id"
-              [attr.placeholder]="field.placeholder ? field.placeholder : null"
-              class="form-control" />
-          </div>
+          <ng-container *ngTemplateOutlet="defaultInput; context: { field: field }"></ng-container>
         </ng-container>
       </div>
       <div *ngSwitchCase="'defaultValue'" class="propertyForm__array">
@@ -319,18 +290,36 @@
           </select>
         </div>
       </div>
-
       <div *ngSwitchDefault>
-        <div class="form-group">
-          <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>
-          <input
-            [type]="text"
-            [id]="field.id"
-            [formControlName]="field.id"
-            [attr.placeholder]="field.placeholder ? field.placeholder : null"
-            class="form-control" />
-        </div>
+        <ng-container *ngTemplateOutlet="defaultInput; context: { field: field }"></ng-container>
       </div>
     </div>
   </ng-container>
+
+  <ng-template #defaultCheckbox let-field="field">
+    <div class="propertyForm__array">
+      <div class="form-group form-check">
+        <input
+          [id]="field.id"
+          type="checkbox"
+          [formControlName]="field.id"
+          class="form-check-input" />
+        <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #defaultInput let-field="field">
+    <div class="propertyForm__array">
+      <div class="form-group">
+        <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>
+        <input
+          type="text"
+          [id]="field.id"
+          [formControlName]="field.id"
+          [attr.placeholder]="field.placeholder ? field.placeholder : null"
+          class="form-control" />
+      </div>
+    </div>
+  </ng-template>
 </form>
