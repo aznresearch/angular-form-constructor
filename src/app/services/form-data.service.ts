@@ -33,6 +33,10 @@ export class FormDataService {
           delete fieldData.step;
         }
 
+        if (fieldData.type === 'need-contact') {
+          delete fieldData.options;
+        }
+
         const hasNonRequiredValidator = field.validators?.some(
           (validator) => validator.type !== 'required'
         );

@@ -230,7 +230,7 @@
                   </div>
                 </div>
                 <div class="row text-center">
-                  <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+                  <div class="col" *ngFor="let value of getValuesForCsat(field)">
                     <label>{{ value }}</label>
                     <input
                       type="radio"

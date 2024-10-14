@@ -329,7 +329,9 @@ export class UIComponent implements OnInit {
   openModal(component: Type<any>, initialState?: any) {
     this.modalRef = this.modalService.show(component, {
       initialState,
-      class: 'modal-dialog-form-builder'
+      class: 'modal-dialog-form-builder',
+      ignoreBackdropClick: true,
+      keyboard: false
     });
   }
 
@@ -407,5 +409,13 @@ export class UIComponent implements OnInit {
 
   isFieldUnique(fieldType: FormFieldType): boolean {
     return uniqueFieldTypes.includes(fieldType);
+  }
+
+  getValuesForCsat(field: any): (number | string)[] {
+    const values: (number | string)[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    if (field.hasNA) {
+      values.push('N/A');
+    }
+    return values;
   }
 }

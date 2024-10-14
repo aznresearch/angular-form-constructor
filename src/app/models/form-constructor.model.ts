@@ -19,6 +19,7 @@ export interface FormField extends Field {
   required?: boolean;
   warningMessage?: string;
   defaultValue?: string;
+  hasNA?: boolean;
 }
 
 export interface Field {
@@ -105,4 +106,4 @@ export interface Comment {
 
 export type FieldItem = Validator | Option | Row | QeScale | Comment;
 
-export type FormFieldBooleanKeys = 'active' | 'required' | 'hasOther';
+export type FormFieldBooleanKeys = 'active' | 'required' | 'hasOther' | 'hasNA';

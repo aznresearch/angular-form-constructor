@@ -179,7 +179,8 @@ export const fieldsByType: Record<string, Field[]> = {
   [FormFieldType.Csat]: [
     ...commonFields,
     { id: 'firstAnswer', name: 'First answer', isArray: false },
-    { id: 'lastAnswer', name: 'Last answer', isArray: false }
+    { id: 'lastAnswer', name: 'Last answer', isArray: false },
+    { id: 'hasNA', name: 'Has N/A', isArray: false }
   ],
   [FormFieldType.NPS]: [
     ...commonFields,
@@ -270,7 +271,7 @@ export const haveOptionsFieldTypes = [
 
 export const withoutValueValidatorTypes = ['required', 'requiredTrue', 'email'];
 
-export const booleanFields: FormFieldBooleanKeys[] = ['active', 'required', 'hasOther'];
+export const booleanFields: FormFieldBooleanKeys[] = ['active', 'required', 'hasOther', 'hasNA'];
 
 export const arrayProperties: (keyof FormField)[] = ['validators', 'options', 'rows', 'qeScales'];
 
