@@ -1,5 +1,5 @@
 <div class="properties-form">
-  <button type="button" class="close-btn" aria-label="Close" (click)="closeModal()">
+  <button type="button" class="close-btn" aria-label="Close" (click)="closeSidebar()">
     <span aria-hidden="true">&times;</span>
   </button>
   <h2 class="modal-title">Edit Field Properties</h2>
@@ -14,7 +14,7 @@
     [isSurvey]="isSurvey"></app-form-field-properties>
 
   <div class="form-buttons">
-    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-secondary" (click)="closeSidebar()">Cancel</button>
     <button type="button" class="btn btn-primary" (click)="saveFieldProperties()">Save</button>
   </div>
 </div>

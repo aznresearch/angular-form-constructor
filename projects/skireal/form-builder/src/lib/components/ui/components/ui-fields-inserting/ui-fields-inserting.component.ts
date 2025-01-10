@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { SharedModalConfirmationComponent } from 'src/app/components/shared/shared-modal-confirmation/shared-modal-confirmation.component';
+
 import {
   fieldsByType,
   formFieldTypes,
@@ -11,17 +11,19 @@ import {
   haveOptionsFieldTypes,
   FormFieldType,
   surveyFieldTypes
-} from 'src/app/constants/ui-constants';
-import { FormField } from 'src/app/models/form-constructor.model';
-import { UiFormService } from 'src/app/services/ui-form.service';
+} from '../../../../constants/ui-constants';
+import { FormField } from '../../../../models/form-constructor.model';
+import { UiFormService } from '../../../../services/ui-form.service';
+import { SharedModalConfirmationComponent } from '../../../shared/shared-modal-confirmation/shared-modal-confirmation.component';
 
 @Component({
-  selector: 'app-ui-modal-fields-inserting',
-  templateUrl: './ui-modal-fields-inserting.component.html',
-  styleUrls: ['./ui-modal-fields-inserting.component.scss']
+  selector: 'app-ui-fields-inserting',
+  templateUrl: './ui-fields-inserting.component.html',
+  styleUrls: ['./ui-fields-inserting.component.scss']
 })
-export class UIModalFieldsInsertingComponent implements OnInit {
-  @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
+export class UIFieldsInsertingComponent implements OnInit {
+  @Output() propertiesSaved: EventEmitter<FormField> = new EventEmitter<FormField>();
+  @Output() sidebarClosed: EventEmitter<void> = new EventEmitter<void>();
   @Input() isGeneral = false;
   @Input() enableSetValidationOptions = false;
   @Input() isSurvey = true;
@@ -129,12 +131,11 @@ export class UIModalFieldsInsertingComponent implements OnInit {
       this.propertyForm,
       this.selectedFieldType
     );
-
-    this.propertiesSave.emit(fieldProperties);
-    this.modalRef.hide();
+    this.propertiesSaved.emit(fieldProperties);
+    this.sidebarClosed.emit();
   }
 
-  closeModal() {
-    this.modalRef.hide();
+  closeSidebar() {
+    this.sidebarClosed.emit();
   }
 }

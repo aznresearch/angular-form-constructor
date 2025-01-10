@@ -1,9 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, Renderer2, Type } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { UIModalFieldsInsertingComponent } from './components/ui-modal-fields-inserting/ui-modal-fields-inserting.component';
-import { UIModalFieldPropertiesComponent } from './components/ui-modal-field-properties/ui-modal-field-properties.component';
 import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import {
   ConditionalLogicBlock,
@@ -78,6 +76,11 @@ export class UIComponent implements OnInit {
   };
 
   usedFieldTypes: FormFieldType[] = [];
+  isSidebarOpen = false;
+  isFieldsInsertingOpen = false;
+  isFieldPropertiesOpen = false;
+  isGeneral = false;
+  fieldToEdit: FormField = { id: '', name: '' };
 
   constructor(
     private modalService: BsModalService,
@@ -122,81 +125,6 @@ export class UIComponent implements OnInit {
     if (this.enableGeneralFields) {
       this.generalForm = this.uiFormService.createFormGroup(this.generalFields);
     }
-  }
-
-  openFieldsInsertingModal(isGeneral: boolean) {
-    const initialState = {
-      isGeneral,
-      enableSetValidationOptions: this.enableSetValidationOptions,
-      isSurvey: this.isSurvey,
-      usedFieldTypes: this.usedFieldTypes
-    };
-    this.openModal(UIModalFieldsInsertingComponent, initialState);
-    this.modalRef?.content.propertiesSave.subscribe((selectedField: FormField) => {
-      if (selectedField) {
-        const newFormControl = this.uiFormService.createControl(selectedField.defaultValue);
-
-        if (isGeneral) {
-          this.generalFields.push(selectedField);
-          this.generalForm.addControl(selectedField.id, newFormControl);
-        } else {
-          this.addedFields.push(selectedField);
-          this.dynamicForm.addControl(selectedField.id, newFormControl);
-        }
-
-        if (this.isFieldUnique(selectedField.type as FormFieldType)) {
-          this.usedFieldTypes.push(selectedField.type as FormFieldType);
-        }
-
-        this.saveCurrentStepData();
-      }
-    });
-  }
-
-  openFieldPropertiesModal(field: FormField, isGeneral: boolean) {
-    const stepsLength = this.formData.formData.steps.length;
-
-    const initialState = {
-      field,
-      enableSetValidationOptions: this.enableSetValidationOptions,
-      isSurvey: this.isSurvey,
-      currentStep: this.currentStep,
-      stepsLength: stepsLength
-    };
-
-    this.openModal(UIModalFieldPropertiesComponent, initialState);
-
-    this.modalRef?.content.propertiesSave.subscribe((updatedField: FormField) => {
-      if (updatedField) {
-        let fieldsArray: FormField[];
-
-        if (isGeneral) {
-          fieldsArray = this.generalFields;
-        } else {
-          fieldsArray = this.addedFields;
-        }
-        const index = fieldsArray.indexOf(field);
-        if (index !== -1) {
-          if (updatedField.step !== this.currentStep) {
-            fieldsArray.splice(index, 1);
-            const newStepIndex = updatedField.step as number;
-            const targetStep = this.formData.formData.steps[newStepIndex];
-            targetStep.addedFields.push(updatedField);
-          } else {
-            fieldsArray[index] = updatedField;
-          }
-        }
-
-        if (updatedField.defaultValue !== undefined) {
-          const formControl = this.dynamicForm.get(updatedField.id);
-          if (formControl) {
-            formControl.setValue(updatedField.defaultValue);
-          }
-        }
-
-        this.saveCurrentStepData();
-      }
-    });
   }
 
   removeField(field: FormField, isGeneral: boolean) {
@@ -326,15 +254,6 @@ export class UIComponent implements OnInit {
     this.saveClicked.emit(payload);
   }
 
-  openModal(component: Type<any>, initialState?: any) {
-    this.modalRef = this.modalService.show(component, {
-      initialState,
-      class: 'modal-dialog-form-builder',
-      ignoreBackdropClick: true,
-      keyboard: false
-    });
-  }
-
   preventDefault(event: Event) {
     event.preventDefault();
   }
@@ -417,5 +336,77 @@ export class UIComponent implements OnInit {
       values.push('N/A');
     }
     return values;
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  toggleFieldsInsertingSidebar(isGeneral: boolean = false): void {
+    this.isFieldsInsertingOpen = !this.isFieldsInsertingOpen;
+    this.isFieldPropertiesOpen = false;
+    this.isGeneral = isGeneral;
+    this.toggleSidebar();
+  }
+
+  toggleFieldPropertiesSidebar(field: FormField, isGeneral: boolean): void {
+    this.isFieldPropertiesOpen = !this.isFieldPropertiesOpen;
+    this.isFieldsInsertingOpen = false;
+    this.toggleSidebar();
+    this.fieldToEdit = field;
+    this.isGeneral = isGeneral;
+  }
+
+  onPropertiesSave(selectedField: FormField): void {
+    if (selectedField) {
+      const newFormControl = this.uiFormService.createControl(selectedField.defaultValue);
+
+      if (this.isGeneral) {
+        this.generalFields.push(selectedField);
+        this.generalForm.addControl(selectedField.id, newFormControl);
+      } else {
+        this.addedFields.push(selectedField);
+        this.dynamicForm.addControl(selectedField.id, newFormControl);
+      }
+
+      if (this.isFieldUnique(selectedField.type as FormFieldType)) {
+        this.usedFieldTypes.push(selectedField.type as FormFieldType);
+      }
+
+      this.saveCurrentStepData();
+    }
+  }
+
+  onPropertiesSaveAfterEdit(updatedField: FormField): void {
+    if (updatedField) {
+      let fieldsArray: FormField[];
+
+      if (this.isGeneral) {
+        fieldsArray = this.generalFields;
+      } else {
+        fieldsArray = this.addedFields;
+      }
+
+      const index = fieldsArray.indexOf(this.fieldToEdit);
+      if (index !== -1) {
+        if (updatedField.step !== this.currentStep) {
+          fieldsArray.splice(index, 1);
+          const newStepIndex = updatedField.step as number;
+          const targetStep = this.formData.formData.steps[newStepIndex];
+          targetStep.addedFields.push(updatedField);
+        } else {
+          fieldsArray[index] = updatedField;
+        }
+      }
+
+      if (updatedField.defaultValue !== undefined) {
+        const formControl = this.dynamicForm.get(updatedField.id);
+        if (formControl) {
+          formControl.setValue(updatedField.defaultValue);
+        }
+      }
+
+      this.saveCurrentStepData();
+    }
   }
 }

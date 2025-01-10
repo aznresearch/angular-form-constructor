@@ -1,40 +1,35 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal';
-import { arrayProperties, fieldsByType } from '../../../../constants/ui-constants';
+import { arrayProperties, fieldsByType } from 'src/app/constants/ui-constants';
 import {
   FieldItem,
   FormField,
   Option,
   QeScale,
   QeScaleChild
-} from '../../../../models/form-constructor.model';
-import { UiFormService } from '../../../../services/ui-form.service';
-
+} from 'src/app/models/form-constructor.model';
+import { UiFormService } from 'src/app/services/ui-form.service';
 @Component({
-  selector: 'app-ui-modal-field-properties',
-  templateUrl: './ui-modal-field-properties.component.html',
-  styleUrls: ['./ui-modal-field-properties.component.scss']
+  selector: 'app-ui-field-properties',
+  templateUrl: './ui-field-properties.component.html',
+  styleUrls: ['./ui-field-properties.component.scss']
 })
-export class UIModalFieldPropertiesComponent implements OnInit {
-  @Output() propertiesSave: EventEmitter<FormField> = new EventEmitter<FormField>();
+export class UIFieldPropertiesComponent implements OnInit {
+  @Output() propertiesSaved: EventEmitter<FormField> = new EventEmitter<FormField>();
+  @Output() sidebarClosed: EventEmitter<void> = new EventEmitter<void>();
   @Input() enableSetValidationOptions = false;
   @Input() isSurvey = true;
-  @Input() field: FormField = { id: '', name: '' };
   @Input() currentStep = 0;
   @Input() stepsLength = 1;
+  @Input() field: FormField = { id: '', name: '' };
 
   propertyForm: FormGroup = this.fb.group({});
   selectedFieldType = '';
   fieldsToCreate: FormField[] = [];
 
-  constructor(
-    public modalRef: BsModalRef,
-    private fb: FormBuilder,
-    private uiFormService: UiFormService
-  ) {}
+  constructor(private fb: FormBuilder, private uiFormService: UiFormService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.selectedFieldType = this.field.type ?? '';
     this.uiFormService.setFieldsToCreate(this.selectedFieldType);
     this.createPropertyForm();
@@ -84,9 +79,6 @@ export class UIModalFieldPropertiesComponent implements OnInit {
       });
     }
   }
-  closeModal() {
-    this.modalRef.hide();
-  }
 
   saveFieldProperties() {
     const updatedFieldProperties: FormField = {
@@ -128,7 +120,11 @@ export class UIModalFieldPropertiesComponent implements OnInit {
       }));
     }
 
-    this.propertiesSave.emit(updatedFieldProperties);
-    this.modalRef.hide();
+    this.propertiesSaved.emit(updatedFieldProperties);
+    this.sidebarClosed.emit();
+  }
+
+  closeSidebar() {
+    this.sidebarClosed.emit();
   }
 }
