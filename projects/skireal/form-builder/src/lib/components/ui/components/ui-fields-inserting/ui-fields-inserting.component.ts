@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-
 import {
   fieldsByType,
   formFieldTypes,
@@ -14,7 +12,7 @@ import {
 } from '../../../../constants/ui-constants';
 import { FormField } from '../../../../models/form-constructor.model';
 import { UiFormService } from '../../../../services/ui-form.service';
-import { SharedModalConfirmationComponent } from '../../../shared/shared-modal-confirmation/shared-modal-confirmation.component';
+import { ConfirmationService } from '../../../../services/confirmation.service';
 
 @Component({
   selector: 'app-ui-fields-inserting',
@@ -35,19 +33,12 @@ export class UIFieldsInsertingComponent implements OnInit {
   fieldLabels: FieldTypesNames = fieldTypesNames;
   isFormCreated = false;
   fieldsToCreate: FormField[] = [];
-  modalOptions = {
-    initialState: {
-      message: 'Are you sure you want to complete field creation without saving?'
-    },
-    class: 'modal-dialog-form-builder modal-dialog-form-builder--sm'
-  };
   selectedFiledType = '';
 
   constructor(
-    public modalRef: BsModalRef,
     private fb: FormBuilder,
     private uiFormService: UiFormService,
-    private modalService: BsModalService
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -74,13 +65,13 @@ export class UIFieldsInsertingComponent implements OnInit {
     this.selectedFiledType = fieldType;
 
     if (this.isFormCreated && this.selectedFieldType !== fieldType) {
-      const modalRef = this.modalService.show(SharedModalConfirmationComponent, this.modalOptions);
-
-      modalRef.content.confirm.subscribe((result: boolean) => {
-        if (result) {
-          this.resetFormAndSelectField(fieldType);
-        }
-      });
+      this.confirmationService
+        .open('Are you sure you want to complete field creation without saving?')
+        .then((result) => {
+          if (result) {
+            this.resetFormAndSelectField(fieldType);
+          }
+        });
     } else {
       this.resetFormAndSelectField(fieldType);
     }

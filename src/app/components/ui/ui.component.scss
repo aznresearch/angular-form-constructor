@@ -217,8 +217,7 @@
   overflow: hidden;
   position: relative;
   padding-bottom: 50px;
-  padding-left: 20px;
-  padding-right: 20px;
+
   &__header {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -276,6 +275,13 @@
 
   &__body {
     min-height: 200px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  &__footer {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   &__block {

@@ -1,8 +1,6 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { SharedModalConfirmationComponent } from '../shared/shared-modal-confirmation/shared-modal-confirmation.component';
 import {
   ConditionalLogicBlock,
   FormField,
@@ -17,6 +15,7 @@ import {
 } from 'src/app/constants/ui-constants';
 import { UiFormService } from 'src/app/services/ui-form.service';
 import { FormDataService } from 'src/app/services/form-data.service';
+import { ConfirmationService } from 'src/app/services/confirmation.service';
 
 @Component({
   selector: 'app-ui',
@@ -24,10 +23,6 @@ import { FormDataService } from 'src/app/services/form-data.service';
   styleUrls: ['./ui.component.scss']
 })
 export class UIComponent implements OnInit {
-  private observer?: MutationObserver;
-
-  modalRef: BsModalRef | undefined;
-
   dynamicForm!: FormGroup;
   generalForm!: FormGroup;
   formData: FormOptionsFull = {
@@ -52,13 +47,6 @@ export class UIComponent implements OnInit {
   enableSetValidationOptions = true;
   isSurvey = true;
 
-  modalOptions = {
-    initialState: {
-      message: 'Are you sure you want to delete the step?'
-    },
-    class: 'modal-dialog-form-builder modal-dialog-form-builder--sm'
-  };
-
   selectedFormData: string | null = null;
   formVisible: boolean = true;
   usedFieldTypes: FormFieldType[] = [];
@@ -70,41 +58,14 @@ export class UIComponent implements OnInit {
   fieldToEdit: FormField = { id: '', name: '' };
 
   constructor(
-    private modalService: BsModalService,
     private uiFormService: UiFormService,
     private formDataService: FormDataService,
-    private renderer: Renderer2
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
     this.restoreFormDataFromLocalStorage();
     this.createForm();
-  }
-
-  ngAfterViewInit() {
-    this.observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'childList') {
-          mutation.addedNodes.forEach((node) => {
-            const element = node as HTMLElement;
-            if (element.classList && element.classList.contains('modal')) {
-              this.renderer.addClass(element, 'modal-form-builder');
-              element.addEventListener('hidden.bs.modal', () => {
-                this.renderer.removeClass(element, 'modal-form-builder');
-              });
-            }
-          });
-        }
-      });
-    });
-
-    this.observer.observe(document.body, { childList: true, subtree: true });
-  }
-
-  ngOnDestroy(): void {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
   }
 
   createForm() {
@@ -277,9 +238,7 @@ export class UIComponent implements OnInit {
   }
 
   deleteStepConfirmation(index: number) {
-    const modalRef = this.modalService.show(SharedModalConfirmationComponent, this.modalOptions);
-
-    modalRef.content.confirm.subscribe((result: boolean) => {
+    this.confirmationService.open('Are you sure you want to delete this step?').then((result) => {
       if (result) {
         this.deleteStep(index);
       }
