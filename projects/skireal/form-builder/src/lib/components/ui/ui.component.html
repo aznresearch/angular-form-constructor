@@ -127,25 +127,13 @@
                 </span>
               </div>
               <ng-container *ngSwitchCase="'textarea'">
-                <textarea
-                  [id]="field.id"
-                  [formControlName]="field.id"
-                  (mousedown)="preventDefault($event)"
-                  class="form-control"></textarea>
+                <app-textarea [field]="field"></app-textarea>
               </ng-container>
               <ng-container *ngSwitchCase="'select'">
-                <select [id]="field.id" [formControlName]="field.id" class="form-select">
-                  <option *ngFor="let option of field.options" [value]="option.value" disabled>
-                    {{ option.name }}
-                  </option>
-                </select>
+                <app-select [field]="field" [hasOptions]="true"></app-select>
               </ng-container>
               <ng-container *ngSwitchCase="'country-dropdown'">
-                <select
-                  [id]="field.id"
-                  [formControlName]="field.id"
-                  class="form-select"
-                  (mousedown)="preventDefault($event)"></select>
+                <app-select [field]="field" [hasOptions]="false"></app-select>
               </ng-container>
               <ng-container *ngSwitchCase="'checkbox-group'">
                 <div *ngFor="let option of field.options" class="form-check">

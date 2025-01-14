@@ -1,0 +1,7 @@
+<select [id]="field.id" class="form-select" (mousedown)="preventDefault($event)">
+  <ng-container *ngIf="hasOptions">
+    <option *ngFor="let option of field.options" [value]="option.value" disabled>
+      {{ option.name }}
+    </option>
+  </ng-container>
+</select>

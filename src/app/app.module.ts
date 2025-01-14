@@ -13,6 +13,8 @@ import { FormFieldPropertiesComponent } from './components/ui/components/form-fi
 import { ConfirmationDialogComponent } from './components/shared/confirmation-dialog/confirmation-dialog.component';
 import { ConditionalLogicBlockComponent } from './components/ui/components/conditional-logic-block/conditional-logic-block.component';
 import { FormBuilderModule } from '@skireal/form-builder';
+import { TextareaComponent } from './components/ui/components/form-controls/textarea/textarea.component';
+import { SelectComponent } from './components/ui/components/form-controls/select/select.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { FormBuilderModule } from '@skireal/form-builder';
     UIFieldPropertiesComponent,
     FormFieldPropertiesComponent,
     ConfirmationDialogComponent,
-    ConditionalLogicBlockComponent
+    ConditionalLogicBlockComponent,
+    TextareaComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,
