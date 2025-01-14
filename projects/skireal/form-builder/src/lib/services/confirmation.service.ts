@@ -5,7 +5,7 @@ import {
   Injectable,
   Injector
 } from '@angular/core';
-import { ConfirmationDialogComponent } from 'src/app/components/shared/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from '../components/shared/confirmation-dialog/confirmation-dialog.component';
 
 @Injectable({
   providedIn: 'root'

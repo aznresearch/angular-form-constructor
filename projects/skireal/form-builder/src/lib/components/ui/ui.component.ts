@@ -287,7 +287,7 @@ export class UIComponent implements OnInit {
     return uniqueFieldTypes.includes(fieldType);
   }
 
-  getValuesForCsat(field: any): (number | string)[] {
+  getValuesForCsat(field: FormField): (number | string)[] {
     const values: (number | string)[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     if (field.hasNA) {
       values.push('N/A');
