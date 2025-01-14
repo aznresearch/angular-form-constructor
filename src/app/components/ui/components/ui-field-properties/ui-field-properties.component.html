@@ -1,0 +1,20 @@
+<div class="properties-form">
+  <button type="button" class="close-btn" aria-label="Close" (click)="closeSidebar()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h2>Edit Field Properties</h2>
+
+  <app-form-field-properties
+    [propertyForm]="propertyForm"
+    [selectedFieldType]="selectedFieldType"
+    [enableSetValidationOptions]="enableSetValidationOptions"
+    [isEditFieldProperties]="true"
+    [currentStep]="currentStep"
+    [stepsLength]="stepsLength"
+    [isSurvey]="isSurvey"></app-form-field-properties>
+
+  <div class="form-buttons">
+    <button type="button" class="btn btn-secondary" (click)="closeSidebar()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="saveFieldProperties()">Save</button>
+  </div>
+</div>

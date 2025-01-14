@@ -1,0 +1,160 @@
+.field-selector {
+  display: flex;
+
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  &__column {
+    &:first-child {
+      width: 45%;
+      padding-right: 20px;
+    }
+
+    &:last-child {
+      width: 55%;
+      padding-left: 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    h3 {
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+  &__item {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.2s;
+    background-color: transparent;
+    padding-left: 30px;
+    padding-right: 20px;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+
+    &:hover {
+      background-color: rgba(148, 169, 160, 0.3);
+    }
+
+    &--selected {
+      font-weight: bold;
+    }
+  }
+
+  &__buttons {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .btn {
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding-left: 0;
+}
+
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+  align-items: flex-start;
+  padding: 6px 12px;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none rgb(255, 255, 255) solid auto;
+  text-indent: 0;
+  text-shadow: none;
+  text-transform: none;
+  vertical-align: middle;
+  word-spacing: normal;
+  letter-spacing: normal;
+  line-height: 24px;
+  color: rgb(255, 255, 255);
+  background-color: rgba(169, 157, 184, 0.8);
+  border: 0.8px solid rgba(169, 157, 184, 0.8);
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+  text-rendering: auto;
+  appearance: auto;
+  &-sm {
+    padding: 3px 10px;
+    font-size: 0.75rem;
+  }
+}
+
+.btn-primary {
+  background-color: rgba(169, 157, 184, 0.8) !important;
+  border-color: rgba(169, 157, 184, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(169, 157, 184, 1) !important;
+    border-color: rgba(169, 157, 184, 1) !important;
+  }
+}
+
+.btn-secondary {
+  background-color: rgba(148, 169, 160, 0.8) !important;
+  border-color: rgba(148, 169, 160, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(148, 169, 160, 1) !important;
+    border-color: rgba(148, 169, 160, 1) !important;
+  }
+}
+
+.btn-danger {
+  background-color: rgba(230, 88, 88, 0.8) !important;
+  border-color: rgba(230, 88, 88, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(230, 88, 88, 1) !important;
+    border-color: rgba(230, 88, 88, 1) !important;
+  }
+}
+
+.btn-success {
+  background-color: rgba(81, 167, 76, 0.8) !important;
+  border-color: rgba(81, 167, 76, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(81, 167, 76, 1) !important;
+    border-color: rgba(81, 167, 76, 1) !important;
+  }
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: #000;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

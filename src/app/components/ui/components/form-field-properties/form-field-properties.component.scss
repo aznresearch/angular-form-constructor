@@ -1,0 +1,332 @@
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+  align-items: flex-start;
+  padding: 6px 12px;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none rgb(255, 255, 255) solid auto;
+  text-indent: 0;
+  text-shadow: none;
+  text-transform: none;
+  vertical-align: middle;
+  word-spacing: normal;
+  letter-spacing: normal;
+  line-height: 24px;
+  color: rgb(255, 255, 255);
+  background-color: rgba(169, 157, 184, 0.8);
+  border: 0.8px solid rgba(169, 157, 184, 0.8);
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+  text-rendering: auto;
+  appearance: auto;
+
+  &-sm {
+    padding: 3px 10px;
+    font-size: 0.75rem;
+  }
+}
+
+.btn-primary {
+  background-color: rgba(169, 157, 184, 0.8) !important;
+  border-color: rgba(169, 157, 184, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(169, 157, 184, 1) !important;
+    border-color: rgba(169, 157, 184, 1) !important;
+  }
+}
+
+.btn-secondary {
+  background-color: rgba(148, 169, 160, 0.8) !important;
+  border-color: rgba(148, 169, 160, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(148, 169, 160, 1) !important;
+    border-color: rgba(148, 169, 160, 1) !important;
+  }
+}
+
+.btn-danger {
+  background-color: rgba(230, 88, 88, 0.8) !important;
+  border-color: rgba(230, 88, 88, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(230, 88, 88, 1) !important;
+    border-color: rgba(230, 88, 88, 1) !important;
+  }
+}
+
+.btn-success {
+  background-color: rgba(81, 167, 76, 0.8) !important;
+  border-color: rgba(81, 167, 76, 0.8) !important;
+
+  &:hover,
+  &:active {
+    background-color: rgba(81, 167, 76, 1) !important;
+    border-color: rgba(81, 167, 76, 1) !important;
+  }
+}
+
+.form-control {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: start;
+  color: rgb(33, 37, 41);
+  background-color: rgb(255, 255, 255);
+  border: 0.8px solid rgb(222, 226, 230); /* border-width, border-style, border-color */
+  border-radius: 6px; /* border-radius */
+  box-shadow: none;
+  cursor: text;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  appearance: none;
+
+  &-sm {
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 3px;
+  }
+}
+
+.form-select {
+  display: block;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px 12px 6px 12px;
+  overflow: visible;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: start;
+  color: rgb(33, 37, 41);
+  background-color: rgb(255, 255, 255);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-position: calc(100% - 12px) 50%;
+  background-repeat: no-repeat;
+  background-size: 16px 12px;
+  border: 0.8px solid rgb(222, 226, 230); /* border-width, border-style, border-color */
+  border-radius: 6px; /* border-radius */
+  box-shadow: none;
+  cursor: default;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  appearance: none;
+  pointer-events: auto;
+
+  &:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.05rem rgba(13, 110, 253, 0.25);
+  }
+
+  &--w100 {
+    width: 100px;
+  }
+}
+
+.propertyForm {
+  &__label {
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &__array {
+    .form-select {
+      margin-bottom: 5px;
+    }
+
+    .form-control {
+      margin-bottom: 5px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__body {
+    .cdk-drag {
+      &:only-child {
+        .test-form__field-toolbar-icon {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+input {
+  box-sizing: border-box;
+}
+
+.form-row {
+  margin-bottom: 12px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.form-buttons {
+  margin-bottom: 5px;
+  margin-top: 5px;
+
+  display: flex;
+  align-items: center;
+
+  .btn {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.form-check {
+  display: flex;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+textarea {
+  resize: none;
+  font-family: sans-serif;
+}
+
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  display: inline-block;
+  font-family: bootstrap-icons !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: -0.125em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bi-arrows-move::before {
+  content: "\f14e";
+}
+
+.test-form {
+  padding-bottom: 50px;
+  &__header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  &__step {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+  }
+
+  &__body {
+    min-height: 200px;
+  }
+
+  &__block {
+    background-color: rgba(148, 169, 160, 0.15);
+    padding-bottom: 40px;
+    padding-top: 33px;
+    position: relative;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7ebba;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: rgba(148, 169, 160, 0.08);
+      .test-form__field-toolbar {
+        opacity: 1;
+      }
+
+      .test-form__field-label {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__field {
+    padding-left: 60px;
+    padding-right: 60px;
+
+    &-toolbar {
+      opacity: 0;
+      transition: 0.2s;
+      position: absolute;
+      left: 10px;
+      top: 7px;
+      display: flex;
+
+      &-icon {
+        display: block;
+        margin-right: 5px;
+        cursor: pointer;
+        position: relative;
+        padding: 2px;
+
+        &:before {
+          content: attr(data-tooltip);
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, -100%);
+          top: 0;
+
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 14px;
+          white-space: nowrap;
+          visibility: hidden;
+          opacity: 0;
+          transition: opacity 0.3s, visibility 0.3s;
+          z-index: 1;
+        }
+
+        &:hover:before {
+          visibility: visible;
+          opacity: 1;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        .bi {
+          &:before {
+            font-size: 16px;
+          }
+        }
+
+        &--move {
+          cursor: move;
+        }
+      }
+    }
+  }
+}
