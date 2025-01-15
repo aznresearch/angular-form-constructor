@@ -169,3 +169,44 @@ input.ng-invalid.ng-touched {
     box-shadow: 0 0 0 0.05rem rgba(13, 110, 253, 0.25);
   }
 }
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.row .col {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -12px;
+  margin-right: -12px;
+}
+.col {
+  flex: 1 0 0%;
+}
+
+.p-0 {
+  padding: 0 !important;
+}
+
+@media (min-width: 1200px) {
+  .col-xl-2 {
+    flex: 0 0 auto;
+    width: 16.66666667%;
+  }
+}

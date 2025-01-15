@@ -289,8 +289,8 @@ export class UIComponent implements OnInit {
     return values;
   }
 
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
+  toggleSidebar(): void {
+    this.isSidebarOpen = this.isFieldsInsertingOpen || this.isFieldPropertiesOpen;
   }
 
   toggleFieldsInsertingSidebar(isGeneral: boolean = false): void {

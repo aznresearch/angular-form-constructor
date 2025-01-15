@@ -14,6 +14,8 @@ import { TextareaComponent } from './components/ui/components/form-controls/text
 import { SelectComponent } from './components/ui/components/form-controls/select/select.component';
 import { CheckboxGroupComponent } from './components/ui/components/form-controls/checkbox-group/checkbox-group.component';
 import { CheckboxComponent } from './components/ui/components/form-controls/checkbox/checkbox.component';
+import { RadioComponent } from './components/ui/components/form-controls/radio/radio.component';
+import { LikertComponent } from './components/ui/components/form-controls/likert/likert.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CheckboxComponent } from './components/ui/components/form-controls/chec
     TextareaComponent,
     SelectComponent,
     CheckboxGroupComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    RadioComponent,
+    LikertComponent
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, DragDropModule],
   exports: [FormBuilderComponent],
