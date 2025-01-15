@@ -1,0 +1,9 @@
+<div *ngFor="let option of field.options" class="form-check">
+  <input
+    [id]="option.id"
+    type="checkbox"
+    [value]="option.value"
+    class="form-check-input"
+    (mousedown)="preventDefault($event)" />
+  <label [for]="option.id" class="form-check-label">{{ option.name }}</label>
+</div>

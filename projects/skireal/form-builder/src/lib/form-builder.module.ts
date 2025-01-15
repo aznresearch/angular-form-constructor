@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { ConfirmationDialogComponent } from './components/shared/confirmation-dialog/confirmation-dialog.component';
 import { TextareaComponent } from './components/ui/components/form-controls/textarea/textarea.component';
 import { SelectComponent } from './components/ui/components/form-controls/select/select.component';
+import { CheckboxGroupComponent } from './components/ui/components/form-controls/checkbox-group/checkbox-group.component';
+import { CheckboxComponent } from './components/ui/components/form-controls/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { SelectComponent } from './components/ui/components/form-controls/select
     ConfirmationDialogComponent,
     ConditionalLogicBlockComponent,
     TextareaComponent,
-    SelectComponent
+    SelectComponent,
+    CheckboxGroupComponent,
+    CheckboxComponent
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, DragDropModule],
   exports: [FormBuilderComponent],
