@@ -148,66 +148,13 @@
                 <app-radio [field]="field" [formGroup]="dynamicForm"></app-radio>
               </ng-container>
               <ng-container *ngSwitchCase="'likert'">
-                <app-likert [field]="field" [formGroup]="dynamicForm"></app-likert>
+                <app-likert [field]="field"></app-likert>
               </ng-container>
               <ng-container *ngSwitchCase="'csat'">
-                <div class="csat__container">
-                  <div class="row">
-                    <div class="col text-center">
-                      <h3>{{ field.title }}</h3>
-                    </div>
-                  </div>
-                  <div class="row text-center">
-                    <div class="col" *ngFor="let value of getValuesForCsat(field)">
-                      <label>{{ value }}</label>
-                      <input
-                        type="radio"
-                        class="form-check-input"
-                        [name]="field.id"
-                        [value]="value" />
-                    </div>
-                  </div>
-                </div>
+                <app-csat [field]="field"></app-csat>
               </ng-container>
-
               <ng-container *ngSwitchCase="'nps'">
-                <div class="nps__container">
-                  <div class="row">
-                    <div class="col text-center">
-                      <h3>{{ field.title }}</h3>
-                      <p>{{ field.description }}</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col text-left">
-                      <p>{{ field.firstAnswer }}</p>
-                    </div>
-                    <div class="col text-right">
-                      <p>{{ field.lastAnswer }}</p>
-                    </div>
-                  </div>
-                  <div class="row text-center">
-                    <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
-                      <label>{{ value }}</label>
-                      <input
-                        type="radio"
-                        class="form-check-input"
-                        [name]="field.id"
-                        [value]="value" />
-                    </div>
-                  </div>
-                  <ng-container *ngIf="field.comment?.commentId">
-                    <div class="row">
-                      <div class="col">
-                        <h3>{{ field.comment.commentTitle }}</h3>
-                        <p>{{ field.comment.commentSubtitle }}</p>
-                        <textarea
-                          (mousedown)="preventDefault($event)"
-                          class="form-control"></textarea>
-                      </div>
-                    </div>
-                  </ng-container>
-                </div>
+                <app-nps [field]="field"></app-nps>
               </ng-container>
 
               <ng-container *ngSwitchCase="'qe'">

@@ -142,120 +142,19 @@
                 <app-checkbox [field]="field"></app-checkbox>
               </ng-container>
               <ng-container *ngSwitchCase="'radio'">
-                <div *ngFor="let option of field.options" class="form-check">
-                  <input
-                    [id]="field.id + option.value"
-                    type="radio"
-                    [formControlName]="field.id"
-                    [value]="option.value"
-                    class="form-check-input" />
-                  <label [for]="field.id + option.value" class="form-check-label">{{
-                    option.name
-                  }}</label>
-                </div>
+                <app-radio [field]="field"></app-radio>
               </ng-container>
               <ng-container *ngSwitchCase="'need-contact'">
-                <div *ngFor="let option of field.options" class="form-check">
-                  <input
-                    [id]="field.id + option.value"
-                    type="radio"
-                    [formControlName]="field.id"
-                    [value]="option.value"
-                    class="form-check-input" />
-                  <label [for]="field.id + option.value" class="form-check-label">{{
-                    option.name
-                  }}</label>
-                </div>
+                <app-radio [field]="field" [formGroup]="dynamicForm"></app-radio>
               </ng-container>
-
               <ng-container *ngSwitchCase="'likert'">
-                <div class="answer__container-table">
-                  <div class="row answer__container-row border-0">
-                    <div class="col text-center answer__container-column p-0">
-                      <h3>{{ field.title }}</h3>
-                      <p>{{ field.description }}</p>
-                    </div>
-                  </div>
-                  <div class="row text-center">
-                    <div class="col-xl-2 text-right">
-                      <span>{{ field.optionsTitle }}</span>
-                    </div>
-                    <div *ngFor="let option of field.options" class="col text-center">
-                      <span>{{ option.name }}</span>
-                    </div>
-                  </div>
-                  <div *ngFor="let row of field.rows" class="row text-center">
-                    <div class="col-xl-2 text-left">
-                      {{ row.title }}
-                    </div>
-                    <div class="col text-center" *ngFor="let option of field.options">
-                      <input
-                        type="radio"
-                        class="form-check-input"
-                        [name]="field.id + row.title"
-                        [value]="option.value" />
-                    </div>
-                  </div>
-                </div>
+                <app-likert [field]="field" в></app-likert>
               </ng-container>
               <ng-container *ngSwitchCase="'csat'">
-                <div class="csat__container">
-                  <div class="row">
-                    <div class="col text-center">
-                      <h3>{{ field.title }}</h3>
-                    </div>
-                  </div>
-                  <div class="row text-center">
-                    <div class="col" *ngFor="let value of getValuesForCsat(field)">
-                      <label>{{ value }}</label>
-                      <input
-                        type="radio"
-                        class="form-check-input"
-                        [name]="field.id"
-                        [value]="value" />
-                    </div>
-                  </div>
-                </div>
+                <app-csat [field]="field"></app-csat>
               </ng-container>
-
               <ng-container *ngSwitchCase="'nps'">
-                <div class="nps__container">
-                  <div class="row">
-                    <div class="col text-center">
-                      <h3>{{ field.title }}</h3>
-                      <p>{{ field.description }}</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col text-left">
-                      <p>{{ field.firstAnswer }}</p>
-                    </div>
-                    <div class="col text-right">
-                      <p>{{ field.lastAnswer }}</p>
-                    </div>
-                  </div>
-                  <div class="row text-center">
-                    <div class="col" *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
-                      <label>{{ value }}</label>
-                      <input
-                        type="radio"
-                        class="form-check-input"
-                        [name]="field.id"
-                        [value]="value" />
-                    </div>
-                  </div>
-                  <ng-container *ngIf="field.comment?.commentId">
-                    <div class="row">
-                      <div class="col">
-                        <h3>{{ field.comment.commentTitle }}</h3>
-                        <p>{{ field.comment.commentSubtitle }}</p>
-                        <textarea
-                          (mousedown)="preventDefault($event)"
-                          class="form-control"></textarea>
-                      </div>
-                    </div>
-                  </ng-container>
-                </div>
+                <app-nps [field]="field"></app-nps>
               </ng-container>
 
               <ng-container *ngSwitchCase="'qe'">

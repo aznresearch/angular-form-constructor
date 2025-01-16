@@ -19,6 +19,8 @@ import { CheckboxGroupComponent } from './components/ui/components/form-controls
 import { CheckboxComponent } from './components/ui/components/form-controls/checkbox/checkbox.component';
 import { RadioComponent } from './components/ui/components/form-controls/radio/radio.component';
 import { LikertComponent } from './components/ui/components/form-controls/likert/likert.component';
+import { CsatComponent } from './components/ui/components/form-controls/csat/csat.component';
+import { NpsComponent } from './components/ui/components/form-controls/nps/nps.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { LikertComponent } from './components/ui/components/form-controls/likert
     CheckboxGroupComponent,
     CheckboxComponent,
     RadioComponent,
-    LikertComponent
+    LikertComponent,
+    CsatComponent,
+    NpsComponent
   ],
   imports: [
     BrowserModule,

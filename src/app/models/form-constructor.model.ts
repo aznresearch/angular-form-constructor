@@ -20,6 +20,7 @@ export interface FormField extends Field {
   warningMessage?: string;
   defaultValue?: string;
   hasNA?: boolean;
+  optionsTitle?: string;
 }
 
 export interface Field {
