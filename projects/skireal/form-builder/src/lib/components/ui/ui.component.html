@@ -158,91 +158,10 @@
               </ng-container>
 
               <ng-container *ngSwitchCase="'qe'">
-                <div class="qe__container">
-                  <div class="row">
-                    <div class="col">
-                      <h3>{{ field.title }}</h3>
-                      <p>{{ field.description }}</p>
-                    </div>
-                  </div>
-                  <ng-container *ngFor="let qeScale of field.qeScales; let qeScaleIndex = index">
-                    <div class="qe-scale__container">
-                      <div class="row">
-                        <div class="col">
-                          <h3>{{ qeScale.title }}</h3>
-                          <p>{{ qeScale.subtitle }}</p>
-                        </div>
-                      </div>
-
-                      <ng-container *ngIf="qeScale.qeScaleChildren.length == 0">
-                        <div class="row">
-                          <div class="col text-left">
-                            <p>{{ field.firstAnswer }}</p>
-                          </div>
-                          <div class="col text-right">
-                            <p>{{ field.lastAnswer }}</p>
-                          </div>
-                        </div>
-                        <div class="row text-center">
-                          <div
-                            class="col"
-                            *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'N/A']">
-                            <label>{{ value }}</label>
-                            <input
-                              type="radio"
-                              class="form-check-input"
-                              [name]="'qeScale_' + field.id + '_' + qeScaleIndex"
-                              [value]="value" />
-                          </div>
-                        </div>
-                      </ng-container>
-                    </div>
-                    <ng-container
-                      *ngIf="qeScale.qeScaleChildren && qeScale.qeScaleChildren.length > 0">
-                      <div class="qe-scale__child">
-                        <ng-container
-                          *ngFor="let child of qeScale.qeScaleChildren; let childIndex = index">
-                          <div class="row">
-                            <div class="col">
-                              <h3>{{ child.title }}</h3>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col text-left">
-                              <p>{{ field.firstAnswer }}</p>
-                            </div>
-                            <div class="col text-right">
-                              <p>{{ field.lastAnswer }}</p>
-                            </div>
-                          </div>
-                          <div class="row text-center">
-                            <div
-                              class="col"
-                              *ngFor="let value of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'N/A']">
-                              <label>{{ value }}</label>
-                              <input
-                                type="radio"
-                                class="form-check-input"
-                                [name]="
-                                  'qeScaleChild_' + field.id + '_' + qeScaleIndex + '_' + childIndex
-                                "
-                                [value]="value" />
-                            </div>
-                          </div>
-                        </ng-container>
-                      </div>
-                    </ng-container>
-                  </ng-container>
-                </div>
+                <app-qe [field]="field"></app-qe>
               </ng-container>
               <ng-container *ngSwitchDefault>
-                <input
-                  [id]="field.id"
-                  [type]="text"
-                  [formControlName]="field.id"
-                  class="form-control"
-                  (mousedown)="preventDefault($event)"
-                  (click)="preventDefault($event)" />
+                <app-text [field]="field"></app-text>
               </ng-container>
             </div>
           </div>

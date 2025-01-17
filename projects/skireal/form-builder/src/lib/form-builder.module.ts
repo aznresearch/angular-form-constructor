@@ -18,6 +18,8 @@ import { RadioComponent } from './components/ui/components/form-controls/radio/r
 import { LikertComponent } from './components/ui/components/form-controls/likert/likert.component';
 import { CsatComponent } from './components/ui/components/form-controls/csat/csat.component';
 import { NpsComponent } from './components/ui/components/form-controls/nps/nps.component';
+import { QeComponent } from './components/ui/components/form-controls/qe/qe.component';
+import { TextComponent } from './components/ui/components/form-controls/text/text.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { NpsComponent } from './components/ui/components/form-controls/nps/nps.c
     RadioComponent,
     LikertComponent,
     CsatComponent,
-    NpsComponent
+    NpsComponent,
+    QeComponent,
+    TextComponent
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, DragDropModule],
   exports: [FormBuilderComponent],
