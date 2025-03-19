@@ -204,12 +204,12 @@ export const fieldsByType: Record<string, Field[]> = {
     { id: 'lastAnswer', name: 'Last answer', isArray: false },
     {
       id: 'qeScales',
-      name: 'QE Groups',
+      name: 'QE Scales',
       isArray: true,
       children: [
         {
           id: 'qeScaleChildren',
-          name: 'QE Scales',
+          name: 'QE Scale Children',
           isArray: true,
           parentArray: 'qeScales'
         }
