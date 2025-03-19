@@ -62,6 +62,9 @@ export class UIFieldsInsertingComponent implements OnInit {
   }
 
   selectField(fieldType: string) {
+    if (fieldType === this.selectedFieldType) {
+      return;
+    }
     this.selectedFiledType = fieldType;
 
     if (this.isFormCreated && this.selectedFieldType !== fieldType) {
