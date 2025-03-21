@@ -114,6 +114,7 @@
                   ><i class="bi bi-pencil"></i
                 ></span>
                 <span
+                  *ngIf="!(field.type | isFieldUnique)"
                   class="test-form__field-toolbar-icon"
                   data-tooltip="Copy"
                   (click)="copyField(field, false)"

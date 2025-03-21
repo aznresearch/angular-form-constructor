@@ -23,6 +23,7 @@ import { CsatComponent } from './components/ui/components/form-controls/csat/csa
 import { NpsComponent } from './components/ui/components/form-controls/nps/nps.component';
 import { QeComponent } from './components/ui/components/form-controls/qe/qe.component';
 import { TextComponent } from './components/ui/components/form-controls/text/text.component';
+import { IsFieldUniquePipe } from './pipes/is-field-unique.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { TextComponent } from './components/ui/components/form-controls/text/tex
     CsatComponent,
     NpsComponent,
     QeComponent,
-    TextComponent
+    TextComponent,
+    IsFieldUniquePipe
   ],
   imports: [
     BrowserModule,
