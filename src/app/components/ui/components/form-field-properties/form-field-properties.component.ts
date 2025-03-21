@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { validatorTypes, withoutValueValidatorTypes } from 'src/app/constants/ui-constants';
-import { FormField, Option } from 'src/app/models/form-constructor.model';
+import { FormField } from 'src/app/models/form-constructor.model';
 import { UiFormService } from 'src/app/services/ui-form.service';
 
 @Component({
@@ -101,11 +101,15 @@ export class FormFieldPropertiesComponent implements OnInit {
     return this.isFieldVisible[groupName];
   }
 
-  onDrop(event: CdkDragDrop<Option[]>) {
-    const formArray = event.container.data;
-    moveItemInArray(formArray, event.previousIndex, event.currentIndex);
-    const formGroupArray = this.propertyForm?.get('options') as FormArray;
-    const reorderedValues = formGroupArray.controls.map((control) => control.value);
-    formGroupArray.setValue(reorderedValues);
+  onDrop(event: CdkDragDrop<FormArray>) {
+    const formArrayName = event.container.element.nativeElement.getAttribute('formArrayName');
+    if (!formArrayName) return;
+
+    const formArray = this.propertyForm?.get(formArrayName) as FormArray;
+    if (!formArray) return;
+
+    moveItemInArray(formArray.controls, event.previousIndex, event.currentIndex);
+    const reorderedValues = formArray.controls.map((control) => control.value);
+    formArray.setValue(reorderedValues);
   }
 }

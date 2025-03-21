@@ -198,23 +198,38 @@
         </div>
       </div>
 
-      <div *ngSwitchCase="'rows'" formArrayName="rows" class="propertyForm__array">
+      <div
+        *ngSwitchCase="'rows'"
+        formArrayName="rows"
+        class="propertyForm__array"
+        cdkDropList
+        [cdkDropListData]="propertyForm?.get('rows')?.controls"
+        (cdkDropListDropped)="onDrop($event)">
         <label class="propertyForm__label">{{ field.name }}</label>
-        <div
-          *ngFor="let rowControl of propertyForm?.get('rows')?.controls; let i = index"
-          [formGroupName]="i">
-          <input
-            class="form-control form-control-sm"
-            type="text"
-            formControlName="title"
-            placeholder="Row Title" />
-          <div class="form-buttons">
-            <button
-              class="btn btn-danger btn-sm"
-              type="button"
-              (click)="removeControlFromFormArray('rows', i)">
-              Remove Row
-            </button>
+        <div class="propertyForm__body">
+          <div
+            *ngFor="let rowControl of propertyForm?.get('rows')?.controls; let i = index"
+            [formGroupName]="i"
+            cdkDrag>
+            <input
+              class="form-control form-control-sm"
+              type="text"
+              formControlName="title"
+              placeholder="Row Title" />
+            <div class="form-buttons">
+              <button
+                class="btn btn-danger btn-sm"
+                type="button"
+                (click)="removeControlFromFormArray('rows', i)">
+                Remove Row
+              </button>
+              <span
+                class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
+                data-tooltip="Move"
+                cdkDragHandle>
+                <i class="bi bi-arrows-move"></i>
+              </span>
+            </div>
           </div>
         </div>
         <div class="form-buttons">
