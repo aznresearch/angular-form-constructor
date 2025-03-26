@@ -21,6 +21,7 @@ export enum FormFieldType {
   Phone = 'phone',
   Likert = 'likert',
   Csat = 'csat',
+  CES = 'ces',
   NPS = 'nps',
   QE = 'qe',
   ContactName = 'contact-name',
@@ -57,6 +58,7 @@ export const formFieldTypes: FormFieldType[] = [
   FormFieldType.Phone,
   FormFieldType.Likert,
   FormFieldType.Csat,
+  FormFieldType.CES,
   FormFieldType.NPS,
   FormFieldType.QE
 ];
@@ -72,6 +74,7 @@ export const surveyFieldTypes: FormFieldType[] = [
   FormFieldType.Radio,
   FormFieldType.Likert,
   FormFieldType.Csat,
+  FormFieldType.CES,
   FormFieldType.NPS,
   FormFieldType.QE,
   FormFieldType.NeedContact,
@@ -97,6 +100,7 @@ export const fieldTypesNames: FieldTypesNames = {
   [FormFieldType.Phone]: 'Phone Number',
   [FormFieldType.Likert]: 'Likert Scale',
   [FormFieldType.Csat]: 'CSAT Scale',
+  [FormFieldType.CES]: 'CES Scale',
   [FormFieldType.NPS]: 'NPS Scale',
   [FormFieldType.QE]: 'QE Group',
   [FormFieldType.NeedContact]: 'Need Contact',
@@ -182,6 +186,7 @@ export const fieldsByType: Record<string, Field[]> = {
     { id: 'lastAnswer', name: 'Last answer', isArray: false },
     { id: 'hasNA', name: 'Has N/A', isArray: false }
   ],
+  [FormFieldType.CES]: [...commonFields, { id: 'hasNA', name: 'Has N/A', isArray: false }],
   [FormFieldType.NPS]: [
     ...commonFields,
     {

@@ -91,6 +91,7 @@
               *ngIf="
                 field.type !== 'likert' &&
                 field.type !== 'csat' &&
+                field.type !== 'ces' &&
                 field.type !== 'qe' &&
                 field.type !== 'nps'
               ">
@@ -152,6 +153,9 @@
                 <app-likert [field]="field" в></app-likert>
               </ng-container>
               <ng-container *ngSwitchCase="'csat'">
+                <app-csat [field]="field"></app-csat>
+              </ng-container>
+              <ng-container *ngSwitchCase="'ces'">
                 <app-csat [field]="field"></app-csat>
               </ng-container>
               <ng-container *ngSwitchCase="'nps'">
