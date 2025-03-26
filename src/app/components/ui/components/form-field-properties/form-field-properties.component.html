@@ -257,7 +257,18 @@
 
       <ng-container *ngSwitchCase="'required'">
         <ng-container *ngIf="!enableSetValidationOptions">
-          <ng-container *ngTemplateOutlet="defaultCheckbox; context: { field: field }">
+          <ng-container
+            *ngTemplateOutlet="
+              defaultCheckbox;
+              context: {
+                field: field,
+                isDisabled:
+                  ['0', '1'].includes(needContactDefaultValue) &&
+                  ['contact-name', 'contact-surname', 'contact-email', 'contact-phone'].includes(
+                    selectedFieldType
+                  )
+              }
+            ">
           </ng-container>
         </ng-container>
       </ng-container>
@@ -311,14 +322,15 @@
     </div>
   </ng-container>
 
-  <ng-template #defaultCheckbox let-field="field">
+  <ng-template #defaultCheckbox let-field="field" let-isDisabled="isDisabled">
     <div class="propertyForm__array">
       <div class="form-group form-check">
         <input
           [id]="field.id"
           type="checkbox"
           [formControlName]="field.id"
-          class="form-check-input" />
+          class="form-check-input"
+          [attr.disabled]="isDisabled ? true : null" />
         <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
       </div>
     </div>

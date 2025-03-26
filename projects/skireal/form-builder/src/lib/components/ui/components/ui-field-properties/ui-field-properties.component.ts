@@ -23,6 +23,7 @@ export class UIFieldPropertiesComponent implements OnInit {
   @Input() currentStep = 0;
   @Input() stepsLength = 1;
   @Input() field: FormField = { id: '', name: '' };
+  @Input() needContactDefaultValue: string | undefined;
 
   propertyForm: FormGroup = this.fb.group({});
   selectedFieldType = '';

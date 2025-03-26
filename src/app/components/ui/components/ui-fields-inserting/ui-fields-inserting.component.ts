@@ -26,6 +26,7 @@ export class UIFieldsInsertingComponent implements OnInit {
   @Input() enableSetValidationOptions = false;
   @Input() isSurvey = true;
   @Input() usedFieldTypes: FormFieldType[] = [];
+  @Input() needContactDefaultValue: string | undefined;
 
   selectedFieldType!: FormFieldType;
   propertyForm: FormGroup = this.fb.group({});

@@ -18,6 +18,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   @Input() isSurvey = true;
   @Input() currentStep = 0;
   @Input() stepsLength = 1;
+  @Input() needContactDefaultValue: string | undefined;
 
   validatorOptions = validatorTypes;
   fieldsToCreate: FormField[] = [];

@@ -251,6 +251,7 @@
       [enableSetValidationOptions]="enableSetValidationOptions"
       [isSurvey]="isSurvey"
       [usedFieldTypes]="usedFieldTypes"
+      [needContactDefaultValue]="needContactDefaultValue"
       (propertiesSaved)="onPropertiesSave($event)"
       (sidebarClosed)="toggleFieldsInsertingSidebar()">
     </app-ui-fields-inserting>
@@ -261,6 +262,7 @@
       [isSurvey]="isSurvey"
       [currentStep]="currentStep"
       [stepsLength]="formData.formData.steps.length"
+      [needContactDefaultValue]="needContactDefaultValue"
       (propertiesSaved)="onPropertiesSaveAfterEdit($event)"
       (sidebarClosed)="toggleFieldPropertiesSidebar()">
     </app-ui-field-properties>
