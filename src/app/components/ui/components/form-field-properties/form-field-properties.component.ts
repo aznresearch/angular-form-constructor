@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { validatorTypes, withoutValueValidatorTypes } from 'src/app/constants/ui-constants';
 import { FormField } from 'src/app/models/form-constructor.model';
@@ -18,6 +18,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   @Input() isSurvey = true;
   @Input() currentStep = 0;
   @Input() stepsLength = 1;
+  @Input() needContactDefaultValue: string | undefined;
 
   validatorOptions = validatorTypes;
   fieldsToCreate: FormField[] = [];
@@ -30,6 +31,13 @@ export class FormFieldPropertiesComponent implements OnInit {
     this.subscribeToFieldsToCreate();
     this.initializeSteps();
     this.initializeStepControl();
+    this.setRequiredCheckbox();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.selectedFieldType) {
+      this.setRequiredCheckbox();
+    }
   }
 
   subscribeToFieldsToCreate(): void {
@@ -111,5 +119,16 @@ export class FormFieldPropertiesComponent implements OnInit {
     moveItemInArray(formArray.controls, event.previousIndex, event.currentIndex);
     const reorderedValues = formArray.controls.map((control) => control.value);
     formArray.setValue(reorderedValues);
+  }
+
+  setRequiredCheckbox(): void {
+    if (
+      ['contact-name', 'contact-surname', 'contact-email', 'contact-phone'].includes(
+        this.selectedFieldType
+      ) &&
+      this.needContactDefaultValue
+    ) {
+      this.propertyForm?.get('required')?.setValue(this.needContactDefaultValue === '1');
+    }
   }
 }

@@ -44,7 +44,7 @@ export class UIComponent implements OnInit {
 
   currentStep = 0;
 
-  enableSetValidationOptions = true;
+  enableSetValidationOptions = false;
   isSurvey = true;
 
   selectedFormData: string | null = null;
@@ -56,6 +56,7 @@ export class UIComponent implements OnInit {
   isFieldPropertiesOpen = false;
   isGeneral = false;
   fieldToEdit: FormField = { id: '', name: '' };
+  needContactDefaultValue: string | undefined;
 
   constructor(
     private uiFormService: UiFormService,
@@ -165,6 +166,42 @@ export class UIComponent implements OnInit {
       addedFields: [...this.addedFields],
       conditionalLogicBlocks: [...this.conditionalLogicBlocks]
     };
+
+    const needContactField = this.findFieldInSteps('need-contact');
+    this.needContactDefaultValue = needContactField?.defaultValue;
+
+    if (
+      needContactField &&
+      needContactField.defaultValue !== undefined &&
+      !this.enableSetValidationOptions
+    ) {
+      this.updateRequiredFields(needContactField.defaultValue);
+    }
+  }
+
+  findFieldInSteps(fieldType: string): FormField | undefined {
+    for (const step of this.formData.formData.steps) {
+      const field = step.addedFields.find((f) => f.type === fieldType);
+      if (field) {
+        return field;
+      }
+    }
+    return undefined;
+  }
+
+  updateRequiredFields(value: string): void {
+    const isRequired = value === '1';
+
+    for (const step of this.formData.formData.steps) {
+      step.addedFields.forEach((field) => {
+        if (
+          field.type &&
+          ['contact-name', 'contact-surname', 'contact-email'].includes(field.type)
+        ) {
+          field.required = isRequired;
+        }
+      });
+    }
   }
 
   restoreFormDataFromLocalStorage() {
