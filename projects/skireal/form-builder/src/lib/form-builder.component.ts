@@ -13,6 +13,7 @@ export class FormBuilderComponent {
   @Input() isSurvey = true;
   @Input() incomingFormData = '';
   @Input() enableSetValidationOptions = false;
+  @Input() locale: Record<string, string> = {};
 
   @Output() jsonCreated: EventEmitter<string> = new EventEmitter<string>();
 

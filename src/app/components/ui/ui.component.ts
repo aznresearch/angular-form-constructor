@@ -16,6 +16,8 @@ import {
 import { UiFormService } from 'src/app/services/ui-form.service';
 import { FormDataService } from 'src/app/services/form-data.service';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
+import { LocaleService } from 'src/app/services/locale.service';
+import { locale } from 'src/app/constants/en';
 
 @Component({
   selector: 'app-ui',
@@ -44,7 +46,7 @@ export class UIComponent implements OnInit {
 
   currentStep = 0;
 
-  enableSetValidationOptions = false;
+  enableSetValidationOptions = true;
   isSurvey = true;
 
   selectedFormData: string | null = null;
@@ -57,16 +59,19 @@ export class UIComponent implements OnInit {
   isGeneral = false;
   fieldToEdit: FormField = { id: '', name: '' };
   needContactDefaultValue: string | undefined;
+  locale: Record<string, string> = locale;
 
   constructor(
     private uiFormService: UiFormService,
     private formDataService: FormDataService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private localeService: LocaleService
   ) {}
 
   ngOnInit(): void {
     this.restoreFormDataFromLocalStorage();
     this.createForm();
+    this.localeService.setLocale(this.locale);
   }
 
   createForm() {

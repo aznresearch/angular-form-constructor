@@ -24,6 +24,7 @@ import { NpsComponent } from './components/ui/components/form-controls/nps/nps.c
 import { QeComponent } from './components/ui/components/form-controls/qe/qe.component';
 import { TextComponent } from './components/ui/components/form-controls/text/text.component';
 import { IsFieldUniquePipe } from './pipes/is-field-unique.pipe';
+import { LocalizedPipe } from './pipes/localized.pipe';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { IsFieldUniquePipe } from './pipes/is-field-unique.pipe';
     NpsComponent,
     QeComponent,
     TextComponent,
-    IsFieldUniquePipe
+    IsFieldUniquePipe,
+    LocalizedPipe
   ],
   imports: [
     BrowserModule,

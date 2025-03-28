@@ -3,13 +3,13 @@
     <div class="form-row" [ngSwitch]="field.id">
       <div *ngSwitchCase="'validators'" formArrayName="validators" class="propertyForm__array">
         <ng-container *ngIf="enableSetValidationOptions">
-          <label class="propertyForm__label">{{ field.name }}</label>
+          <label class="propertyForm__label">{{ field.name | localized }}</label>
           <div
             *ngFor="let control of propertyForm?.get('validators')?.controls; let i = index"
             [formGroupName]="i">
             <div class="validator-group">
               <select formControlName="type" class="form-select">
-                <option value="" disabled>Select a validator</option>
+                <option value="" disabled>{{ "Select a validator" | localized }}</option>
                 <option *ngFor="let option of validatorOptions" [value]="option">
                   {{ option }}
                 </option>
@@ -19,18 +19,18 @@
                 class="form-control form-control-sm"
                 type="text"
                 formControlName="value"
-                placeholder="Value" />
+                placeholder="{{ 'Value' | localized }}" />
               <input
                 class="form-control form-control-sm"
                 type="text"
                 formControlName="errormsg"
-                placeholder="Error Message" />
+                placeholder="{{ 'Error Message' | localized }}" />
               <div class="form-buttons">
                 <button
                   class="btn btn-danger btn-sm"
                   type="button"
                   (click)="removeControlFromFormArray('validators', i)">
-                  Remove Validator
+                  {{ "Remove Validator" | localized }}
                 </button>
               </div>
             </div>
@@ -40,7 +40,7 @@
               class="btn btn-success btn-sm"
               type="button"
               (click)="addControlToFormArray('validators')">
-              Add Validator
+              {{ "Add Validator" | localized }}
             </button>
           </div>
         </ng-container>
@@ -53,7 +53,7 @@
         [cdkDropListData]="propertyForm?.get('options')?.controls"
         (cdkDropListDropped)="onDrop($event)">
         <ng-container *ngIf="selectedFieldType !== 'need-contact'">
-          <label class="propertyForm__label">{{ field.name }}</label>
+          <label class="propertyForm__label">{{ field.name | localized }}</label>
           <div class="propertyForm__body">
             <div
               *ngFor="let optionControl of propertyForm?.get('options')?.controls; let i = index"
@@ -63,27 +63,27 @@
                 class="form-control form-control-sm"
                 type="text"
                 formControlName="name"
-                placeholder="Option Text" />
+                placeholder="{{ 'Option Text' | localized }}" />
               <input
                 class="form-control form-control-sm"
                 type="text"
                 formControlName="value"
-                placeholder="Option Value" />
+                placeholder="{{ 'Option Value' | localized }}" />
               <input
                 class="form-control form-control-sm"
                 type="text"
                 formControlName="country"
-                placeholder="Option Country" />
+                placeholder="{{ 'Option Country' | localized }}" />
               <div class="form-buttons">
                 <button
                   class="btn btn-danger btn-sm"
                   type="button"
                   (click)="removeControlFromFormArray('options', i)">
-                  Remove Option
+                  {{ "Remove Option" | localized }}
                 </button>
                 <span
                   class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
-                  data-tooltip="Move"
+                  [attr.data-tooltip]="'Move' | localized"
                   cdkDragHandle>
                   <i class="bi bi-arrows-move"></i>
                 </span>
@@ -96,29 +96,29 @@
               class="btn btn-success btn-sm"
               type="button"
               (click)="addControlToFormArray('options')">
-              Add Option
+              {{ "Add Option" | localized }}
             </button>
           </div>
         </ng-container>
       </div>
       <div *ngSwitchCase="'comment'" formGroupName="comment" class="propertyForm__array">
-        <label class="propertyForm__label">{{ field.name }}</label>
+        <label class="propertyForm__label">{{ field.name | localized }}</label>
         <div *ngIf="shouldShowFields('comment')">
           <input
             class="form-control form-control-sm"
             type="text"
             formControlName="commentTitle"
-            placeholder="Comment title" />
+            placeholder="{{ 'Comment title' | localized }}" />
           <input
             class="form-control form-control-sm"
             type="text"
             formControlName="commentSubtitle"
-            placeholder="Comment subtitle" />
+            placeholder="{{ 'Comment subtitle' | localized }}" />
           <input
             class="form-control form-control-sm"
             type="text"
             formControlName="commentWarningMessage"
-            placeholder="Comment warning message" />
+            placeholder="{{ 'Comment warning message' | localized }}" />
         </div>
         <div class="form-buttons">
           <button
@@ -126,12 +126,16 @@
             [ngClass]="shouldShowFields('comment') ? 'btn-danger' : 'btn-success'"
             type="button"
             (click)="toggleFieldVisibility('comment')">
-            {{ shouldShowFields("comment") ? "Remove Comment" : "Add Comment" }}
+            {{
+              shouldShowFields("comment")
+                ? ("Remove Comment" | localized)
+                : ("Add Comment" | localized)
+            }}
           </button>
         </div>
       </div>
       <div *ngSwitchCase="'qeScales'" formArrayName="qeScales" class="propertyForm__array">
-        <label class="propertyForm__label">{{ field.name }}</label>
+        <label class="propertyForm__label">{{ field.name | localized }}</label>
         <div
           *ngFor="let qeScaleControl of propertyForm?.get('qeScales')?.controls; let i = index"
           [formGroupName]="i">
@@ -139,12 +143,12 @@
             class="form-control form-control-sm"
             type="text"
             formControlName="title"
-            placeholder="QE Scale Title" />
+            placeholder="{{ 'QE Scale Title' | localized }}" />
           <input
             class="form-control form-control-sm"
             type="text"
             formControlName="subtitle"
-            placeholder="QE Scale Subtitle" />
+            placeholder="{{ 'QE Scale Subtitle' | localized }}" />
 
           <div formArrayName="qeScaleChildren" class="qe-scale-child">
             <div
@@ -157,14 +161,14 @@
                 class="form-control form-control-sm"
                 type="text"
                 formControlName="title"
-                placeholder="QE Scale Child Title" />
+                placeholder="{{ 'QE Scale Child Title' | localized }}" />
 
               <div class="form-buttons">
                 <button
                   class="btn btn-danger btn-sm"
                   type="button"
                   (click)="removeControlFromFormArray('qeScales.' + i + '.qeScaleChildren', j)">
-                  Remove QE Scale Child
+                  {{ "Remove QE Scale Child" | localized }}
                 </button>
               </div>
             </div>
@@ -175,7 +179,7 @@
               class="btn btn-success btn-sm"
               type="button"
               (click)="addControlToFormArray('qeScaleChildren', 'qeScales', i)">
-              Add QE Scale Child
+              {{ "Add QE Scale Child" | localized }}
             </button>
           </div>
 
@@ -184,7 +188,7 @@
               class="btn btn-danger btn-sm"
               type="button"
               (click)="removeControlFromFormArray('qeScales', i)">
-              Remove QE Scale
+              {{ "Remove QE Scale" | localized }}
             </button>
           </div>
         </div>
@@ -194,7 +198,7 @@
             class="btn btn-success btn-sm"
             type="button"
             (click)="addControlToFormArray('qeScales')">
-            Add QE Scale
+            {{ "Add QE Scale" | localized }}
           </button>
         </div>
       </div>
@@ -206,7 +210,7 @@
         cdkDropList
         [cdkDropListData]="propertyForm?.get('rows')?.controls"
         (cdkDropListDropped)="onDrop($event)">
-        <label class="propertyForm__label">{{ field.name }}</label>
+        <label class="propertyForm__label">{{ field.name | localized }}</label>
         <div class="propertyForm__body">
           <div
             *ngFor="let rowControl of propertyForm?.get('rows')?.controls; let i = index"
@@ -216,17 +220,17 @@
               class="form-control form-control-sm"
               type="text"
               formControlName="title"
-              placeholder="Row Title" />
+              placeholder="{{ 'Row Title' | localized }}" />
             <div class="form-buttons">
               <button
                 class="btn btn-danger btn-sm"
                 type="button"
                 (click)="removeControlFromFormArray('rows', i)">
-                Remove Row
+                {{ "Remove Row" | localized }}
               </button>
               <span
                 class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
-                data-tooltip="Move"
+                [attr.data-tooltip]="'Move' | localized"
                 cdkDragHandle>
                 <i class="bi bi-arrows-move"></i>
               </span>
@@ -238,7 +242,7 @@
             class="btn btn-success btn-sm"
             type="button"
             (click)="addControlToFormArray('rows')">
-            Add Row
+            {{ "Add Row" | localized }}
           </button>
         </div>
       </div>
@@ -280,7 +284,7 @@
       <div *ngSwitchCase="'step'" class="propertyForm__array">
         <ng-container *ngIf="isEditFieldProperties && steps.length > 1">
           <div class="form-group">
-            <label class="propertyForm__label" for="stepSelect">{{ field.name }}</label>
+            <label class="propertyForm__label" for="stepSelect">{{ field.name | localized }}</label>
             <select
               [id]="field.id"
               [formControlName]="field.id"
@@ -292,7 +296,7 @@
       </div>
       <div *ngSwitchCase="'description'" class="propertyForm__array">
         <div class="form-group">
-          <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>
+          <label class="propertyForm__label" [for]="field.id">{{ field.name | localized }}</label>
           <textarea
             [id]="field.id"
             [formControlName]="field.id"
@@ -308,11 +312,11 @@
       </div>
       <div *ngSwitchCase="'defaultValue'" class="propertyForm__array">
         <div class="form-group">
-          <label class="propertyForm__label" for="field.id">{{ field.name }}</label>
+          <label class="propertyForm__label" for="field.id">{{ field.name | localized }}</label>
           <select [id]="field.id" [formControlName]="field.id" class="form-select">
             <option value="">N/A</option>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
+            <option value="1">{{ "Yes" | localized }}</option>
+            <option value="0">{{ "No" | localized }}</option>
           </select>
         </div>
       </div>
@@ -331,7 +335,7 @@
           [formControlName]="field.id"
           class="form-check-input"
           [attr.disabled]="isDisabled ? true : null" />
-        <label class="form-check-label" [for]="field.id">{{ field.name }}</label>
+        <label class="form-check-label" [for]="field.id">{{ field.name | localized }}</label>
       </div>
     </div>
   </ng-template>
@@ -339,7 +343,7 @@
   <ng-template #defaultInput let-field="field">
     <div class="propertyForm__array">
       <div class="form-group">
-        <label class="propertyForm__label" [for]="field.id">{{ field.name }}</label>
+        <label class="propertyForm__label" [for]="field.id">{{ field.name | localized }}</label>
         <input
           type="text"
           [id]="field.id"

@@ -2,7 +2,7 @@
   <button type="button" class="close-btn" aria-label="Close" (click)="closeSidebar()">
     <span aria-hidden="true">&times;</span>
   </button>
-  <h2>Edit Field Properties</h2>
+  <h2>{{ "Edit Field Properties" | localized }}</h2>
 
   <app-form-field-properties
     [propertyForm]="propertyForm"
@@ -15,7 +15,11 @@
     [needContactDefaultValue]="needContactDefaultValue"></app-form-field-properties>
 
   <div class="form-buttons">
-    <button type="button" class="btn btn-secondary" (click)="closeSidebar()">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="saveFieldProperties()">Save</button>
+    <button type="button" class="btn btn-secondary" (click)="closeSidebar()">
+      {{ "Cancel" | localized }}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="saveFieldProperties()">
+      {{ "Save" | localized }}
+    </button>
   </div>
 </div>

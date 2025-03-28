@@ -4,20 +4,21 @@
   </button>
   <div class="field-selector">
     <div class="field-selector__column">
-      <h2>Select a Field</h2>
+      <h2>{{ "Select a Field" | localized }}</h2>
       <ul>
         <li
           class="field-selector__item"
           *ngFor="let fieldType of availableFieldTypes"
           [ngClass]="{ 'field-selector__item--selected': selectedFieldType === fieldType }"
           (click)="selectField(fieldType)">
-          {{ fieldLabels[fieldType] }}
+          {{ fieldLabels[fieldType] | localized }}
         </li>
       </ul>
     </div>
+
     <div class="field-selector__column">
-      <h2>Add Options</h2>
-      <h3>{{ fieldLabels[selectedFieldType] }}</h3>
+      <h2>{{ "Add Options" | localized }}</h2>
+      <h3>{{ fieldLabels[selectedFieldType] | localized }}</h3>
       <div *ngIf="selectedFieldType">
         <div>
           <app-form-field-properties
@@ -28,9 +29,11 @@
             [needContactDefaultValue]="needContactDefaultValue"></app-form-field-properties>
         </div>
         <div class="field-selector__buttons">
-          <button type="button" class="btn btn-secondary" (click)="closeSidebar()">Cancel</button>
+          <button type="button" class="btn btn-secondary" (click)="closeSidebar()">
+            {{ "Cancel" | localized }}
+          </button>
           <button type="button" class="btn btn-primary" (click)="saveFieldProperties()">
-            Save
+            {{ "Save" | localized }}
           </button>
         </div>
       </div>

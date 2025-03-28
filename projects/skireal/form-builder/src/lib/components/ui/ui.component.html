@@ -7,7 +7,9 @@
         cdkDropList
         [cdkDropListData]="generalFields"
         (cdkDropListDropped)="onDrop($event)">
-        <h3 *ngIf="generalFields.length" class="test-form__step">General Fields</h3>
+        <h3 *ngIf="generalFields.length" class="test-form__step">
+          {{ "General Fields" | localized }}
+        </h3>
         <ng-container *ngFor="let field of generalFields">
           <div class="test-form__block" cdkDrag>
             <div class="test-form__label">
@@ -15,30 +17,30 @@
             </div>
             <div class="test-form__field" [ngSwitch]="field.type">
               <div class="test-form__field-label">
-                <span>{{ fieldLabels[field.type] }}</span>
+                <span>{{ fieldLabels[field.type] | localized }}</span>
               </div>
               <div class="test-form__field-toolbar">
                 <span
                   class="test-form__field-toolbar-icon"
-                  data-tooltip="Delete"
+                  [attr.data-tooltip]="'Delete' | localized"
                   (click)="removeField(field, true)"
                   ><i class="bi bi-trash"></i
                 ></span>
                 <span
                   class="test-form__field-toolbar-icon"
-                  data-tooltip="Edit"
+                  [attr.data-tooltip]="'Edit' | localized"
                   (click)="toggleFieldPropertiesSidebar(field, true)"
                   ><i class="bi bi-pencil"></i
                 ></span>
                 <span
                   class="test-form__field-toolbar-icon"
-                  data-tooltip="Copy"
+                  [attr.data-tooltip]="'Copy' | localized"
                   (click)="copyField(field, true)"
                   ><i class="bi bi-files"></i
                 ></span>
                 <span
                   class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
-                  data-tooltip="Move"
+                  [attr.data-tooltip]="'Move' | localized"
                   cdkDragHandle>
                   <i class="bi bi-arrows-move"></i>
                 </span>
@@ -83,7 +85,7 @@
         cdkDropList
         [cdkDropListData]="addedFields"
         (cdkDropListDropped)="onDrop($event)">
-        <h3 class="test-form__step">Step {{ currentStep + 1 }}</h3>
+        <h3 class="test-form__step">{{ "Step" | localized }} {{ currentStep + 1 }}</h3>
         <ng-container *ngFor="let field of addedFields">
           <div class="test-form__block" cdkDrag>
             <div
@@ -99,31 +101,31 @@
             </div>
             <div class="test-form__field" [ngSwitch]="field.type">
               <div class="test-form__field-label">
-                <span>{{ fieldLabels[field.type] }}</span>
+                <span>{{ fieldLabels[field.type] | localized }}</span>
               </div>
               <div class="test-form__field-toolbar">
                 <span
                   class="test-form__field-toolbar-icon"
-                  data-tooltip="Delete"
+                  [attr.data-tooltip]="'Delete' | localized"
                   (click)="removeField(field, false)"
                   ><i class="bi bi-trash"></i
                 ></span>
                 <span
                   class="test-form__field-toolbar-icon"
-                  data-tooltip="Edit"
+                  [attr.data-tooltip]="'Edit' | localized"
                   (click)="toggleFieldPropertiesSidebar(field, false)"
                   ><i class="bi bi-pencil"></i
                 ></span>
                 <span
                   *ngIf="!(field.type | isFieldUnique)"
                   class="test-form__field-toolbar-icon"
-                  data-tooltip="Copy"
+                  [attr.data-tooltip]="'Copy' | localized"
                   (click)="copyField(field, false)"
                   ><i class="bi bi-files"></i
                 ></span>
                 <span
                   class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
-                  data-tooltip="Move"
+                  [attr.data-tooltip]="'Move' | localized"
                   cdkDragHandle>
                   <i class="bi bi-arrows-move"></i>
                 </span>
@@ -185,38 +187,40 @@
     <div class="test-form__footer">
       <div class="test-form__buttons">
         <button class="btn btn-primary" (click)="toggleFieldsInsertingSidebar(false)">
-          Insert Field
+          {{ "Insert Field" | localized }}
         </button>
         <ng-container *ngIf="enableGeneralFields">
           <button class="btn btn-primary" (click)="toggleFieldsInsertingSidebar(true)">
-            Insert General Field
+            {{ "Insert General Field" | localized }}
           </button>
         </ng-container>
 
         <ng-container *ngIf="enableConditionalLogicBlocks">
           <button class="btn btn-primary" (click)="insertConditionalLogicBlock()">
-            Insert Conditional Logic Block
+            {{ "Insert Conditional Logic Block" | localized }}
           </button>
           <button
             class="btn btn-primary"
             (click)="saveCurrentStepData()"
             [disabled]="!conditionalLogicBlocks.length">
-            Save Conditional Logic Blocks Data
+            {{ "Save Conditional Logic Blocks Data" | localized }}
           </button>
         </ng-container>
       </div>
 
       <div class="test-form__buttons">
         <button *ngIf="currentStep > 0" class="btn btn-primary" (click)="goToPreviousStep()">
-          Previous Step
+          {{ "Previous Step" | localized }}
         </button>
-        <button class="btn btn-primary" (click)="goToNextStep()">Next Step</button>
-        <button class="btn btn-success" (click)="saveForm()">Save</button>
+        <button class="btn btn-primary" (click)="goToNextStep()">
+          {{ "Next Step" | localized }}
+        </button>
+        <button class="btn btn-success" (click)="saveForm()">{{ "Save" | localized }}</button>
       </div>
 
       <ng-container *ngIf="formData.formData.steps as steps">
         <ng-container *ngIf="steps.length > 0">
-          <span>Go to:</span>
+          <span>{{ "Go to" | localized }}:</span>
         </ng-container>
         <div class="test-form__stepButtons">
           <div
@@ -226,30 +230,35 @@
             <div class="stepButton__toolbar">
               <span
                 class="stepButton__toolbar-icon"
-                data-tooltip="Move step"
+                [attr.data-tooltip]="'Move step' | localized"
                 (click)="moveStep(i, 'prev')"
                 [ngClass]="{ 'stepButton__toolbar-icon--disabled': i === 0 }"
                 ><i class="bi bi-arrow-left"></i
               ></span>
               <span
                 class="stepButton__toolbar-icon"
-                data-tooltip="Move step"
+                [attr.data-tooltip]="'Move step' | localized"
                 (click)="moveStep(i, 'next')"
                 [ngClass]="{ 'stepButton__toolbar-icon--disabled': i === steps.length - 1 }"
                 ><i class="bi bi-arrow-right"></i
               ></span>
-              <span class="stepButton__toolbar-icon" data-tooltip="Copy step" (click)="copyStep(i)"
+              <span
+                class="stepButton__toolbar-icon"
+                [attr.data-tooltip]="'Copy step' | localized"
+                (click)="copyStep(i)"
                 ><i class="bi bi-files"></i
               ></span>
               <span
                 class="stepButton__toolbar-icon"
-                data-tooltip="Delete step"
+                [attr.data-tooltip]="'Delete step' | localized"
                 (click)="deleteStepConfirmation(i)"
                 [ngClass]="{ 'stepButton__toolbar-icon--disabled': steps.length === 1 }"
                 ><i class="bi bi-trash"></i
               ></span>
             </div>
-            <button class="btn btn-secondary" (click)="goToStep(i)">Step {{ i + 1 }}</button>
+            <button class="btn btn-secondary" (click)="goToStep(i)">
+              {{ "Step" | localized }} {{ i + 1 }}
+            </button>
           </div>
         </div>
       </ng-container>

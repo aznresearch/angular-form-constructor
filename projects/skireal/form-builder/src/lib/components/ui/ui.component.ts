@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
@@ -16,6 +16,7 @@ import {
 import { UiFormService } from '../../services/ui-form.service';
 import { FormDataService } from '../../services/form-data.service';
 import { ConfirmationService } from '../../services/confirmation.service';
+import { LocaleService } from '../../services/locale.service';
 
 @Component({
   selector: 'app-ui',
@@ -39,6 +40,7 @@ export class UIComponent implements OnInit {
     uniqueFormData: []
   };
   @Input() enableSetValidationOptions = false;
+  @Input() locale: Record<string, string> = {};
 
   @Output() saveClicked: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
 
@@ -72,12 +74,22 @@ export class UIComponent implements OnInit {
   constructor(
     private uiFormService: UiFormService,
     private formDataService: FormDataService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private localeService: LocaleService
   ) {}
 
   ngOnInit() {
     this.insertFormData();
     this.createForm();
+    if (this.locale) {
+      this.localeService.setLocale(this.locale);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['locale'] && this.locale) {
+      this.localeService.setLocale(this.locale);
+    }
   }
 
   createForm() {
