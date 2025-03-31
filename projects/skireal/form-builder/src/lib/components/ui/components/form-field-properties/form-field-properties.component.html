@@ -63,17 +63,20 @@
                 class="form-control form-control-sm"
                 type="text"
                 formControlName="name"
-                placeholder="{{ 'Option Text' | localized }}" />
+                placeholder="{{ 'Option Text' | localized }}"
+                [attr.maxlength]="300" />
               <input
                 class="form-control form-control-sm"
                 type="text"
                 formControlName="value"
-                placeholder="{{ 'Option Value' | localized }}" />
+                placeholder="{{ 'Option Value' | localized }}"
+                [attr.maxlength]="300" />
               <input
                 class="form-control form-control-sm"
                 type="text"
                 formControlName="country"
-                placeholder="{{ 'Option Country' | localized }}" />
+                placeholder="{{ 'Option Country' | localized }}"
+                [attr.maxlength]="2" />
               <div class="form-buttons">
                 <button
                   class="btn btn-danger btn-sm"
@@ -107,17 +110,20 @@
             class="form-control form-control-sm"
             type="text"
             formControlName="commentTitle"
-            placeholder="{{ 'Comment title' | localized }}" />
+            placeholder="{{ 'Comment title' | localized }}"
+            [attr.maxlength]="1000" />
           <input
             class="form-control form-control-sm"
             type="text"
             formControlName="commentSubtitle"
-            placeholder="{{ 'Comment subtitle' | localized }}" />
+            placeholder="{{ 'Comment subtitle' | localized }}"
+            [attr.maxlength]="3000" />
           <input
             class="form-control form-control-sm"
             type="text"
             formControlName="commentWarningMessage"
-            placeholder="{{ 'Comment warning message' | localized }}" />
+            placeholder="{{ 'Comment warning message' | localized }}"
+            [attr.maxlength]="1000" />
         </div>
         <div class="form-buttons">
           <button
@@ -142,12 +148,14 @@
             class="form-control form-control-sm"
             type="text"
             formControlName="title"
-            placeholder="{{ 'QE Scale Title' | localized }}" />
+            placeholder="{{ 'QE Scale Title' | localized }}"
+            [attr.maxlength]="1000" />
           <input
             class="form-control form-control-sm"
             type="text"
             formControlName="subtitle"
-            placeholder="{{ 'QE Scale Subtitle' | localized }}" />
+            placeholder="{{ 'QE Scale Subtitle' | localized }}"
+            [attr.maxlength]="3000" />
 
           <div formArrayName="qeScaleChildren" class="qe-scale-child">
             <div
@@ -160,7 +168,8 @@
                 class="form-control form-control-sm"
                 type="text"
                 formControlName="title"
-                placeholder="{{ 'QE Scale Child Title' | localized }}" />
+                placeholder="{{ 'QE Scale Child Title' | localized }}"
+                [attr.maxlength]="1000" />
 
               <div class="form-buttons">
                 <button
@@ -219,7 +228,8 @@
               class="form-control form-control-sm"
               type="text"
               formControlName="title"
-              placeholder="{{ 'Row Title' | localized }}" />
+              placeholder="{{ 'Row Title' | localized }}"
+              [attr.maxlength]="1000" />
             <div class="form-buttons">
               <button
                 class="btn btn-danger btn-sm"
@@ -300,7 +310,8 @@
             [formControlName]="field.id"
             [attr.placeholder]="field.placeholder ? field.placeholder : null"
             rows="3"
-            class="form-control"></textarea>
+            class="form-control"
+            [attr.maxlength]="3000"></textarea>
         </div>
       </div>
       <div *ngSwitchCase="'classes'" class="propertyForm__array">
@@ -347,7 +358,8 @@
           [id]="field.id"
           [formControlName]="field.id"
           [attr.placeholder]="field.placeholder ? field.placeholder : null"
-          class="form-control" />
+          class="form-control"
+          [attr.maxlength]="maxLengthMap[field.id]" />
       </div>
     </div>
   </ng-template>

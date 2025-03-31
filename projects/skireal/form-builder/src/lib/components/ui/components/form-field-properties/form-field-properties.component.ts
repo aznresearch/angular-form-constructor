@@ -1,7 +1,11 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
-import { validatorTypes, withoutValueValidatorTypes } from '../../../../constants/ui-constants';
+import {
+  maxLengthMap,
+  validatorTypes,
+  withoutValueValidatorTypes
+} from '../../../../constants/ui-constants';
 import { FormField } from '../../../../models/form-constructor.model';
 import { UiFormService } from '../../../../services/ui-form.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -25,6 +29,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   fieldsToCreate: FormField[] = [];
   steps: number[] = [];
   isFieldVisible: Record<string, boolean> = {};
+  maxLengthMap = maxLengthMap;
 
   constructor(private uiFormService: UiFormService) {}
 

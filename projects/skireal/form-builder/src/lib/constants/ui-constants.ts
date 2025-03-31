@@ -285,3 +285,10 @@ export const defaultValuesMap: Record<string, Record<string, any>> = {
     country: 'ZZ'
   }
 };
+
+export const maxLengthMap: Record<string, number> = {
+  placeholder: 250,
+  title: 1000,
+  warningMessage: 1000,
+  analyticsTitle: 250
+};
