@@ -3,4 +3,5 @@
   type="text"
   class="form-control"
   (mousedown)="preventDefault($event)"
-  (click)="preventDefault($event)" />
+  (click)="preventDefault($event)"
+  [attr.placeholder]="field.placeholder ? field.placeholder : null" />

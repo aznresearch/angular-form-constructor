@@ -1,1 +1,5 @@
-<textarea [id]="field.id" (mousedown)="preventDefault($event)" class="form-control"></textarea>
+<textarea
+  [id]="field.id"
+  (mousedown)="preventDefault($event)"
+  class="form-control"
+  [attr.placeholder]="field.placeholder ? field.placeholder : null"></textarea>
