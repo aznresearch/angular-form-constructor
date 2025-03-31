@@ -90,5 +90,6 @@ export const locale: Record<string, string> = {
   'Warning Message': 'Warning Message',
   'Move Row': 'Move Row',
   'Are you sure you want to complete field creation without saving?':
-    'Are you sure you want to complete field creation without saving?'
+    'Are you sure you want to complete field creation without saving?',
+  'Are you sure you want to delete this step?': 'Are you sure you want to delete this step?'
 };

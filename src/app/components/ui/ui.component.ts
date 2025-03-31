@@ -152,6 +152,9 @@ export class UIComponent implements OnInit {
   }
 
   goToNextStep() {
+    if (this.addedFields.length === 0) {
+      return;
+    }
     this.saveCurrentStepData();
     this.currentStep++;
     this.goToStep(this.currentStep);
@@ -251,6 +254,9 @@ export class UIComponent implements OnInit {
   }
 
   copyStep(index: number) {
+    if (this.addedFields.length === 0) {
+      return;
+    }
     const copiedStep = { ...this.formData.formData.steps[index] };
     copiedStep.addedFields = copiedStep.addedFields.map((field) => ({
       ...field,
@@ -280,7 +286,10 @@ export class UIComponent implements OnInit {
   }
 
   deleteStepConfirmation(index: number) {
-    this.confirmationService.open('Are you sure you want to delete this step?').then((result) => {
+    const localizedMessage =
+      this.localeService.getCurrentLocale()['Are you sure you want to delete this step?'] ||
+      'Are you sure you want to delete this step?';
+    this.confirmationService.open(localizedMessage).then((result) => {
       if (result) {
         this.deleteStep(index);
       }
