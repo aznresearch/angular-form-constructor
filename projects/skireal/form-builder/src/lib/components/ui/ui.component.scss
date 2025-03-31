@@ -200,10 +200,6 @@
       .test-form__field-toolbar {
         opacity: 1;
       }
-
-      .test-form__field-label {
-        opacity: 1;
-      }
     }
   }
 
@@ -218,8 +214,6 @@
 
     &-label {
       position: absolute;
-      opacity: 0;
-      transition: 0.2s;
       right: 10px;
       top: 5px;
 

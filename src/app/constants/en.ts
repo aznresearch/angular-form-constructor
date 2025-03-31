@@ -40,7 +40,7 @@ export const locale: Record<string, string> = {
   'Contact Surname': 'Contact Surname',
   'Contact Email': 'Contact Email',
   'Contact Phone': 'Contact Phone',
-  'Select a Field': 'Select a Field',
+  'Select a type of Field': 'Select a type of Field',
   'Add Options': 'Add Options',
   'Edit Field Properties': 'Edit Field Properties',
   Active: 'Active',
@@ -88,5 +88,7 @@ export const locale: Record<string, string> = {
   'Has Other': 'Has Other',
   'Has NA': 'Has NA',
   'Warning Message': 'Warning Message',
-  'Move Row': 'Move Row'
+  'Move Row': 'Move Row',
+  'Are you sure you want to complete field creation without saving?':
+    'Are you sure you want to complete field creation without saving?'
 };

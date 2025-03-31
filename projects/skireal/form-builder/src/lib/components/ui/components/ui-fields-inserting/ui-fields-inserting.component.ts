@@ -13,6 +13,7 @@ import {
 import { FormField } from '../../../../models/form-constructor.model';
 import { UiFormService } from '../../../../services/ui-form.service';
 import { ConfirmationService } from '../../../../services/confirmation.service';
+import { LocaleService } from '../../../../services/locale.service';
 
 @Component({
   selector: 'app-ui-fields-inserting',
@@ -39,7 +40,8 @@ export class UIFieldsInsertingComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private uiFormService: UiFormService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private localeService: LocaleService
   ) {}
 
   ngOnInit(): void {
@@ -69,13 +71,15 @@ export class UIFieldsInsertingComponent implements OnInit {
     this.selectedFiledType = fieldType;
 
     if (this.isFormCreated && this.selectedFieldType !== fieldType) {
-      this.confirmationService
-        .open('Are you sure you want to complete field creation without saving?')
-        .then((result) => {
-          if (result) {
-            this.resetFormAndSelectField(fieldType);
-          }
-        });
+      const localizedMessage =
+        this.localeService.getCurrentLocale()[
+          'Are you sure you want to complete field creation without saving?'
+        ] || 'Are you sure you want to complete field creation without saving?';
+      this.confirmationService.open(localizedMessage).then((result) => {
+        if (result) {
+          this.resetFormAndSelectField(fieldType);
+        }
+      });
     } else {
       this.resetFormAndSelectField(fieldType);
     }
