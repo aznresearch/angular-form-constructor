@@ -126,12 +126,72 @@ export class UIFieldsInsertingComponent implements OnInit {
   }
 
   saveFieldProperties() {
+    const requiredFields = this.getRequiredFields(this.selectedFieldType);
+    const missingFields = this.getMissingFields(requiredFields);
+
+    if (missingFields.length > 0) {
+      this.showMissingFieldsError(missingFields);
+      return;
+    }
+
     const fieldProperties = this.uiFormService.saveFieldProperties(
       this.propertyForm,
       this.selectedFieldType
     );
     this.propertiesSaved.emit(fieldProperties);
     this.sidebarClosed.emit();
+  }
+
+  getRequiredFields(fieldType: string): string[] {
+    const baseFields = ['title', 'analyticsTitle'];
+    const typeSpecificFields: Record<string, string[]> = {
+      select: ['options'],
+      'checkbox-group': ['options'],
+      radio: ['options'],
+      likert: ['options', 'rows'],
+      qe: ['qeScales']
+    };
+
+    return [...baseFields, ...(typeSpecificFields[fieldType] || [])];
+  }
+
+  getMissingFields(requiredFields: string[]): string[] {
+    return requiredFields.filter((field) => {
+      if (['options', 'rows', 'qeScales'].includes(field)) {
+        return this.isFieldArrayInvalid(field);
+      }
+
+      return !this.propertyForm.get(field)?.value?.trim();
+    });
+  }
+
+  isFieldArrayInvalid(field: string): boolean {
+    const fieldArray = this.propertyForm.get(field) as FormArray;
+    if (!fieldArray || fieldArray.length === 0) {
+      return true;
+    }
+
+    return fieldArray.controls.some((control) => {
+      const title = control.get('title')?.value?.trim();
+      const name = control.get('name')?.value?.trim();
+      const value = control.get('value')?.value?.trim();
+
+      const fieldChecks: Record<string, boolean> = {
+        rows: !title,
+        options: !name || !value,
+        qeScales: !title
+      };
+
+      return fieldChecks[field] ?? false;
+    });
+  }
+
+  showMissingFieldsError(missingFields: string[]): void {
+    const localizedMessage =
+      this.localeService.getCurrentLocale()['Please fill in all required fields'] ||
+      'Please fill in all required fields';
+
+    alert(`${localizedMessage}: ${missingFields.join(', ')}`);
   }
 
   closeSidebar() {

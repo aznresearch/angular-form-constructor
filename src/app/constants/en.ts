@@ -91,5 +91,6 @@ export const locale: Record<string, string> = {
   'Move Row': 'Move Row',
   'Are you sure you want to complete field creation without saving?':
     'Are you sure you want to complete field creation without saving?',
-  'Are you sure you want to delete this step?': 'Are you sure you want to delete this step?'
+  'Are you sure you want to delete this step?': 'Are you sure you want to delete this step?',
+  'Please fill in all required fields': 'Please fill in all required fields'
 };

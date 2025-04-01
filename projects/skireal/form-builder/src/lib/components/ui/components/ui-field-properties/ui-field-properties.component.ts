@@ -9,6 +9,7 @@ import {
   QeScaleChild
 } from '../../../../models/form-constructor.model';
 import { UiFormService } from '../../../../services/ui-form.service';
+import { LocaleService } from '../../../../services/locale.service';
 
 @Component({
   selector: 'app-ui-field-properties',
@@ -29,7 +30,11 @@ export class UIFieldPropertiesComponent implements OnInit {
   selectedFieldType = '';
   fieldsToCreate: FormField[] = [];
 
-  constructor(private fb: FormBuilder, private uiFormService: UiFormService) {}
+  constructor(
+    private fb: FormBuilder,
+    private uiFormService: UiFormService,
+    private localeService: LocaleService
+  ) {}
 
   ngOnInit(): void {
     this.selectedFieldType = this.field.type ?? '';
@@ -83,6 +88,14 @@ export class UIFieldPropertiesComponent implements OnInit {
   }
 
   saveFieldProperties() {
+    const requiredFields = this.getRequiredFields(this.selectedFieldType);
+    const missingFields = this.getMissingFields(requiredFields);
+
+    if (missingFields.length > 0) {
+      this.showMissingFieldsError(missingFields);
+      return;
+    }
+
     const updatedFieldProperties: FormField = {
       ...this.field,
       ...this.propertyForm.value,
@@ -124,6 +137,58 @@ export class UIFieldPropertiesComponent implements OnInit {
 
     this.propertiesSaved.emit(updatedFieldProperties);
     this.sidebarClosed.emit();
+  }
+
+  getRequiredFields(fieldType: string): string[] {
+    const baseFields = ['title', 'analyticsTitle'];
+    const typeSpecificFields: Record<string, string[]> = {
+      select: ['options'],
+      'checkbox-group': ['options'],
+      radio: ['options'],
+      likert: ['options', 'rows'],
+      qe: ['qeScales']
+    };
+
+    return [...baseFields, ...(typeSpecificFields[fieldType] || [])];
+  }
+
+  getMissingFields(requiredFields: string[]): string[] {
+    return requiredFields.filter((field) => {
+      if (['options', 'rows', 'qeScales'].includes(field)) {
+        return this.isFieldArrayInvalid(field);
+      }
+
+      return !this.propertyForm.get(field)?.value?.trim();
+    });
+  }
+
+  isFieldArrayInvalid(field: string): boolean {
+    const fieldArray = this.propertyForm.get(field) as FormArray;
+    if (!fieldArray || fieldArray.length === 0) {
+      return true;
+    }
+
+    return fieldArray.controls.some((control) => {
+      const title = control.get('title')?.value?.trim();
+      const name = control.get('name')?.value?.trim();
+      const value = control.get('value')?.value?.trim();
+
+      const fieldChecks: Record<string, boolean> = {
+        rows: !title,
+        options: !name || !value,
+        qeScales: !title
+      };
+
+      return fieldChecks[field] ?? false;
+    });
+  }
+
+  showMissingFieldsError(missingFields: string[]): void {
+    const localizedMessage =
+      this.localeService.getCurrentLocale()['Please fill in all required fields'] ||
+      'Please fill in all required fields';
+
+    alert(`${localizedMessage}: ${missingFields.join(', ')}`);
   }
 
   closeSidebar() {
