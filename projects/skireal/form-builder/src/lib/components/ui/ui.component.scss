@@ -216,16 +216,8 @@
       position: absolute;
       right: 10px;
       top: 5px;
-
-      span {
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 14px;
-        white-space: nowrap;
-        display: block;
-      }
+      display: flex;
+      align-items: flex-start;
     }
 
     &-toolbar {
@@ -431,5 +423,43 @@
 .qe-scale__child {
   h3 {
     font-size: 1em;
+  }
+}
+
+.field-label {
+  padding: 2px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  margin-right: 6px;
+  color: white;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &--required {
+    background-color: #d9534f;
+  }
+
+  &--active {
+    background-color: #5cb85c;
+  }
+
+  &--other {
+    background-color: #0275d8;
+  }
+
+  &--na {
+    background-color: #ce9229;
+  }
+
+  &--title {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 4px 8px;
+    font-size: 14px;
   }
 }
