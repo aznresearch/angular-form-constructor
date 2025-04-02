@@ -70,7 +70,11 @@ export class UIFieldsInsertingComponent implements OnInit {
     }
     this.selectedFiledType = fieldType;
 
-    if (this.isFormCreated && this.selectedFieldType !== fieldType) {
+    if (
+      this.isFormCreated &&
+      this.selectedFieldType !== fieldType &&
+      this.hasFilledRequiredFields()
+    ) {
       const localizedMessage =
         this.localeService.getCurrentLocale()[
           'Are you sure you want to complete field creation without saving?'
@@ -95,6 +99,13 @@ export class UIFieldsInsertingComponent implements OnInit {
     if (haveOptionsFieldTypes.includes(this.selectedFieldType)) {
       this.setDefaultOptionValues();
     }
+  }
+
+  hasFilledRequiredFields(): boolean {
+    const requiredFields = this.getRequiredFields(this.selectedFieldType);
+    const missingFields = this.getMissingFields(requiredFields);
+
+    return missingFields.length === 0;
   }
 
   setDefaultOptionValues() {
