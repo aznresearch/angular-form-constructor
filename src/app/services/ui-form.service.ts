@@ -167,8 +167,8 @@ export class UiFormService {
     return Math.floor(Math.random() * 100000000).toString();
   }
 
-  setFieldsToCreate(fieldType: string): void {
-    this.fieldsToCreate = fieldsByType[fieldType as FormFieldType];
+  setFieldsToCreate(fieldType: FormFieldType): void {
+    this.fieldsToCreate = fieldsByType[fieldType];
     this.fieldsToCreateSubject.next(this.fieldsToCreate);
   }
 

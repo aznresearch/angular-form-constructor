@@ -64,7 +64,7 @@ export class UIFieldsInsertingComponent implements OnInit {
     );
   }
 
-  selectField(fieldType: string) {
+  selectField(fieldType: FormFieldType) {
     if (fieldType === this.selectedFieldType) {
       return;
     }
@@ -89,7 +89,7 @@ export class UIFieldsInsertingComponent implements OnInit {
     }
   }
 
-  resetFormAndSelectField(fieldType: string) {
+  resetFormAndSelectField(fieldType: FormFieldType) {
     const foundFieldType = this.availableFieldTypes.find((field) => field === fieldType);
     if (foundFieldType) {
       this.selectedFieldType = foundFieldType;

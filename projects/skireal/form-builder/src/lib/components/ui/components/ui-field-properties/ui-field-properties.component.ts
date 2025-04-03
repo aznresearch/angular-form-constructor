@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { arrayProperties, fieldsByType } from '../../../../constants/ui-constants';
+import {
+  arrayProperties,
+  fieldsByType,
+  fieldTypesNames,
+  FieldTypesNames,
+  FormFieldType
+} from '../../../../constants/ui-constants';
 import {
   FieldItem,
   FormField,
@@ -27,8 +33,9 @@ export class UIFieldPropertiesComponent implements OnInit {
   @Input() needContactDefaultValue: string | undefined;
 
   propertyForm: FormGroup = this.fb.group({});
-  selectedFieldType = '';
+  selectedFieldType!: FormFieldType;
   fieldsToCreate: FormField[] = [];
+  fieldLabels: FieldTypesNames = fieldTypesNames;
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +44,9 @@ export class UIFieldPropertiesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.selectedFieldType = this.field.type ?? '';
+    this.selectedFieldType = Object.values(FormFieldType).includes(this.field.type as FormFieldType)
+      ? (this.field.type as FormFieldType)
+      : FormFieldType.Text;
     this.uiFormService.setFieldsToCreate(this.selectedFieldType);
     this.createPropertyForm();
     this.patchFieldProperties();
