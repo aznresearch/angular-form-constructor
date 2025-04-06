@@ -145,8 +145,14 @@ const commonFields: Field[] = [
 ];
 
 export const fieldsByType: Record<string, Field[]> = {
-  [FormFieldType.Text]: [...commonFields],
-  [FormFieldType.Textarea]: [...commonFields],
+  [FormFieldType.Text]: [
+    ...commonFields,
+    { id: 'feedBackText', name: 'Use this field when creating feedback text', isArray: false }
+  ],
+  [FormFieldType.Textarea]: [
+    ...commonFields,
+    { id: 'feedBackText', name: 'Use this field when creating feedback text', isArray: false }
+  ],
   [FormFieldType.Date]: [...commonFields],
   [FormFieldType.Select]: [
     ...commonFields,

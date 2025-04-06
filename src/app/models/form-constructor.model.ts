@@ -21,6 +21,7 @@ export interface FormField extends Field {
   defaultValue?: string;
   hasNA?: boolean;
   optionsTitle?: string;
+  feedBackText?: boolean;
 }
 
 export interface Field {

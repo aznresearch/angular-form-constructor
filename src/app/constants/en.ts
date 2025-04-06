@@ -92,5 +92,7 @@ export const locale: Record<string, string> = {
   'Are you sure you want to complete field creation without saving?':
     'Are you sure you want to complete field creation without saving?',
   'Are you sure you want to delete this step?': 'Are you sure you want to delete this step?',
-  'Please fill in all required fields': 'Please fill in all required fields'
+  'Please fill in all required fields': 'Please fill in all required fields',
+  'Use this field when creating feedback text': 'Use this field when creating feedback text',
+  Feedback: 'Feedback'
 };

@@ -36,6 +36,7 @@ export class UIFieldsInsertingComponent implements OnInit {
   isFormCreated = false;
   fieldsToCreate: FormField[] = [];
   selectedFiledType = '';
+  @Input() hasFeedBackText = false;
 
   constructor(
     private fb: FormBuilder,

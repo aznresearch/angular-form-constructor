@@ -23,6 +23,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   @Input() currentStep = 0;
   @Input() stepsLength = 1;
   @Input() needContactDefaultValue: string | undefined;
+  @Input() hasFeedBackText = false;
 
   validatorOptions = validatorTypes;
   fieldsToCreate: FormField[] = [];
@@ -42,6 +43,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedFieldType) {
       this.setRequiredCheckbox();
+      this.setFeedBackTextCheckbox();
     }
   }
 
@@ -134,6 +136,16 @@ export class FormFieldPropertiesComponent implements OnInit {
       this.needContactDefaultValue
     ) {
       this.propertyForm?.get('required')?.setValue(this.needContactDefaultValue === '1');
+    }
+  }
+
+  setFeedBackTextCheckbox(): void {
+    if (['text', 'textarea'].includes(this.selectedFieldType)) {
+      const currentValue = this.propertyForm?.get('feedBackText')?.value;
+
+      if (this.hasFeedBackText && !currentValue) {
+        this.propertyForm?.get('feedBackText')?.setValue(false);
+      }
     }
   }
 }

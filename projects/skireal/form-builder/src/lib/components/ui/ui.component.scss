@@ -134,6 +134,10 @@
     &.collapsed {
       flex-shrink: 1;
       width: 55%;
+
+      @media screen and (max-width: 900px) {
+        width: 100%;
+      }
     }
   }
 
@@ -155,6 +159,14 @@
     min-height: 100%;
     box-sizing: border-box;
     overflow-y: auto;
+
+    @media screen and (max-width: 900px) {
+      width: 100%;
+    }
+
+    @media screen and (max-width: 450px) {
+      padding: 15px;
+    }
 
     &.opened {
       visibility: visible;
@@ -437,6 +449,16 @@
   align-items: center;
   justify-content: center;
 
+  @media screen and (max-width: 450px) {
+    &:not(.field-label--title) {
+      font-size: 0;
+      width: 16px;
+      padding: 0;
+      height: 16px;
+      margin-right: 2px;
+    }
+  }
+
   &:last-child {
     margin-right: 0;
   }
@@ -455,6 +477,10 @@
 
   &--na {
     background-color: #ce9229;
+  }
+
+  &--feedback {
+    background-color: #19a99d;
   }
 
   &--title {

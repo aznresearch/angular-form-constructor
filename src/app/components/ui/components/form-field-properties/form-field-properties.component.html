@@ -270,6 +270,20 @@
         <ng-container *ngTemplateOutlet="defaultCheckbox; context: { field: field }"></ng-container>
       </ng-container>
 
+      <ng-container *ngSwitchCase="'feedBackText'">
+        <ng-container
+          *ngTemplateOutlet="
+            defaultCheckbox;
+            context: {
+              field: field,
+              isDisabled:
+                hasFeedBackText &&
+                ['text', 'textarea'].includes(selectedFieldType) &&
+                !propertyForm?.get('feedBackText')?.value
+            }
+          "></ng-container>
+      </ng-container>
+
       <ng-container *ngSwitchCase="'required'">
         <ng-container *ngIf="!enableSetValidationOptions">
           <ng-container

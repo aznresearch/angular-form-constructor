@@ -46,7 +46,7 @@ export class UIComponent implements OnInit {
 
   currentStep = 0;
 
-  enableSetValidationOptions = true;
+  enableSetValidationOptions = false;
   isSurvey = true;
 
   selectedFormData: string | null = null;
@@ -60,6 +60,7 @@ export class UIComponent implements OnInit {
   fieldToEdit: FormField = { id: '', name: '' };
   needContactDefaultValue: string | undefined;
   locale: Record<string, string> = locale;
+  hasFeedBackText = false;
 
   constructor(
     private uiFormService: UiFormService,
@@ -184,6 +185,31 @@ export class UIComponent implements OnInit {
       !this.enableSetValidationOptions
     ) {
       this.updateRequiredFields(needContactField.defaultValue);
+    }
+
+    this.updateFeedBackTextFields();
+  }
+
+  updateFeedBackTextFields(): void {
+    this.hasFeedBackText = false;
+
+    for (const step of this.formData.formData.steps) {
+      for (const field of step.addedFields) {
+        if (field.type && ['text', 'textarea'].includes(field.type) && field.feedBackText) {
+          this.hasFeedBackText = true;
+          break;
+        }
+      }
+      if (this.hasFeedBackText) break;
+    }
+
+    for (const step of this.formData.formData.steps) {
+      step.addedFields.forEach((field) => {
+        if (field.type && ['text', 'textarea'].includes(field.type)) {
+          field.feedBackText =
+            this.hasFeedBackText && !field.feedBackText ? false : field.feedBackText;
+        }
+      });
     }
   }
 

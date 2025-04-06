@@ -101,24 +101,21 @@
             </div>
             <div class="test-form__field" [ngSwitch]="field.type">
               <div class="test-form__field-label">
+                <span *ngIf="field.feedBackText" class="field-label field-label--feedback">{{
+                  "Feedback" | localized
+                }}</span>
                 <span *ngIf="field.required" class="field-label field-label--required">{{
                   "Required" | localized
                 }}</span>
                 <span *ngIf="field.active" class="field-label field-label--active">{{
                   "Active" | localized
                 }}</span>
-                <span
-                  *ngIf="
-                    ['select', 'radio', 'checkbox-group'].includes(field.type) && field.hasOther
-                  "
-                  class="field-label field-label--other"
-                  >{{ "Has Other" | localized }}</span
-                >
-                <span
-                  *ngIf="['csat', 'ces'].includes(field.type) && field.hasNA"
-                  class="field-label field-label--na"
-                  >{{ "Has NA" | localized }}</span
-                >
+                <span *ngIf="field.hasOther" class="field-label field-label--other">{{
+                  "Has Other" | localized
+                }}</span>
+                <span *ngIf="field.hasNA" class="field-label field-label--na">{{
+                  "Has NA" | localized
+                }}</span>
                 <span class="field-label field-label--title">{{
                   fieldLabels[field.type] | localized
                 }}</span>
@@ -293,6 +290,7 @@
       [isSurvey]="isSurvey"
       [usedFieldTypes]="usedFieldTypes"
       [needContactDefaultValue]="needContactDefaultValue"
+      [hasFeedBackText]="hasFeedBackText"
       (propertiesSaved)="onPropertiesSave($event)"
       (sidebarClosed)="toggleFieldsInsertingSidebar()">
     </app-ui-fields-inserting>
@@ -304,6 +302,7 @@
       [currentStep]="currentStep"
       [stepsLength]="formData.formData.steps.length"
       [needContactDefaultValue]="needContactDefaultValue"
+      [hasFeedBackText]="hasFeedBackText"
       (propertiesSaved)="onPropertiesSaveAfterEdit($event)"
       (sidebarClosed)="toggleFieldPropertiesSidebar()">
     </app-ui-field-properties>
