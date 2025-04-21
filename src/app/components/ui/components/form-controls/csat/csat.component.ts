@@ -8,16 +8,22 @@ import { FormField } from 'src/app/models/form-constructor.model';
 })
 export class CsatComponent implements OnInit {
   @Input() field: FormField = {} as FormField;
+  @Input() isCes = false;
   values: (number | string)[] = [];
 
   constructor() {}
 
   ngOnInit(): void {
-    this.values = this.getValuesForCsat(this.field);
+    this.values = this.getValues(this.field);
   }
 
-  getValuesForCsat(field: FormField): (number | string)[] {
-    const values: (number | string)[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  getValues(field: FormField): (number | string)[] {
+    let values: (number | string)[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    if (this.isCes) {
+      values = [1, 2, 3, 4, 5];
+    }
+
     if (field.hasNA) {
       values.push('N/A');
     }
