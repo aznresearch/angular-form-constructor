@@ -4,8 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppComponent } from './app.component';
-import { FormConstructorComponent } from './components/form-constructor/form-constructor.component';
-import { FormComponent } from './components/form-constructor/components/form/form.component';
 import { UIComponent } from './components/ui/ui.component';
 import { UIFieldsInsertingComponent } from './components/ui/components/ui-fields-inserting/ui-fields-inserting.component';
 import { UIFieldPropertiesComponent } from './components/ui/components/ui-field-properties/ui-field-properties.component';
@@ -29,8 +27,6 @@ import { LocalizedPipe } from './pipes/localized.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    FormConstructorComponent,
-    FormComponent,
     UIComponent,
     UIFieldsInsertingComponent,
     UIFieldPropertiesComponent,
