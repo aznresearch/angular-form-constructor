@@ -46,7 +46,7 @@
                 </span>
               </div>
 
-              <ng-container *ngSwitchCase="'select'">
+              <ng-container *ngSwitchCase="formFieldType.Select">
                 <select
                   [id]="field.id"
                   [formControlName]="field.id"
@@ -59,7 +59,7 @@
                 </select>
               </ng-container>
 
-              <ng-container *ngSwitchCase="'checkbox'">
+              <ng-container *ngSwitchCase="formFieldType.Checkbox">
                 <input
                   [id]="field.id"
                   type="checkbox"
@@ -91,11 +91,11 @@
             <div
               class="test-form__label"
               *ngIf="
-                field.type !== 'likert' &&
-                field.type !== 'csat' &&
-                field.type !== 'ces' &&
-                field.type !== 'qe' &&
-                field.type !== 'nps'
+                field.type !== formFieldType.Likert &&
+                field.type !== formFieldType.Csat &&
+                field.type !== formFieldType.CES &&
+                field.type !== formFieldType.QE &&
+                field.type !== formFieldType.NPS
               ">
               <label class="form-label">{{ field.title }}</label>
             </div>
@@ -147,41 +147,40 @@
                   <i class="bi bi-arrows-move"></i>
                 </span>
               </div>
-              <ng-container *ngSwitchCase="'textarea'">
+              <ng-container *ngSwitchCase="formFieldType.Textarea">
                 <app-textarea [field]="field"></app-textarea>
               </ng-container>
-              <ng-container *ngSwitchCase="'select'">
+              <ng-container *ngSwitchCase="formFieldType.Select">
                 <app-select [field]="field" [hasOptions]="true"></app-select>
               </ng-container>
-              <ng-container *ngSwitchCase="'country-dropdown'">
+              <ng-container *ngSwitchCase="formFieldType.CountryDropdown">
                 <app-select [field]="field" [hasOptions]="false"></app-select>
               </ng-container>
-              <ng-container *ngSwitchCase="'checkbox-group'">
+              <ng-container *ngSwitchCase="formFieldType.CheckboxGroup">
                 <app-checkbox-group [field]="field"></app-checkbox-group>
               </ng-container>
-              <ng-container *ngSwitchCase="'checkbox'">
+              <ng-container *ngSwitchCase="formFieldType.Checkbox">
                 <app-checkbox [field]="field"></app-checkbox>
               </ng-container>
-              <ng-container *ngSwitchCase="'radio'">
-                <app-radio [field]="field"></app-radio>
-              </ng-container>
-              <ng-container *ngSwitchCase="'need-contact'">
+              <ng-container *ngSwitchCase="formFieldType.Radio">
                 <app-radio [field]="field" [formGroup]="dynamicForm"></app-radio>
               </ng-container>
-              <ng-container *ngSwitchCase="'likert'">
+              <ng-container *ngSwitchCase="formFieldType.NeedContact">
+                <app-radio [field]="field" [formGroup]="dynamicForm"></app-radio>
+              </ng-container>
+              <ng-container *ngSwitchCase="formFieldType.Likert">
                 <app-likert [field]="field" в></app-likert>
               </ng-container>
-              <ng-container *ngSwitchCase="'csat'">
+              <ng-container *ngSwitchCase="formFieldType.Csat">
                 <app-csat [field]="field"></app-csat>
               </ng-container>
-              <ng-container *ngSwitchCase="'ces'">
-                <app-csat [field]="field"></app-csat>
+              <ng-container *ngSwitchCase="formFieldType.CES">
+                <app-csat [field]="field" [isCes]="true"></app-csat>
               </ng-container>
-              <ng-container *ngSwitchCase="'nps'">
+              <ng-container *ngSwitchCase="formFieldType.NPS">
                 <app-nps [field]="field"></app-nps>
               </ng-container>
-
-              <ng-container *ngSwitchCase="'qe'">
+              <ng-container *ngSwitchCase="formFieldType.QE">
                 <app-qe [field]="field"></app-qe>
               </ng-container>
               <ng-container *ngSwitchDefault>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import {
+  FormFieldType,
   maxLengthMap,
   validatorTypes,
   withoutValueValidatorTypes
@@ -26,6 +27,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   @Input() needContactDefaultValue: string | undefined;
   @Input() hasFeedBackText = false;
 
+  formFieldType = FormFieldType;
   validatorOptions = validatorTypes;
   fieldsToCreate: FormField[] = [];
   steps: number[] = [];
@@ -131,9 +133,12 @@ export class FormFieldPropertiesComponent implements OnInit {
 
   setRequiredCheckbox(): void {
     if (
-      ['contact-name', 'contact-surname', 'contact-email', 'contact-phone'].includes(
-        this.selectedFieldType
-      ) &&
+      [
+        FormFieldType.ContactName,
+        FormFieldType.ContactSurname,
+        FormFieldType.ContactEmail,
+        FormFieldType.ContactPhone
+      ].includes(this.selectedFieldType as FormFieldType) &&
       this.needContactDefaultValue
     ) {
       this.propertyForm?.get('required')?.setValue(this.needContactDefaultValue === '1');
@@ -141,7 +146,9 @@ export class FormFieldPropertiesComponent implements OnInit {
   }
 
   setFeedBackTextCheckbox(): void {
-    if (['text', 'textarea'].includes(this.selectedFieldType)) {
+    if (
+      [FormFieldType.Text, FormFieldType.Textarea].includes(this.selectedFieldType as FormFieldType)
+    ) {
       const currentValue = this.propertyForm?.get('feedBackText')?.value;
 
       if (this.hasFeedBackText && !currentValue) {

@@ -52,7 +52,7 @@
         cdkDropList
         [cdkDropListData]="propertyForm?.get('options')?.controls"
         (cdkDropListDropped)="onDrop($event)">
-        <ng-container *ngIf="selectedFieldType !== 'need-contact'">
+        <ng-container *ngIf="selectedFieldType !== formFieldType.NeedContact">
           <label class="propertyForm__label">{{ field.name | localized }}</label>
           <div class="propertyForm__body">
             <div
@@ -276,7 +276,7 @@
               field: field,
               isDisabled:
                 hasFeedBackText &&
-                ['text', 'textarea'].includes(selectedFieldType) &&
+                [formFieldType.Text, formFieldType.Textarea].includes(selectedFieldType) &&
                 !propertyForm?.get('feedBackText')?.value
             }
           "></ng-container>
@@ -291,9 +291,12 @@
                 field: field,
                 isDisabled:
                   ['0', '1'].includes(needContactDefaultValue) &&
-                  ['contact-name', 'contact-surname', 'contact-email', 'contact-phone'].includes(
-                    selectedFieldType
-                  )
+                  [
+                    formFieldType.ContactName,
+                    formFieldType.ContactSurname,
+                    formFieldType.ContactEmail,
+                    formFieldType.ContactPhone
+                  ].includes(selectedFieldType)
               }
             ">
           </ng-container>

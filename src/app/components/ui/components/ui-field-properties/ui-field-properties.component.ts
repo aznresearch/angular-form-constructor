@@ -119,7 +119,7 @@ export class UIFieldPropertiesComponent implements OnInit {
       })
     };
 
-    if (updatedFieldProperties.type === 'nps') {
+    if (updatedFieldProperties.type === FormFieldType.NPS) {
       const isCommentEmpty = Object.values(updatedFieldProperties.comment || {}).every(
         (value) => value === '' || value === null || value === undefined
       );
@@ -133,7 +133,7 @@ export class UIFieldPropertiesComponent implements OnInit {
       }
     }
 
-    if (updatedFieldProperties.type === 'qe') {
+    if (updatedFieldProperties.type === FormFieldType.QE) {
       updatedFieldProperties.qeScales = updatedFieldProperties.qeScales?.map((scale: QeScale) => ({
         ...scale,
         id: scale.id || this.uiFormService.generateUniqueId(),

@@ -112,7 +112,7 @@ export class UIFieldsInsertingComponent implements OnInit {
   setDefaultOptionValues() {
     let optionValues = defaultOptionValues;
     const formArray = this.propertyForm?.get('options') as FormArray;
-    if (this.selectedFieldType === 'need-contact') {
+    if (this.selectedFieldType === FormFieldType.NeedContact) {
       optionValues = [
         { name: 'Yes', value: '1' },
         { name: 'No', value: '0' }

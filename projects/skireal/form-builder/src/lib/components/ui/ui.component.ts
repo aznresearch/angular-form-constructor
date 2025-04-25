@@ -44,6 +44,7 @@ export class UIComponent implements OnInit {
 
   @Output() saveClicked: EventEmitter<FormOptionsFull> = new EventEmitter<FormOptionsFull>();
 
+  formFieldType = FormFieldType;
   dynamicForm!: FormGroup;
   generalForm!: FormGroup;
   formData: FormOptionsFull = {
@@ -141,6 +142,9 @@ export class UIComponent implements OnInit {
     }
     const copiedField = { ...field };
     copiedField.id = this.uiFormService.generateUniqueId();
+    if (copiedField.feedBackText) {
+      copiedField.feedBackText = false;
+    }
     const originalFieldIndex = fieldsArray.indexOf(field);
     fieldsArray.splice(originalFieldIndex + 1, 0, copiedField);
     const newFormControl = this.uiFormService.createControl();
@@ -196,7 +200,7 @@ export class UIComponent implements OnInit {
       conditionalLogicBlocks: [...this.conditionalLogicBlocks]
     };
 
-    const needContactField = this.findFieldInSteps('need-contact');
+    const needContactField = this.findFieldInSteps(FormFieldType.NeedContact);
     this.needContactDefaultValue = needContactField?.defaultValue;
 
     if (
@@ -215,21 +219,16 @@ export class UIComponent implements OnInit {
 
     for (const step of this.formData.formData.steps) {
       for (const field of step.addedFields) {
-        if (field.type && ['text', 'textarea'].includes(field.type) && field.feedBackText) {
+        if (
+          field.type &&
+          [FormFieldType.Text, FormFieldType.Textarea].includes(field.type as FormFieldType) &&
+          field.feedBackText
+        ) {
           this.hasFeedBackText = true;
           break;
         }
       }
       if (this.hasFeedBackText) break;
-    }
-
-    for (const step of this.formData.formData.steps) {
-      step.addedFields.forEach((field) => {
-        if (field.type && ['text', 'textarea'].includes(field.type)) {
-          field.feedBackText =
-            this.hasFeedBackText && !field.feedBackText ? false : field.feedBackText;
-        }
-      });
     }
   }
 
@@ -250,7 +249,11 @@ export class UIComponent implements OnInit {
       step.addedFields.forEach((field) => {
         if (
           field.type &&
-          ['contact-name', 'contact-surname', 'contact-email'].includes(field.type)
+          [
+            FormFieldType.ContactName,
+            FormFieldType.ContactSurname,
+            FormFieldType.ContactEmail
+          ].includes(field.type as FormFieldType)
         ) {
           field.required = isRequired;
         }

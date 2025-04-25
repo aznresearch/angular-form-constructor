@@ -2,6 +2,7 @@
   <input
     [id]="field.id + option.value"
     type="radio"
+    [formControl]="formGroup.controls[field.id]"
     [value]="option.value"
     class="form-check-input" />
   <label [for]="field.id + option.value" class="form-check-label">{{ option.name }}</label>
