@@ -1,12 +1,25 @@
 {
   "name": "@skireal/form-builder",
   "version": "0.0.1",
+  "description": "Form builder for Angular apps",
+  "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^9.0.7",
-    "@angular/core": "^9.0.7",
-    "@angular/cdk": "^9.0.0"
+    "@angular/common": ">=9.0.0 <17.0.0",
+    "@angular/core": ">=9.0.0 <17.0.0",
+    "@angular/cdk": ">=9.0.0 <17.0.0"
   },
   "dependencies": {
     "tslib": "^1.10.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aznresearch/angular-form-constructor.git"
+  },
+  "keywords": [
+    "angular",
+    "form-builder",
+    "survey builder",
+    "form",
+    "survey"
+  ]
 }
