@@ -3,7 +3,10 @@
     <div class="form-row" [ngSwitch]="field.id">
       <div *ngSwitchCase="'validators'" formArrayName="validators" class="propertyForm__array">
         <ng-container *ngIf="enableSetValidationOptions">
-          <label class="propertyForm__label">{{ field.name | localized }}</label>
+          <label class="propertyForm__label"
+            >{{ field.name | localized
+            }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+          >
           <div
             *ngFor="let control of propertyForm?.get('validators')?.controls; let i = index"
             [formGroupName]="i">
@@ -53,7 +56,10 @@
         [cdkDropListData]="propertyForm?.get('options')?.controls"
         (cdkDropListDropped)="onDrop($event)">
         <ng-container *ngIf="selectedFieldType !== formFieldType.NeedContact">
-          <label class="propertyForm__label">{{ field.name | localized }}</label>
+          <label class="propertyForm__label"
+            >{{ field.name | localized
+            }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+          >
           <div class="propertyForm__body">
             <div
               *ngFor="let optionControl of propertyForm?.get('options')?.controls; let i = index"
@@ -106,7 +112,10 @@
         </ng-container>
       </div>
       <div *ngSwitchCase="'comment'" formGroupName="comment" class="propertyForm__array">
-        <label class="propertyForm__label">{{ field.name | localized }}</label>
+        <label class="propertyForm__label"
+          >{{ field.name | localized
+          }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+        >
         <div *ngIf="shouldShowFields('comment')">
           <input
             class="form-control form-control-sm"
@@ -142,7 +151,10 @@
         </div>
       </div>
       <div *ngSwitchCase="'qeScales'" formArrayName="qeScales" class="propertyForm__array">
-        <label class="propertyForm__label">{{ field.name | localized }}</label>
+        <label class="propertyForm__label"
+          >{{ field.name | localized
+          }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+        >
         <div
           *ngFor="let qeScaleControl of propertyForm?.get('qeScales')?.controls; let i = index"
           [formGroupName]="i">
@@ -220,7 +232,10 @@
         cdkDropList
         [cdkDropListData]="propertyForm?.get('rows')?.controls"
         (cdkDropListDropped)="onDrop($event)">
-        <label class="propertyForm__label">{{ field.name | localized }}</label>
+        <label class="propertyForm__label"
+          >{{ field.name | localized
+          }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+        >
         <div class="propertyForm__body">
           <div
             *ngFor="let rowControl of propertyForm?.get('rows')?.controls; let i = index"
@@ -312,7 +327,10 @@
       <div *ngSwitchCase="'step'" class="propertyForm__array">
         <ng-container *ngIf="isEditFieldProperties && steps.length > 1">
           <div class="form-group">
-            <label class="propertyForm__label" for="stepSelect">{{ field.name | localized }}</label>
+            <label class="propertyForm__label" for="stepSelect"
+              >{{ field.name | localized
+              }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+            >
             <select
               [id]="field.id"
               [formControlName]="field.id"
@@ -324,7 +342,10 @@
       </div>
       <div *ngSwitchCase="'description'" class="propertyForm__array">
         <div class="form-group">
-          <label class="propertyForm__label" [for]="field.id">{{ field.name | localized }}</label>
+          <label class="propertyForm__label" [for]="field.id"
+            >{{ field.name | localized
+            }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+          >
           <textarea
             [id]="field.id"
             [formControlName]="field.id"
@@ -341,7 +362,10 @@
       </div>
       <div *ngSwitchCase="'defaultValue'" class="propertyForm__array">
         <div class="form-group">
-          <label class="propertyForm__label" for="field.id">{{ field.name | localized }}</label>
+          <label class="propertyForm__label" for="field.id"
+            >{{ field.name | localized
+            }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+          >
           <select [id]="field.id" [formControlName]="field.id" class="form-select">
             <option value="">N/A</option>
             <option value="1">{{ "Yes" | localized }}</option>
@@ -364,7 +388,10 @@
           [formControlName]="field.id"
           class="form-check-input"
           [attr.disabled]="isDisabled ? true : null" />
-        <label class="form-check-label" [for]="field.id">{{ field.name | localized }}</label>
+        <label class="form-check-label" [for]="field.id"
+          >{{ field.name | localized
+          }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+        >
       </div>
     </div>
   </ng-template>
@@ -372,7 +399,10 @@
   <ng-template #defaultInput let-field="field">
     <div class="propertyForm__array">
       <div class="form-group">
-        <label class="propertyForm__label" [for]="field.id">{{ field.name | localized }}</label>
+        <label class="propertyForm__label" [for]="field.id"
+          >{{ field.name | localized
+          }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+        >
         <input
           type="text"
           [id]="field.id"

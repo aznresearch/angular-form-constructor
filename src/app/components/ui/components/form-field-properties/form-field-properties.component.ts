@@ -4,6 +4,7 @@ import { FormArray, FormGroup } from '@angular/forms';
 import {
   FormFieldType,
   maxLengthMap,
+  requiredSubfieldsMap,
   validatorTypes,
   withoutValueValidatorTypes
 } from 'src/app/constants/ui-constants';
@@ -32,6 +33,7 @@ export class FormFieldPropertiesComponent implements OnInit {
   steps: number[] = [];
   isFieldVisible: Record<string, boolean> = {};
   maxLengthMap = maxLengthMap;
+  missingRequiredMap: Record<string, boolean> = {};
 
   constructor(private uiFormService: UiFormService) {}
 
@@ -40,12 +42,20 @@ export class FormFieldPropertiesComponent implements OnInit {
     this.initializeSteps();
     this.initializeStepControl();
     this.setRequiredCheckbox();
+    this.updateMissingRequiredMap();
+    this.propertyForm?.valueChanges.subscribe(() => {
+      this.updateMissingRequiredMap();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedFieldType) {
       this.setRequiredCheckbox();
       this.setFeedBackTextCheckbox();
+      this.updateMissingRequiredMap();
+      this.propertyForm?.valueChanges.subscribe(() => {
+        this.updateMissingRequiredMap();
+      });
     }
   }
 
@@ -154,5 +164,42 @@ export class FormFieldPropertiesComponent implements OnInit {
         this.propertyForm?.get('feedBackText')?.setValue(false);
       }
     }
+  }
+  isFormArrayFilled(array: FormArray, fieldId: string): boolean {
+    const requiredSubfields = requiredSubfieldsMap[fieldId];
+
+    if (!requiredSubfields) {
+      return array.controls.every((control) => control.valid);
+    }
+
+    return array.controls.every((control) => {
+      if (!(control instanceof FormGroup)) return false;
+
+      return requiredSubfields.every(
+        (subfield) => !!control.get(subfield)?.value?.toString().trim()
+      );
+    });
+  }
+
+  updateMissingRequiredMap(): void {
+    this.missingRequiredMap = {};
+
+    const requiredFieldIds = this.uiFormService.getRequiredFields(this.selectedFieldType);
+
+    requiredFieldIds.forEach((fieldId) => {
+      const control = this.propertyForm?.get(fieldId);
+      if (!control) return;
+
+      let isMissing = false;
+
+      if (control instanceof FormArray) {
+        isMissing = !this.isFormArrayFilled(control, fieldId);
+      } else {
+        const value = control.value;
+        isMissing = value === null || value === undefined || value.toString().trim() === '';
+      }
+
+      this.missingRequiredMap[fieldId] = isMissing;
+    });
   }
 }

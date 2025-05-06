@@ -175,4 +175,17 @@ export class UiFormService {
   getFieldsToCreate(): Observable<FormField[]> {
     return this.fieldsToCreateSubject.asObservable();
   }
+
+  getRequiredFields(fieldType: string): string[] {
+    const baseFields = ['title', 'analyticsTitle'];
+    const typeSpecificFields: Record<string, string[]> = {
+      select: ['options'],
+      'checkbox-group': ['options'],
+      radio: ['options'],
+      likert: ['options', 'rows'],
+      qe: ['qeScales']
+    };
+
+    return [...baseFields, ...(typeSpecificFields[fieldType] || [])];
+  }
 }

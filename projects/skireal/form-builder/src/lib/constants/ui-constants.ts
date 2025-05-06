@@ -298,3 +298,9 @@ export const maxLengthMap: Record<string, number> = {
   warningMessage: 1000,
   analyticsTitle: 250
 };
+
+export const requiredSubfieldsMap: Record<string, string[]> = {
+  options: ['name', 'value'],
+  rows: ['title'],
+  qeScales: ['title']
+};
