@@ -30,46 +30,46 @@
 }
 
 .btn-primary {
-  background-color: rgba(169, 157, 184, 0.8) !important;
-  border-color: rgba(169, 157, 184, 0.8) !important;
+  background-color: rgba(169, 157, 184, 0.8);
+  border-color: rgba(169, 157, 184, 0.8);
 
   &:hover,
   &:active {
-    background-color: rgba(169, 157, 184, 1) !important;
-    border-color: rgba(169, 157, 184, 1) !important;
+    background-color: rgba(169, 157, 184, 1);
+    border-color: rgba(169, 157, 184, 1);
   }
 }
 
 .btn-secondary {
-  background-color: rgba(148, 169, 160, 0.8) !important;
-  border-color: rgba(148, 169, 160, 0.8) !important;
+  background-color: rgba(148, 169, 160, 0.8);
+  border-color: rgba(148, 169, 160, 0.8);
 
   &:hover,
   &:active {
-    background-color: rgba(148, 169, 160, 1) !important;
-    border-color: rgba(148, 169, 160, 1) !important;
+    background-color: rgba(148, 169, 160, 1);
+    border-color: rgba(148, 169, 160, 1);
   }
 }
 
 .btn-danger {
-  background-color: rgba(230, 88, 88, 0.8) !important;
-  border-color: rgba(230, 88, 88, 0.8) !important;
+  background-color: rgba(230, 88, 88, 0.8);
+  border-color: rgba(230, 88, 88, 0.8);
 
   &:hover,
   &:active {
-    background-color: rgba(230, 88, 88, 1) !important;
-    border-color: rgba(230, 88, 88, 1) !important;
+    background-color: rgba(230, 88, 88, 1);
+    border-color: rgba(230, 88, 88, 1);
   }
 }
 
 .btn-success {
-  background-color: rgba(81, 167, 76, 0.8) !important;
-  border-color: rgba(81, 167, 76, 0.8) !important;
+  background-color: rgba(81, 167, 76, 0.8);
+  border-color: rgba(81, 167, 76, 0.8);
 
   &:hover,
   &:active {
-    background-color: rgba(81, 167, 76, 1) !important;
-    border-color: rgba(81, 167, 76, 1) !important;
+    background-color: rgba(81, 167, 76, 1);
+    border-color: rgba(81, 167, 76, 1);
   }
 }
 
@@ -84,8 +84,8 @@
   text-align: start;
   color: rgb(33, 37, 41);
   background-color: rgb(255, 255, 255);
-  border: 0.8px solid rgb(222, 226, 230); /* border-width, border-style, border-color */
-  border-radius: 6px; /* border-radius */
+  border: 0.8px solid rgb(222, 226, 230);
+  border-radius: 6px;
   box-shadow: none;
   cursor: text;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -209,9 +209,9 @@ textarea {
 [class^="bi-"]::before,
 [class*=" bi-"]::before {
   display: inline-block;
-  font-family: bootstrap-icons !important;
+  font-family: bootstrap-icons;
   font-style: normal;
-  font-weight: normal !important;
+  font-weight: normal;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
