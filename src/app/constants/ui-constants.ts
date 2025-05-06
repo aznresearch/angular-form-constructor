@@ -131,7 +131,7 @@ export const validatorTypes: ValidatorType[] = [
   ValidatorType.RequiredTrue
 ];
 
-const commonFields: Field[] = [
+export const commonFields: Field[] = [
   { id: 'active', name: 'Active', isArray: false },
   { id: 'classes', name: 'Classes', isArray: false, placeholder: 'e.g., class1 class2' },
   { id: 'placeholder', name: 'Placeholder', isArray: false },

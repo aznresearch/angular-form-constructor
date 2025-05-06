@@ -14,6 +14,7 @@ import { FormField } from 'src/app/models/form-constructor.model';
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { LocaleService } from 'src/app/services/locale.service';
 import { UiFormService } from 'src/app/services/ui-form.service';
+import { ValidationService } from 'src/app/services/validation.service';
 
 @Component({
   selector: 'app-ui-fields-inserting',
@@ -42,7 +43,8 @@ export class UIFieldsInsertingComponent implements OnInit {
     private fb: FormBuilder,
     private uiFormService: UiFormService,
     private confirmationService: ConfirmationService,
-    private localeService: LocaleService
+    private localeService: LocaleService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -142,7 +144,7 @@ export class UIFieldsInsertingComponent implements OnInit {
     const missingFields = this.getMissingFields(requiredFields);
 
     if (missingFields.length > 0) {
-      this.showMissingFieldsError(missingFields);
+      this.validationService.showMissingFieldsError(missingFields, this.selectedFieldType);
       return;
     }
 
@@ -196,14 +198,6 @@ export class UIFieldsInsertingComponent implements OnInit {
 
       return fieldChecks[field] ?? false;
     });
-  }
-
-  showMissingFieldsError(missingFields: string[]): void {
-    const localizedMessage =
-      this.localeService.getCurrentLocale()['Please fill in all required fields'] ||
-      'Please fill in all required fields';
-
-    alert(`${localizedMessage}: ${missingFields.join(', ')}`);
   }
 
   closeSidebar() {

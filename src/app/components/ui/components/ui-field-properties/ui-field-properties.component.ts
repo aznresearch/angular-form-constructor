@@ -14,8 +14,8 @@ import {
   QeScale,
   QeScaleChild
 } from 'src/app/models/form-constructor.model';
-import { LocaleService } from 'src/app/services/locale.service';
 import { UiFormService } from 'src/app/services/ui-form.service';
+import { ValidationService } from 'src/app/services/validation.service';
 @Component({
   selector: 'app-ui-field-properties',
   templateUrl: './ui-field-properties.component.html',
@@ -40,7 +40,7 @@ export class UIFieldPropertiesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private uiFormService: UiFormService,
-    private localeService: LocaleService
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -101,7 +101,7 @@ export class UIFieldPropertiesComponent implements OnInit {
     const missingFields = this.getMissingFields(requiredFields);
 
     if (missingFields.length > 0) {
-      this.showMissingFieldsError(missingFields);
+      this.validationService.showMissingFieldsError(missingFields, this.selectedFieldType);
       return;
     }
 
@@ -190,14 +190,6 @@ export class UIFieldPropertiesComponent implements OnInit {
 
       return fieldChecks[field] ?? false;
     });
-  }
-
-  showMissingFieldsError(missingFields: string[]): void {
-    const localizedMessage =
-      this.localeService.getCurrentLocale()['Please fill in all required fields'] ||
-      'Please fill in all required fields';
-
-    alert(`${localizedMessage}: ${missingFields.join(', ')}`);
   }
 
   closeSidebar() {

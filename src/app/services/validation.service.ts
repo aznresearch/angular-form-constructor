@@ -1,0 +1,28 @@
+import { Injectable } from '@angular/core';
+import { LocaleService } from './locale.service';
+import { FormFieldType, fieldsByType, commonFields } from '../constants/ui-constants';
+import { Field } from '../models/form-constructor.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ValidationService {
+  constructor(private localeService: LocaleService) {}
+
+  showMissingFieldsError(missingFields: string[], fieldType: FormFieldType): void {
+    const localizedMessage =
+      this.localeService.getCurrentLocale()['Please fill in all required fields'] ||
+      'Please fill in all required fields';
+
+    const readableNames = missingFields.map((fieldId) => this.getFieldNameById(fieldId, fieldType));
+
+    alert(`${localizedMessage}: ${readableNames.join(', ')}`);
+  }
+
+  getFieldNameById(fieldId: string, fieldType: FormFieldType): string {
+    const allFields: Field[] = [...commonFields, ...(fieldsByType[fieldType] || [])];
+
+    const found = allFields.find((f) => f.id === fieldId);
+    return found?.name || fieldId;
+  }
+}
