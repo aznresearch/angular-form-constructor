@@ -72,6 +72,7 @@ export class UIComponent implements OnInit {
   fieldToEdit: FormField = { id: '', name: '' };
   needContactDefaultValue: string | undefined;
   hasFeedBackText = false;
+  editedFieldId: string | null = null;
 
   constructor(
     private uiFormService: UiFormService,
@@ -391,6 +392,12 @@ export class UIComponent implements OnInit {
     this.toggleSidebar();
     this.fieldToEdit = field;
     this.isGeneral = isGeneral;
+
+    this.editedFieldId = this.isFieldPropertiesOpen ? field.id : null;
+
+    if (!this.isSidebarOpen) {
+      this.editedFieldId = null;
+    }
   }
 
   onPropertiesSave(selectedField: FormField): void {

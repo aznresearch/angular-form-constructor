@@ -10,7 +10,10 @@
           {{ "General Fields" | localized }}
         </h3>
         <ng-container *ngFor="let field of generalFields">
-          <div class="test-form__block" cdkDrag>
+          <div
+            class="test-form__block"
+            [class.test-form__block--editing]="field.id === editedFieldId"
+            cdkDrag>
             <div class="test-form__label">
               <label class="form-label">{{ field.title }}</label>
             </div>
@@ -86,7 +89,10 @@
         (cdkDropListDropped)="onDrop($event)">
         <h3 class="test-form__step">{{ "Step" | localized }} {{ currentStep + 1 }}</h3>
         <ng-container *ngFor="let field of addedFields">
-          <div class="test-form__block" cdkDrag>
+          <div
+            class="test-form__block"
+            [class.test-form__block--editing]="field.id === editedFieldId"
+            cdkDrag>
             <div
               class="test-form__label"
               *ngIf="
