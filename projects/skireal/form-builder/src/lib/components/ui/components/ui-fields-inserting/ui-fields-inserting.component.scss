@@ -1,7 +1,7 @@
-.field-selector {
+.form-builder__field-selector {
   display: flex;
 
-  .form-group {
+  .form-builder__form-group {
     margin-bottom: 10px;
   }
 
@@ -55,7 +55,7 @@
     align-items: center;
     justify-content: flex-end;
 
-    .btn {
+    .form-builder__btn {
       margin-right: 10px;
 
       &:last-child {
@@ -73,7 +73,7 @@ ul {
   padding-left: 0;
 }
 
-.btn {
+.form-builder__btn {
   display: inline-block;
   box-sizing: border-box;
   align-items: flex-start;
@@ -103,7 +103,7 @@ ul {
   }
 }
 
-.btn-primary {
+.form-builder__btn-primary {
   background-color: rgba(169, 157, 184, 0.8);
   border-color: rgba(169, 157, 184, 0.8);
 
@@ -114,7 +114,7 @@ ul {
   }
 }
 
-.btn-secondary {
+.form-builder__btn-secondary {
   background-color: rgba(148, 169, 160, 0.8);
   border-color: rgba(148, 169, 160, 0.8);
 
@@ -125,7 +125,7 @@ ul {
   }
 }
 
-.btn-danger {
+.form-builder__btn-danger {
   background-color: rgba(230, 88, 88, 0.8);
   border-color: rgba(230, 88, 88, 0.8);
 
@@ -136,7 +136,7 @@ ul {
   }
 }
 
-.btn-success {
+.form-builder__btn-success {
   background-color: rgba(81, 167, 76, 0.8);
   border-color: rgba(81, 167, 76, 0.8);
 
@@ -147,7 +147,7 @@ ul {
   }
 }
 
-.close-btn {
+.form-builder__close-btn {
   background: none;
   border: none;
   font-size: 24px;

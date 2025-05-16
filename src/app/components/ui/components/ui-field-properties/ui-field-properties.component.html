@@ -1,5 +1,5 @@
-<div class="properties-form">
-  <button type="button" class="close-btn" aria-label="Close" (click)="closeSidebar()">
+<div class="form-builder__properties-form">
+  <button type="button" class="form-builder__close-btn" aria-label="Close" (click)="closeSidebar()">
     <span aria-hidden="true">&times;</span>
   </button>
   <h2>{{ "Edit Field Properties" | localized }}</h2>
@@ -16,11 +16,17 @@
     [needContactDefaultValue]="needContactDefaultValue"
     [hasFeedBackText]="hasFeedBackText"></app-form-field-properties>
 
-  <div class="form-buttons">
-    <button type="button" class="btn btn-secondary" (click)="closeSidebar()">
+  <div class="form-builder__form-buttons">
+    <button
+      type="button"
+      class="form-builder__btn form-builder__btn-secondary"
+      (click)="closeSidebar()">
       {{ "Cancel" | localized }}
     </button>
-    <button type="button" class="btn btn-primary" (click)="saveFieldProperties()">
+    <button
+      type="button"
+      class="form-builder__btn form-builder__btn-primary"
+      (click)="saveFieldProperties()">
       {{ "Save" | localized }}
     </button>
   </div>

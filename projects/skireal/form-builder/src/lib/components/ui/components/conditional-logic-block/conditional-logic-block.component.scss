@@ -1,6 +1,6 @@
-.bi::before,
-[class^="bi-"]::before,
-[class*=" bi-"]::before {
+.form-builder__bi::before,
+[class^="form-builder__bi-"]::before,
+[class*=" form-builder__bi-"]::before {
   display: inline-block;
   font-family: bootstrap-icons !important;
   font-style: normal;
@@ -13,31 +13,31 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.bi-arrow-right::before {
+.form-builder__bi-arrow-right::before {
   content: "\f138";
 }
 
-.bi-pencil::before {
+.form-builder__bi-pencil::before {
   content: "\f4cb";
 }
 
-.bi-trash::before {
+.form-builder__bi-trash::before {
   content: "\f5de";
 }
 
-.bi-files::before {
+.form-builder__bi-files::before {
   content: "\f3c2";
 }
 
-.bi-arrows-move::before {
+.form-builder__bi-arrows-move::before {
   content: "\f14e";
 }
 
-.bi-arrow-left::before {
+.form-builder__bi-arrow-left::before {
   content: "\f12f";
 }
 
-.form-control {
+.form-builder__form-control {
   display: block;
   width: 100%;
   height: auto;
@@ -63,7 +63,7 @@
   }
 }
 
-.form-select {
+.form-builder__form-select {
   display: block;
   align-items: center;
   box-sizing: border-box;
@@ -94,7 +94,7 @@
   }
 }
 
-.conditional-logic-block {
+.form-builder__conditional-logic-block {
   background-color: rgba(169, 157, 184, 0.15);
   padding-bottom: 50px;
   padding-top: 53px;
@@ -108,11 +108,11 @@
   &:hover {
     background-color: rgba(152, 128, 181, 0.08);
 
-    .conditional-logic-block__label {
+    .form-builder__conditional-logic-block__label {
       opacity: 1;
     }
 
-    .conditional-logic-block__toolbar {
+    .form-builder__conditional-logic-block__toolbar {
       opacity: 1;
     }
   }
@@ -178,7 +178,7 @@
         margin-right: 0;
       }
 
-      .bi {
+      .form-builder__bi {
         &:before {
           font-size: 16px;
         }

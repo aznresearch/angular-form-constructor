@@ -1,4 +1,4 @@
-.btn {
+.form-builder__btn {
   display: inline-block;
   box-sizing: border-box;
   align-items: flex-start;
@@ -29,7 +29,7 @@
   }
 }
 
-.btn-primary {
+.form-builder__btn-primary {
   background-color: rgba(169, 157, 184, 0.8);
   border-color: rgba(169, 157, 184, 0.8);
 
@@ -40,7 +40,7 @@
   }
 }
 
-.btn-secondary {
+.form-builder__btn-secondary {
   background-color: rgba(148, 169, 160, 0.8);
   border-color: rgba(148, 169, 160, 0.8);
 
@@ -51,7 +51,7 @@
   }
 }
 
-.btn-danger {
+.form-builder__btn-danger {
   background-color: rgba(230, 88, 88, 0.8);
   border-color: rgba(230, 88, 88, 0.8);
 
@@ -62,7 +62,7 @@
   }
 }
 
-.btn-success {
+.form-builder__btn-success {
   background-color: rgba(81, 167, 76, 0.8);
   border-color: rgba(81, 167, 76, 0.8);
 
@@ -89,7 +89,7 @@
     margin-top: 5px;
     text-align: center;
 
-    .btn {
+    .form-builder__btn {
       margin-right: 10px;
 
       &:last-child {

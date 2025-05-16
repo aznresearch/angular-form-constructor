@@ -1,25 +1,25 @@
-<div class="conditional-logic-block">
-  <div class="conditional-logic-block__label">
+<div class="form-builder__conditional-logic-block">
+  <div class="form-builder__conditional-logic-block__label">
     <span>Conditional Logic</span>
   </div>
-  <div class="conditional-logic-block__toolbar">
+  <div class="form-builder__conditional-logic-block__toolbar">
     <span
-      class="conditional-logic-block__toolbar-icon"
+      class="form-builder__conditional-logic-block__toolbar-icon"
       data-tooltip="Delete"
       (click)="removeConditionalLogicBlock()"
-      ><i class="bi bi-trash"></i
+      ><i class="form-builder__bi form-builder__bi-trash"></i
     ></span>
   </div>
-  <div class="conditional-logic-block__row">
-    <div class="conditional-logic-block__field-group">
+  <div class="form-builder__conditional-logic-block__row">
+    <div class="form-builder__conditional-logic-block__field-group">
       <div>
-        <div class="conditional-logic-block__row-label"><span>IF</span></div>
+        <div class="form-builder__conditional-logic-block__row-label"><span>IF</span></div>
       </div>
       <div>
         <select
           id="fieldSelect"
           [(ngModel)]="block.selectedField"
-          class="form-select"
+          class="form-builder__form-select"
           [compareWith]="compareFields">
           <option *ngFor="let field of addedFields" [ngValue]="field">
             {{ field.title || "Untitled " + fieldLabels[field.type] + " Field" }}
@@ -27,7 +27,10 @@
         </select>
       </div>
       <div>
-        <select id="conditionSelect" [(ngModel)]="block.selectedCondition" class="form-select">
+        <select
+          id="conditionSelect"
+          [(ngModel)]="block.selectedCondition"
+          class="form-builder__form-select">
           <ng-container *ngIf="block.selectedField">
             <option
               *ngFor="let option of conditionOptions[block.selectedField.type]"
@@ -42,26 +45,33 @@
           type="text"
           id="conditionInput"
           [(ngModel)]="block.conditionValue"
-          class="form-control"
+          class="form-builder__form-control"
           *ngIf="isConditionInputVisible()" />
       </div>
     </div>
   </div>
 
-  <div class="conditional-logic-block__row">
-    <div class="conditional-logic-block__field-group conditional-logic-block__field-group--actions">
+  <div class="form-builder__conditional-logic-block__row">
+    <div
+      class="form-builder__conditional-logic-block__field-group conditional-logic-block__field-group--actions">
       <div>
-        <div class="conditional-logic-block__row-label"><span>DO</span></div>
+        <div class="form-builder__conditional-logic-block__row-label"><span>DO</span></div>
       </div>
 
       <div>
-        <select id="actionSelect" [(ngModel)]="block.selectedAction" class="form-select">
+        <select
+          id="actionSelect"
+          [(ngModel)]="block.selectedAction"
+          class="form-builder__form-select">
           <option value="show">Show Block</option>
           <option value="hide">Hide Block</option>
         </select>
       </div>
       <div>
-        <select id="targetFieldSelect" [(ngModel)]="block.selectedTargetField" class="form-select">
+        <select
+          id="targetFieldSelect"
+          [(ngModel)]="block.selectedTargetField"
+          class="form-builder__form-select">
           <option *ngFor="let field of addedFields" [value]="field.id">
             {{ field.title || "Untitled " + fieldLabels[field.type] + " Field" }}
           </option>

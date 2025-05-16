@@ -1,17 +1,22 @@
-<form [formGroup]="propertyForm" class="propertyForm">
+<form [formGroup]="propertyForm" class="form-builder__propertyForm">
   <ng-container *ngFor="let field of fieldsToCreate">
-    <div class="form-row" [ngSwitch]="field.id">
-      <div *ngSwitchCase="'validators'" formArrayName="validators" class="propertyForm__array">
+    <div class="form-builder__form-row" [ngSwitch]="field.id">
+      <div
+        *ngSwitchCase="'validators'"
+        formArrayName="validators"
+        class="form-builder__propertyForm__array">
         <ng-container *ngIf="enableSetValidationOptions">
-          <label class="propertyForm__label"
+          <label class="form-builder__propertyForm__label"
             >{{ field.name | localized
-            }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+            }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
+              >*</span
+            ></label
           >
           <div
             *ngFor="let control of propertyForm?.get('validators')?.controls; let i = index"
             [formGroupName]="i">
-            <div class="validator-group">
-              <select formControlName="type" class="form-select">
+            <div class="form-builder__validator-group">
+              <select formControlName="type" class="form-builder__form-select">
                 <option value="" disabled>{{ "Select a validator" | localized }}</option>
                 <option *ngFor="let option of validatorOptions" [value]="option">
                   {{ option }}
@@ -19,18 +24,18 @@
               </select>
               <input
                 *ngIf="showValueInput(control.get('type').value)"
-                class="form-control form-control-sm"
+                class="form-builder__form-control form-builder__form-control-sm"
                 type="text"
                 formControlName="value"
                 placeholder="{{ 'Value' | localized }}" />
               <input
-                class="form-control form-control-sm"
+                class="form-builder__form-control form-builder__form-control-sm"
                 type="text"
                 formControlName="errormsg"
                 placeholder="{{ 'Error Message' | localized }}" />
-              <div class="form-buttons">
+              <div class="form-builder__form-buttons">
                 <button
-                  class="btn btn-danger btn-sm"
+                  class="form-builder__btn form-builder__btn-danger form-builder__btn-sm"
                   type="button"
                   (click)="removeControlFromFormArray('validators', i)">
                   {{ "Remove Validator" | localized }}
@@ -38,9 +43,9 @@
               </div>
             </div>
           </div>
-          <div class="form-buttons">
+          <div class="form-builder__form-buttons">
             <button
-              class="btn btn-success btn-sm"
+              class="form-builder__btn form-builder__btn-success form-builder__btn-sm"
               type="button"
               (click)="addControlToFormArray('validators')">
               {{ "Add Validator" | localized }}
@@ -51,58 +56,62 @@
       <div
         *ngSwitchCase="'options'"
         formArrayName="options"
-        class="propertyForm__array"
+        class="form-builder__propertyForm__array"
         cdkDropList
         [cdkDropListData]="propertyForm?.get('options')?.controls"
         (cdkDropListDropped)="onDrop($event)">
         <ng-container *ngIf="selectedFieldType !== formFieldType.NeedContact">
-          <label class="propertyForm__label"
+          <label class="form-builder__propertyForm__label"
             >{{ field.name | localized
-            }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+            }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
+              >*</span
+            ></label
           >
-          <div class="propertyForm__body">
+          <div class="form-builder__propertyForm__body">
             <div
               *ngFor="let optionControl of propertyForm?.get('options')?.controls; let i = index"
               [formGroupName]="i"
               cdkDrag>
               <input
-                class="form-control form-control-sm"
+                class="form-builder__form-control form-builder__form-control-sm"
                 type="text"
                 formControlName="name"
                 placeholder="{{ 'Option Text' | localized }}"
                 [attr.maxlength]="300" />
               <input
-                class="form-control form-control-sm"
+                class="form-builder__form-control form-builder__form-control-sm"
                 type="text"
                 formControlName="value"
                 placeholder="{{ 'Option Value' | localized }}"
                 [attr.maxlength]="300" />
-              <label class="propertyForm__label">{{ "Option Country" | localized }}</label>
+              <label class="form-builder__propertyForm__label">{{
+                "Option Country" | localized
+              }}</label>
               <input
-                class="form-control form-control-sm"
+                class="form-builder__form-control form-builder__form-control-sm"
                 type="text"
                 formControlName="country"
                 placeholder="{{ 'Option Country' | localized }}"
                 [attr.maxlength]="2" />
-              <div class="form-buttons">
+              <div class="form-builder__form-buttons">
                 <button
-                  class="btn btn-danger btn-sm"
+                  class="form-builder__btn form-builder__btn-danger form-builder__btn-sm"
                   type="button"
                   (click)="removeControlFromFormArray('options', i)">
                   {{ "Remove Option" | localized }}
                 </button>
                 <span
-                  class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
+                  class="form-builder__test-form__field-toolbar-icon form-builder__test-form__field-toolbar-icon--move"
                   [attr.data-tooltip]="'Move' | localized"
                   cdkDragHandle>
-                  <i class="bi bi-arrows-move"></i>
+                  <i class="form-builder__bi form-builder__bi-arrows-move"></i>
                 </span>
               </div>
             </div>
           </div>
-          <div class="form-buttons">
+          <div class="form-builder__form-buttons">
             <button
-              class="btn btn-success btn-sm"
+              class="form-builder__btn form-builder__btn-success form-builder__btn-sm"
               type="button"
               (click)="addControlToFormArray('options')">
               {{ "Add Option" | localized }}
@@ -110,35 +119,42 @@
           </div>
         </ng-container>
       </div>
-      <div *ngSwitchCase="'comment'" formGroupName="comment" class="propertyForm__array">
-        <label class="propertyForm__label"
+      <div
+        *ngSwitchCase="'comment'"
+        formGroupName="comment"
+        class="form-builder__propertyForm__array">
+        <label class="form-builder__propertyForm__label"
           >{{ field.name | localized
-          }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+          }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
+            >*</span
+          ></label
         >
         <div *ngIf="shouldShowFields('comment')">
           <input
-            class="form-control form-control-sm"
+            class="form-builder__form-control form-builder__form-control-sm"
             type="text"
             formControlName="commentTitle"
             placeholder="{{ 'Comment title' | localized }}"
             [attr.maxlength]="1000" />
           <input
-            class="form-control form-control-sm"
+            class="form-builder__form-control form-builder__form-control-sm"
             type="text"
             formControlName="commentSubtitle"
             placeholder="{{ 'Comment subtitle' | localized }}"
             [attr.maxlength]="3000" />
           <input
-            class="form-control form-control-sm"
+            class="form-builder__form-control form-builder__form-control-sm"
             type="text"
             formControlName="commentWarningMessage"
             placeholder="{{ 'Comment warning message' | localized }}"
             [attr.maxlength]="1000" />
         </div>
-        <div class="form-buttons">
+        <div class="form-builder__form-buttons">
           <button
-            class="btn btn-sm"
-            [ngClass]="shouldShowFields('comment') ? 'btn-danger' : 'btn-success'"
+            class="form-builder__btn form-builder__btn-sm"
+            [ngClass]="
+              shouldShowFields('comment') ? 'form-builder__btn-danger' : 'form-builder__btn-success'
+            "
             type="button"
             (click)="toggleFieldVisibility('comment')">
             {{
@@ -149,22 +165,27 @@
           </button>
         </div>
       </div>
-      <div *ngSwitchCase="'qeScales'" formArrayName="qeScales" class="propertyForm__array">
-        <label class="propertyForm__label"
+      <div
+        *ngSwitchCase="'qeScales'"
+        formArrayName="qeScales"
+        class="form-builder__propertyForm__array">
+        <label class="form-builder__propertyForm__label"
           >{{ field.name | localized
-          }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+          }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
+            >*</span
+          ></label
         >
         <div
           *ngFor="let qeScaleControl of propertyForm?.get('qeScales')?.controls; let i = index"
           [formGroupName]="i">
           <input
-            class="form-control form-control-sm"
+            class="form-builder__form-control form-builder__form-control-sm"
             type="text"
             formControlName="title"
             placeholder="{{ 'QE Scale Title' | localized }}"
             [attr.maxlength]="1000" />
           <input
-            class="form-control form-control-sm"
+            class="form-builder__form-control form-builder__form-control-sm"
             type="text"
             formControlName="subtitle"
             placeholder="{{ 'QE Scale Subtitle' | localized }}"
@@ -178,15 +199,15 @@
               "
               [formGroupName]="j">
               <input
-                class="form-control form-control-sm"
+                class="form-builder__form-control form-builder__form-control-sm"
                 type="text"
                 formControlName="title"
                 placeholder="{{ 'QE Scale Child Title' | localized }}"
                 [attr.maxlength]="1000" />
 
-              <div class="form-buttons">
+              <div class="form-builder__form-buttons">
                 <button
-                  class="btn btn-danger btn-sm"
+                  class="form-builder__btn form-builder__btn-danger form-builder__btn-sm"
                   type="button"
                   (click)="removeControlFromFormArray('qeScales.' + i + '.qeScaleChildren', j)">
                   {{ "Remove QE Scale Child" | localized }}
@@ -195,18 +216,18 @@
             </div>
           </div>
 
-          <div class="form-buttons">
+          <div class="form-builder__form-buttons">
             <button
-              class="btn btn-success btn-sm"
+              class="form-builder__btn form-builder__btn-success form-builder__btn-sm"
               type="button"
               (click)="addControlToFormArray('qeScaleChildren', 'qeScales', i)">
               {{ "Add QE Scale Child" | localized }}
             </button>
           </div>
 
-          <div class="form-buttons">
+          <div class="form-builder__form-buttons">
             <button
-              class="btn btn-danger btn-sm"
+              class="form-builder__btn form-builder__btn-danger form-builder__btn-sm"
               type="button"
               (click)="removeControlFromFormArray('qeScales', i)">
               {{ "Remove QE Scale" | localized }}
@@ -214,9 +235,9 @@
           </div>
         </div>
 
-        <div class="form-buttons">
+        <div class="form-builder__form-buttons">
           <button
-            class="btn btn-success btn-sm"
+            class="form-builder__btn form-builder__btn-success form-builder__btn-sm"
             type="button"
             (click)="addControlToFormArray('qeScales')">
             {{ "Add QE Scale" | localized }}
@@ -227,44 +248,46 @@
       <div
         *ngSwitchCase="'rows'"
         formArrayName="rows"
-        class="propertyForm__array"
+        class="form-builder__propertyForm__array"
         cdkDropList
         [cdkDropListData]="propertyForm?.get('rows')?.controls"
         (cdkDropListDropped)="onDrop($event)">
-        <label class="propertyForm__label"
+        <label class="form-builder__propertyForm__label"
           >{{ field.name | localized
-          }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+          }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
+            >*</span
+          ></label
         >
-        <div class="propertyForm__body">
+        <div class="form-builder__propertyForm__body">
           <div
             *ngFor="let rowControl of propertyForm?.get('rows')?.controls; let i = index"
             [formGroupName]="i"
             cdkDrag>
             <input
-              class="form-control form-control-sm"
+              class="form-builder__form-control form-builder__form-control-sm"
               type="text"
               formControlName="title"
               placeholder="{{ 'Row Title' | localized }}"
               [attr.maxlength]="1000" />
-            <div class="form-buttons">
+            <div class="form-builder__form-buttons">
               <button
-                class="btn btn-danger btn-sm"
+                class="form-builder__btn form-builder__btn-danger form-builder__btn-sm"
                 type="button"
                 (click)="removeControlFromFormArray('rows', i)">
                 {{ "Remove Row" | localized }}
               </button>
               <span
-                class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
+                class="form-builder__test-form__field-toolbar-icon form-builder__test-form__field-toolbar-icon--move"
                 [attr.data-tooltip]="'Move' | localized"
                 cdkDragHandle>
-                <i class="bi bi-arrows-move"></i>
+                <i class="form-builder__bi form-builder__bi-arrows-move"></i>
               </span>
             </div>
           </div>
         </div>
-        <div class="form-buttons">
+        <div class="form-builder__form-buttons">
           <button
-            class="btn btn-success btn-sm"
+            class="form-builder__btn form-builder__btn-success form-builder__btn-sm"
             type="button"
             (click)="addControlToFormArray('rows')">
             {{ "Add Row" | localized }}
@@ -317,54 +340,60 @@
           </ng-container>
         </ng-container>
       </ng-container>
-      <div *ngSwitchCase="'warningMessage'" class="propertyForm__array">
+      <div *ngSwitchCase="'warningMessage'" class="form-builder__propertyForm__array">
         <ng-container *ngIf="!enableSetValidationOptions">
           <ng-container *ngTemplateOutlet="defaultInput; context: { field: field }"></ng-container>
         </ng-container>
       </div>
-      <div *ngSwitchCase="'step'" class="propertyForm__array">
+      <div *ngSwitchCase="'step'" class="form-builder__propertyForm__array">
         <ng-container *ngIf="isEditFieldProperties && steps.length > 1">
-          <div class="form-group">
-            <label class="propertyForm__label" for="stepSelect"
+          <div class="form-builder__form-group">
+            <label class="form-builder__propertyForm__label" for="stepSelect"
               >{{ field.name | localized
-              }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+              }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
+                >*</span
+              ></label
             >
             <select
               [id]="field.id"
               [formControlName]="field.id"
-              class="form-select form-select--w100">
+              class="form-builder__form-select form-builder__form-select--w100">
               <option *ngFor="let step of steps" [value]="step">{{ step + 1 }}</option>
             </select>
           </div>
         </ng-container>
       </div>
-      <div *ngSwitchCase="'description'" class="propertyForm__array">
-        <div class="form-group">
-          <label class="propertyForm__label" [for]="field.id"
+      <div *ngSwitchCase="'description'" class="form-builder__propertyForm__array">
+        <div class="form-builder__form-group">
+          <label class="form-builder__propertyForm__label" [for]="field.id"
             >{{ field.name | localized
-            }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+            }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
+              >*</span
+            ></label
           >
           <textarea
             [id]="field.id"
             [formControlName]="field.id"
             [attr.placeholder]="field.placeholder ? field.placeholder : null"
             rows="3"
-            class="form-control"
+            class="form-builder__form-control"
             [attr.maxlength]="3000"></textarea>
         </div>
       </div>
-      <div *ngSwitchCase="'classes'" class="propertyForm__array">
+      <div *ngSwitchCase="'classes'" class="form-builder__propertyForm__array">
         <ng-container *ngIf="!isSurvey">
           <ng-container *ngTemplateOutlet="defaultInput; context: { field: field }"></ng-container>
         </ng-container>
       </div>
-      <div *ngSwitchCase="'defaultValue'" class="propertyForm__array">
-        <div class="form-group">
-          <label class="propertyForm__label" for="field.id"
+      <div *ngSwitchCase="'defaultValue'" class="form-builder__propertyForm__array">
+        <div class="form-builder__form-group">
+          <label class="form-builder__propertyForm__label" for="field.id"
             >{{ field.name | localized
-            }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+            }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
+              >*</span
+            ></label
           >
-          <select [id]="field.id" [formControlName]="field.id" class="form-select">
+          <select [id]="field.id" [formControlName]="field.id" class="form-builder__form-select">
             <option value="">N/A</option>
             <option value="1">{{ "Yes" | localized }}</option>
             <option value="0">{{ "No" | localized }}</option>
@@ -378,35 +407,39 @@
   </ng-container>
 
   <ng-template #defaultCheckbox let-field="field" let-isDisabled="isDisabled">
-    <div class="propertyForm__array">
-      <div class="form-group form-check">
+    <div class="form-builder__propertyForm__array">
+      <div class="form-builder__form-group form-builder__form-check">
         <input
           [id]="field.id"
           type="checkbox"
           [formControlName]="field.id"
-          class="form-check-input"
+          class="form-builder__form-check-input"
           [attr.disabled]="isDisabled ? true : null" />
-        <label class="form-check-label" [for]="field.id"
+        <label class="form-builder__form-check-label" [for]="field.id"
           >{{ field.name | localized
-          }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+          }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
+            >*</span
+          ></label
         >
       </div>
     </div>
   </ng-template>
 
   <ng-template #defaultInput let-field="field">
-    <div class="propertyForm__array">
-      <div class="form-group">
-        <label class="propertyForm__label" [for]="field.id"
+    <div class="form-builder__propertyForm__array">
+      <div class="form-builder__form-group">
+        <label class="form-builder__propertyForm__label" [for]="field.id"
           >{{ field.name | localized
-          }}<span *ngIf="missingRequiredMap[field.id]" class="required-asterisk">*</span></label
+          }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
+            >*</span
+          ></label
         >
         <input
           type="text"
           [id]="field.id"
           [formControlName]="field.id"
           [attr.placeholder]="field.placeholder ? field.placeholder : null"
-          class="form-control"
+          class="form-builder__form-control"
           [attr.maxlength]="maxLengthMap[field.id]" />
       </div>
     </div>

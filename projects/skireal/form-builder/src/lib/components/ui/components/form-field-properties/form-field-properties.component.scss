@@ -1,4 +1,4 @@
-.btn {
+.form-builder__btn {
   display: inline-block;
   box-sizing: border-box;
   align-items: flex-start;
@@ -29,7 +29,7 @@
   }
 }
 
-.btn-primary {
+.form-builder__btn-primary {
   background-color: rgba(169, 157, 184, 0.8);
   border-color: rgba(169, 157, 184, 0.8);
 
@@ -40,7 +40,7 @@
   }
 }
 
-.btn-secondary {
+.form-builder__btn-secondary {
   background-color: rgba(148, 169, 160, 0.8);
   border-color: rgba(148, 169, 160, 0.8);
 
@@ -51,7 +51,7 @@
   }
 }
 
-.btn-danger {
+.form-builder__btn-danger {
   background-color: rgba(230, 88, 88, 0.8);
   border-color: rgba(230, 88, 88, 0.8);
 
@@ -62,7 +62,7 @@
   }
 }
 
-.btn-success {
+.form-builder__btn-success {
   background-color: rgba(81, 167, 76, 0.8);
   border-color: rgba(81, 167, 76, 0.8);
 
@@ -73,7 +73,7 @@
   }
 }
 
-.form-control {
+.form-builder__form-control {
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -99,7 +99,7 @@
   }
 }
 
-.form-select {
+.form-builder__form-select {
   display: block;
   align-items: center;
   box-sizing: border-box;
@@ -135,7 +135,7 @@
   }
 }
 
-.propertyForm {
+.form-builder__propertyForm {
   &__label {
     &::first-letter {
       text-transform: uppercase;
@@ -143,11 +143,11 @@
   }
 
   &__array {
-    .form-select {
+    .form-builder__form-select {
       margin-bottom: 5px;
     }
 
-    .form-control {
+    .form-builder__form-control {
       margin-bottom: 5px;
 
       &:last-child {
@@ -159,7 +159,7 @@
   &__body {
     .cdk-drag {
       &:only-child {
-        .test-form__field-toolbar-icon {
+        .form-builder__test-form__field-toolbar-icon {
           display: none;
         }
       }
@@ -171,7 +171,7 @@ input {
   box-sizing: border-box;
 }
 
-.form-row {
+.form-builder__form-row {
   margin-bottom: 12px;
   display: block;
   margin-left: 0;
@@ -182,13 +182,13 @@ input {
   }
 }
 
-.form-buttons {
+.form-builder__form-buttons {
   margin-bottom: 5px;
   margin-top: 5px;
   display: flex;
   align-items: center;
 
-  .btn {
+  .form-builder__btn {
     margin-right: 10px;
 
     &:last-child {
@@ -197,7 +197,7 @@ input {
   }
 }
 
-.form-check {
+.form-builder__form-check {
   display: flex;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -208,9 +208,9 @@ textarea {
   font-family: sans-serif;
 }
 
-.bi::before,
-[class^="bi-"]::before,
-[class*=" bi-"]::before {
+.form-builder__bi::before,
+[class^="form-builder__bi-"]::before,
+[class*=" form-builder__bi-"]::before {
   display: inline-block;
   font-family: bootstrap-icons !important;
   font-style: normal;
@@ -223,11 +223,11 @@ textarea {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.bi-arrows-move::before {
+.form-builder__bi-arrows-move::before {
   content: "\f14e";
 }
 
-.test-form {
+.form-builder__test-form {
   padding-bottom: 50px;
   &__header {
     padding-top: 10px;
@@ -263,11 +263,11 @@ textarea {
 
     &:hover {
       background-color: rgba(148, 169, 160, 0.08);
-      .test-form__field-toolbar {
+      .form-builder__test-form__field-toolbar {
         opacity: 1;
       }
 
-      .test-form__field-label {
+      .form-builder__test-form__field-label {
         opacity: 1;
       }
     }
@@ -320,7 +320,7 @@ textarea {
           margin-right: 0;
         }
 
-        .bi {
+        .form-builder__bi {
           &:before {
             font-size: 16px;
           }
@@ -334,7 +334,7 @@ textarea {
   }
 }
 
-.required-asterisk {
+.form-builder__required-asterisk {
   color: red;
   margin-left: 2px;
 }

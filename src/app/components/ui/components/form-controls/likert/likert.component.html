@@ -1,28 +1,28 @@
-<div class="answer__container-table">
-  <div class="row answer__container-row border-0">
-    <div class="col text-center answer__container-column p-0">
+<div class="form-builder__answer__container-table">
+  <div class="form-builder__row form-builder__answer__container-row border-0">
+    <div class="form-builder__col text-center form-builder__answer__container-column p-0">
       <h3>{{ field.title }}</h3>
       <p>{{ field.description }}</p>
     </div>
   </div>
 
-  <div class="row text-center">
-    <div class="col-xl-2 text-right">
+  <div class="form-builder__row text-center">
+    <div class="form-builder__col-xl-2 text-right">
       <span>{{ field.optionsTitle }}</span>
     </div>
-    <div *ngFor="let option of field.options" class="col text-center">
+    <div *ngFor="let option of field.options" class="form-builder__col text-center">
       <span>{{ option.name }}</span>
     </div>
   </div>
 
-  <div *ngFor="let row of field.rows" class="row text-center">
-    <div class="col-xl-2 text-left">
+  <div *ngFor="let row of field.rows" class="form-builder__row text-center">
+    <div class="form-builder__col-xl-2 text-left">
       {{ row.title }}
     </div>
-    <div class="col text-center" *ngFor="let option of field.options">
+    <div class="form-builder__col text-center" *ngFor="let option of field.options">
       <input
         type="radio"
-        class="form-check-input"
+        class="form-builder__form-check-input"
         [name]="field.id + row.title"
         [value]="option.value" />
     </div>

@@ -1,35 +1,35 @@
-<div class="qe__container">
-  <div class="row">
-    <div class="col">
+<div class="form-builder__qe__container">
+  <div class="form-builder__row">
+    <div class="form-builder__col">
       <h3>{{ field.title }}</h3>
       <p>{{ field.description }}</p>
     </div>
   </div>
 
   <ng-container *ngFor="let qeScale of field.qeScales; let qeScaleIndex = index">
-    <div class="qe-scale__container">
-      <div class="row">
-        <div class="col">
+    <div class="form-builder__qe-scale__container">
+      <div class="form-builder__row">
+        <div class="form-builder__col">
           <h3>{{ qeScale.title }}</h3>
           <p>{{ qeScale.subtitle }}</p>
         </div>
       </div>
 
       <ng-container *ngIf="qeScale.qeScaleChildren.length == 0">
-        <div class="row">
-          <div class="col text-left">
+        <div class="form-builder__row">
+          <div class="form-builder__col text-left">
             <p>{{ field.firstAnswer }}</p>
           </div>
-          <div class="col text-right">
+          <div class="form-builder__col text-right">
             <p>{{ field.lastAnswer }}</p>
           </div>
         </div>
-        <div class="row text-center">
-          <div class="col" *ngFor="let value of scaleValues">
+        <div class="form-builder__row text-center">
+          <div class="form-builder__col" *ngFor="let value of scaleValues">
             <label>{{ value }}</label>
             <input
               type="radio"
-              class="form-check-input"
+              class="form-builder__form-check-input"
               [name]="'qeScale_' + field.id + '_' + qeScaleIndex"
               [value]="value" />
           </div>
@@ -37,27 +37,27 @@
       </ng-container>
 
       <ng-container *ngIf="qeScale.qeScaleChildren && qeScale.qeScaleChildren.length > 0">
-        <div class="qe-scale__child">
+        <div class="form-builder__qe-scale__child">
           <ng-container *ngFor="let child of qeScale.qeScaleChildren; let childIndex = index">
-            <div class="row">
-              <div class="col">
+            <div class="form-builder__row">
+              <div class="form-builder__col">
                 <h3>{{ child.title }}</h3>
               </div>
             </div>
-            <div class="row">
-              <div class="col text-left">
+            <div class="form-builder__row">
+              <div class="form-builder__col text-left">
                 <p>{{ field.firstAnswer }}</p>
               </div>
-              <div class="col text-right">
+              <div class="form-builder__col text-right">
                 <p>{{ field.lastAnswer }}</p>
               </div>
             </div>
-            <div class="row text-center">
-              <div class="col" *ngFor="let value of scaleValues">
+            <div class="form-builder__row text-center">
+              <div class="form-builder__col" *ngFor="let value of scaleValues">
                 <label>{{ value }}</label>
                 <input
                   type="radio"
-                  class="form-check-input"
+                  class="form-builder__form-check-input"
                   [name]="'qeScaleChild_' + field.id + '_' + qeScaleIndex + '_' + childIndex"
                   [value]="value" />
               </div>

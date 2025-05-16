@@ -1,50 +1,50 @@
-<div class="test-form">
-  <div class="test-form__main" [ngClass]="{ collapsed: isSidebarOpen }">
-    <div class="test-form__body">
+<div class="form-builder__test-form">
+  <div class="form-builder__test-form__main" [ngClass]="{ collapsed: isSidebarOpen }">
+    <div class="form-builder__test-form__body">
       <form
         [formGroup]="generalForm"
         cdkDropList
         [cdkDropListData]="generalFields"
         (cdkDropListDropped)="onDrop($event)">
-        <h3 *ngIf="generalFields.length" class="test-form__step">
+        <h3 *ngIf="generalFields.length" class="form-builder__test-form__step">
           {{ "General Fields" | localized }}
         </h3>
         <ng-container *ngFor="let field of generalFields">
           <div
-            class="test-form__block"
-            [class.test-form__block--editing]="field.id === editedFieldId"
+            class="form-builder__test-form__block"
+            [class.form-builder__test-form__block--editing]="field.id === editedFieldId"
             cdkDrag>
-            <div class="test-form__label">
-              <label class="form-label">{{ field.title }}</label>
+            <div class="form-builder__test-form__label">
+              <label class="form-builder__form-label">{{ field.title }}</label>
             </div>
-            <div class="test-form__field" [ngSwitch]="field.type">
-              <div class="test-form__field-label">
+            <div class="form-builder__test-form__field" [ngSwitch]="field.type">
+              <div class="form-builder__test-form__field-label">
                 <span>{{ fieldLabels[field.type] | localized }}</span>
               </div>
-              <div class="test-form__field-toolbar">
+              <div class="form-builder__test-form__field-toolbar">
                 <span
-                  class="test-form__field-toolbar-icon"
+                  class="form-builder__test-form__field-toolbar-icon"
                   [attr.data-tooltip]="'Delete' | localized"
                   (click)="removeField(field, true)"
-                  ><i class="bi bi-trash"></i
+                  ><i class="form-builder__bi form-builder__bi-trash"></i
                 ></span>
                 <span
-                  class="test-form__field-toolbar-icon"
+                  class="form-builder__test-form__field-toolbar-icon"
                   [attr.data-tooltip]="'Edit' | localized"
                   (click)="toggleFieldPropertiesSidebar(field, true)"
-                  ><i class="bi bi-pencil"></i
+                  ><i class="form-builder__bi form-builder__bi-pencil"></i
                 ></span>
                 <span
-                  class="test-form__field-toolbar-icon"
+                  class="form-builder__test-form__field-toolbar-icon"
                   [attr.data-tooltip]="'Copy' | localized"
                   (click)="copyField(field, true)"
-                  ><i class="bi bi-files"></i
+                  ><i class="form-builder__bi form-builder__bi-files"></i
                 ></span>
                 <span
-                  class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
+                  class="form-builder__test-form__field-toolbar-icon form-builder__test-form__field-toolbar-icon--move"
                   [attr.data-tooltip]="'Move' | localized"
                   cdkDragHandle>
-                  <i class="bi bi-arrows-move"></i>
+                  <i class="form-builder__bi form-builder__bi-arrows-move"></i>
                 </span>
               </div>
 
@@ -53,7 +53,7 @@
                   [id]="field.id"
                   [formControlName]="field.id"
                   (mousedown)="preventDefault($event)"
-                  class="form-select">
+                  class="form-builder__form-select">
                   <option value="">{{ field.placeholder }}</option>
                   <option *ngFor="let option of field.options" [value]="option.value">
                     {{ option.label }}
@@ -66,7 +66,7 @@
                   [id]="field.id"
                   type="checkbox"
                   [formControlName]="field.id"
-                  class="form-check-input" />
+                  class="form-builder__form-check-input" />
               </ng-container>
 
               <ng-container *ngSwitchDefault>
@@ -74,7 +74,7 @@
                   [id]="field.id"
                   [type]="field.type"
                   [formControlName]="field.id"
-                  class="form-control"
+                  class="form-builder__form-control"
                   (mousedown)="preventDefault($event)"
                   (click)="preventDefault($event)" />
               </ng-container>
@@ -87,14 +87,16 @@
         cdkDropList
         [cdkDropListData]="addedFields"
         (cdkDropListDropped)="onDrop($event)">
-        <h3 class="test-form__step">{{ "Step" | localized }} {{ currentStep + 1 }}</h3>
+        <h3 class="form-builder__test-form__step">
+          {{ "Step" | localized }} {{ currentStep + 1 }}
+        </h3>
         <ng-container *ngFor="let field of addedFields">
           <div
-            class="test-form__block"
-            [class.test-form__block--editing]="field.id === editedFieldId"
+            class="form-builder__test-form__block"
+            [class.form-builder__test-form__block--editing]="field.id === editedFieldId"
             cdkDrag>
             <div
-              class="test-form__label"
+              class="form-builder__test-form__label"
               *ngIf="
                 field.type !== formFieldType.Likert &&
                 field.type !== formFieldType.Csat &&
@@ -102,55 +104,65 @@
                 field.type !== formFieldType.QE &&
                 field.type !== formFieldType.NPS
               ">
-              <label class="form-label">{{ field.title }}</label>
+              <label class="form-builder__form-label">{{ field.title }}</label>
             </div>
 
-            <div class="test-form__field" [ngSwitch]="field.type">
-              <div class="test-form__field-label">
-                <span *ngIf="field.feedBackText" class="field-label field-label--feedback">{{
-                  "Feedback" | localized
-                }}</span>
-                <span *ngIf="field.required" class="field-label field-label--required">{{
-                  "Required" | localized
-                }}</span>
-                <span *ngIf="field.active" class="field-label field-label--active">{{
-                  "Active" | localized
-                }}</span>
-                <span *ngIf="field.hasOther" class="field-label field-label--other">{{
-                  "Has Other" | localized
-                }}</span>
-                <span *ngIf="field.hasNA" class="field-label field-label--na">{{
-                  "Has NA" | localized
-                }}</span>
-                <span class="field-label field-label--title">{{
+            <div class="form-builder__test-form__field" [ngSwitch]="field.type">
+              <div class="form-builder__test-form__field-label">
+                <span
+                  *ngIf="field.feedBackText"
+                  class="form-builder__field-label form-builder__field-label--feedback"
+                  >{{ "Feedback" | localized }}</span
+                >
+                <span
+                  *ngIf="field.required"
+                  class="form-builder__field-label form-builder__field-label--required"
+                  >{{ "Required" | localized }}</span
+                >
+                <span
+                  *ngIf="field.active"
+                  class="form-builder__field-label form-builder__field-label--active"
+                  >{{ "Active" | localized }}</span
+                >
+                <span
+                  *ngIf="field.hasOther"
+                  class="form-builder__field-label form-builder__field-label--other"
+                  >{{ "Has Other" | localized }}</span
+                >
+                <span
+                  *ngIf="field.hasNA"
+                  class="form-builder__field-label form-builder__field-label--na"
+                  >{{ "Has NA" | localized }}</span
+                >
+                <span class="form-builder__field-label form-builder__field-label--title">{{
                   fieldLabels[field.type] | localized
                 }}</span>
               </div>
-              <div class="test-form__field-toolbar">
+              <div class="form-builder__test-form__field-toolbar">
                 <span
-                  class="test-form__field-toolbar-icon"
+                  class="form-builder__test-form__field-toolbar-icon"
                   [attr.data-tooltip]="'Delete' | localized"
                   (click)="removeField(field, false)"
-                  ><i class="bi bi-trash"></i
+                  ><i class="form-builder__bi form-builder__bi-trash"></i
                 ></span>
                 <span
-                  class="test-form__field-toolbar-icon"
+                  class="form-builder__test-form__field-toolbar-icon"
                   [attr.data-tooltip]="'Edit' | localized"
                   (click)="toggleFieldPropertiesSidebar(field, false)"
-                  ><i class="bi bi-pencil"></i
+                  ><i class="form-builder__bi form-builder__bi-pencil"></i
                 ></span>
                 <span
                   *ngIf="!(field.type | isFieldUnique)"
-                  class="test-form__field-toolbar-icon"
+                  class="form-builder__test-form__field-toolbar-icon"
                   [attr.data-tooltip]="'Copy' | localized"
                   (click)="copyField(field, false)"
-                  ><i class="bi bi-files"></i
+                  ><i class="form-builder__bi form-builder__bi-files"></i
                 ></span>
                 <span
-                  class="test-form__field-toolbar-icon test-form__field-toolbar-icon--move"
+                  class="form-builder__test-form__field-toolbar-icon form-builder__test-form__field-toolbar-icon--move"
                   [attr.data-tooltip]="'Move' | localized"
                   cdkDragHandle>
-                  <i class="bi bi-arrows-move"></i>
+                  <i class="form-builder__bi form-builder__bi-arrows-move"></i>
                 </span>
               </div>
 
@@ -206,73 +218,88 @@
         </app-conditional-logic-block>
       </ng-container>
     </div>
-    <div class="test-form__footer">
-      <div class="test-form__buttons">
-        <button class="btn btn-primary" (click)="toggleFieldsInsertingSidebar(false)">
+    <div class="form-builder__test-form__footer">
+      <div class="form-builder__test-form__buttons">
+        <button
+          class="form-builder__btn form-builder__btn-primary"
+          (click)="toggleFieldsInsertingSidebar(false)">
           {{ "Insert Field" | localized }}
         </button>
-        <button class="btn btn-primary" (click)="toggleFieldsInsertingSidebar(true)">
+        <button
+          class="form-builder__btn form-builder__btn-primary"
+          (click)="toggleFieldsInsertingSidebar(true)">
           {{ "Insert General Field" | localized }}
         </button>
-        <button class="btn btn-primary" (click)="insertConditionalLogicBlock()">
+        <button
+          class="form-builder__btn form-builder__btn-primary"
+          (click)="insertConditionalLogicBlock()">
           {{ "Insert Conditional Logic Block" | localized }}
         </button>
         <button
-          class="btn btn-primary"
+          class="form-builder__btn form-builder__btn-primary"
           (click)="saveCurrentStepData()"
           [disabled]="!conditionalLogicBlocks.length">
           {{ "Save Conditional Logic Blocks Data" | localized }}
         </button>
       </div>
 
-      <div class="test-form__buttons">
-        <button *ngIf="currentStep > 0" class="btn btn-primary" (click)="goToPreviousStep()">
+      <div class="form-builder__test-form__buttons">
+        <button
+          *ngIf="currentStep > 0"
+          class="form-builder__btn form-builder__btn-primary"
+          (click)="goToPreviousStep()">
           {{ "Previous Step" | localized }}
         </button>
-        <button class="btn btn-primary" (click)="goToNextStep()">
+        <button class="form-builder__btn form-builder__btn-primary" (click)="goToNextStep()">
           {{ "Next Step" | localized }}
         </button>
-        <button class="btn btn-success" (click)="saveForm()">{{ "Save" | localized }}</button>
+        <button class="form-builder__btn form-builder__btn-success" (click)="saveForm()">
+          {{ "Save" | localized }}
+        </button>
       </div>
       <ng-container *ngIf="formData.formData.steps as steps">
         <ng-container *ngIf="steps.length > 0">
           <span>{{ "Go to" | localized }}:</span>
         </ng-container>
-        <div class="test-form__stepButtons">
+        <div class="form-builder__test-form__stepButtons">
           <div
-            class="test-form__stepButton stepButton"
-            [ngClass]="{ 'stepButton--active': i === currentStep }"
+            class="form-builder__test-form__stepButton form-builder__stepButton"
+            [ngClass]="{ 'form-builder__stepButton--active': i === currentStep }"
             *ngFor="let step of steps; let i = index">
-            <div class="stepButton__toolbar">
+            <div class="form-builder__stepButton__toolbar">
               <span
-                class="stepButton__toolbar-icon"
+                class="form-builder__stepButton__toolbar-icon"
                 [attr.data-tooltip]="'Move step' | localized"
                 (click)="moveStep(i, 'prev')"
-                [ngClass]="{ 'stepButton__toolbar-icon--disabled': i === 0 }"
-                ><i class="bi bi-arrow-left"></i
+                [ngClass]="{ 'form-builder__stepButton__toolbar-icon--disabled': i === 0 }"
+                ><i class="form-builder__bi form-builder__bi-arrow-left"></i
               ></span>
               <span
-                class="stepButton__toolbar-icon"
+                class="form-builder__stepButton__toolbar-icon"
                 [attr.data-tooltip]="'Move step' | localized"
                 (click)="moveStep(i, 'next')"
-                [ngClass]="{ 'stepButton__toolbar-icon--disabled': i === steps.length - 1 }"
-                ><i class="bi bi-arrow-right"></i
+                [ngClass]="{
+                  'form-builder__stepButton__toolbar-icon--disabled': i === steps.length - 1
+                }"
+                ><i class="form-builder__bi form-builder__bi-arrow-right"></i
               ></span>
               <span
-                class="stepButton__toolbar-icon"
+                class="form-builder__stepButton__toolbar-icon"
                 [attr.data-tooltip]="'Copy step' | localized"
                 (click)="copyStep(i)"
-                ><i class="bi bi-files"></i
+                ><i class="form-builder__bi form-builder__bi-files"></i
               ></span>
               <span
-                class="stepButton__toolbar-icon"
+                class="form-builder__stepButton__toolbar-icon"
                 [attr.data-tooltip]="'Delete step' | localized"
                 (click)="deleteStepConfirmation(i)"
-                [ngClass]="{ 'stepButton__toolbar-icon--disabled': steps.length === 1 }"
-                ><i class="bi bi-trash"></i
+                [ngClass]="{
+                  'form-builder__stepButton__toolbar-icon--disabled': steps.length === 1
+                }"
+                ><i class="form-builder__bi form-builder__bi-trash"></i
               ></span>
             </div>
-            <button class="btn btn-secondary" (click)="goToStep(i)">
+            <button class="form-builder__btn form-builder__btn-secondary" (click)="goToStep(i)">
               {{ "Step" | localized }} {{ i + 1 }}
             </button>
           </div>
@@ -281,7 +308,9 @@
     </div>
   </div>
 
-  <div class="test-form__sidebar" [ngClass]="{ opened: isSidebarOpen }">
+  <div
+    class="form-builder__test-form__sidebar"
+    [ngClass]="{ 'form-builder__opened': isSidebarOpen }">
     <app-ui-fields-inserting
       *ngIf="isFieldsInsertingOpen"
       [isGeneral]="isGeneral"

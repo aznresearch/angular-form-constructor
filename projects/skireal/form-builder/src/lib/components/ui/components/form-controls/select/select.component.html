@@ -1,4 +1,8 @@
-<select [id]="field.id" class="form-select" (mousedown)="preventDefault($event)" required>
+<select
+  [id]="field.id"
+  class="form-builder__form-select"
+  (mousedown)="preventDefault($event)"
+  required>
   <ng-container *ngIf="field.placeholder">
     <option value="" disabled selected hidden>{{ field.placeholder }}</option>
   </ng-container>

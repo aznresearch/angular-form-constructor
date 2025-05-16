@@ -1,21 +1,23 @@
 <div>
-  <button type="button" class="close-btn" aria-label="Close" (click)="closeSidebar()">
+  <button type="button" class="form-builder__close-btn" aria-label="Close" (click)="closeSidebar()">
     <span aria-hidden="true">&times;</span>
   </button>
-  <div class="field-selector">
-    <div class="field-selector__column">
+  <div class="form-builder__field-selector">
+    <div class="form-builder__field-selector__column">
       <h2>{{ "Select a type of Field" | localized }}</h2>
       <ul>
         <li
-          class="field-selector__item"
+          class="form-builder__field-selector__item"
           *ngFor="let fieldType of availableFieldTypes"
-          [ngClass]="{ 'field-selector__item--selected': selectedFieldType === fieldType }"
+          [ngClass]="{
+            'form-builder__field-selector__item--selected': selectedFieldType === fieldType
+          }"
           (click)="selectField(fieldType)">
           {{ fieldLabels[fieldType] | localized }}
         </li>
       </ul>
     </div>
-    <div class="field-selector__column">
+    <div class="form-builder__field-selector__column">
       <h2>{{ "Add Options" | localized }}</h2>
       <h3>{{ fieldLabels[selectedFieldType] | localized }}</h3>
       <div *ngIf="selectedFieldType">
@@ -28,11 +30,17 @@
             [needContactDefaultValue]="needContactDefaultValue"
             [hasFeedBackText]="hasFeedBackText"></app-form-field-properties>
         </div>
-        <div class="field-selector__buttons">
-          <button type="button" class="btn btn-secondary" (click)="closeSidebar()">
+        <div class="form-builder__field-selector__buttons">
+          <button
+            type="button"
+            class="form-builder__btn form-builder__btn-secondary"
+            (click)="closeSidebar()">
             {{ "Cancel" | localized }}
           </button>
-          <button type="button" class="btn btn-primary" (click)="saveFieldProperties()">
+          <button
+            type="button"
+            class="form-builder__btn form-builder__btn-primary"
+            (click)="saveFieldProperties()">
             {{ "Save" | localized }}
           </button>
         </div>

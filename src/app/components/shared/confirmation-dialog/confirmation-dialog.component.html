@@ -1,9 +1,13 @@
-<div class="confirmation-dialog">
-  <div class="confirmation-dialog__content">
+<div class="form-builder__confirmation-dialog">
+  <div class="form-builder__confirmation-dialog__content">
     <p>{{ message }}</p>
-    <div class="confirmation-dialog__actions">
-      <button (click)="confirmAction()" class="btn btn-primary">Yes</button>
-      <button (click)="cancelAction()" class="btn btn-secondary">No</button>
+    <div class="form-builder__confirmation-dialog__actions">
+      <button (click)="confirmAction()" class="form-builder__btn form-builder__btn-primary">
+        Yes
+      </button>
+      <button (click)="cancelAction()" class="form-builder__btn form-builder__btn-secondary">
+        No
+      </button>
     </div>
   </div>
 </div>
