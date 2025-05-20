@@ -54,6 +54,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    position: sticky;
+    bottom: 0;
 
     .form-builder__btn {
       margin-right: 10px;

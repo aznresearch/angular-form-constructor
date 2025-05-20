@@ -48,7 +48,7 @@ export class UiFormService {
     } else if (field.isObject && field.objectFields) {
       return this.createFormGroupForObject(field.objectFields);
     } else {
-      return this.createControl();
+      return this.createControl(field.defaultValue);
     }
   }
 

@@ -35,6 +35,8 @@
   justify-content: flex-end;
   margin-bottom: 5px;
   margin-top: 20px;
+  position: sticky;
+  bottom: 0;
 
   .form-builder__btn {
     margin-right: 10px;

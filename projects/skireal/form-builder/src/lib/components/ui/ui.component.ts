@@ -84,6 +84,8 @@ export class UIComponent implements OnInit {
   ngOnInit() {
     this.insertFormData();
     this.createForm();
+    this.initializeUsedFieldTypes(this.addedFields);
+    this.updateSpecialFieldStates();
     if (this.locale) {
       this.localeService.setLocale(this.locale);
     }
@@ -200,7 +202,10 @@ export class UIComponent implements OnInit {
       addedFields: [...this.addedFields],
       conditionalLogicBlocks: [...this.conditionalLogicBlocks]
     };
+    this.updateSpecialFieldStates();
+  }
 
+  updateSpecialFieldStates(): void {
     const needContactField = this.findFieldInSteps(FormFieldType.NeedContact);
     this.needContactDefaultValue = needContactField?.defaultValue;
 
@@ -412,9 +417,7 @@ export class UIComponent implements OnInit {
         this.dynamicForm.addControl(selectedField.id, newFormControl);
       }
 
-      if (this.isFieldUnique(selectedField.type as FormFieldType)) {
-        this.usedFieldTypes.push(selectedField.type as FormFieldType);
-      }
+      this.addUsedFieldType(selectedField.type as FormFieldType);
 
       this.saveCurrentStepData();
     }
@@ -451,5 +454,17 @@ export class UIComponent implements OnInit {
 
       this.saveCurrentStepData();
     }
+  }
+
+  addUsedFieldType(type: FormFieldType): void {
+    if (this.isFieldUnique(type) && !this.usedFieldTypes.includes(type)) {
+      this.usedFieldTypes.push(type);
+    }
+  }
+
+  initializeUsedFieldTypes(fields: FormField[]): void {
+    fields.forEach((field) => {
+      this.addUsedFieldType(field.type as FormFieldType);
+    });
   }
 }

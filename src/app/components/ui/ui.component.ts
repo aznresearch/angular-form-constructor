@@ -30,15 +30,110 @@ export class UIComponent implements OnInit {
   generalForm!: FormGroup;
   formData: FormOptionsFull = {
     formData: {
-      steps: [],
+      steps: [
+        {
+          title: 'Step 1',
+          addedFields: [
+            {
+              active: true,
+              classes: '',
+              placeholder: '',
+              title: 'wrwerreewr',
+              description: '',
+              validators: [],
+              required: false,
+              warningMessage: '',
+              analyticsTitle: 'rwerwe',
+              step: 0,
+              options: [
+                {
+                  name: 'Yes',
+                  value: '1',
+                  id: '94452308'
+                },
+                {
+                  name: 'No',
+                  value: '0',
+                  id: '11747540'
+                }
+              ],
+              defaultValue: '1',
+              type: 'need-contact',
+              id: '78362313',
+              hasOther: false,
+              hasNA: false
+            },
+            {
+              active: true,
+              classes: '',
+              placeholder: '',
+              title: 'fghf',
+              description: '',
+              validators: [],
+              required: false,
+              warningMessage: '',
+              analyticsTitle: 'рапрарпр',
+              type: 'text',
+              id: '99067912',
+              hasOther: false,
+              hasNA: false
+            },
+            {
+              active: true,
+              classes: '',
+              placeholder: '',
+              title: 'select',
+              description: '',
+              validators: [],
+              required: false,
+              warningMessage: '',
+              analyticsTitle: 'select fsfdf',
+              options: [
+                {
+                  name: 'dasd',
+                  value: 'adas',
+                  country: 'ZZ',
+                  id: '58813254'
+                },
+                {
+                  name: 'dasdas',
+                  value: 'dassdasdas',
+                  country: 'ZZ',
+                  id: '77744320'
+                }
+              ],
+              hasOther: false,
+              type: 'select',
+              id: '10775895',
+              hasNA: false
+            },
+            {
+              active: true,
+              classes: '',
+              placeholder: '',
+              title: 'fdsfsdffd',
+              description: '',
+              validators: [],
+              required: false,
+              warningMessage: '',
+              analyticsTitle: 'fdsfsddsf',
+              feedBackText: true,
+              type: 'text',
+              id: '47795807',
+              hasOther: false,
+              hasNA: false
+            }
+          ],
+          conditionalLogicBlocks: []
+        }
+      ],
       generalFields: []
     },
     options: {
-      name: '',
-      type: '',
-      country: ''
-    },
-    uniqueFormData: []
+      name: 'string',
+      type: 'string',
+      country: 'string'
+    }
   };
   addedFields: FormField[] = [];
   generalFields: FormField[] = [];
@@ -72,9 +167,18 @@ export class UIComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.restoreFormDataFromLocalStorage();
+    this.insertFormData();
     this.createForm();
     this.localeService.setLocale(this.locale);
+    this.initializeUsedFieldTypes(this.addedFields);
+    this.updateSpecialFieldStates();
+  }
+
+  insertFormData() {
+    this.addedFields = this.formData.formData.steps[this.currentStep]?.addedFields ?? [];
+    this.generalFields = this.formData.formData.generalFields ?? [];
+    this.conditionalLogicBlocks =
+      this.formData.formData.steps[this.currentStep]?.conditionalLogicBlocks ?? [];
   }
 
   createForm() {
@@ -180,7 +284,10 @@ export class UIComponent implements OnInit {
       addedFields: [...this.addedFields],
       conditionalLogicBlocks: [...this.conditionalLogicBlocks]
     };
+    this.updateSpecialFieldStates();
+  }
 
+  updateSpecialFieldStates(): void {
     const needContactField = this.findFieldInSteps(FormFieldType.NeedContact);
     this.needContactDefaultValue = needContactField?.defaultValue;
 
@@ -399,11 +506,15 @@ export class UIComponent implements OnInit {
         this.dynamicForm.addControl(selectedField.id, newFormControl);
       }
 
-      if (this.isFieldUnique(selectedField.type as FormFieldType)) {
-        this.usedFieldTypes.push(selectedField.type as FormFieldType);
-      }
+      this.addUsedFieldType(selectedField.type as FormFieldType);
 
       this.saveCurrentStepData();
+    }
+  }
+
+  addUsedFieldType(type: FormFieldType): void {
+    if (this.isFieldUnique(type) && !this.usedFieldTypes.includes(type)) {
+      this.usedFieldTypes.push(type);
     }
   }
 
@@ -438,5 +549,11 @@ export class UIComponent implements OnInit {
 
       this.saveCurrentStepData();
     }
+  }
+
+  initializeUsedFieldTypes(fields: FormField[]): void {
+    fields.forEach((field) => {
+      this.addUsedFieldType(field.type as FormFieldType);
+    });
   }
 }

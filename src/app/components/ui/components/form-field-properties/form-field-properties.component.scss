@@ -164,6 +164,21 @@
       }
     }
   }
+
+  &__options {
+    &:has(.form-builder__propertyForm__option) {
+      padding-top: 10px;
+      padding-bottom: 5px;
+    }
+  }
+
+  &__option {
+    margin-bottom: 25px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 input {

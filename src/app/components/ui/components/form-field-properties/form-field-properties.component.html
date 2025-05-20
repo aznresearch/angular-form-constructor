@@ -67,8 +67,9 @@
               >*</span
             ></label
           >
-          <div class="form-builder__propertyForm__body">
+          <div class="form-builder__propertyForm__body form-builder__propertyForm__options">
             <div
+              class="form-builder__propertyForm__option"
               *ngFor="let optionControl of propertyForm?.get('options')?.controls; let i = index"
               [formGroupName]="i"
               cdkDrag>

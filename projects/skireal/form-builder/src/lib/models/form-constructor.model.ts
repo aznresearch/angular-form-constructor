@@ -26,7 +26,7 @@ export interface FormField extends Field {
 
 export interface Field {
   id: string;
-  name: string;
+  name?: string;
   isArray?: boolean;
   isObject?: boolean;
   objectFields?: Field[];
@@ -65,6 +65,7 @@ export interface Option {
   id: string;
   name: string;
   value: string;
+  country?: string;
 }
 
 export interface Row {
