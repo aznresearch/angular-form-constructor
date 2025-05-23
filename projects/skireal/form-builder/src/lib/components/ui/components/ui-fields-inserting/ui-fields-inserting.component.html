@@ -19,32 +19,35 @@
     </div>
     <div class="form-builder__field-selector__column">
       <h2>{{ "Add Options" | localized }}</h2>
-      <h3>{{ fieldLabels[selectedFieldType] | localized }}</h3>
-      <div *ngIf="selectedFieldType">
+
+      <ng-container *ngIf="selectedFieldType">
+        <h3>{{ fieldLabels[selectedFieldType] | localized }}</h3>
         <div>
-          <app-form-field-properties
-            [propertyForm]="propertyForm"
-            [selectedFieldType]="selectedFieldType"
-            [enableSetValidationOptions]="enableSetValidationOptions"
-            [isSurvey]="isSurvey"
-            [needContactDefaultValue]="needContactDefaultValue"
-            [hasFeedBackText]="hasFeedBackText"></app-form-field-properties>
+          <div>
+            <app-form-field-properties
+              [propertyForm]="propertyForm"
+              [selectedFieldType]="selectedFieldType"
+              [enableSetValidationOptions]="enableSetValidationOptions"
+              [isSurvey]="isSurvey"
+              [needContactDefaultValue]="needContactDefaultValue"
+              [hasFeedBackText]="hasFeedBackText"></app-form-field-properties>
+          </div>
+          <div class="form-builder__field-selector__buttons">
+            <button
+              type="button"
+              class="form-builder__btn form-builder__btn-secondary"
+              (click)="closeSidebar()">
+              {{ "Cancel" | localized }}
+            </button>
+            <button
+              type="button"
+              class="form-builder__btn form-builder__btn-primary"
+              (click)="saveFieldProperties()">
+              {{ "Save" | localized }}
+            </button>
+          </div>
         </div>
-        <div class="form-builder__field-selector__buttons">
-          <button
-            type="button"
-            class="form-builder__btn form-builder__btn-secondary"
-            (click)="closeSidebar()">
-            {{ "Cancel" | localized }}
-          </button>
-          <button
-            type="button"
-            class="form-builder__btn form-builder__btn-primary"
-            (click)="saveFieldProperties()">
-            {{ "Save" | localized }}
-          </button>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 </div>

@@ -8,8 +8,13 @@ import { LocaleService } from '../services/locale.service';
 export class LocalizedPipe implements PipeTransform {
   constructor(private localeService: LocaleService) {}
 
-  transform(value: string): string {
+  transform(value: string): string | null {
     const currentLocale = this.localeService.getCurrentLocale();
-    return currentLocale[value] || value;
+    const localizedValue = currentLocale[value];
+
+    if (localizedValue === '_hide') {
+      return null;
+    }
+    return localizedValue || `!!${value}!!`;
   }
 }

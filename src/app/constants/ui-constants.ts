@@ -182,7 +182,7 @@ export const fieldsByType: Record<string, Field[]> = {
   [FormFieldType.Phone]: [...commonFields],
   [FormFieldType.Likert]: [
     ...commonFields,
-    { id: 'optionsTitle', name: 'Options Title', isArray: false },
+    { id: 'optionsTitle', name: 'Options title', isArray: false },
     { id: 'options', name: 'Options', isArray: true },
     { id: 'rows', name: 'Rows', isArray: true }
   ],
@@ -215,7 +215,7 @@ export const fieldsByType: Record<string, Field[]> = {
     { id: 'lastAnswer', name: 'Last answer', isArray: false },
     {
       id: 'qeScales',
-      name: 'QE Scales',
+      name: 'QE scales',
       isArray: true,
       children: [
         {
