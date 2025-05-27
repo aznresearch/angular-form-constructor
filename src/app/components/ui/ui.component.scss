@@ -138,6 +138,14 @@
       @media screen and (max-width: 1000px) {
         width: 100%;
       }
+
+      .form-builder__field-label:not(.form-builder__field-label--title) {
+        font-size: 0;
+        width: 16px;
+        padding: 0;
+        height: 16px;
+        margin-right: 2px;
+      }
     }
   }
 
