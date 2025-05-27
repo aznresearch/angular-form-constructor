@@ -8,7 +8,7 @@
         <div
           *ngIf="enableSetValidationOptions"
           class="form-builder__form-group"
-          [attr.data-tooltip]="field.name + 'Tooltip' | localized">
+          [attr.data-tooltip]="field?.tooltipKey | localized">
           <label class="form-builder__propertyForm__label"
             >{{ field.name | localized
             }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
@@ -66,7 +66,7 @@
         <div
           *ngIf="selectedFieldType !== formFieldType.NeedContact"
           class="form-builder__form-group"
-          [attr.data-tooltip]="field.name + 'Tooltip' | localized">
+          [attr.data-tooltip]="field?.tooltipKey | localized">
           <label class="form-builder__propertyForm__label"
             >{{ field.name | localized
             }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
@@ -131,9 +131,7 @@
         *ngSwitchCase="'comment'"
         formGroupName="comment"
         class="form-builder__propertyForm__array">
-        <div
-          class="form-builder__form-group"
-          [attr.data-tooltip]="field.name + 'Tooltip' | localized">
+        <div class="form-builder__form-group" [attr.data-tooltip]="field?.tooltipKey | localized">
           <label class="form-builder__propertyForm__label"
             >{{ field.name | localized
             }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
@@ -183,9 +181,7 @@
         *ngSwitchCase="'qeScales'"
         formArrayName="qeScales"
         class="form-builder__propertyForm__array">
-        <div
-          class="form-builder__form-group"
-          [attr.data-tooltip]="field.name + 'Tooltip' | localized">
+        <div class="form-builder__form-group" [attr.data-tooltip]="field?.tooltipKey | localized">
           <label class="form-builder__propertyForm__label"
             >{{ field.name | localized
             }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
@@ -270,9 +266,7 @@
         cdkDropList
         [cdkDropListData]="propertyForm?.get('rows')?.controls"
         (cdkDropListDropped)="onDrop($event)">
-        <div
-          class="form-builder__form-group"
-          [attr.data-tooltip]="field.name + 'Tooltip' | localized">
+        <div class="form-builder__form-group" [attr.data-tooltip]="field?.tooltipKey | localized">
           <label class="form-builder__propertyForm__label"
             >{{ field.name | localized
             }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
@@ -370,9 +364,7 @@
       </div>
       <div *ngSwitchCase="'step'" class="form-builder__propertyForm__array">
         <ng-container *ngIf="isEditFieldProperties && steps.length > 1">
-          <div
-            class="form-builder__form-group"
-            [attr.data-tooltip]="field.name + 'Tooltip' | localized">
+          <div class="form-builder__form-group" [attr.data-tooltip]="field?.tooltipKey | localized">
             <label class="form-builder__propertyForm__label" for="stepSelect"
               >{{ field.name | localized
               }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
@@ -389,9 +381,7 @@
         </ng-container>
       </div>
       <div *ngSwitchCase="'description'" class="form-builder__propertyForm__array">
-        <div
-          class="form-builder__form-group"
-          [attr.data-tooltip]="field.name + 'Tooltip' | localized">
+        <div class="form-builder__form-group" [attr.data-tooltip]="field?.tooltipKey | localized">
           <label class="form-builder__propertyForm__label" [for]="field.id"
             >{{ field.name | localized
             }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
@@ -413,9 +403,7 @@
         </ng-container>
       </div>
       <div *ngSwitchCase="'defaultValue'" class="form-builder__propertyForm__array">
-        <div
-          class="form-builder__form-group"
-          [attr.data-tooltip]="field.name + 'Tooltip' | localized">
+        <div class="form-builder__form-group" [attr.data-tooltip]="field?.tooltipKey | localized">
           <label class="form-builder__propertyForm__label" for="field.id"
             >{{ field.name | localized
             }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"
@@ -439,7 +427,7 @@
     <div class="form-builder__propertyForm__array">
       <div
         class="form-builder__form-group form-builder__form-check"
-        [attr.data-tooltip]="field.name + 'Tooltip' | localized">
+        [attr.data-tooltip]="field?.tooltipKey | localized">
         <input
           [id]="field.id"
           type="checkbox"
@@ -458,9 +446,7 @@
 
   <ng-template #defaultInput let-field="field">
     <div class="form-builder__propertyForm__array">
-      <div
-        class="form-builder__form-group"
-        [attr.data-tooltip]="field.name + 'Tooltip' | localized">
+      <div class="form-builder__form-group" [attr.data-tooltip]="field?.tooltipKey | localized">
         <label class="form-builder__propertyForm__label" [for]="field.id"
           >{{ field.name | localized
           }}<span *ngIf="missingRequiredMap[field.id]" class="form-builder__required-asterisk"

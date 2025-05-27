@@ -14,6 +14,7 @@ import {
   QeScale,
   QeScaleChild
 } from 'src/app/models/form-constructor.model';
+import { LocaleService } from 'src/app/services/locale.service';
 import { UiFormService } from 'src/app/services/ui-form.service';
 import { ValidationService } from 'src/app/services/validation.service';
 @Component({
@@ -40,6 +41,7 @@ export class UIFieldPropertiesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private uiFormService: UiFormService,
+    private localeService: LocaleService,
     private validationService: ValidationService
   ) {}
 
@@ -100,8 +102,31 @@ export class UIFieldPropertiesComponent implements OnInit {
     const requiredFields = this.getRequiredFields(this.selectedFieldType);
     const missingFields = this.getMissingFields(requiredFields);
 
+    const countryLengthIssues =
+      this.propertyForm
+        ?.get('options')
+        ?.value?.filter((option: any) => option?.country && option.country.length === 1) ?? [];
+
+    const errors: string[] = [];
+
     if (missingFields.length > 0) {
-      this.validationService.showMissingFieldsError(missingFields, this.selectedFieldType);
+      const missing = this.validationService.getMissingFieldsMessage(
+        missingFields,
+        this.selectedFieldType
+      );
+      errors.push(missing);
+    }
+
+    if (countryLengthIssues.length > 0) {
+      const countryError =
+        this.localeService.getCurrentLocale()[
+          'Option Country must be either 0 or 2 characters long'
+        ] || 'Option Country must be either 0 or 2 characters long';
+      errors.push(countryError);
+    }
+
+    if (errors.length > 0) {
+      alert(errors.join('\n\n'));
       return;
     }
 

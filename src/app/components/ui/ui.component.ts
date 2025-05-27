@@ -142,7 +142,7 @@ export class UIComponent implements OnInit {
 
   currentStep = 0;
 
-  enableSetValidationOptions = false;
+  enableSetValidationOptions = true;
   isSurvey = true;
 
   selectedFormData: string | null = null;

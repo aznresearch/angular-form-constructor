@@ -90,7 +90,7 @@ export const locale: Record<string, string> = {
   No: 'No',
   'Default value': 'Default value',
   'Remove Warning Message': 'Remove Warning Message',
-  'Has other': 'Has other',
+  'Has other': 'Has otherfgdg',
   'Has NA': 'Has NA',
   'Warning Message': 'Warning Message',
   'Move Row': 'Move Row',

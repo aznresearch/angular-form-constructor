@@ -135,7 +135,7 @@
       flex-shrink: 1;
       width: 55%;
 
-      @media screen and (max-width: 900px) {
+      @media screen and (max-width: 1000px) {
         width: 100%;
       }
     }
@@ -160,7 +160,7 @@
     box-sizing: border-box;
     overflow-y: auto;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 1000px) {
       width: 100%;
     }
 

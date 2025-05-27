@@ -16,6 +16,7 @@ import {
 } from '../../../../models/form-constructor.model';
 import { UiFormService } from '../../../../services/ui-form.service';
 import { ValidationService } from '../../../../services/validation.service';
+import { LocaleService } from '../../../../services/locale.service';
 
 @Component({
   selector: 'app-ui-field-properties',
@@ -41,6 +42,7 @@ export class UIFieldPropertiesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private uiFormService: UiFormService,
+    private localeService: LocaleService,
     private validationService: ValidationService
   ) {}
 
@@ -101,8 +103,31 @@ export class UIFieldPropertiesComponent implements OnInit {
     const requiredFields = this.getRequiredFields(this.selectedFieldType);
     const missingFields = this.getMissingFields(requiredFields);
 
+    const countryLengthIssues =
+      this.propertyForm
+        ?.get('options')
+        ?.value?.filter((option: any) => option?.country && option.country.length === 1) ?? [];
+
+    const errors: string[] = [];
+
     if (missingFields.length > 0) {
-      this.validationService.showMissingFieldsError(missingFields, this.selectedFieldType);
+      const missing = this.validationService.getMissingFieldsMessage(
+        missingFields,
+        this.selectedFieldType
+      );
+      errors.push(missing);
+    }
+
+    if (countryLengthIssues.length > 0) {
+      const countryError =
+        this.localeService.getCurrentLocale()[
+          'Option Country must be either 0 or 2 characters long'
+        ] || 'Option Country must be either 0 or 2 characters long';
+      errors.push(countryError);
+    }
+
+    if (errors.length > 0) {
+      alert(errors.join('\n\n'));
       return;
     }
 

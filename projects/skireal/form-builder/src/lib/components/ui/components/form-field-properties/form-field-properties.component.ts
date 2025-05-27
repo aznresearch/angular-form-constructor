@@ -60,9 +60,12 @@ export class FormFieldPropertiesComponent implements OnInit {
     }
   }
 
-  subscribeToFieldsToCreate() {
+  subscribeToFieldsToCreate(): void {
     this.uiFormService.getFieldsToCreate().subscribe((updatedFieldsToCreate) => {
-      this.fieldsToCreate = updatedFieldsToCreate;
+      this.fieldsToCreate = updatedFieldsToCreate.map((field) => ({
+        ...field,
+        tooltipKey: typeof field.name === 'string' ? `${field.name}Tooltip` : undefined
+      }));
     });
   }
 

@@ -9,14 +9,14 @@ import { Field } from '../models/form-constructor.model';
 export class ValidationService {
   constructor(private localeService: LocaleService) {}
 
-  showMissingFieldsError(missingFields: string[], fieldType: FormFieldType): void {
+  getMissingFieldsMessage(missingFields: string[], fieldType: FormFieldType): string {
     const localizedMessage =
       this.localeService.getCurrentLocale()['Please fill in all required fields'] ||
       'Please fill in all required fields';
 
     const readableNames = missingFields.map((fieldId) => this.getFieldNameById(fieldId, fieldType));
 
-    alert(`${localizedMessage}: ${readableNames.join(', ')}`);
+    return `${localizedMessage}: ${readableNames.join(', ')}`;
   }
 
   getFieldNameById(fieldId: string, fieldType: FormFieldType): string {

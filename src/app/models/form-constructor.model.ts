@@ -22,6 +22,7 @@ export interface FormField extends Field {
   hasNA?: boolean;
   optionsTitle?: string;
   feedBackText?: boolean;
+  tooltipKey?: string;
 }
 
 export interface Field {
