@@ -5,7 +5,7 @@
         *ngSwitchCase="'validators'"
         formArrayName="validators"
         class="form-builder__propertyForm__array">
-        <ng-container
+        <div
           *ngIf="enableSetValidationOptions"
           class="form-builder__form-group"
           [attr.data-tooltip]="field?.tooltipKey | localized">
@@ -54,7 +54,7 @@
               {{ "Add Validator" | localized }}
             </button>
           </div>
-        </ng-container>
+        </div>
       </div>
       <div
         *ngSwitchCase="'options'"
